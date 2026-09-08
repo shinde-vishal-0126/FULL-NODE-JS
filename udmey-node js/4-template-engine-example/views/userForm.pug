@@ -1,0 +1,41 @@
+extends layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/userForm.css")
+
+block content
+    body 
+        form(action="/user" method='POST') 
+            h2 user Details form
+
+            label(for="name") Full name 
+            input(type="text" id='name' placeholder='enter full name' name='name' required )
+
+            label(for="email") Email address 
+            input(type="text"  id="email" placeholder="Enter email" name="email" required)
+
+            label(for="phone") phone
+            input(type="text" id="phone" placeholder="Enter phone number" name="phone") 
+
+            label(for="address") address
+            input(type="text"  id="address" placeholder="Enter address" name="address" required ) 
+
+            label(for="city")  city
+            input(type="text"  id="city" placeholder="Enter city" name="city" required )
+
+            label(for="state") State 
+            input(type="text" id="state" placeholder="Enter state" name="state"
+            ) 
+
+            label(for="zip") Zip code
+            input(type="text"  id="zip" placeholder="Enter ZIP code" name="zip")
+
+            label(for="country") country 
+            select(name="country" id='country') 
+                option(value="") select country 
+                option(value="USA") USA 
+                option(value="Canada") canada 
+                option(value="UK") UK 
+                option(value="India") India
+            
+            button(type="submit") Submit 

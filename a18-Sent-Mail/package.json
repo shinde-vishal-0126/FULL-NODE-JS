@@ -1,0 +1,17 @@
+{
+  "name": "sent-mail",
+  "version": "1.0.0",
+  "description": "demo for sent mail ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "vishal.shinde",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "nodemailer": "^6.9.15"
+  }
+}

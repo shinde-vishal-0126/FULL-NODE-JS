@@ -1,0 +1,25 @@
+extends layouts/main-layout.pug
+
+block styles 
+    link(rel="stylesheet", href="/css/userDetails.css")
+
+block content 
+    body
+        main
+            h3 Debugging Data:
+                pre #{JSON.stringify(userData, null, 2)}
+                if userData.length > 0
+                    each user in userData
+                        .card 
+                            h2 User Details 
+                            p Name: #{user.name} 
+                            p Email: #{user.email}
+                            p Phone: #{user.phone}
+                            p Address: #{user.address}
+                            p City: #{user.city}
+                            p State: #{user.state}
+                            p ZIP: #{user.zip}
+                            p Country: #{user.country}
+                else 
+                    h1 No user details available
+

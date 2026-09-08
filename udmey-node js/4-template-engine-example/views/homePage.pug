@@ -1,0 +1,20 @@
+extends layouts/main-layout
+
+block styles
+    link(rel="stylesheet", href="/css/homePage.css")
+    
+    
+block content
+    .navbar
+        a(href="/home", class=(path === '/home'? 'active': '')) Home 
+        a(href="/about") about 
+        a(href="/contact") contact 
+        .dropdown 
+            a(href="/add-user" class=(path === '/home'? 'active': '')) user form
+        .dropdown 
+            a(href="/") user Details 
+            
+    .container  
+        h1 welcome to the home page 
+        p This is simple home page with navigation bar    
+        

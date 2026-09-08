@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login and Register Page</title>
+  
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoB7zYKD5EktL7xLFpRRZ7t2Gh8C49M2eN5xR0z4p4k/RT+"
+    crossorigin="anonymous"
+  />
+  <!-- MDB UI Kit CSS -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="container py-5">
+    <form action="/register" method="POST">
+      <!-- Name input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="registerName" class="form-control" name="name" />
+        <label class="form-label" for="registerName">Name</label>
+      </div>
+
+      <!-- Username input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" id="registerUsername" class="form-control" name="username" />
+        <label class="form-label" for="registerUsername">Username</label>
+      </div>
+
+      <!-- Email input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="email" id="registerEmail" class="form-control" name="email"/>
+        <label class="form-label" for="registerEmail">Email</label>
+      </div>
+
+      <!-- Password input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" id="registerPassword" class="form-control"  name="password"/>
+        <label class="form-label" for="registerPassword">Password</label>
+      </div>
+
+      <!-- Repeat Password input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" id="registerRepeatPassword" class="form-control" name="confirmPassword"/>
+        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+      </div>
+
+      <!-- Checkbox -->
+      <div class="form-check d-flex justify-content-center mb-4">
+        <input
+          class="form-check-input me-2"
+          type="checkbox"
+          value=""
+          id="registerCheck"
+          checked
+          aria-describedby="registerCheckHelpText"
+        />
+        <label class="form-check-label" for="registerCheck">
+          I have read and agree to the terms
+        </label>
+      </div>
+
+      <!-- Submit button -->
+      <button
+        type="submit"
+        data-mdb-button-init
+        data-mdb-ripple-init
+        class="btn btn-primary btn-block mb-3"
+        value="Register"
+      >
+        Sign up
+      </button>
+    </form>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+ujI6IkDeDbf6fn7ig5M2nFni2yN2"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- MDB UI Kit JS -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"
+  ></script>
+</body>
+</html>

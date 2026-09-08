@@ -1,0 +1,58 @@
+const express = require("express");
+const app = express();
+
+app.get("/", (req, res) => {
+  //res.send("Welcome to Home page!"); // send simple test
+  // also send html
+  res.send('<h1> Hello Vishal </h1>')
+});
+app.get("/about", (req, res) => {
+  res.send({
+    name: "vishal",
+    age: 23,
+    Gender: "M",
+  }); // Here you have to send object
+});
+app.get("/contact", (req, res) => {
+  res.send([
+    {
+      name: "vishal",
+      age: 23,
+      Gender: "M",
+    },
+    { name: "vishal", age: 23, Gender: "M" },
+  ]);
+}); // here send the array object.
+app.get("/temp", (req, res) => {
+  //   res.send("Welcome to Temp page!");
+  // also using res.json() you have send the json data;
+  res.json({
+    name: "vishal",
+    age: 23,
+    Gender: "M",
+  });
+});
+
+// 404 handler for undefined routes
+app.get("*", (req, res) => {
+  res.status(404).send("Page Not Found!");
+});
+
+app.listen(3000, () => {
+  console.log("Server started on port 3000...");
+});
+
+// res.send()
+// Purpose: Used to send a response of various types, including strings, HTML, buffers, and JSON objects.
+// Behavior:
+// Automatically detects the content type based on the data provided.
+// Can send strings, HTML, or JSON data, but without explicitly setting the Content-Type header to application/json when sending JSON.
+// Use Case: General-purpose response, good for sending both text or HTML, and for JSON when you don't need application/json as the Content-Type.
+
+// res.json()
+// Purpose: Specifically used to send JSON responses.
+// Behavior:
+// Sets the Content-Type header to application/json automatically.
+// Converts non-string objects (such as arrays or objects) to JSON format.
+// Handles null or undefined values by converting them to an empty JSON object ({}).
+// Use Case: When you explicitly want to send JSON data and ensure the Content-Type is application/json.

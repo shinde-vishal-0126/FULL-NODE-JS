@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userDetails.css">
+    <title>{{pageTitle}}</title>
+</head>
+<body>
+    <main>
+        {{#if hasUsers}}
+        <h2>User Details</h2>
+        <div class="user-cards">
+            {{#each userData}}
+            <div class="card">
+                <p><strong>Name:</strong> {{this.name}}</p>
+                <p><strong>Email:</strong> {{this.email}}</p>
+                <p><strong>Phone:</strong> {{this.phone}}</p>
+                <p><strong>Address:</strong> {{this.address}}</p>
+                <p><strong>City:</strong> {{this.city}}</p>
+                <p><strong>State:</strong> {{this.state}}</p>
+                <p><strong>ZIP:</strong> {{this.zip}}</p>
+                <p><strong>Country:</strong> {{this.country}}</p>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <h1>No users found</h1>
+        {{/if}}
+    </main>
+</body>
+</html>

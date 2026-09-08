@@ -1,0 +1,13 @@
+extends layouts/main-layout
+
+block styles
+    link(rel="stylesheet", href="/css/404.css")
+
+block content
+    div.container 
+        h1 404
+        p Oops! The page you are looking for doesn't exist.
+        .image 
+            img(src="https://via.placeholder.com/400x200?text=Lost+in+Space", alt="404 Illustration")
+        p It looks like you took a wrong turn. Let's get you back home.
+        a.active(href="/home") Go to Home
