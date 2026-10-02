@@ -141,14 +141,14 @@
 //? what happens behind the scenes when Node.js executes code:
 // 1. Execution Begins
 //* What happens:
-// When you run your Node.js application, Node.js starts executing your JavaScript file. 
+// When you run your Node.js application, Node.js starts executing your JavaScript file.
 // It does so in a single-threaded environment. This means that it uses only one thread to run the JavaScript code.
 // Why is this important:
 // You might wonder how Node.js can handle multiple requests with just one thread. The key is that Node.js is built to handle tasks asynchronously and non-blocking, so it doesn't wait for tasks to finish before starting new ones.
 
 //* 2. Handling Multiple Requests
 // What happens:
-// When a new request comes in, Node.js does not block the entire thread waiting for the task to complete (e.g., a file operation). 
+// When a new request comes in, Node.js does not block the entire thread waiting for the task to complete (e.g., a file operation).
 // Instead, Node.js will process requests asynchronously and continue to handle other tasks while waiting for a long-running task to finish.
 // Why is this important:
 // This ability to not block the thread allows Node.js to handle multiple requests at once even with just one thread.
@@ -161,7 +161,7 @@
 // Why is this important:
 // The event loop processes the callbacks (functions) in a queue. It checks if there are any tasks to process and runs those that can finish quickly.
 // !important to note:
-// The event loop is designed to handle fast, small tasks efficiently. 
+// The event loop is designed to handle fast, small tasks efficiently.
 // However, it does not directly handle long-running tasks, like reading a large file from the file system.
 
 //* 4. Heavy Tasks Handled by the Worker Pool
@@ -177,7 +177,7 @@
 // What happens:
 // Once a worker in the worker pool finishes its task (e.g., reading a file), it triggers a callback function to notify the event loop that the task is done.
 // Why is this important:
-// The event loop picks up the callback from the queue and executes it, allowing the application to continue. 
+// The event loop picks up the callback from the queue and executes it, allowing the application to continue.
 // Even though the worker pool did the heavy work, the event loop is the one that finishes up the task by executing the callback.
 //* 6. Example Flow of a File System Operation
 // Start Task:
@@ -190,13 +190,7 @@
 // The event loop picks up the callback and processes it, which may involve sending the file data back to the user.
 
 
-//? 4 what is repl ?
-//-  repl is best playGround where you have to execute the node js code or javascript on server.
-// repl is used to do experiment, test and debug the node js code 
-// R - read the user input
-// E - Evaluate the input 
-// p - based on the evaluate output print the result
-// l - loop to return for the new user input  until the user does not exit the repl
+
 
 
 //? 5. how does web work ?
@@ -240,22 +234,22 @@
 
 //! Visual Representation
 
-// 1. Client/Browser 
-//    [User enters URL] 
+// 1. Client/Browser
+//    [User enters URL]
 //            ↓
-// 2. DNS Lookup 
+// 2. DNS Lookup
 //    [Domain name resolved to IP address]
 //            ↓
 // 3. HTTP Request
 //    [Request sent to the server at IP address]
 //            ↓
-// 4. Server Receives Request 
+// 4. Server Receives Request
 //    [Server processes the request using code]
 //            ↓
-// 5. Server Sends Response 
+// 5. Server Sends Response
 //    [HTML, JSON, XML, files, etc., with headers]
 //            ↓
-// 6. Client/Browser 
+// 6. Client/Browser
 //    [Handles the response and displays content]
 
 // DNS (Domain Name System): Translates domain names to IP addresses.
@@ -264,7 +258,7 @@
 // Headers: Metadata attached to requests and responses.
 // Response Content: Can be HTML, JSON, XML, files, etc.
 
-//? 6. what is http and https 
+//? 6. what is http and https
 //! 1. http : Hyper Text Transfer Protocol
 // - A protocol for transferring data which is understand by browser and server.
 
@@ -288,16 +282,16 @@
 // well suited for building microservices-based architecture enabling modular and scalable system
 
 
-//? when not to used node js 
+//? when not to used node js
 // cup intensive task : avoid for application that involve heavy cup processing (image/video) processing data encryption / decryption  as node js may not provide the optimal performances in such senario because it single thread and for heavy computation multi-threaded is better
 
 
-//? what is role of node_modules folder 
-// it hold all  libraries and dependencies used in  our projects 
-// node_module folder contain all the dependencies of your node project 
+//? what is role of node_modules folder
+// it hold all  libraries and dependencies used in  our projects
+// node_module folder contain all the dependencies of your node project
 
 
-//? what is npm 
+//? what is npm
 // node package manager which is manage dependencies of  our node project.
 
 

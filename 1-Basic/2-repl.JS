@@ -1,15 +1,16 @@
 /*
 @ REPL
+
   - Read - Evaluate - Print - Loop
   - It is intaractive shell or environment provided by node js  that allow you to write, execute and test javascript or node js code line by line in real time. directly within terminal.
   - feature of node js very useful to experimenting with node js code
   - best playGround of node js , paly & important role in node js execution, quick testing, experimenting, learning, exploring new code .
   -
 
-  R - read the user input & parse into javascript code and stored in memory
-  E - evalute : take input and evaluate
-  p - Print : (print the result of evaluation to the console)
-  L - Loop : (loop back to read more user input)
+  R - read the user input & parse into the javascript code or parse into the data structure that the js engine can understand and stored in memory
+  E - evalute : take input and evaluate (the parsed input is evaluated (executed) by the js engine if the input is a valid expression the repl compute the result.)
+  p - Print : (print the result of evaluation to the console)  (the result of the evaluated expression is printed back to the console so the we can see the output)
+  L - Loop : (loop back to read more user input) (the process then loop back waithing for the next input , and continues units the user does not exist.)
       - loop above command until user does not exist.
 
 
@@ -26,6 +27,7 @@
 
 
   # Benifities
+
   Q. When to use REPL
 
   1. StreamLine interactive shell : Execute javascript code interactively.
@@ -40,10 +42,12 @@
   - REPL is useful for experimentation and quick testing  it should not be confused with a full debbuger.
 
 Q. When not used REPL ?
+
   - Do not use REPL as the main place for developing a Large application.
 
 
 # defination
+
   - "Node.js REPL is an interactive command-line environment where we can read, evaluate, print the result, and repeatedly execute JavaScript code."
 
 
@@ -85,7 +89,7 @@ Q. When not used REPL ?
                v
           +---------+
           |  LOOP   |     : L - after printing the result REPL goes back to waiting for the next input
-          +----+----+           - this continue until the user exist the REPL 
+          +----+----+           - this continue until the user exist the REPL
                |
                |
                +------------------+
@@ -93,5 +97,16 @@ Q. When not used REPL ?
                                   v
                               Wait for
                             next input
+
+Welcome to Node.js v24.13.0.
+Type ".help" for more information.
+> .help
+.break    Sometimes you get stuck, this gets you out
+.clear    Alias for .break
+.editor   Enter editor mode
+.exit     Exit the REPL
+.help     Print this help message
+.load     Load JS from a file into the REPL session
+.save     Save all evaluated commands in this REPL session to a file
 
 */
