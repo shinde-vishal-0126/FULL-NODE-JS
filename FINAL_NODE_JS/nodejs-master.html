@@ -170,7 +170,7 @@
 
     <nav id="master-index" class="toc">
         <h2>Master Index</h2>
-        <p class="toc-meta">41 chapters · 309 topics · 177 interview questions
+        <p class="toc-meta">41 chapters · 314 topics · 183 interview questions
             &nbsp;|&nbsp; <a href="#" onclick="document.querySelectorAll('.toc-chap').forEach(d=>d.open=true);return false;">Expand all</a>
             · <a href="#" onclick="document.querySelectorAll('.toc-chap').forEach(d=>d.open=false);return false;">Collapse all</a></p>
 
@@ -851,7 +851,7 @@
         <h3 class="toc-section">SECTION 5: RESTful APIs</h3>
         <details class="toc-chap">
             <summary><span class="toc-num">17</span> <a href="#chap-17">RESTful APIs & Express Router</a>
-                <small>20 topics · 2 Qs</small></summary>
+                <small>25 topics · 8 Qs</small></summary>
             <div class="toc-body">
                 <div><i>Topics</i>
                     <ol>
@@ -861,6 +861,12 @@
                         <li><a href="#chap-17-t4">Complete CRUD REST API Example (All 5 Routes in Express)</a></li>
                         <li><a href="#chap-17-t5">HTTP Status Codes (Complete Interview Table)</a></li>
                         <li><a href="#chap-17-t6">REST API Best Practices (Naming, Pagination, Filtering, Versioning, Idempotency)</a></li>
+                        <li class="toc-sub"><a href="#chap-17-3"><b>📌 API Design: Styles, Authentication, Documentation &amp; Responses</b></a></li>
+                        <li><a href="#chap-17-t21">REST vs GraphQL vs SOAP vs gRPC</a></li>
+                        <li><a href="#chap-17-t22">API Authentication Types (API Key, Basic Auth, Bearer/JWT, OAuth 2.0)</a></li>
+                        <li><a href="#chap-17-t23">API Documentation with Swagger / OpenAPI</a></li>
+                        <li><a href="#chap-17-t24">Standard API Response Format (Success &amp; Error)</a></li>
+                        <li><a href="#chap-17-t25">Idempotency: POST vs PUT vs PATCH</a></li>
                         <li class="toc-sub"><a href="#chap-17-1"><b>📌 Advanced Routing &amp; express.Router()</b></a></li>
                         <li><a href="#chap-17-t7">What is Routing in Express?</a></li>
                         <li><a href="#chap-17-t8">What is express.Router() and why use it?</a></li>
@@ -884,6 +890,12 @@
                     <ol>
                         <li><a href="#chap-17-q1">What is the exact difference between PUT and PATCH?</a></li>
                         <li><a href="#chap-17-q2">What does "Stateless" mean in REST architecture?</a></li>
+                        <li><a href="#chap-17-q3">When would you choose GraphQL over REST?</a></li>
+                        <li><a href="#chap-17-q4">What is the difference between 401 and 403?</a></li>
+                        <li><a href="#chap-17-q5">Is Base64 in Basic Auth secure?</a></li>
+                        <li><a href="#chap-17-q6">Is OAuth 2.0 authentication or authorization?</a></li>
+                        <li><a href="#chap-17-q7">Which HTTP methods are idempotent, and how do you make POST safe to retry?</a></li>
+                        <li><a href="#chap-17-q8">Why use a standard response format?</a></li>
                     </ol>
                 </div>
             </div>
@@ -15654,32 +15666,141 @@ console.log(res.status, user.name);                                        // 20
         <b>Definition:</b>
         <ul class="pl">
             <li><b>REST</b> stands for <b>REpresentational State Transfer</b>.</li>
-            <li>A <b>RESTful API</b> follows the REST architectural style.</li>
+            <li>REST is an <b>architectural style</b> (a set of design principles), not a protocol, library or
+                standard.</li>
+            <li>It was defined by <b>Roy Fielding</b> in his PhD dissertation (2000).</li>
+            <li>A <b>RESTful API</b> is a web API that follows the REST principles (constraints).</li>
+            <li>Everything is modelled as a <b>resource</b> (user, product, order), identified by a unique URL.</li>
+            <li>Clients work with a <b>representation</b> of the resource (usually JSON), not the resource itself.</li>
             <li>It uses standard HTTP methods (GET, POST, PUT, PATCH, DELETE) on URLs to read and change data
                 (resources).</li>
-            <li>REST was defined by Roy Fielding (2000) with six constraints: client–server, stateless, cacheable,
-                uniform interface, layered system, and (optional) code on demand.</li>
             <li>URLs name <b>things</b> (nouns: <code>/users/5</code>); HTTP methods name <b>actions</b> (verbs: GET,
                 DELETE).</li>
+            <li>The result of each request is communicated through standard <b>HTTP status codes</b> (200, 201, 404,
+                500…).</li>
+            <li>"State Transfer" means: the client's state changes by transferring resource representations
+                between client and server.</li>
+        </ul>
+    </div>
+    <div class="q">
+        <b>🎤 How to Answer in an Interview ("What is a RESTful API?"):</b>
+        <ul class="pl" style="margin-top: 5px;">
+            <li><b>Start with the definition:</b> "A RESTful API is a web API that follows the REST architectural
+                style — REpresentational State Transfer — defined by Roy Fielding in 2000."</li>
+            <li><b>Explain resources:</b> "Everything is treated as a resource, like users or orders, and each
+                resource has a unique URL, for example <code>/users/5</code>."</li>
+            <li><b>Explain HTTP methods:</b> "We use standard HTTP methods for actions — GET to read, POST to create,
+                PUT or PATCH to update, and DELETE to remove."</li>
+            <li><b>Mention the format and status codes:</b> "Data is usually exchanged as JSON, and the result is shown
+                with status codes like 200, 201, 404 and 500."</li>
+            <li><b>Name the key principles:</b> "It follows principles like client–server separation,
+                statelessness, cacheability, a uniform interface and a layered system."</li>
+            <li><b>Highlight statelessness:</b> "Stateless means the server does not store client sessions; every
+                request carries everything needed, like the auth token. That makes it easy to scale."</li>
+            <li><b>End with an example:</b> "For example, <code>GET /api/users/5</code> returns user 5 as JSON with
+                status 200, and <code>DELETE /api/users/5</code> deletes that user."</li>
+            <li>💡 <b>Tip:</b> Keep it to 30–60 seconds. If the interviewer asks more, explain the principles in
+                detail.</li>
+        </ul>
+    </div>
+
+    <div class="notes-box">
+        <b>Key Principles (Constraints) of REST:</b>
+        <ul class="pl">
+            <li><b>1. Client–Server Separation:</b>
+                <ul class="pl">
+                    <li>The client (UI) and server (data + logic) are independent.</li>
+                    <li>They communicate only through the API.</li>
+                    <li>Both can be developed, deployed and scaled separately (e.g. React frontend + Express
+                        backend).</li>
+                </ul>
+            </li>
+            <li><b>2. Stateless:</b>
+                <ul class="pl">
+                    <li>The server does NOT store any client session or history between requests.</li>
+                    <li>Every single HTTP request must contain all the information needed to complete it (e.g. the
+                        auth token).</li>
+                    <li>Benefit: any server instance can handle any request → easy horizontal scaling.</li>
+                </ul>
+            </li>
+            <li><b>3. Cacheable:</b>
+                <ul class="pl">
+                    <li>Responses must say whether they can be cached or not.</li>
+                    <li>GET responses can be cached using headers like <code>Cache-Control</code> and
+                        <code>ETag</code>.</li>
+                    <li>Benefit: fewer requests to the server and faster responses.</li>
+                </ul>
+            </li>
+            <li><b>4. Uniform Interface</b> (the core of REST):
+                <ul class="pl">
+                    <li><b>Resource identification:</b> Each resource has a unique URI (e.g.
+                        <code>https://api.example.com/users/5</code>).</li>
+                    <li><b>Manipulation through representations:</b> The client changes a resource by sending its
+                        representation (JSON) in the body.</li>
+                    <li><b>Self-descriptive messages:</b> Each message carries its own meaning via method, headers
+                        (<code>Content-Type</code>) and status code.</li>
+                    <li><b>HATEOAS</b> (Hypermedia As The Engine Of Application State): Responses can include links
+                        to related actions/resources.</li>
+                </ul>
+            </li>
+            <li><b>5. Layered System:</b>
+                <ul class="pl">
+                    <li>The client does not know whether it talks to the real server or an intermediary.</li>
+                    <li>Load balancers, proxies, CDNs, API gateways can sit in between.</li>
+                    <li>Benefit: security, load balancing and caching without changing the client.</li>
+                </ul>
+            </li>
+            <li><b>6. Code on Demand</b> (optional):
+                <ul class="pl">
+                    <li>The server can send executable code (e.g. JavaScript) to extend the client.</li>
+                    <li>It is the only optional constraint and is rarely used in APIs.</li>
+                </ul>
+            </li>
         </ul>
     </div>
     <div class="notes-box">
+        <b>Common Practices in RESTful APIs:</b>
         <ul class="pl">
-            <li><b>1. Stateless Communication:</b> The server does NOT store any client session or history.
-                <ul class="pl">
-                    <li>Every single HTTP request must contain all the necessary information to complete it (e.g. the
-                        auth token).</li>
-                </ul>
-            </li>
-            <li><b>2. Resource-Based:</b> Data is treated as "Resources" (like users, posts, photos).
-                <ul class="pl">
-                    <li>Each resource is accessed via a unique URI (e.g., <code>https://api.example.com/users</code>).
-                    </li>
-                </ul>
-            </li>
-            <li><b>3. JSON Format:</b> Data is typically exchanged in JSON format because it is lightweight and easy for
+            <li><b>Resource-Based:</b> Data is treated as "Resources" (like users, posts, photos).</li>
+            <li><b>JSON Format:</b> Data is typically exchanged in JSON format because it is lightweight and easy for
                 JS to parse.</li>
-            <li><b>4. Cacheable:</b> GET responses can be cached using headers like <code>Cache-Control</code>.</li>
+            <li><b>Plural nouns in URLs:</b> <code>/users</code>, not <code>/getUser</code>.</li>
+        </ul>
+    </div>
+    <div class="code-title">Code Example: REST Principles in Express</div>
+    <pre
+        style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+// Uniform interface: resource URL + HTTP method
+app.get('/api/users/:id', (req, res) => {
+  // Stateless: identity comes from the request itself (token), not a server session
+  const token = req.headers.authorization;
+  if (!token) return res.status(401).json({ error: 'Unauthorized' }); // self-descriptive status
+
+  // Cacheable: tell clients/proxies they may cache this for 60 seconds
+  res.set('Cache-Control', 'private, max-age=60');
+
+  res.status(200).json({
+    id: req.params.id,
+    name: 'Vishal',
+    links: [{ rel: 'orders', href: `/api/users/${req.params.id}/orders` }] // HATEOAS
+  });
+});
+
+app.listen(3000);
+</pre>
+    <div class="ex">
+        <ul class="pl">
+            <li><b>What happens:</b> <code>GET /api/users/5</code> with a token returns the user as JSON.</li>
+            <li><b>Output:</b> <code>200 { "id": "5", "name": "Vishal", "links": [...] }</code></li>
+            <li>Without a token → <code>401 { "error": "Unauthorized" }</code>.</li>
+            <li><code>private</code> cache: only the user's own browser may cache it (not shared proxies), because
+                the data is user-specific.</li>
+            <li>✅ <b>Advantage:</b> Any server instance can answer (stateless) → easy to scale.</li>
+            <li>⚠ <b>Disadvantage:</b> The token must be sent with every request (slightly bigger requests).</li>
         </ul>
     </div>
     <div class="code-title">Code Example: ❌ Non-REST vs ✅ REST URLs</div>
@@ -15693,11 +15814,22 @@ console.log(res.status, user.name);                                        // 20
     <div class="marathi-box">
         <b>मराठी सारांश (REST API):</b>
         <ul class="pl" style="margin-bottom: 0;">
-            <li><b>REST</b> = API बनवण्याची नियमांची पद्धत. URL = वस्तू (noun), HTTP method = क्रिया (verb).</li>
-            <li><b>Stateless:</b> server आधीची request लक्षात ठेवत नाही. प्रत्येक request मध्ये token वगैरे सगळे पाठवा.
+            <li><b>REST</b> = REpresentational State Transfer.</li>
+            <li>REST ही API बनवण्याची नियमांची पद्धत (architectural style) आहे, protocol नाही.</li>
+            <li>Roy Fielding ने 2000 मध्ये REST define केले.</li>
+            <li>URL = वस्तू (noun), HTTP method = क्रिया (verb).</li>
+            <li><b>REST चे 6 नियम:</b>
+                <ul class="pl">
+                    <li><b>Client–Server:</b> frontend आणि backend वेगळे, फक्त API मधून बोलतात.</li>
+                    <li><b>Stateless:</b> server आधीची request लक्षात ठेवत नाही. प्रत्येक request मध्ये token वगैरे
+                        सगळे पाठवा.</li>
+                    <li><b>Cacheable:</b> GET responses cache करता येतात (<code>Cache-Control</code>).</li>
+                    <li><b>Uniform Interface:</b> प्रत्येक resource ला unique URL, standard methods, status codes.</li>
+                    <li><b>Layered System:</b> मध्ये load balancer / proxy / CDN असू शकतो, client ला कळत नाही.</li>
+                    <li><b>Code on Demand:</b> server JS code पाठवू शकतो (optional, क्वचित वापर).</li>
+                </ul>
             </li>
-            <li><b>Resource-based:</b> <code>/users</code>, <code>/users/5</code>. <b>JSON</b> format. <b>Cacheable</b>
-                GET responses.</li>
+            <li><b>Resource-based:</b> <code>/users</code>, <code>/users/5</code>. <b>JSON</b> format.</li>
             <li><code>/getUsers</code>, <code>/deleteUser</code> सारखी नावे चुकीची. <code>GET /users</code>,
                 <code>DELETE /users/5</code> बरोबर.</li>
         </ul>
@@ -15877,43 +16009,130 @@ GET    http://localhost:3000/api/users/99             → 404 {"error":"User not
     <div class="notes-box">
         <b>Key Points Used in This Example:</b>
         <ul class="pl">
-            <li><b>req.params:</b> Values from the URL path. <code>/api/users/:id</code> + request
-                <code>/api/users/5</code> → <code>req.params.id === '5'</code> (always a <b>string</b>, so convert with
-                <code>Number()</code>).</li>
-            <li><b>req.query:</b> Values after <code>?</code> in the URL. <code>?name=vi</code> →
-                <code>req.query.name === 'vi'</code>. Used for filtering, search, pagination.</li>
-            <li><b>req.body:</b> Data sent in the request body (POST/PUT/PATCH). Needs
-                <code>app.use(express.json())</code>.</li>
-            <li><b>res.status(code).json(data):</b> Sets the HTTP status and sends JSON. Always send the right status
-                code.</li>
-            <li><b>Status codes:</b> 200 OK (read/update), 201 Created (POST), 204 No Content (DELETE), 400 Bad Request
-                (invalid input), 404 Not Found (missing user/route).</li>
-            <li><b>return</b> before <code>res.status(...)</code> in error checks, so the rest of the handler doesn't
-                run (prevents "headers already sent" errors).</li>
-            <li><b>PUT vs PATCH:</b> PUT needs the <b>whole</b> object (replace); PATCH changes <b>only</b> the fields
-                sent.</li>
-            <li>In a real app, replace the array with a database (MongoDB/MySQL) and move routes into
-                <code>express.Router()</code> + controllers (MVC).</li>
+            <li><b>req.params</b> (URL path parameters):
+                <ul class="pl">
+                    <li>Holds values from the URL path.</li>
+                    <li>Route <code>/api/users/:id</code> + request <code>/api/users/5</code> →
+                        <code>req.params.id === '5'</code>.</li>
+                    <li>The value is always a <b>string</b>.</li>
+                    <li>Convert it with <code>Number()</code> before comparing with numeric ids.</li>
+                </ul>
+            </li>
+            <li><b>req.query</b> (query string):
+                <ul class="pl">
+                    <li>Holds values after <code>?</code> in the URL.</li>
+                    <li><code>?name=vi</code> → <code>req.query.name === 'vi'</code>.</li>
+                    <li>Used for filtering, search and pagination.</li>
+                    <li>Values are strings too; a missing key is <code>undefined</code>.</li>
+                </ul>
+            </li>
+            <li><b>req.body</b> (request body):
+                <ul class="pl">
+                    <li>Holds data sent in the request body (POST / PUT / PATCH).</li>
+                    <li>It works only after <code>app.use(express.json())</code>.</li>
+                    <li>Without it, <code>req.body</code> is <code>undefined</code>.</li>
+                </ul>
+            </li>
+            <li><b>Status codes used:</b>
+                <ul class="pl">
+                    <li><b>200 OK:</b> successful read / update.</li>
+                    <li><b>201 Created:</b> a new resource was created (POST).</li>
+                    <li><b>204 No Content:</b> success with an empty body (DELETE).</li>
+                    <li><b>400 Bad Request:</b> invalid or missing input.</li>
+                    <li><b>404 Not Found:</b> the user or route does not exist.</li>
+                </ul>
+            </li>
+            <li><b>return</b> before <code>res.status(...)</code> in error checks:
+                <ul class="pl">
+                    <li>It stops the rest of the handler from running.</li>
+                    <li>It prevents the "Cannot set headers after they are sent" error.</li>
+                </ul>
+            </li>
+            <li><b>PUT vs PATCH:</b>
+                <ul class="pl">
+                    <li><b>PUT</b> needs the <b>whole</b> object and replaces it.</li>
+                    <li><b>PATCH</b> changes <b>only</b> the fields sent.</li>
+                </ul>
+            </li>
+            <li><b>In a real app:</b>
+                <ul class="pl">
+                    <li>Replace the array with a database (MongoDB / MySQL).</li>
+                    <li>Move routes into <code>express.Router()</code> + controllers (MVC).</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="ex">
+        <b>Syntax &amp; Arguments of the Methods Used:</b>
+        <ul class="pl">
+            <li><b><code>app.use(express.json(options))</code></b>
+                <ul class="pl">
+                    <li>Built-in middleware that parses JSON request bodies into <code>req.body</code>.</li>
+                    <li><b>options</b> (optional object):
+                        <ul class="pl">
+                            <li><b>limit:</b> maximum body size, e.g. <code>'100kb'</code> (default) or
+                                <code>'1mb'</code>.</li>
+                            <li><b>strict:</b> <code>true</code> (default) accepts only objects and arrays.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><b><code>app.METHOD(path, handler)</code></b> (get / post / put / patch / delete)
+                <ul class="pl">
+                    <li><b>path:</b> the route string, e.g. <code>'/api/users/:id'</code>.</li>
+                    <li><b>handler:</b> function <code>(req, res, next)</code> that runs when the route matches.</li>
+                </ul>
+            </li>
+            <li><b><code>res.status(code)</code></b>
+                <ul class="pl">
+                    <li><b>code</b> (number): the HTTP status code, e.g. <code>201</code>.</li>
+                    <li>It only sets the status and returns <code>res</code>, so you can chain
+                        <code>.json()</code>.</li>
+                </ul>
+            </li>
+            <li><b><code>res.json(data)</code></b>
+                <ul class="pl">
+                    <li><b>data:</b> any object, array or value.</li>
+                    <li>Converts it with <code>JSON.stringify()</code>.</li>
+                    <li>Sets <code>Content-Type: application/json</code> and sends the response.</li>
+                </ul>
+            </li>
+            <li><b><code>res.send(body)</code></b>
+                <ul class="pl">
+                    <li><b>body</b> (optional): string, Buffer or object.</li>
+                    <li>With no argument (as in <code>204</code>), it sends an empty response.</li>
+                </ul>
+            </li>
+            <li><b><code>Number(value)</code></b>
+                <ul class="pl">
+                    <li><b>value:</b> the string to convert, e.g. <code>'5'</code> → <code>5</code>.</li>
+                    <li>Returns <code>NaN</code> for invalid input like <code>'abc'</code>.</li>
+                </ul>
+            </li>
         </ul>
     </div>
     <div class="marathi-box">
         <b>मराठी सारांश (Complete CRUD API):</b>
         <ul class="pl" style="margin-bottom: 0;">
-            <li><b>CRUD</b> = Create (POST), Read (GET), Update (PUT / PATCH), Delete (DELETE). कोणत्याही data वरची 4
-                मूलभूत कामे.</li>
+            <li><b>CRUD</b> = Create (POST), Read (GET), Update (PUT / PATCH), Delete (DELETE).</li>
+            <li>कोणत्याही data वरची ही 4 मूलभूत कामे आहेत.</li>
             <li><b>GET /api/users</b> → सगळे users (200). <code>?name=vi</code> ने filter.</li>
             <li><b>GET /api/users/:id</b> → एक user (200), नसेल तर 404.</li>
             <li><b>POST /api/users</b> → नवीन user (201 Created). name / email नसेल तर 400.</li>
             <li><b>PUT /api/users/:id</b> → पूर्ण user बदला (सगळे fields हवेत). <b>PATCH</b> → फक्त पाठवलेले fields
                 बदला.</li>
             <li><b>DELETE /api/users/:id</b> → user काढा (204 No Content).</li>
-            <li><b>req.params</b> = URL मधील <code>:id</code> (string असतो, <code>Number()</code> करा). <b>req.query</b>
-                = <code>?</code> नंतरचे values. <b>req.body</b> = पाठवलेला JSON data (<code>express.json()</code>
-                लागतो).</li>
-            <li>Error check मध्ये <code>return res.status(...)</code> लिहा, नाहीतर पुढचा code पण चालतो ("headers already
-                sent" error).</li>
-            <li>खऱ्या project मध्ये array ऐवजी database, आणि routes <code>express.Router()</code> + controllers (MVC)
-                मध्ये.</li>
+            <li><b>req.params</b> = URL मधील <code>:id</code>. तो नेहमी string असतो, म्हणून <code>Number()</code> करा.
+            </li>
+            <li><b>req.query</b> = URL मध्ये <code>?</code> नंतरचे values (filter, search, pagination साठी).</li>
+            <li><b>req.body</b> = पाठवलेला JSON data. यासाठी <code>express.json()</code> लागतो.</li>
+            <li><b>Status codes:</b> 200 (read/update), 201 (create), 204 (delete), 400 (चुकीचा input), 404 (सापडले
+                नाही).</li>
+            <li>Error check मध्ये <code>return res.status(...)</code> लिहा.</li>
+            <li><code>return</code> नसेल तर पुढचा code पण चालतो आणि "headers already sent" error येतो.</li>
+            <li><b>res.status(code)</b> फक्त status set करतो. <b>res.json(data)</b> JSON पाठवतो.</li>
+            <li>खऱ्या project मध्ये array ऐवजी database वापरा.</li>
+            <li>Routes <code>express.Router()</code> + controllers (MVC) मध्ये ठेवा.</li>
             <li><b>उदाहरण:</b> मोबाईल मधील contacts. नवीन contact (POST), यादी पाहणे (GET), edit (PUT / PATCH), delete
                 (DELETE).</li>
         </ul>
@@ -16182,24 +16401,13 @@ app.delete('/api/users/:id', requireAuth, async (req, res) => {
         </ul>
         <b>5. Idempotency</b>
         <ul class="pl">
-            <li>An operation is <b>idempotent</b> if doing it <b>once or many times</b> has the <b>same effect</b> on
-                the server.</li>
-            <li><b>Idempotent:</b> GET, PUT, DELETE (deleting user 5 twice still leaves user 5 deleted), HEAD, OPTIONS.
-            </li>
-            <li><b>Not idempotent:</b> POST (sending "create order" twice creates two orders). PATCH can be either,
-                depending on the change (<code>set price=500</code> yes; <code>increment stock by 1</code> no).</li>
-            <li><b>Why it matters:</b> networks fail and clients retry. Retrying an idempotent request is safe; retrying
-                a POST can double-charge a customer.</li>
-            <li><b>Fix for POST:</b> an <b>Idempotency-Key</b> header (a unique id per action). The server stores the
-                key with the result; a repeated key returns the saved result instead of creating a duplicate. Payment
-                APIs like Stripe use this.</li>
+            <li>Retrying a request must not create duplicates.</li>
+            <li>Full details: <a href="#chap-17-t25">Idempotency: POST vs PUT vs PATCH</a>.</li>
         </ul>
         <b>6. Consistent Responses</b>
         <ul class="pl">
-            <li>Same JSON shape for success and errors, e.g. <code>{ "data": ..., "meta": ... }</code> and
-                <code>{ "error": { "code": "USER_NOT_FOUND", "message": "..." } }</code>.</li>
-            <li>Correct status codes (see above), consistent <b>camelCase</b> field names, ISO-8601 dates
-                (<code>2026-10-03T10:00:00Z</code>).</li>
+            <li>Use the same JSON shape for every success and error.</li>
+            <li>Full details: <a href="#chap-17-t24">Standard API Response Format</a>.</li>
             <li>Use HTTPS, authentication, rate limiting, and document the API (OpenAPI / Swagger).</li>
         </ul>
     </div>
@@ -16270,6 +16478,741 @@ v1.post('/orders', async (req, res) => {
 
 
 
+
+<h3 id="chap-17-3" style="border-bottom: 2px solid #2196f3; padding-bottom: 4px; margin-top: 35px;">📌 API Design:
+        Styles, Authentication, Documentation &amp; Responses</h3>
+
+    <h3 id="chap-17-t21">Q. REST vs GraphQL vs SOAP vs gRPC</h3>
+    <div class="def-box">
+        <b>Definition:</b>
+        <ul class="pl">
+            <li>REST, GraphQL, SOAP and gRPC are four different <b>API styles</b>.</li>
+            <li>Each one defines how a client asks for data and how the server answers.</li>
+            <li><b>REST:</b> An architectural style.
+                <ul class="pl">
+                    <li>Uses many URLs (resources) and HTTP methods.</li>
+                    <li>Usually exchanges JSON.</li>
+                </ul>
+            </li>
+            <li><b>GraphQL:</b> A query language for APIs, created by Facebook (2015).
+                <ul class="pl">
+                    <li>Uses a <b>single endpoint</b> (<code>/graphql</code>).</li>
+                    <li>The client asks for <b>exactly the fields it needs</b>.</li>
+                </ul>
+            </li>
+            <li><b>SOAP</b> (Simple Object Access Protocol): A strict, XML-based protocol.
+                <ul class="pl">
+                    <li>Uses a formal contract called <b>WSDL</b>.</li>
+                    <li>Has built-in standards for security (WS-Security) and transactions.</li>
+                </ul>
+            </li>
+            <li><b>gRPC</b> (Google Remote Procedure Call): A high-performance RPC framework by Google.
+                <ul class="pl">
+                    <li>Uses <b>HTTP/2</b> and <b>Protocol Buffers</b> (binary format).</li>
+                    <li>The client calls server functions as if they were local functions.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>REST</th>
+            <th>GraphQL</th>
+            <th>SOAP</th>
+            <th>gRPC</th>
+        </tr>
+        <tr>
+            <td><b>Type</b></td>
+            <td>Architectural style</td>
+            <td>Query language</td>
+            <td>Protocol</td>
+            <td>RPC framework</td>
+        </tr>
+        <tr>
+            <td><b>Data format</b></td>
+            <td>JSON (mostly)</td>
+            <td>JSON</td>
+            <td>XML only</td>
+            <td>Protocol Buffers (binary)</td>
+        </tr>
+        <tr>
+            <td><b>Transport</b></td>
+            <td>HTTP/1.1 or 2</td>
+            <td>HTTP (usually POST)</td>
+            <td>HTTP, SMTP, etc.</td>
+            <td>HTTP/2</td>
+        </tr>
+        <tr>
+            <td><b>Endpoints</b></td>
+            <td>Many (one per resource)</td>
+            <td>One (<code>/graphql</code>)</td>
+            <td>One per service</td>
+            <td>Service methods</td>
+        </tr>
+        <tr>
+            <td><b>Over/under-fetching</b></td>
+            <td>Common</td>
+            <td>No (client picks fields)</td>
+            <td>Common</td>
+            <td>No (fixed messages)</td>
+        </tr>
+        <tr>
+            <td><b>Caching</b></td>
+            <td>Easy (HTTP caching)</td>
+            <td>Harder (single POST endpoint)</td>
+            <td>Hard</td>
+            <td>Custom</td>
+        </tr>
+        <tr>
+            <td><b>Speed</b></td>
+            <td>Good</td>
+            <td>Good</td>
+            <td>Slower (heavy XML)</td>
+            <td>Fastest</td>
+        </tr>
+        <tr>
+            <td><b>Best for</b></td>
+            <td>Public / CRUD APIs</td>
+            <td>Complex UIs, mobile apps</td>
+            <td>Banking, enterprise, legacy</td>
+            <td>Microservice-to-microservice</td>
+        </tr>
+    </table>
+    <div class="notes-box">
+        <ul class="pl">
+            <li><b>Over-fetching:</b> The server sends more fields than the client needs.</li>
+            <li><b>Under-fetching:</b> The client must call many endpoints to collect all the data it needs.</li>
+            <li>GraphQL solves both problems, because the client describes the exact shape of the response.</li>
+            <li>gRPC is not usable directly from browsers without a proxy (gRPC-Web).</li>
+            <li>In real systems they are mixed: REST/GraphQL for clients, gRPC between internal services.</li>
+        </ul>
+    </div>
+    <div class="code-title">Code Example: Same Request in REST vs GraphQL</div>
+    <pre
+        style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
+// REST: 2 requests, returns ALL fields (over-fetching)
+GET /api/users/5            → { id, name, email, phone, address, createdAt, ... }
+GET /api/users/5/orders     → [ { id, total, status, items, ... }, ... ]
+
+// GraphQL: 1 request, returns ONLY the asked fields
+POST /graphql
+{
+  user(id: 5) {
+    name
+    orders { total }
+  }
+}
+→ { "data": { "user": { "name": "Vishal", "orders": [ { "total": 500 } ] } } }
+</pre>
+    <div class="ex">
+        <ul class="pl">
+            <li><b>What happens:</b> REST needs two round trips and returns extra fields.</li>
+            <li>GraphQL returns only <code>name</code> and <code>orders.total</code> in one round trip.</li>
+            <li>✅ <b>GraphQL advantage:</b> Less data over the network, which helps mobile apps.</li>
+            <li>⚠ <b>GraphQL disadvantage:</b> More complex server, and HTTP caching is harder.</li>
+        </ul>
+    </div>
+    <div class="marathi-box">
+        <b>मराठी सारांश (REST vs GraphQL vs SOAP vs gRPC):</b>
+        <ul class="pl" style="margin-bottom: 0;">
+            <li>हे चार API बनवण्याचे वेगवेगळे प्रकार (styles) आहेत.</li>
+            <li><b>REST:</b> अनेक URLs, HTTP methods, JSON. सर्वात जास्त वापरले जाते.</li>
+            <li><b>GraphQL:</b> एकच endpoint (<code>/graphql</code>).</li>
+            <li>GraphQL मध्ये client ला हवे तेवढेच fields मागता येतात.</li>
+            <li><b>SOAP:</b> XML वापरतो, नियम कडक आहेत. Banking आणि जुन्या enterprise systems मध्ये वापरतात.</li>
+            <li><b>gRPC:</b> HTTP/2 + binary (Protocol Buffers). सर्वात वेगवान.</li>
+            <li>gRPC मुख्यतः microservices एकमेकांशी बोलण्यासाठी वापरतात.</li>
+            <li><b>Over-fetching:</b> गरजेपेक्षा जास्त data येणे.</li>
+            <li><b>Under-fetching:</b> सगळा data मिळवण्यासाठी अनेक requests कराव्या लागणे.</li>
+            <li>GraphQL हे दोन्ही प्रॉब्लेम सोडवते.</li>
+        </ul>
+    </div>
+
+    <h3 id="chap-17-t22">Q. API Authentication Types (API Key, Basic Auth, Bearer/JWT, OAuth 2.0)</h3>
+    <div class="def-box">
+        <b>Definition:</b>
+        <ul class="pl">
+            <li><b>API authentication</b> is the process of verifying <b>who</b> is calling the API.</li>
+            <li>The client proves its identity by sending credentials with each request.</li>
+            <li>Credentials are usually sent in the <code>Authorization</code> header (or a custom header).</li>
+            <li>Authentication = <b>who are you?</b></li>
+            <li>Authorization = <b>what are you allowed to do?</b></li>
+            <li>The server returns <b>401 Unauthorized</b> when credentials are missing or invalid.</li>
+            <li>The server returns <b>403 Forbidden</b> when the user is known but not allowed.</li>
+            <li>All methods below must be used over <b>HTTPS</b>, otherwise credentials can be stolen.</li>
+        </ul>
+    </div>
+    <div class="notes-box">
+        <ul class="pl">
+            <li><b>1. API Key:</b>
+                <ul class="pl">
+                    <li>A long random string given to each client (app/developer).</li>
+                    <li>Sent as a header, e.g. <code>x-api-key: abc123</code>.</li>
+                    <li>Identifies the <b>application</b>, not a specific user.</li>
+                    <li>Used by: Google Maps, OpenWeather, server-to-server calls.</li>
+                </ul>
+            </li>
+            <li><b>2. Basic Auth:</b>
+                <ul class="pl">
+                    <li>Sends <code>username:password</code> encoded in Base64.</li>
+                    <li>Header: <code>Authorization: Basic dmlzaGFsOjEyMzQ=</code>.</li>
+                    <li>Base64 is <b>encoding, not encryption</b> — anyone can decode it.</li>
+                    <li>The password is sent with every request, so it is used only for simple internal tools.</li>
+                </ul>
+            </li>
+            <li><b>3. Bearer Token / JWT:</b>
+                <ul class="pl">
+                    <li>The user logs in once with a password and receives a signed token (JWT).</li>
+                    <li>Header: <code>Authorization: Bearer &lt;token&gt;</code>.</li>
+                    <li>"Bearer" means: whoever holds the token gets access.</li>
+                    <li>Stateless: the server verifies the signature, no session lookup is needed.</li>
+                    <li>Most common method for SPAs and mobile apps.</li>
+                </ul>
+            </li>
+            <li><b>4. OAuth 2.0:</b>
+                <ul class="pl">
+                    <li>An <b>authorization framework</b> for delegated access.</li>
+                    <li>It lets a user give a third-party app limited access to their data, <b>without sharing their
+                            password</b>.</li>
+                    <li>Example: "Login with Google" or "Allow this app to read your GitHub repos".</li>
+                    <li>The app receives an <b>access token</b> (with limited <b>scopes</b>) from the provider.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Header</th>
+            <th>Identifies</th>
+            <th>Security</th>
+            <th>Best for</th>
+        </tr>
+        <tr>
+            <td><b>API Key</b></td>
+            <td><code>x-api-key: key</code></td>
+            <td>Application</td>
+            <td>Medium</td>
+            <td>Public APIs, server-to-server</td>
+        </tr>
+        <tr>
+            <td><b>Basic Auth</b></td>
+            <td><code>Basic base64(user:pass)</code></td>
+            <td>User</td>
+            <td>Low</td>
+            <td>Internal tools, testing</td>
+        </tr>
+        <tr>
+            <td><b>Bearer / JWT</b></td>
+            <td><code>Bearer &lt;jwt&gt;</code></td>
+            <td>User</td>
+            <td>High (with expiry)</td>
+            <td>SPAs, mobile apps</td>
+        </tr>
+        <tr>
+            <td><b>OAuth 2.0</b></td>
+            <td><code>Bearer &lt;access_token&gt;</code></td>
+            <td>User + App (scopes)</td>
+            <td>Very high</td>
+            <td>Social login, third-party access</td>
+        </tr>
+    </table>
+    <div style="text-align: center; margin: 15px 0;">
+        <svg viewBox="0 0 660 230" style="max-width: 100%; height: auto;" xmlns="http://www.w3.org/2000/svg"
+            font-family="Segoe UI, sans-serif" font-size="12">
+            <defs>
+                <marker id="oa-arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#555" />
+                </marker>
+            </defs>
+            <rect x="10" y="80" width="120" height="60" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" />
+            <text x="70" y="106" text-anchor="middle" font-weight="bold" fill="#0d47a1">User</text>
+            <text x="70" y="124" text-anchor="middle" fill="#333">(Browser)</text>
+            <rect x="270" y="10" width="120" height="60" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" />
+            <text x="330" y="36" text-anchor="middle" font-weight="bold" fill="#1b5e20">Your App</text>
+            <text x="330" y="54" text-anchor="middle" fill="#333">(Node server)</text>
+            <rect x="270" y="155" width="120" height="60" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="2" />
+            <text x="330" y="181" text-anchor="middle" font-weight="bold" fill="#e65100">Google</text>
+            <text x="330" y="199" text-anchor="middle" fill="#333">(Auth Server)</text>
+            <rect x="530" y="80" width="120" height="60" rx="8" fill="#fce4ec" stroke="#e91e63" stroke-width="2" />
+            <text x="590" y="106" text-anchor="middle" font-weight="bold" fill="#880e4f">Google API</text>
+            <text x="590" y="124" text-anchor="middle" fill="#333">(User data)</text>
+            <line x1="130" y1="90" x2="268" y2="45" stroke="#555" stroke-width="2" marker-end="url(#oa-arr)" />
+            <text x="160" y="55" fill="#2196f3">1. Login with Google</text>
+            <line x1="130" y1="130" x2="268" y2="180" stroke="#555" stroke-width="2" marker-end="url(#oa-arr)" />
+            <text x="120" y="178" fill="#ff9800">2. User approves</text>
+            <line x1="330" y1="155" x2="330" y2="72" stroke="#555" stroke-width="2" marker-end="url(#oa-arr)" />
+            <text x="338" y="118" fill="#4caf50">3. code → access token</text>
+            <line x1="390" y1="40" x2="528" y2="95" stroke="#555" stroke-width="2" marker-end="url(#oa-arr)" />
+            <text x="430" y="52" fill="#e91e63">4. Bearer token</text>
+            <line x1="528" y1="125" x2="392" y2="60" stroke="#4caf50" stroke-width="2" stroke-dasharray="5,3"
+                marker-end="url(#oa-arr)" />
+            <text x="470" y="150" fill="#4caf50">5. profile data</text>
+        </svg>
+        <div style="font-size: 0.85em; color: #666;">Figure: OAuth 2.0 Authorization Code Flow ("Login with Google")
+        </div>
+    </div>
+    <div class="code-title">Code Example: API Key, Basic Auth and Bearer (JWT) Middleware in Express</div>
+    <pre
+        style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
+const jwt = require('jsonwebtoken');
+
+// 1. API Key
+function apiKeyAuth(req, res, next) {
+  const key = req.get('x-api-key');
+  if (key !== process.env.API_KEY) return res.status(401).json({ error: 'Invalid API key' });
+  next();
+}
+
+// 2. Basic Auth
+function basicAuth(req, res, next) {
+  const header = req.get('authorization') || '';            // "Basic dmlzaGFsOjEyMzQ="
+  const [scheme, encoded] = header.split(' ');
+  if (scheme !== 'Basic' || !encoded) return res.status(401).json({ error: 'Missing credentials' });
+  const [user, pass] = Buffer.from(encoded, 'base64').toString().split(':');
+  if (user !== 'admin' || pass !== process.env.ADMIN_PASS) {
+    return res.status(401).json({ error: 'Wrong username or password' });
+  }
+  next();
+}
+
+// 3. Bearer / JWT
+function jwtAuth(req, res, next) {
+  const [scheme, token] = (req.get('authorization') || '').split(' ');
+  if (scheme !== 'Bearer' || !token) return res.status(401).json({ error: 'Token missing' });
+  try {
+    req.user = jwt.verify(token, process.env.JWT_SECRET);   // throws if invalid/expired
+    next();
+  } catch {
+    res.status(401).json({ error: 'Invalid or expired token' });
+  }
+}
+
+app.get('/api/weather', apiKeyAuth, (req, res) => res.json({ temp: 31 }));
+app.get('/admin/stats', basicAuth, (req, res) => res.json({ users: 120 }));
+app.get('/api/profile', jwtAuth, (req, res) => res.json(req.user));
+</pre>
+    <div class="ex">
+        <b>Syntax &amp; Arguments:</b>
+        <ul class="pl">
+            <li><b><code>req.get(name)</code></b>
+                <ul class="pl">
+                    <li><b>name:</b> the header name (case-insensitive), e.g. <code>'authorization'</code>.</li>
+                    <li>Returns the header value, or <code>undefined</code> if it is missing.</li>
+                </ul>
+            </li>
+            <li><b><code>Buffer.from(string, encoding)</code></b>
+                <ul class="pl">
+                    <li><b>string:</b> the encoded text.</li>
+                    <li><b>encoding:</b> <code>'base64'</code> here; <code>.toString()</code> turns it back into
+                        <code>user:pass</code>.</li>
+                </ul>
+            </li>
+            <li><b><code>jwt.verify(token, secret)</code></b>
+                <ul class="pl">
+                    <li><b>token:</b> the JWT string from the header.</li>
+                    <li><b>secret:</b> the same secret used to sign it.</li>
+                    <li>Returns the decoded payload, or <b>throws</b> if the token is invalid or expired.</li>
+                </ul>
+            </li>
+            <li><b>Middleware <code>(req, res, next)</code>:</b> call <code>next()</code> to allow, or send a
+                <code>401</code> to block.</li>
+            <li>✅ <b>Output:</b> A valid credential reaches the route; anything else gets <code>401</code>.</li>
+        </ul>
+    </div>
+    <div class="marathi-box">
+        <b>मराठी सारांश (API Authentication Types):</b>
+        <ul class="pl" style="margin-bottom: 0;">
+            <li>Authentication = तुम्ही कोण आहात हे तपासणे.</li>
+            <li>Authorization = तुम्हाला काय करण्याची परवानगी आहे हे तपासणे.</li>
+            <li>Credentials नसतील किंवा चुकीचे असतील तर <b>401</b>. परवानगी नसेल तर <b>403</b>.</li>
+            <li><b>API Key:</b> app ला दिलेली एक secret string. User नाही, तर app ओळखते.</li>
+            <li><b>Basic Auth:</b> <code>username:password</code> Base64 मध्ये पाठवतो.</li>
+            <li>Base64 हे encryption नाही, कोणीही decode करू शकतो. म्हणून फक्त internal tools साठी.</li>
+            <li><b>Bearer / JWT:</b> एकदा login करा, token मिळवा, आणि प्रत्येक request मध्ये token पाठवा.</li>
+            <li>JWT stateless आहे. SPAs आणि mobile apps साठी सर्वात जास्त वापरले जाते.</li>
+            <li><b>OAuth 2.0:</b> "Login with Google" सारखे.</li>
+            <li>OAuth मध्ये password शेअर न करता दुसऱ्या app ला मर्यादित (scopes) access देता येतो.</li>
+            <li>सगळ्या पद्धती फक्त <b>HTTPS</b> वरच वापरा.</li>
+        </ul>
+    </div>
+
+    <h3 id="chap-17-t23">Q. API Documentation with Swagger / OpenAPI</h3>
+    <div class="def-box">
+        <b>Definition:</b>
+        <ul class="pl">
+            <li><b>API documentation</b> describes every endpoint of an API.</li>
+            <li>It covers the URL, method, parameters, request body, responses, status codes and authentication.</li>
+            <li><b>OpenAPI Specification (OAS)</b> is the industry-standard, language-independent format for
+                describing REST APIs.</li>
+            <li>An OpenAPI document is written in <b>YAML or JSON</b>.</li>
+            <li><b>Swagger</b> is a set of tools built around OpenAPI.</li>
+            <li>OpenAPI was earlier called the "Swagger Specification" (renamed in 2016).</li>
+            <li><b>Swagger UI</b> turns the spec into an interactive web page.</li>
+            <li>On that page, developers can read the docs and <b>try requests directly in the browser</b>.</li>
+        </ul>
+    </div>
+    <div class="notes-box">
+        <ul class="pl">
+            <li><b>Why document an API?</b>
+                <ul class="pl">
+                    <li>Frontend and mobile teams know exactly what to send and expect.</li>
+                    <li>New developers onboard faster.</li>
+                    <li>The spec can generate client SDKs, mock servers and tests.</li>
+                </ul>
+            </li>
+            <li><b>Two approaches:</b>
+                <ul class="pl">
+                    <li><b>Design-first:</b> write the YAML spec first, then the code.</li>
+                    <li><b>Code-first:</b> write JSDoc comments above routes and generate the spec from them.</li>
+                </ul>
+            </li>
+            <li><b>Packages used in Node.js:</b>
+                <ul class="pl">
+                    <li><code>swagger-jsdoc</code>: builds the OpenAPI spec from JSDoc comments.</li>
+                    <li><code>swagger-ui-express</code>: serves Swagger UI as an Express route.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="code-title">Code Example: Swagger UI in Express (npm i swagger-ui-express swagger-jsdoc)</div>
+    <pre
+        style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
+const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+
+const app = express();
+
+const spec = swaggerJsdoc({
+  definition: {
+    openapi: '3.0.0',
+    info: { title: 'Users API', version: '1.0.0' },
+    servers: [{ url: 'http://localhost:3000' }]
+  },
+  apis: ['./app.js']                      // files that contain @openapi comments
+});
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
+
+/**
+ * @openapi
+ * /api/users/{id}:
+ *   get:
+ *     summary: Get a user by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     responses:
+ *       200: { description: User found }
+ *       404: { description: User not found }
+ */
+app.get('/api/users/:id', (req, res) => {
+  res.json({ id: Number(req.params.id), name: 'Vishal' });
+});
+
+app.listen(3000, () => console.log('Docs: http://localhost:3000/api-docs'));
+</pre>
+    <div class="ex">
+        <b>Syntax &amp; Arguments:</b>
+        <ul class="pl">
+            <li><b><code>swaggerJsdoc(options)</code></b>
+                <ul class="pl">
+                    <li><b>definition:</b> the base spec — <code>openapi</code> version, <code>info</code> (title,
+                        version) and <code>servers</code>.</li>
+                    <li><b>apis:</b> array of file paths/globs to scan for <code>@openapi</code> comments.</li>
+                    <li>Returns the complete OpenAPI spec object.</li>
+                </ul>
+            </li>
+            <li><b><code>swaggerUi.serve</code></b>: middleware that serves Swagger UI's static files.</li>
+            <li><b><code>swaggerUi.setup(spec)</code></b>
+                <ul class="pl">
+                    <li><b>spec:</b> the OpenAPI object to display.</li>
+                    <li>Returns middleware that renders the docs page.</li>
+                </ul>
+            </li>
+            <li><b><code>@openapi</code> comment keys:</b> <code>summary</code>, <code>parameters</code>
+                (<code>in</code>: path / query / header, <code>name</code>, <code>required</code>,
+                <code>schema</code>), <code>requestBody</code>, <code>responses</code>.</li>
+            <li>✅ <b>Output:</b> Open <code>http://localhost:3000/api-docs</code> to see and test the API.</li>
+        </ul>
+    </div>
+    <div class="marathi-box">
+        <b>मराठी सारांश (Swagger / OpenAPI):</b>
+        <ul class="pl" style="margin-bottom: 0;">
+            <li>API documentation = प्रत्येक endpoint ची माहिती (URL, method, params, body, response).</li>
+            <li><b>OpenAPI</b> = API describe करण्याचा standard format (YAML / JSON).</li>
+            <li><b>Swagger</b> = OpenAPI वर आधारित tools. आधी OpenAPI ला "Swagger Specification" म्हणत.</li>
+            <li><b>Swagger UI</b> मुळे browser मध्ये docs दिसतात.</li>
+            <li>Swagger UI मधूनच API ला request पाठवून test करता येते.</li>
+            <li><code>swagger-jsdoc</code> = comments मधून spec बनवतो.</li>
+            <li><code>swagger-ui-express</code> = ती spec <code>/api-docs</code> वर दाखवतो.</li>
+            <li>फायदा: frontend / mobile team ला काय पाठवायचे आणि काय मिळेल हे लगेच कळते.</li>
+        </ul>
+    </div>
+
+    <h3 id="chap-17-t24">Q. Standard API Response Format (Success &amp; Error)</h3>
+    <div class="def-box">
+        <b>Definition:</b>
+        <ul class="pl">
+            <li>A <b>standard response format</b> is one fixed JSON structure used by every endpoint of an API.</li>
+            <li>It is used for both success and error responses.</li>
+            <li>The client can then handle all responses with the same code.</li>
+            <li>A common structure: <code>{ success, data, error, meta }</code>.</li>
+            <li>The HTTP status code still tells the result.</li>
+            <li>The body adds details (data, error code, message, pagination info).</li>
+        </ul>
+    </div>
+    <div class="notes-box">
+        <ul class="pl">
+            <li><b>success:</b> <code>true</code> or <code>false</code>, a quick check for the client.</li>
+            <li><b>data:</b> the actual result (object or array). <code>null</code> on error.</li>
+            <li><b>error:</b> present only on failure.
+                <ul class="pl">
+                    <li><b>code:</b> a machine-readable code, e.g. <code>USER_NOT_FOUND</code>.</li>
+                    <li><b>message:</b> a human-readable message.</li>
+                    <li><b>details:</b> optional, e.g. field-wise validation errors.</li>
+                </ul>
+            </li>
+            <li><b>meta:</b> optional extra info, e.g. pagination (<code>page</code>, <code>limit</code>,
+                <code>total</code>).</li>
+            <li>Use consistent <b>camelCase</b> field names.</li>
+            <li>Use ISO-8601 dates (<code>2026-10-03T10:00:00Z</code>).</li>
+            <li>Never send stack traces or internal error messages to clients in production.</li>
+        </ul>
+    </div>
+    <div class="code-title">Code Example: Response Helpers + Global Error Handler</div>
+    <pre
+        style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
+// utils/response.js
+const ok = (res, data, meta, status = 200) =>
+  res.status(status).json({ success: true, data, ...(meta && { meta }) });
+
+const fail = (res, status, code, message, details) =>
+  res.status(status).json({ success: false, data: null, error: { code, message, details } });
+
+// routes
+app.get('/api/users', (req, res) => {
+  ok(res, users.slice(0, 10), { page: 1, limit: 10, total: users.length });
+});
+
+app.get('/api/users/:id', (req, res) => {
+  const user = users.find(u => u.id === Number(req.params.id));
+  if (!user) return fail(res, 404, 'USER_NOT_FOUND', 'User not found');
+  ok(res, user);
+});
+
+// global error handler (keep LAST)
+app.use((err, req, res, next) => {
+  console.error(err);
+  fail(res, err.status || 500, err.code || 'INTERNAL_ERROR', 'Something went wrong');
+});
+</pre>
+    <div class="code-title">Output: Success vs Error</div>
+    <pre
+        style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
+// 200 OK
+{ "success": true, "data": [ { "id": 1, "name": "Vishal" } ], "meta": { "page": 1, "limit": 10, "total": 2 } }
+
+// 404 Not Found
+{ "success": false, "data": null, "error": { "code": "USER_NOT_FOUND", "message": "User not found" } }
+</pre>
+    <div class="ex">
+        <ul class="pl">
+            <li><b>ok(res, data, meta, status):</b> sends a success response; <code>meta</code> is added only if
+                given.</li>
+            <li><b>fail(res, status, code, message, details):</b> sends an error response in the same shape.</li>
+            <li><b>Error handler <code>(err, req, res, next)</code>:</b> 4 arguments tell Express it is an error
+                middleware.</li>
+            <li>✅ <b>Advantage:</b> The frontend writes one response handler for the whole API.</li>
+            <li>⚠ <b>Note:</b> Do not return <code>200</code> with <code>success: false</code>. Always use the right
+                status code too.</li>
+        </ul>
+    </div>
+    <div class="marathi-box">
+        <b>मराठी सारांश (Standard Response Format):</b>
+        <ul class="pl" style="margin-bottom: 0;">
+            <li>प्रत्येक endpoint चा response एकाच आकाराचा (structure) असावा.</li>
+            <li>Structure: <code>{ success, data, error, meta }</code>.</li>
+            <li><b>success:</b> true / false.</li>
+            <li><b>data:</b> खरा result. Error असेल तर null.</li>
+            <li><b>error:</b> <code>code</code> (उदा. USER_NOT_FOUND) + <code>message</code>.</li>
+            <li><b>meta:</b> pagination सारखी अतिरिक्त माहिती.</li>
+            <li>योग्य HTTP status code पण पाठवा. Error ला 200 देऊ नका.</li>
+            <li>Production मध्ये stack trace client ला पाठवू नका.</li>
+            <li>फायदा: frontend ला सगळ्या APIs साठी एकच handling code लिहावा लागतो.</li>
+        </ul>
+    </div>
+
+    <h3 id="chap-17-t25">Q. Idempotency: POST vs PUT vs PATCH</h3>
+    <div class="def-box">
+        <b>Definition:</b>
+        <ul class="pl">
+            <li>An operation is <b>idempotent</b> if doing it <b>once or many times</b> has the <b>same effect</b> on
+                the server.</li>
+            <li>The response may differ (e.g. the second DELETE returns 404), but the server state stays the same.</li>
+            <li>A <b>safe</b> method does not change server state at all (GET, HEAD, OPTIONS).</li>
+            <li>Every safe method is idempotent, but not every idempotent method is safe (PUT, DELETE change data).</li>
+        </ul>
+    </div>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Idempotent?</th>
+            <th>Safe?</th>
+            <th>Why</th>
+        </tr>
+        <tr>
+            <td><b>GET</b></td>
+            <td>✅ Yes</td>
+            <td>✅ Yes</td>
+            <td>Only reads data.</td>
+        </tr>
+        <tr>
+            <td><b>POST</b></td>
+            <td>❌ No</td>
+            <td>❌ No</td>
+            <td>Each call creates a new resource (2 calls = 2 orders).</td>
+        </tr>
+        <tr>
+            <td><b>PUT</b></td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+            <td>Replaces the resource with the same full data every time.</td>
+        </tr>
+        <tr>
+            <td><b>PATCH</b></td>
+            <td>⚠ Depends</td>
+            <td>❌ No</td>
+            <td><code>set price=500</code> is idempotent; <code>increment stock by 1</code> is not.</td>
+        </tr>
+        <tr>
+            <td><b>DELETE</b></td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+            <td>Deleting user 5 twice still leaves user 5 deleted.</td>
+        </tr>
+    </table>
+    <div style="text-align: center; margin: 15px 0;">
+        <svg viewBox="0 0 660 200" style="max-width: 100%; height: auto;" xmlns="http://www.w3.org/2000/svg"
+            font-family="Segoe UI, sans-serif" font-size="12">
+            <text x="165" y="20" text-anchor="middle" font-weight="bold" font-size="14" fill="#c62828">POST /orders
+                × 3 (retry)</text>
+            <text x="495" y="20" text-anchor="middle" font-weight="bold" font-size="14" fill="#2e7d32">PUT /users/5
+                × 3 (retry)</text>
+            <rect x="20" y="40" width="80" height="34" rx="6" fill="#e3f2fd" stroke="#2196f3" />
+            <text x="60" y="62" text-anchor="middle">Request 1</text>
+            <rect x="20" y="84" width="80" height="34" rx="6" fill="#e3f2fd" stroke="#2196f3" />
+            <text x="60" y="106" text-anchor="middle">Request 2</text>
+            <rect x="20" y="128" width="80" height="34" rx="6" fill="#e3f2fd" stroke="#2196f3" />
+            <text x="60" y="150" text-anchor="middle">Request 3</text>
+            <rect x="200" y="40" width="110" height="34" rx="6" fill="#ffebee" stroke="#e53935" />
+            <text x="255" y="62" text-anchor="middle">Order #101</text>
+            <rect x="200" y="84" width="110" height="34" rx="6" fill="#ffebee" stroke="#e53935" />
+            <text x="255" y="106" text-anchor="middle">Order #102</text>
+            <rect x="200" y="128" width="110" height="34" rx="6" fill="#ffebee" stroke="#e53935" />
+            <text x="255" y="150" text-anchor="middle">Order #103</text>
+            <line x1="100" y1="57" x2="198" y2="57" stroke="#e53935" stroke-width="2" />
+            <line x1="100" y1="101" x2="198" y2="101" stroke="#e53935" stroke-width="2" />
+            <line x1="100" y1="145" x2="198" y2="145" stroke="#e53935" stroke-width="2" />
+            <text x="165" y="188" text-anchor="middle" fill="#c62828">❌ 3 duplicate orders (not idempotent)</text>
+            <line x1="330" y1="35" x2="330" y2="175" stroke="#ccc" stroke-dasharray="4,4" />
+            <rect x="350" y="40" width="80" height="34" rx="6" fill="#e3f2fd" stroke="#2196f3" />
+            <text x="390" y="62" text-anchor="middle">Request 1</text>
+            <rect x="350" y="84" width="80" height="34" rx="6" fill="#e3f2fd" stroke="#2196f3" />
+            <text x="390" y="106" text-anchor="middle">Request 2</text>
+            <rect x="350" y="128" width="80" height="34" rx="6" fill="#e3f2fd" stroke="#2196f3" />
+            <text x="390" y="150" text-anchor="middle">Request 3</text>
+            <rect x="520" y="76" width="125" height="50" rx="6" fill="#e8f5e9" stroke="#43a047" />
+            <text x="582" y="97" text-anchor="middle" font-weight="bold">User 5</text>
+            <text x="582" y="114" text-anchor="middle">{ name: "Vishal" }</text>
+            <line x1="430" y1="57" x2="518" y2="92" stroke="#43a047" stroke-width="2" />
+            <line x1="430" y1="101" x2="518" y2="101" stroke="#43a047" stroke-width="2" />
+            <line x1="430" y1="145" x2="518" y2="110" stroke="#43a047" stroke-width="2" />
+            <text x="495" y="188" text-anchor="middle" fill="#2e7d32">✅ Same final state (idempotent)</text>
+        </svg>
+        <div style="font-size: 0.85em; color: #666;">Figure: Retrying POST vs retrying PUT</div>
+    </div>
+    <div class="notes-box">
+        <ul class="pl">
+            <li><b>Why it matters:</b>
+                <ul class="pl">
+                    <li>Networks fail, and clients, proxies and mobile apps retry automatically.</li>
+                    <li>Retrying an idempotent request is safe.</li>
+                    <li>Retrying a POST can create duplicate orders or double-charge a customer.</li>
+                </ul>
+            </li>
+            <li><b>Fix for POST — the Idempotency-Key header:</b>
+                <ul class="pl">
+                    <li>The client generates a unique id (UUID) per action and sends it as
+                        <code>Idempotency-Key</code>.</li>
+                    <li>The server stores the key together with the result.</li>
+                    <li>A repeated key returns the saved result instead of creating a duplicate.</li>
+                    <li>Payment APIs like Stripe use this.</li>
+                    <li>A database version of this is shown in <a href="#chap-17-t6">REST API Best Practices</a>.</li>
+                </ul>
+            </li>
+            <li><b>Making PATCH idempotent:</b> send final values (<code>{ "stock": 10 }</code>), not operations
+                (<code>{ "increment": 1 }</code>).</li>
+        </ul>
+    </div>
+    <div class="code-title">Code Example: Idempotency-Key Middleware for POST</div>
+    <pre
+        style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
+const processed = new Map();               // use Redis / DB in production
+
+function idempotency(req, res, next) {
+  const key = req.get('Idempotency-Key');
+  if (!key) return next();                 // no key → normal behaviour
+
+  if (processed.has(key)) {                // retry → return saved result
+    const { status, body } = processed.get(key);
+    return res.status(status).json(body);
+  }
+
+  const originalJson = res.json.bind(res); // save the result when it is sent
+  res.json = (body) => {
+    processed.set(key, { status: res.statusCode, body });
+    return originalJson(body);
+  };
+  next();
+}
+
+app.post('/api/orders', idempotency, (req, res) => {
+  const order = { id: Date.now(), ...req.body };
+  res.status(201).json(order);
+});
+</pre>
+    <div class="ex">
+        <ul class="pl">
+            <li><b>What happens:</b> The first request with key <code>abc-1</code> creates the order and saves the
+                result.</li>
+            <li>A retry with the same key gets the <b>same order back</b>, and no new order is created.</li>
+            <li><b><code>res.json.bind(res)</code>:</b> keeps the original <code>res.json</code> so it can be called
+                after the result is saved.</li>
+            <li><b><code>res.statusCode</code>:</b> the status set earlier by <code>res.status()</code>.</li>
+            <li>⚠ <b>Note:</b> An in-memory <code>Map</code> is lost on restart and not shared between servers. Use
+                Redis with an expiry (e.g. 24 hours) in production.</li>
+        </ul>
+    </div>
+    <div class="marathi-box">
+        <b>मराठी सारांश (Idempotency):</b>
+        <ul class="pl" style="margin-bottom: 0;">
+            <li><b>Idempotent:</b> एकदा केले किंवा अनेकदा केले तरी server वरचा परिणाम same.</li>
+            <li><b>Safe:</b> server वरचा data अजिबात बदलत नाही (GET).</li>
+            <li><b>GET, PUT, DELETE</b> idempotent आहेत.</li>
+            <li><b>POST</b> idempotent नाही. दोनदा पाठवल्यास दोन orders बनतात.</li>
+            <li><b>PATCH</b> बदलावर अवलंबून: <code>price=500</code> idempotent, "stock 1 ने वाढवा" नाही.</li>
+            <li>Network fail झाल्यावर apps request पुन्हा पाठवतात (retry).</li>
+            <li>म्हणून payment सारख्या POST मध्ये duplicate होण्याचा धोका असतो.</li>
+            <li><b>उपाय:</b> <code>Idempotency-Key</code> header.</li>
+            <li>Server key सोबत result साठवतो. तीच key पुन्हा आली तर जुना result परत देतो.</li>
+            <li>Stripe सारख्या payment APIs हेच वापरतात.</li>
+        </ul>
+    </div>
 
     <h3 id="chap-17-1" style="border-bottom: 2px solid #2196f3; padding-bottom: 4px; margin-top: 35px;">📌 Advanced
         Routing & express.Router()</h3>
@@ -16628,6 +17571,50 @@ router.delete('/:userId', (req, res) => { /* req.user ready */ });
         <p style="margin: 5px 0 0 0;">Stateless means that the server does not remember anything about the client
             between requests. The client must include authentication tokens, IDs, and all required data in every single
             request.</p>
+        <br>
+        <b style="color: #e91e63;" id="chap-17-q3">Q3. When would you choose GraphQL over REST?</b>
+        <ul class="pl" style="margin-top: 5px;">
+            <li>When different clients (web, mobile) need different fields from the same data.</li>
+            <li>When one screen needs data from many resources (avoids under-fetching).</li>
+            <li>When reducing network data matters, e.g. mobile apps on slow networks.</li>
+            <li>Choose REST for simple CRUD, public APIs and when HTTP caching is important.</li>
+        </ul>
+        <br>
+        <b style="color: #e91e63;" id="chap-17-q4">Q4. What is the difference between 401 and 403?</b>
+        <ul class="pl" style="margin-top: 5px;">
+            <li><b>401 Unauthorized:</b> the server does not know who you are (missing / invalid credentials).</li>
+            <li><b>403 Forbidden:</b> the server knows who you are, but you are not allowed to do this.</li>
+        </ul>
+        <br>
+        <b style="color: #e91e63;" id="chap-17-q5">Q5. Is Base64 in Basic Auth secure?</b>
+        <ul class="pl" style="margin-top: 5px;">
+            <li>No. Base64 is encoding, not encryption.</li>
+            <li>Anyone who sees the header can decode the username and password.</li>
+            <li>Basic Auth is acceptable only over HTTPS, and only for simple internal use.</li>
+        </ul>
+        <br>
+        <b style="color: #e91e63;" id="chap-17-q6">Q6. Is OAuth 2.0 authentication or authorization?</b>
+        <ul class="pl" style="margin-top: 5px;">
+            <li>OAuth 2.0 is an <b>authorization</b> framework (delegated access with scopes).</li>
+            <li>For login (authentication), <b>OpenID Connect (OIDC)</b> is added on top of OAuth 2.0.</li>
+            <li>"Login with Google" uses OIDC, which returns an <b>ID token</b> with user identity.</li>
+        </ul>
+        <br>
+        <b style="color: #e91e63;" id="chap-17-q7">Q7. Which HTTP methods are idempotent, and how do you make POST
+            safe to retry?</b>
+        <ul class="pl" style="margin-top: 5px;">
+            <li>Idempotent: GET, HEAD, OPTIONS, PUT, DELETE.</li>
+            <li>Not idempotent: POST. PATCH depends on the change.</li>
+            <li>Make POST safe to retry with an <code>Idempotency-Key</code> header.</li>
+            <li>The server stores the key and returns the saved result on a retry.</li>
+        </ul>
+        <br>
+        <b style="color: #e91e63;" id="chap-17-q8">Q8. Why use a standard response format?</b>
+        <ul class="pl" style="margin-top: 5px;">
+            <li>The client handles every endpoint with the same code.</li>
+            <li>Machine-readable error codes let the frontend show the right message.</li>
+            <li>It makes the API predictable and easier to document.</li>
+        </ul>
     </div>
 
     <div class="marathi-box">
