@@ -134,6 +134,33 @@
         th {
             background-color: #f2f2f2;
         }
+
+        /* ---------- Master Index ---------- */
+        .toc h2 { border-bottom: 2px solid #2c3e50; padding-bottom: 6px; }
+        .toc-meta { color: #666; font-size: 0.9em; margin-top: -6px; }
+        .toc a { color: #1a5fa0; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .toc-quick { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; margin: 16px 0 24px; font-size: 0.9em; align-items: start; }
+        .toc-quick > div { background: #fff; border: 1px solid #e3e7ec; border-top: 3px solid #2c3e50; border-radius: 6px; padding: 10px 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+        .toc-quick b { display: block; color: #2c3e50; font-size: 0.78em; letter-spacing: .05em; padding-bottom: 6px; margin-bottom: 4px; border-bottom: 1px solid #eee; }
+        .toc-quick a { display: flex; gap: 8px; padding: 3px 4px; border-radius: 4px; line-height: 1.35; }
+        .toc-quick a:hover { background: #eef4fb; text-decoration: none; }
+        .toc-quick span { flex: 0 0 2.4em; color: #888; font-variant-numeric: tabular-nums; }
+        .toc-num { display: inline-block; min-width: 2.6em; color: #888; font-variant-numeric: tabular-nums; }
+        .toc-section { background: #2c3e50; color: #fff !important; padding: 8px 14px; border-radius: 5px; margin: 28px 0 8px; font-size: 1em; letter-spacing: .03em; }
+        .toc-chap { border-bottom: 1px solid #e5e5e5; }
+        .toc-chap summary { cursor: pointer; padding: 8px 4px; font-weight: 600; }
+        .toc-chap summary:hover { background: #f5f7fa; }
+        .toc-chap summary small { float: right; font-weight: normal; color: #999; }
+        .toc-body { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; padding: 4px 8px 14px 3.2em; font-size: 0.9em; }
+        .toc-body i { color: #666; font-size: 0.85em; text-transform: uppercase; letter-spacing: .05em; font-style: normal; }
+        .toc-body ol { margin: 4px 0 0; padding-left: 22px; }
+        .toc-body li { margin: 2px 0; }
+        .toc-sub { list-style: none; margin: 8px 0 2px -22px !important; }
+        .toc-top { position: fixed; right: 18px; bottom: 18px; background: #2c3e50; color: #fff; padding: 8px 14px;
+            border-radius: 20px; text-decoration: none; font-size: 0.85em; box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+        @media (max-width: 640px) { .toc-body { grid-template-columns: 1fr; padding-left: 8px; } .toc-chap summary small { display: none; } }
+        @media print { .toc-top, .toc-meta a { display: none; } .toc-chap > .toc-body { display: grid !important; } }
     </style>
 </head>
 
@@ -141,16 +168,85 @@
     <h1 style="text-align: center; font-size: 2.5em; border-bottom: 2px solid #2c3e50; padding-bottom: 10px;">Node.js
         Master Notes</h1>
 
-    <h2>Master Index</h2>
-    <table>
-        <tr>
-            <th>Topic</th>
-            <th>Chapter</th>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-1">Introduction to Node.js</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+    <nav id="master-index" class="toc">
+        <h2>Master Index</h2>
+        <p class="toc-meta">41 chapters · 309 topics · 177 interview questions
+            &nbsp;|&nbsp; <a href="#" onclick="document.querySelectorAll('.toc-chap').forEach(d=>d.open=true);return false;">Expand all</a>
+            · <a href="#" onclick="document.querySelectorAll('.toc-chap').forEach(d=>d.open=false);return false;">Collapse all</a></p>
+
+        <div class="toc-quick">
+            <div><b>FUNDAMENTALS</b>
+                <a href="#chap-1"><span>1</span> Introduction to Node.js</a>
+                <a href="#chap-1-1"><span>1.1</span> Framework vs Runtime Environment</a>
+                <a href="#chap-1-5"><span>1.5</span> Project Setup & package.json</a>
+                <a href="#chap-2"><span>2</span> Node.js REPL</a>
+                <a href="#chap-3"><span>3</span> Global Object & globalThis</a>
+                <a href="#chap-4"><span>4</span> Module System in Node.js</a>
+                <a href="#chap-5"><span>5</span> require() vs import</a>
+                <a href="#chap-6"><span>6</span> The process Object</a>
+            </div>
+            <div><b>CORE MODULES</b>
+                <a href="#chap-7"><span>7</span> The Path Module</a>
+                <a href="#chap-8"><span>8</span> The OS Module</a>
+                <a href="#chap-9"><span>9</span> The FS Module (File System)</a>
+                <a href="#chap-9-5"><span>9.5</span> The Timers Module</a>
+                <a href="#chap-10"><span>10</span> The Buffer Module</a>
+                <a href="#chap-10-5"><span>10.5</span> The URL Module</a>
+                <a href="#chap-10-6"><span>10.6</span> The HTTP Module & Routing</a>
+                <a href="#chap-10-8"><span>10.8</span> The Readline Module & Debugging</a>
+                <a href="#chap-11"><span>11</span> The Events Module</a>
+                <a href="#chap-12"><span>12</span> The Stream Module</a>
+                <a href="#chap-13"><span>13</span> The Crypto Module</a>
+            </div>
+            <div><b>PACKAGE MANAGEMENT & WEB SERVERS</b>
+                <a href="#chap-14"><span>14</span> Web Server, Routing & APIs (HTTP)</a>
+            </div>
+            <div><b>EXPRESS.JS FRAMEWORK</b>
+                <a href="#chap-15"><span>15</span> Express.js Basics & Routing</a>
+                <a href="#chap-16"><span>16</span> Template Engines (HBS) & Partials</a>
+            </div>
+            <div><b>RESTful APIs</b>
+                <a href="#chap-17"><span>17</span> RESTful APIs & Express Router</a>
+            </div>
+            <div><b>NODE.JS INTERNAL ARCHITECTURE</b>
+                <a href="#chap-18"><span>18</span> Architecture: V8, Event Loop & Concurrency</a>
+                <a href="#chap-18-5"><span>18.5</span> Control Flow & Event-Driven Programming</a>
+                <a href="#chap-19"><span>19</span> Networking: DNS, IP, TCP & HTTP Flow</a>
+                <a href="#chap-20"><span>20</span> Encoding & Data Representation</a>
+            </div>
+            <div><b>ADVANCED WEB PATTERNS</b>
+                <a href="#chap-21"><span>21</span> State Management (Cookies & Sessions)</a>
+                <a href="#chap-22"><span>22</span> MVC Architecture</a>
+            </div>
+            <div><b>ESSENTIAL SECURITY & CONFIGURATION</b>
+                <a href="#chap-23"><span>23</span> Environment Variables (dotenv)</a>
+                <a href="#chap-24"><span>24</span> CORS (Cross-Origin Resource Sharing)</a>
+                <a href="#chap-25"><span>25</span> Authentication & Password Hashing</a>
+            </div>
+            <div><b>ADVANCED EXPRESS & PERFORMANCE</b>
+                <a href="#chap-26"><span>26</span> File Uploads (Multer)</a>
+                <a href="#chap-27"><span>27</span> Global Error Handling</a>
+                <a href="#chap-28"><span>28</span> Child Processes & Worker Threads</a>
+                <a href="#chap-29"><span>29</span> Process Management (PM2)</a>
+            </div>
+            <div><b>EXTERNAL MODULES & UTILITIES</b>
+                <a href="#chap-30"><span>30</span> Sending Emails (Nodemailer)</a>
+            </div>
+            <div><b>SECURITY, REAL-TIME & PRODUCTION HEALTH</b>
+                <a href="#chap-31"><span>31</span> Security Basics (Helmet, Rate Limiting, Validation, XSS, Injection)</a>
+                <a href="#chap-32"><span>32</span> WebSockets & Socket.io (Real-Time)</a>
+                <a href="#chap-33"><span>33</span> Logging (console, morgan, winston, pino)</a>
+                <a href="#chap-34"><span>34</span> Memory Leaks in Node.js</a>
+            </div>
+        </div>
+
+        <h3 class="toc-section">SECTION 1: FUNDAMENTALS</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">1</span> <a href="#chap-1">Introduction to Node.js</a>
+                <small>17 topics · 5 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-1-t1">What is a Runtime Environment?</a></li>
                         <li><a href="#chap-1-t2">Why is Node.js called a server-side runtime?</a></li>
                         <li><a href="#chap-1-t3">How Does Node.js Enable JavaScript on the Server Side?</a></li>
@@ -170,8 +266,8 @@
                         <li><a href="#chap-1-t17">Server Architecture with Node.js</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-1-q1">Is Node.js truly single-threaded?</a></li>
                         <li><a href="#chap-1-q2">What is the difference between blocking and non-blocking I/O?</a></li>
                         <li><a href="#chap-1-q3">Why does Node.js not have a window object?</a></li>
@@ -179,47 +275,46 @@
                         <li><a href="#chap-1-q5">What are the common types of errors in programming?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-1">Chapter 1</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-1-1">Framework vs Runtime Environment</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">1.1</span> <a href="#chap-1-1">Framework vs Runtime Environment</a>
+                <small>3 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-1-1-t1">What is the role of the framework?</a></li>
-                        <li><a href="#chap-1-1-t2">What are differences between framework and runtime environment?</a>
-                        </li>
+                        <li><a href="#chap-1-1-t2">What are differences between framework and runtime environment?</a> </li>
                         <li><a href="#chap-1-1-t3">Differences between Node.js and Express.js?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-1-1-q1">Is Node.js a framework or a language?</a></li>
                         <li><a href="#chap-1-1-q2">What is a library vs a framework?</a></li>
                         <li><a href="#chap-1-1-q3">Can you build a server without Express?</a></li>
                         <li><a href="#chap-1-1-q4">Name some other Node.js frameworks.</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-1-1">Chapter 1.1</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-1-5">Project Setup & package.json</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">1.5</span> <a href="#chap-1-5">Project Setup & package.json</a>
+                <small>15 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-1-5-t1">What is a Package in Node.js?</a></li>
                         <li><a href="#chap-1-5-t2">What are npm and Yarn?</a></li>
                         <li><a href="#chap-1-5-t3">What is pnpm?</a></li>
                         <li><a href="#chap-1-5-t4">How to Setup a New Node.js Project (Step-by-Step)?</a></li>
                         <li><a href="#chap-1-5-t5">How to Setup Node.js with TypeScript (Step-by-Step)?</a></li>
-                        <li><a href="#chap-1-5-t6">Difference between `tsx` and `ts-node` (Why we use `tsx` now?)</a>
-                        </li>
+                        <li><a href="#chap-1-5-t6">Difference between `tsx` and `ts-node` (Why we use `tsx` now?)</a> </li>
                         <li><a href="#chap-1-5-t7">What is `package.json`?</a></li>
                         <li><a href="#chap-1-5-t8">What is `package-lock.json`?</a></li>
                         <li><a href="#chap-1-5-t9">Dependencies vs DevDependencies</a></li>
                         <li><a href="#chap-1-5-t10">NPM Scripts</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-1-5-npm"><b>📌
-                                    Node Package Manager (NPM) &amp; Versioning</b></a></li>
+                        <li class="toc-sub"><a href="#chap-1-5-npm"><b>📌 Node Package Manager (NPM) &amp; Versioning</b></a></li>
                         <li><a href="#chap-1-5-t11">Difference between package.json and package-lock.json?</a></li>
                         <li><a href="#chap-1-5-t12">What is the node_modules folder?</a></li>
                         <li><a href="#chap-1-5-t13">Semantic Versioning (SemVer) in Node.js</a></li>
@@ -227,21 +322,22 @@
                         <li><a href="#chap-1-5-t15">LTS vs Current Version in Node.js</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-1-5-q1">Should we upload the node_modules folder to GitHub?</a></li>
                         <li><a href="#chap-1-5-q2">What is the difference between npm install and npm ci?</a></li>
                         <li><a href="#chap-1-5-q3">What is npm audit?</a></li>
                         <li><a href="#chap-1-5-q4">What is the nodemon package and how is it used?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-1-5">Chapter 1.5</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-2">Node.js REPL</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">2</span> <a href="#chap-2">Node.js REPL</a>
+                <small>5 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-2-t1">What is REPL?</a></li>
                         <li><a href="#chap-2-t2">Important Features of REPL</a></li>
                         <li><a href="#chap-2-t3">When to use REPL?</a></li>
@@ -249,52 +345,48 @@
                         <li><a href="#chap-2-t5">Special REPL Commands</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-2-q1">What happens if you write a multi-line function in REPL?</a></li>
                         <li><a href="#chap-2-q2">How can you clear an ongoing command if you made a mistake?</a></li>
                         <li><a href="#chap-2-q3">Is REPL available in the browser console?</a></li>
                         <li><a href="#chap-2-q4">How do you save your experimentation in REPL to a file?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-2">Chapter 2</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-3">Global Object & globalThis</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">3</span> <a href="#chap-3">Global Object & globalThis</a>
+                <small>6 topics · 6 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-3-t1">Why Node.js does not have a window object?</a></li>
                         <li><a href="#chap-3-t2">What is the use of the globalThis keyword?</a></li>
                         <li><a href="#chap-3-t3">globalThis vs Global Scope</a></li>
-                        <li><a href="#chap-3-t4">How to access a variable globally without using export and import?</a>
-                        </li>
+                        <li><a href="#chap-3-t4">How to access a variable globally without using export and import?</a> </li>
                         <li><a href="#chap-3-t5">Should we use global variables (globalThis) for everything?</a></li>
                         <li><a href="#chap-3-t6">The process Object</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-3-q1">What is the difference between global and globalThis in Node.js?</a>
-                        </li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-3-q1">What is the difference between global and globalThis in Node.js?</a> </li>
                         <li><a href="#chap-3-q2">Why is attaching data to globalThis considered a bad practice?</a></li>
-                        <li><a href="#chap-3-q3">If I start two terminal windows and run node app.js in both, do they
-                                share globalThis.data?</a></li>
-                        <li><a href="#chap-3-q4">How do you find the current directory path where a Node script was
-                                executed?</a></li>
-                        <li><a href="#chap-3-q5">TRAP QUESTION: Are `__dirname`, `__filename`, and `require` part of the
-                                Global Object?</a></li>
-                        <li><a href="#chap-3-q6">What is the exact difference between `__dirname` and
-                                `process.cwd()`?</a></li>
+                        <li><a href="#chap-3-q3">If I start two terminal windows and run node app.js in both, do they share globalThis.data?</a></li>
+                        <li><a href="#chap-3-q4">How do you find the current directory path where a Node script was executed?</a></li>
+                        <li><a href="#chap-3-q5">TRAP QUESTION: Are `__dirname`, `__filename`, and `require` part of the Global Object?</a></li>
+                        <li><a href="#chap-3-q6">What is the exact difference between `__dirname` and `process.cwd()`?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-3">Chapter 3</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-4">Module System in Node.js</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">4</span> <a href="#chap-4">Module System in Node.js</a>
+                <small>8 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-4-t1">What is a Module System in Node.js?</a></li>
                         <li><a href="#chap-4-t2">Why do we need Modules?</a></li>
                         <li><a href="#chap-4-t3">What are the Types of Modules in Node.js?</a></li>
@@ -305,31 +397,28 @@
                         <li><a href="#chap-4-t8">How do ESM modules handle the `module` object?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-4-q1">What is the difference between `module.exports` and `exports`?</a></li>
-                        <li><a href="#chap-4-q2">Are variables in a module automatically available in the global
-                                scope?</a></li>
-                        <li><a href="#chap-4-q3">What happens if I `require()` the same module in two different files?
-                                Does it execute twice?</a></li>
-                        <li><a href="#chap-4-q4">How do you find the directory name of the current file in CommonJS vs
-                                ESM?</a></li>
+                        <li><a href="#chap-4-q2">Are variables in a module automatically available in the global scope?</a></li>
+                        <li><a href="#chap-4-q3">What happens if I `require()` the same module in two different files? Does it execute twice?</a></li>
+                        <li><a href="#chap-4-q4">How do you find the directory name of the current file in CommonJS vs ESM?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-4">Chapter 4</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-5">require() vs import</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">5</span> <a href="#chap-5">require() vs import</a>
+                <small>11 topics · 5 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-5-t1">What is require()?</a></li>
                         <li><a href="#chap-5-t2">How does require() resolve and load a module? (Module Cache)</a></li>
                         <li><a href="#chap-5-t3">require() Local File Extension</a></li>
                         <li><a href="#chap-5-t4">What is import? (ES Modules)</a></li>
                         <li><a href="#chap-5-t5">How to enable ESM in Node.js?</a></li>
-                        <li><a href="#chap-5-t6">require() vs static import vs dynamic import() (Detailed
-                                Differences)</a></li>
+                        <li><a href="#chap-5-t6">require() vs static import vs dynamic import() (Detailed Differences)</a></li>
                         <li><a href="#chap-5-t7">Comparison Table: require() vs import vs import()</a></li>
                         <li><a href="#chap-5-t8">Tree Shaking vs Minification</a></li>
                         <li><a href="#module-wrapper">The Module Wrapper Function (IIFE)</a></li>
@@ -337,8 +426,8 @@
                         <li><a href="#cjs-vs-esm-practical">Practical Equivalents: CommonJS vs ES Modules (ESM)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-5-q1">What is require()?</a></li>
                         <li><a href="#chap-5-q2">What is the difference between require() and import?</a></li>
                         <li><a href="#chap-5-q3">What is import() (with parenthesis)?</a></li>
@@ -346,13 +435,14 @@
                         <li><a href="#chap-5-q5">Does import automatically perform tree shaking?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-5">Chapter 5</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-6">The process Object</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">6</span> <a href="#chap-6">The process Object</a>
+                <small>13 topics · 5 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-6-t1">What is process in Node.js?</a></li>
                         <li><a href="#chap-6-t2">Important Process Properties (pid, platform, arch, versions)</a></li>
                         <li><a href="#chap-6-t3">Command-line Arguments: argv vs execArgv vs argv0</a></li>
@@ -365,32 +455,28 @@
                         <li><a href="#chap-6-t10">Process Events &amp; Signals</a></li>
                         <li><a href="#chap-6-t11">What is Graceful Shutdown?</a></li>
                         <li><a href="#chap-6-t12">Process Scheduling &amp; IPC</a></li>
-                        <li><a href="#chap-6-t13">How to Take Input from the Terminal? (process.stdin &amp;
-                                readline)</a></li>
+                        <li><a href="#chap-6-t13">How to Take Input from the Terminal? (process.stdin &amp; readline)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-6-q1">What is the difference between `process.cwd()` and `__dirname`?</a>
-                        </li>
-                        <li><a href="#chap-6-q2">What is the difference between `process.argv` and
-                                `process.execArgv`?</a></li>
-                        <li><a href="#chap-6-q3">What is the difference between `process.exit()` and
-                                `process.exitCode`?</a></li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-6-q1">What is the difference between `process.cwd()` and `__dirname`?</a> </li>
+                        <li><a href="#chap-6-q2">What is the difference between `process.argv` and `process.execArgv`?</a></li>
+                        <li><a href="#chap-6-q3">What is the difference between `process.exit()` and `process.exitCode`?</a></li>
                         <li><a href="#chap-6-q4">What is the difference between `exit` and `beforeExit` events?</a></li>
                         <li><a href="#chap-6-q5">Process Object vs Module Object?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-6">Chapter 6</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 2: CORE MODULES</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-7">The Path Module</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 2: CORE MODULES</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">7</span> <a href="#chap-7">The Path Module</a>
+                <small>5 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-7-t1">What are Core Modules (Built-in Modules) in Node.js?</a></li>
                         <li><a href="#chap-7-t2">What is the path Module?</a></li>
                         <li><a href="#chap-7-t3">Why do you need the path module?</a></li>
@@ -398,45 +484,44 @@
                         <li><a href="#chap-7-t5">Important Methods of the path Module</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-7-q1">What is the difference between `path.join()` and `path.resolve()`?</a>
-                        </li>
-                        <li><a href="#chap-7-q2">Why should we use `path.join()` instead of string concatenation (e.g.
-                                `dir + '/' + file`)?</a></li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-7-q1">What is the difference between `path.join()` and `path.resolve()`?</a> </li>
+                        <li><a href="#chap-7-q2">Why should we use `path.join()` instead of string concatenation (e.g. `dir + '/' + file`)?</a></li>
                         <li><a href="#chap-7-q3">What does `path.normalize()` do?</a></li>
                         <li><a href="#chap-7-q4">Are core modules installed via npm?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-7">Chapter 7</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-8">The OS Module</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">8</span> <a href="#chap-8">The OS Module</a>
+                <small>4 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-8-t1">What is the OS module in Node.js?</a></li>
                         <li><a href="#chap-8-t2">Important OS Module Methods (Memory &amp; CPU)</a></li>
                         <li><a href="#chap-8-t3">OS Identity &amp; User Info</a></li>
                         <li><a href="#chap-8-t4">Directories, Network &amp; Process Priority</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-8-q1">What is the difference between `os.platform()` and `os.type()`?</a>
-                        </li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-8-q1">What is the difference between `os.platform()` and `os.type()`?</a> </li>
                         <li><a href="#chap-8-q2">How do you find the total amount of RAM in GB?</a></li>
                         <li><a href="#chap-8-q3">How do you get the number of CPU cores in Node.js?</a></li>
                         <li><a href="#chap-8-q4">What does `os.loadavg()` return on Windows?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-8">Chapter 8</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-9">The FS Module (File System)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">9</span> <a href="#chap-9">The FS Module (File System)</a>
+                <small>8 topics · 9 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-9-t1">What is the fs module in Node.js?</a></li>
                         <li><a href="#chap-9-t2">Synchronous vs Asynchronous (The "Parallel" Misconception)</a></li>
                         <li><a href="#chap-9-t3">All 3 API Styles — Complete Examples for Every Method</a></li>
@@ -447,52 +532,47 @@
                         <li><a href="#chap-9-t8">Important Attributes (Options) in FS Module</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-9-q1">What is the difference between `fs.writeFileSync()` and
-                                `fs.appendFileSync()`?</a></li>
-                        <li><a href="#chap-9-q2">Why is asynchronous file execution preferred in Node.js servers?</a>
-                        </li>
-                        <li><a href="#chap-9-q3">What is the difference between `fs.unlinkSync()` and
-                                `fs.rmdirSync()`?</a></li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-9-q1">What is the difference between `fs.writeFileSync()` and `fs.appendFileSync()`?</a></li>
+                        <li><a href="#chap-9-q2">Why is asynchronous file execution preferred in Node.js servers?</a> </li>
+                        <li><a href="#chap-9-q3">What is the difference between `fs.unlinkSync()` and `fs.rmdirSync()`?</a></li>
                         <li><a href="#chap-9-q4">What is "Callback Hell" and how do you solve it in fs module?</a></li>
-                        <li><a href="#chap-9-q5">What is the difference between `fs.readFileSync` and
-                                `fs.createReadStream`? Which is better for large files?</a></li>
-                        <li><a href="#chap-9-q6">What is `ENOENT` error and how do you handle file errors properly?</a>
-                        </li>
+                        <li><a href="#chap-9-q5">What is the difference between `fs.readFileSync` and `fs.createReadStream`? Which is better for large files?</a></li>
+                        <li><a href="#chap-9-q6">What is `ENOENT` error and how do you handle file errors properly?</a> </li>
                         <li><a href="#chap-9-q7">What are `fs.writeFile` flag options and what does each do?</a></li>
                         <li><a href="#chap-9-q8">How do you watch a file for changes in Node.js?</a></li>
-                        <li><a href="#chap-9-q9">Promise-based `fs/promises` vs Callback-based `fs` — Which is better
-                                and why?</a></li>
+                        <li><a href="#chap-9-q9">Promise-based `fs/promises` vs Callback-based `fs` — Which is better and why?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-9">Chapter 9</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-9-5">The Timers Module</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">9.5</span> <a href="#chap-9-5">The Timers Module</a>
+                <small>4 topics · 2 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-9-5-t1">What is the Timers Module in Node.js?</a></li>
                         <li><a href="#chap-9-5-t2">1. setTimeout()</a></li>
                         <li><a href="#chap-9-5-t3">2. setInterval()</a></li>
                         <li><a href="#chap-9-5-t4">3. setImmediate()</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-9-5-q1">What is the difference between `setTimeout(..., 0)` and
-                                `setImmediate()`?</a></li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-9-5-q1">What is the difference between `setTimeout(..., 0)` and `setImmediate()`?</a></li>
                         <li><a href="#chap-9-5-q2">Is Node.js `setTimeout` guaranteed to run exactly on time?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-9-5">Chapter 9.5</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-10">The Buffer Module</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">10</span> <a href="#chap-10">The Buffer Module</a>
+                <small>5 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-10-t1">What is a Buffer in Node.js?</a></li>
                         <li><a href="#chap-10-t2">Key Characteristics of a Buffer</a></li>
                         <li><a href="#chap-10-t3">Methods to Create a Buffer</a></li>
@@ -500,23 +580,22 @@
                         <li><a href="#chap-10-t5">Other Important Buffer Operations</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-10-q1">What is the difference between `Buffer.alloc()` and
-                                `Buffer.allocUnsafe()`?</a></li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-10-q1">What is the difference between `Buffer.alloc()` and `Buffer.allocUnsafe()`?</a></li>
                         <li><a href="#chap-10-q2">Are Buffers mutable or immutable?</a></li>
                         <li><a href="#chap-10-q3">Is a Buffer an Array?</a></li>
-                        <li><a href="#chap-10-q4">What is the relationship between Buffers and Streams? (Missing
-                                Important Concept)</a></li>
+                        <li><a href="#chap-10-q4">What is the relationship between Buffers and Streams? (Missing Important Concept)</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-10">Chapter 10</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-10-5">The URL Module</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">10.5</span> <a href="#chap-10-5">The URL Module</a>
+                <small>5 topics · 3 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-10-5-t1">What is the URL Module?</a></li>
                         <li><a href="#chap-10-5-t2">The Global URL Class</a></li>
                         <li><a href="#chap-10-5-t3">Important Properties of URL Object</a></li>
@@ -524,21 +603,21 @@
                         <li><a href="#chap-10-5-t5">Legacy url Module vs Modern API</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-10-5-q1">Do we need to require the URL module to parse URLs?</a></li>
                         <li><a href="#chap-10-5-q2">What is the difference between host and hostname?</a></li>
-                        <li><a href="#chap-10-5-q3">What is the difference between "Query Parameters", url.search, and
-                                url.searchParams?</a></li>
+                        <li><a href="#chap-10-5-q3">What is the difference between "Query Parameters", url.search, and url.searchParams?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-10-5">Chapter 10.5</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-10-6">The HTTP Module & Routing</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">10.6</span> <a href="#chap-10-6">The HTTP Module & Routing</a>
+                <small>8 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-10-6-t1">What is the HTTP Module?</a></li>
                         <li><a href="#chap-10-6-t2">Essential Methods &amp; Properties Breakdown</a></li>
                         <li><a href="#chap-10-6-t3">What is the writeHead() Method in Node.js?</a></li>
@@ -546,45 +625,46 @@
                         <li><a href="#chap-10-6-t5">What is Routing in Node.js?</a></li>
                         <li><a href="#chap-10-6-t6">How to Read Request Body (POST Data) in HTTP?</a></li>
                         <li><a href="#chap-10-6-t7">How to Send a Response back to the Client?</a></li>
-                        <li><a href="#chap-10-6-t8">How to Parse a JSON Request Body &amp; Send a JSON Response?</a>
-                        </li>
+                        <li><a href="#chap-10-6-t8">How to Parse a JSON Request Body &amp; Send a JSON Response?</a> </li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-10-6-q1">http.createServer() vs app.listen()?</a></li>
                         <li><a href="#chap-10-6-q2">Why must you call res.end()?</a></li>
                         <li><a href="#chap-10-6-q3">How do you read a POST body with the core http module?</a></li>
                         <li><a href="#chap-10-6-q4">res.writeHead() vs res.setHeader()?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-10-6">Chapter 10.6</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-10-8">The Readline Module & Debugging</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">10.8</span> <a href="#chap-10-8">The Readline Module & Debugging</a>
+                <small>3 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-10-8-t1">Debugging Node.js in VS Code</a></li>
                         <li><a href="#chap-10-8-t2">What is the Readline module in Node.js?</a></li>
                         <li><a href="#chap-10-8-t3">Difference: rl.question() vs rl.prompt()</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-10-8-q1">Why does my readline program never exit?</a></li>
                         <li><a href="#chap-10-8-q2">How do you read a large file line by line?</a></li>
                         <li><a href="#chap-10-8-q3">console.log vs debugger?</a></li>
                         <li><a href="#chap-10-8-q4">What is the difference between --inspect and --inspect-brk?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-10-8">Chapter 10.8</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-11">The Events Module</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">11</span> <a href="#chap-11">The Events Module</a>
+                <small>13 topics · 5 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-11-t1">What is the Events Module in Node.js?</a></li>
                         <li><a href="#chap-11-t2">What are Events in Node.js?</a></li>
                         <li><a href="#chap-11-t3">How Do Events Work in Node.js? (Components)</a></li>
@@ -597,31 +677,27 @@
                         <li><a href="#chap-11-t10">Essential EventEmitter Methods</a></li>
                         <li><a href="#chap-11-t11">PRO TIP 1: The special 'error' Event (Crash Risk!)</a></li>
                         <li><a href="#chap-11-t12">PRO TIP 2: Extending EventEmitter (Real-World Use)</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-11-5"><b>📌
-                                    EventEmitter vs Pub-Sub Pattern</b></a></li>
-                        <li><a href="#chap-11-t13">Difference between EventEmitter and Pub-Sub
-                                (Publisher-Subscriber)?</a></li>
+                        <li class="toc-sub"><a href="#chap-11-5"><b>📌 EventEmitter vs Pub-Sub Pattern</b></a></li>
+                        <li><a href="#chap-11-t13">Difference between EventEmitter and Pub-Sub (Publisher-Subscriber)?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-11-q1">⚡ Short Interview Answer — Q. What is EventEmitter in Node.js?</a>
-                        </li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-11-q1">⚡ Short Interview Answer — Q. What is EventEmitter in Node.js?</a> </li>
                         <li><a href="#chap-11-q2">What happens if you trigger `.emit()` before setting `.on()`?</a></li>
                         <li><a href="#chap-11-q3">What is the difference between `.on()` and `.once()`?</a></li>
-                        <li><a href="#chap-11-q4">What happens if an EventEmitter throws an 'error' event without a
-                                listener?</a></li>
-                        <li><a href="#chap-11-q5">What happens if multiple listeners are attached to the same event? Is
-                                there a limit?</a></li>
+                        <li><a href="#chap-11-q4">What happens if an EventEmitter throws an 'error' event without a listener?</a></li>
+                        <li><a href="#chap-11-q5">What happens if multiple listeners are attached to the same event? Is there a limit?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-11">Chapter 11</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-12">The Stream Module</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">12</span> <a href="#chap-12">The Stream Module</a>
+                <small>7 topics · 6 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-12-t1">What is a Stream in Node.js?</a></li>
                         <li><a href="#chap-12-t2">4 Types of Streams (In Detail)</a></li>
                         <li><a href="#chap-12-t3">Common Stream Events (Detailed Explanation)</a></li>
@@ -631,8 +707,8 @@
                         <li><a href="#chap-12-t7">What is stream.pipeline()? (Better than .pipe())</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-12-q1">Why are Streams preferred over `fs.readFile` for large files?</a></li>
                         <li><a href="#chap-12-q2">Can we pipe a Writable stream into a Readable stream?</a></li>
                         <li><a href="#chap-12-q3">What is a Duplex stream vs a Transform stream?</a></li>
@@ -641,13 +717,14 @@
                         <li><a href="#chap-12-q6">Why use pipeline() instead of .pipe()?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-12">Chapter 12</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-13">The Crypto Module</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">13</span> <a href="#chap-13">The Crypto Module</a>
+                <small>9 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-13-t1">What is the Crypto module in Node.js?</a></li>
                         <li><a href="#chap-13-t2">Important Cryptographic Concepts</a></li>
                         <li><a href="#chap-13-t3">Encryption vs Hashing</a></li>
@@ -659,25 +736,24 @@
                         <li><a href="#chap-13-t9">Full Usage Example: Symmetric Encryption (AES-256)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-13-q1">Hashing vs encryption vs encoding?</a></li>
                         <li><a href="#chap-13-q2">Why use crypto.randomBytes instead of Math.random?</a></li>
                         <li><a href="#chap-13-q3">What is HMAC used for?</a></li>
                         <li><a href="#chap-13-q4">Why does AES need an IV?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-13">Chapter 13</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 3: PACKAGE MANAGEMENT
-                & WEB SERVERS</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-14">Web Server, Routing & APIs (HTTP)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 3: PACKAGE MANAGEMENT & WEB SERVERS</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">14</span> <a href="#chap-14">Web Server, Routing & APIs (HTTP)</a>
+                <small>13 topics · 6 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-14-t1">What is a Web Server?</a></li>
                         <li><a href="#chap-14-t2">Key Functions of a Web Server (In Detail)</a></li>
                         <li><a href="#chap-14-t3">How to Create a Node.js Server? (Step by Step)</a></li>
@@ -686,40 +762,35 @@
                         <li><a href="#chap-14-t6">Node.js Program Lifecycle</a></li>
                         <li><a href="#chap-14-t7">Working with JSON</a></li>
                         <li><a href="#chap-14-t8">Creating a Simple JSON API</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-14-5"><b>📌
-                                    Request &amp; Response Objects &amp; Routing</b></a></li>
+                        <li class="toc-sub"><a href="#chap-14-5"><b>📌 Request &amp; Response Objects &amp; Routing</b></a></li>
                         <li><a href="#chap-14-t9">Difference Between setHeader() and writeHead()?</a></li>
-                        <li><a href="#chap-14-t10">What properties and methods are present in Request &amp; Response
-                                objects?</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-14-6"><b>📌
-                                    Routing &amp; Parsing Request Bodies</b></a></li>
+                        <li><a href="#chap-14-t10">What properties and methods are present in Request &amp; Response objects?</a></li>
+                        <li class="toc-sub"><a href="#chap-14-6"><b>📌 Routing &amp; Parsing Request Bodies</b></a></li>
                         <li><a href="#chap-14-t11">Why Use Routes? (Purpose &amp; Benefits)</a></li>
                         <li><a href="#chap-14-t12">Types of Routes &amp; Key Concepts</a></li>
                         <li><a href="#chap-14-t13">How to parse Request Bodies in Node.js?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-14-q1">What is the difference between res.write() and res.end()?</a></li>
                         <li><a href="#chap-14-q2">Why do we need res.writeHead()?</a></li>
-                        <li><a href="#chap-14-q3">Why is it bad practice to read a JSON file asynchronously inside the
-                                server callback?</a></li>
+                        <li><a href="#chap-14-q3">Why is it bad practice to read a JSON file asynchronously inside the server callback?</a></li>
                         <li><a href="#chap-14-q4">What is the difference between setHeader() and writeHead()?</a></li>
                         <li><a href="#chap-14-q5">What is the res.write() method?</a></li>
                         <li><a href="#chap-14-q6">What is a Stream in Node.js?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-14">Chapter 14</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 4: EXPRESS.JS
-                FRAMEWORK</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-15">Express.js Basics & Routing</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 4: EXPRESS.JS FRAMEWORK</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">15</span> <a href="#chap-15">Express.js Basics & Routing</a>
+                <small>17 topics · 6 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-15-t1">What is Express.js?</a></li>
                         <li><a href="#chap-15-t2">What is an Express Route (Routing)?</a></li>
                         <li><a href="#chap-15-t3">res.send() vs res.json()</a></li>
@@ -727,134 +798,119 @@
                         <li><a href="#chap-15-t5">How to Serve HTML Files in Routes (res.sendFile)?</a></li>
                         <li><a href="#chap-15-t6">Difference between res.send() and res.sendFile()?</a></li>
                         <li><a href="#chap-15-t7">Difference between res.sendFile() and express.static()?</a></li>
-                        <li><a href="#chap-15-t8">Parsing Request Bodies (express.json &amp; express.urlencoded)</a>
-                        </li>
+                        <li><a href="#chap-15-t8">Parsing Request Bodies (express.json &amp; express.urlencoded)</a> </li>
                         <li><a href="#chap-15-t9">What is Express Router (Modular Routing)?</a></li>
                         <li><a href="#chap-15-t10">What is Middleware in Express? (In Detail)</a></li>
                         <li><a href="#chap-15-t11">req.params vs req.query vs req.body</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-15-1"><b>📌
-                                    Introduction to Express.js</b></a></li>
+                        <li class="toc-sub"><a href="#chap-15-1"><b>📌 Introduction to Express.js</b></a></li>
                         <li><a href="#chap-15-t12">Why use Express.js instead of core Node.js?</a></li>
                         <li><a href="#chap-15-t13">How does Express work internally?</a></li>
                         <li><a href="#chap-15-t14">What is express() and how to use it?</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-15-2"><b>📌
-                                    Middleware in Express.js (More Details)</b></a></li>
+                        <li class="toc-sub"><a href="#chap-15-2"><b>📌 Middleware in Express.js (More Details)</b></a></li>
                         <li><a href="#chap-15-t15">What is app.use() and how does it work?</a></li>
                         <li><a href="#chap-15-t16">Difference between app.use() and app.METHOD() (e.g. app.get)</a></li>
-                        <li><a href="#chap-15-t17">Error-Handling Middleware &amp; Synchronous vs Asynchronous
-                                Errors</a></li>
+                        <li><a href="#chap-15-t17">Error-Handling Middleware &amp; Synchronous vs Asynchronous Errors</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-15-q1">What is Middleware in Express? (Basic Definition)</a></li>
-                        <li><a href="#chap-15-q2">Why is the 404 route app.get('*') placed at the very end of the
-                                file?</a></li>
-                        <li><a href="#chap-15-q3">What is the difference between res.send() in Express and res.end() in
-                                native Node.js?</a></li>
+                        <li><a href="#chap-15-q2">Why is the 404 route app.get('*') placed at the very end of the file?</a></li>
+                        <li><a href="#chap-15-q3">What is the difference between res.send() in Express and res.end() in native Node.js?</a></li>
                         <li><a href="#chap-15-q4">How do you parse incoming request bodies in Express.js?</a></li>
-                        <li><a href="#chap-15-q5">Is it possible to use all HTTP requests (GET, POST, PUT, PATCH) with
-                                middleware?</a></li>
+                        <li><a href="#chap-15-q5">Is it possible to use all HTTP requests (GET, POST, PUT, PATCH) with middleware?</a></li>
                         <li><a href="#chap-15-q6">How do we handle modular routing in Express?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-15">Chapter 15</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-16">Template Engines (HBS) & Partials</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">16</span> <a href="#chap-16">Template Engines (HBS) & Partials</a>
+                <small>6 topics · 2 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-16-t1">What is a Template Engine?</a></li>
                         <li><a href="#chap-16-t2">What are Partials?</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-16-1"><b>📌
-                                    Template Engines Deep Dive</b></a></li>
+                        <li class="toc-sub"><a href="#chap-16-1"><b>📌 Template Engines Deep Dive</b></a></li>
                         <li><a href="#chap-16-t3">What does app.set("view engine") and app.set("views") do?</a></li>
                         <li><a href="#chap-16-t4">What is the render() method and how does it work internally?</a></li>
                         <li><a href="#chap-16-t5">Difference between res.render() and res.redirect()</a></li>
                         <li><a href="#chap-16-t6">Layouts and Partials in Template Engines</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-16-q1">What is the default directory for template files in Express?</a></li>
                         <li><a href="#chap-16-q2">What is the difference between res.send() and res.render()?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-16">Chapter 16</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 5: RESTful APIs</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-17">RESTful APIs & Express Router</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 5: RESTful APIs</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">17</span> <a href="#chap-17">RESTful APIs & Express Router</a>
+                <small>20 topics · 2 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-17-t1">What is an API?</a></li>
                         <li><a href="#chap-17-t2">What is a RESTful API?</a></li>
                         <li><a href="#chap-17-t3">Standard HTTP Methods in REST</a></li>
                         <li><a href="#chap-17-t4">Complete CRUD REST API Example (All 5 Routes in Express)</a></li>
                         <li><a href="#chap-17-t5">HTTP Status Codes (Complete Interview Table)</a></li>
-                        <li><a href="#chap-17-t6">REST API Best Practices (Naming, Pagination, Filtering, Versioning,
-                                Idempotency)</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-17-1"><b>📌
-                                    Advanced Routing &amp; express.Router()</b></a></li>
+                        <li><a href="#chap-17-t6">REST API Best Practices (Naming, Pagination, Filtering, Versioning, Idempotency)</a></li>
+                        <li class="toc-sub"><a href="#chap-17-1"><b>📌 Advanced Routing &amp; express.Router()</b></a></li>
                         <li><a href="#chap-17-t7">What is Routing in Express?</a></li>
                         <li><a href="#chap-17-t8">What is express.Router() and why use it?</a></li>
                         <li><a href="#chap-17-t9">Difference between app.get() and router.get()</a></li>
                         <li><a href="#chap-17-t10">What is router.route()?</a></li>
                         <li><a href="#chap-17-t11">How to handle Unhandled Routes (404) in Express?</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-17-2"><b>📌
-                                    Advanced Router Concepts &amp; Parameters</b></a></li>
+                        <li class="toc-sub"><a href="#chap-17-2"><b>📌 Advanced Router Concepts &amp; Parameters</b></a></li>
                         <li><a href="#chap-17-t12">When should you use express.Router() instead of app routes?</a></li>
                         <li><a href="#chap-17-t13">Can we create multiple routers in one Express app?</a></li>
                         <li><a href="#chap-17-t14">How next() works in Router Middleware</a></li>
                         <li><a href="#chap-17-t15">Route Parameters vs Query Parameters</a></li>
                         <li><a href="#chap-17-t16">What is router.param() and when is it used?</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-39"><b>📌
-                                    Pagination in APIs</b></a></li>
+                        <li class="toc-sub"><a href="#chap-39"><b>📌 Pagination in APIs</b></a></li>
                         <li><a href="#chap-17-t17">What is Pagination and why do we use it?</a></li>
                         <li><a href="#chap-17-t18">Types of Pagination</a></li>
                         <li><a href="#chap-17-t19">Differences between Cursor-Based and Offset-Based Pagination</a></li>
                         <li><a href="#chap-17-t20">Advanced Interview Tips &amp; Security (Senior Level)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-17-q1">What is the exact difference between PUT and PATCH?</a></li>
                         <li><a href="#chap-17-q2">What does "Stateless" mean in REST architecture?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-17">Chapter 17</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 6: NODE.JS INTERNAL
-                ARCHITECTURE</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-18">Architecture: V8, Event Loop & Concurrency</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 6: NODE.JS INTERNAL ARCHITECTURE</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">18</span> <a href="#chap-18">Architecture: V8, Event Loop & Concurrency</a>
+                <small>22 topics · 7 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-18-t1">Why does Node.js use the V8 Engine?</a></li>
                         <li><a href="#chap-18-t2">What is libuv?</a></li>
                         <li><a href="#chap-18-t3">What is Asynchronous Programming in Node.js?</a></li>
                         <li><a href="#chap-18-t4">What is the Difference between Synchronous and Asynchronous?</a></li>
                         <li><a href="#chap-18-t5">Single-Threaded vs Multi-Threaded Programming</a></li>
                         <li><a href="#chap-18-t6">What is Single-Threaded Programming? (In Detail)</a></li>
-                        <li><a href="#chap-18-t7">What is the Relation between Synchronous and Asynchronous in a Single
-                                Thread?</a></li>
+                        <li><a href="#chap-18-t7">What is the Relation between Synchronous and Asynchronous in a Single Thread?</a></li>
                         <li><a href="#chap-18-t8">What is Multithreading Programming? (In Detail)</a></li>
                         <li><a href="#chap-18-t9">Where is Multithreading Used?</a></li>
                         <li><a href="#chap-18-t10">Why is Node.js / JavaScript Not Multi-Threaded by Default?</a></li>
                         <li><a href="#chap-18-t11">Why Single-Threaded? (Benefits)</a></li>
-                        <li><a href="#chap-18-t12">How Does Node.js Handle Concurrency if It's Single-Threaded? (How
-                                Node.js Still Handles Many Tasks)</a></li>
+                        <li><a href="#chap-18-t12">How Does Node.js Handle Concurrency if It's Single-Threaded? (How Node.js Still Handles Many Tasks)</a></li>
                         <li><a href="#chap-18-t13">How Does Node.js Achieve Asynchronous Programming?</a></li>
                         <li><a href="#chap-18-t14">How Does Node.js Know an Asynchronous Task is Finished?</a></li>
-                        <li><a href="#chap-18-t15">What are the Key Concepts behind Node.js Concurrency?
-                                (Single-Threaded but Concurrent Request Handling)</a></li>
+                        <li><a href="#chap-18-t15">What are the Key Concepts behind Node.js Concurrency? (Single-Threaded but Concurrent Request Handling)</a></li>
                         <li><a href="#chap-18-t16">The Event Loop (Deep Dive — 6 Phases)</a></li>
                         <li><a href="#chap-18-t17">Microtasks Queue &amp; process.nextTick()</a></li>
                         <li><a href="#chap-18-t18">Key Characteristics of the Event Loop</a></li>
@@ -864,51 +920,44 @@
                         <li><a href="#chap-18-t22">What is process.nextTick()? (In Detail)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-18-q1">How is Node.js single-threaded but concurrent?</a></li>
                         <li><a href="#chap-18-q2">What enables concurrency in Node.js?</a></li>
                         <li><a href="#chap-18-q3">What if an operation is CPU-bound?</a></li>
                         <li><a href="#chap-18-q4">How does Node.js stay scalable?</a></li>
-                        <li><a href="#chap-18-q5">Between setTimeout and Promise.resolve().then(), which one executes
-                                first?</a></li>
-                        <li><a href="#chap-18-q6">Between process.nextTick() and a Promise, which executes first?</a>
-                        </li>
-                        <li><a href="#chap-18-q7">What is the difference between setTimeout(fn, 0) and
-                                setImmediate(fn)?</a></li>
+                        <li><a href="#chap-18-q5">Between setTimeout and Promise.resolve().then(), which one executes first?</a></li>
+                        <li><a href="#chap-18-q6">Between process.nextTick() and a Promise, which executes first?</a> </li>
+                        <li><a href="#chap-18-q7">What is the difference between setTimeout(fn, 0) and setImmediate(fn)?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-18">Chapter 18</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-18-5">Control Flow & Event-Driven Programming</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">18.5</span> <a href="#chap-18-5">Control Flow & Event-Driven Programming</a>
+                <small>12 topics · 7 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-18-5-t1">What is Control Flow in Node.js?</a></li>
                         <li><a href="#chap-18-5-t2">Why Does Control Flow Matter in Node.js?</a></li>
                         <li><a href="#chap-18-5-t3">Control Flow Patterns in Node.js (More Explanation)</a></li>
-                        <li><a href="#chap-18-5-t4">What is a Callback? (Error-First Callbacks &amp; Callback Hell)</a>
-                        </li>
+                        <li><a href="#chap-18-5-t4">What is a Callback? (Error-First Callbacks &amp; Callback Hell)</a> </li>
                         <li><a href="#chap-18-5-t5">What is a Promise? (States, then / catch / finally)</a></li>
                         <li><a href="#chap-18-5-t6">Promise Combinators: Promise.all, allSettled, race, any</a></li>
                         <li><a href="#chap-18-5-t7">What is Async/Await?</a></li>
                         <li><a href="#chap-18-5-t8">What is util.promisify()? (And the util Module)</a></li>
                         <li><a href="#chap-18-5-t9">What is Event-Driven Programming?</a></li>
-                        <li><a href="#chap-18-5-t10">How Does Node.js Use the Event-Driven Model in Real Scenarios?</a>
-                        </li>
+                        <li><a href="#chap-18-5-t10">How Does Node.js Use the Event-Driven Model in Real Scenarios?</a> </li>
                         <li><a href="#chap-18-5-t11">Why Event-Driven? (Key Benefits)</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-18-6"><b>📌
-                                    Async Control Flow (async module)</b></a></li>
+                        <li class="toc-sub"><a href="#chap-18-6"><b>📌 Async Control Flow (async module)</b></a></li>
                         <li><a href="#chap-18-5-t12">Difference between async.parallel and async.series?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
-                        <li><a href="#chap-18-5-q1">⚡ Short Interview Answer — Q. What is Control Flow in Node.js?</a>
-                        </li>
-                        <li><a href="#chap-18-5-q2">⚡ Short Interview Answer — Q. What is Event-Driven Programming?</a>
-                        </li>
+                <div><i>Interview Questions</i>
+                    <ol>
+                        <li><a href="#chap-18-5-q1">⚡ Short Interview Answer — Q. What is Control Flow in Node.js?</a> </li>
+                        <li><a href="#chap-18-5-q2">⚡ Short Interview Answer — Q. What is Event-Driven Programming?</a> </li>
                         <li><a href="#chap-18-5-q3">What is callback hell and how do you avoid it?</a></li>
                         <li><a href="#chap-18-5-q4">Promise.all vs Promise.allSettled?</a></li>
                         <li><a href="#chap-18-5-q5">Why is await inside forEach a bug?</a></li>
@@ -916,13 +965,14 @@
                         <li><a href="#chap-18-5-q7">Sequential vs parallel awaits: which is faster and why?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-18-5">Chapter 18.5</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-19">Networking: DNS, IP, TCP & HTTP Flow</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">19</span> <a href="#chap-19">Networking: DNS, IP, TCP & HTTP Flow</a>
+                <small>5 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-19-t1">What are IP Address and Ports?</a></li>
                         <li><a href="#chap-19-t2">What is DNS (Domain Name System)?</a></li>
                         <li><a href="#chap-19-t3">TCP vs UDP</a></li>
@@ -930,42 +980,42 @@
                         <li><a href="#chap-19-t5">Complete Web Flow (Interview Favorite)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-19-q1">What happens when you type a URL in the browser?</a></li>
                         <li><a href="#chap-19-q2">TCP vs UDP in one line each?</a></li>
                         <li><a href="#chap-19-q3">What is a port?</a></li>
                         <li><a href="#chap-19-q4">Why is DNS cached?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-19">Chapter 19</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-20">Encoding & Data Representation</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">20</span> <a href="#chap-20">Encoding & Data Representation</a>
+                <small>2 topics · 2 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-20-t1">What is Encoding in Node.js?</a></li>
                         <li><a href="#chap-20-t2">Common Encodings in Node.js</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-20-q1">Is Base64 an encryption method?</a></li>
                         <li><a href="#chap-20-q2">What is the difference between Buffer and Encoding?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-20">Chapter 20</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 7: ADVANCED WEB
-                PATTERNS</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-21">State Management (Cookies & Sessions)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 7: ADVANCED WEB PATTERNS</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">21</span> <a href="#chap-21">State Management (Cookies & Sessions)</a>
+                <small>6 topics · 5 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-21-t1">Why do we need State Management?</a></li>
                         <li><a href="#chap-21-t2">What is a Cookie?</a></li>
                         <li><a href="#chap-21-t3">What is a Session?</a></li>
@@ -974,104 +1024,101 @@
                         <li><a href="#chap-21-t6">LocalStorage vs SessionStorage</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-21-q1">Cookie vs session?</a></li>
                         <li><a href="#chap-21-q2">Session vs JWT?</a></li>
                         <li><a href="#chap-21-q3">What do httpOnly, secure and sameSite do?</a></li>
-                        <li><a href="#chap-21-q4">Why not use the default MemoryStore of express-session in
-                                production?</a></li>
+                        <li><a href="#chap-21-q4">Why not use the default MemoryStore of express-session in production?</a></li>
                         <li><a href="#chap-21-q5">localStorage vs sessionStorage vs cookie?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-21">Chapter 21</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-22">MVC Architecture</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">22</span> <a href="#chap-22">MVC Architecture</a>
+                <small>6 topics · 2 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-22-t1">What is MVC?</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-22-1"><b>📌
-                                    MVC Architecture Deep Dive</b></a></li>
+                        <li class="toc-sub"><a href="#chap-22-1"><b>📌 MVC Architecture Deep Dive</b></a></li>
                         <li><a href="#chap-22-t2">Responsibilities of Model, View, and Controller</a></li>
                         <li><a href="#chap-22-t3">Difference between Business Logic and Application Logic</a></li>
                         <li><a href="#chap-22-t4">What is the static keyword in JavaScript class?</a></li>
                         <li><a href="#chap-22-t5">How to store data in a file via a Model? (fs module)</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-35"><b>📌
-                                    Project Structure &amp; Property Resolvers</b></a></li>
+                        <li class="toc-sub"><a href="#chap-35"><b>📌 Project Structure &amp; Property Resolvers</b></a></li>
                         <li><a href="#chap-22-t6">How to structure utility functions and responses?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-22-q1">Why are Sessions more secure than Cookies?</a></li>
                         <li><a href="#chap-22-q2">What is the main benefit of using MVC?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-22">Chapter 22</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 8: ESSENTIAL SECURITY
-                & CONFIGURATION</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-23">Environment Variables (dotenv)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 8: ESSENTIAL SECURITY & CONFIGURATION</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">23</span> <a href="#chap-23">Environment Variables (dotenv)</a>
+                <small>2 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-23-t1">What are Environment Variables and `.env` files?</a></li>
                         <li><a href="#chap-23-t2">Syntax of dotenv.config() and its options</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-23-q1">Why should secrets not be hardcoded in source code?</a></li>
                         <li><a href="#chap-23-q2">What is the difference between dotenv and node --env-file?</a></li>
                         <li><a href="#chap-23-q3">Why is process.env.PORT === 3000 false even when PORT=3000?</a></li>
-                        <li><a href="#chap-23-q4">What happens if a variable exists in both the OS and the .env
-                                file?</a></li>
+                        <li><a href="#chap-23-q4">What happens if a variable exists in both the OS and the .env file?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-23">Chapter 23</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-24">CORS (Cross-Origin Resource Sharing)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">24</span> <a href="#chap-24">CORS (Cross-Origin Resource Sharing)</a>
+                <small>2 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-24-t1">What is CORS and why does the browser block requests?</a></li>
                         <li><a href="#chap-24-t2">Syntax of cors() and its options</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-24-q1">What is a preflight request?</a></li>
                         <li><a href="#chap-24-q2">Why does Postman work but the browser shows a CORS error?</a></li>
                         <li><a href="#chap-24-q3">Is app.use(cors()) safe for production?</a></li>
                         <li><a href="#chap-24-q4">What makes two URLs the same origin?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-24">Chapter 24</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-25">Authentication & Password Hashing</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">25</span> <a href="#chap-25">Authentication & Password Hashing</a>
+                <small>7 topics · 5 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-25-t1">What is Password Hashing?</a></li>
                         <li><a href="#chap-25-t2">Why do we hash passwords (bcrypt)?</a></li>
                         <li><a href="#chap-25-t3">What is JWT (JSON Web Token)?</a></li>
                         <li><a href="#chap-25-t4">Authentication vs Authorization</a></li>
                         <li><a href="#chap-25-t5">Access Token vs Refresh Token</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-45"><b>📌 JSON
-                                    Web Tokens (JWT)</b></a></li>
+                        <li class="toc-sub"><a href="#chap-45"><b>📌 JSON Web Tokens (JWT)</b></a></li>
                         <li><a href="#chap-25-t6">What does a JWT look like?</a></li>
                         <li><a href="#chap-25-t7">JWT Methods: sign, verify, decode</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-25-q1">Why is bcrypt preferred over SHA-256 for passwords?</a></li>
                         <li><a href="#chap-25-q2">Where should a JWT be stored in the browser?</a></li>
                         <li><a href="#chap-25-q3">How do you log out a user when using JWT?</a></li>
@@ -1079,107 +1126,105 @@
                         <li><a href="#chap-25-q5">401 vs 403?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-25">Chapter 25</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 9: ADVANCED EXPRESS &
-                PERFORMANCE</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-26">File Uploads (Multer)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 9: ADVANCED EXPRESS & PERFORMANCE</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">26</span> <a href="#chap-26">File Uploads (Multer)</a>
+                <small>3 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-26-t1">What is Multer?</a></li>
                         <li><a href="#chap-26-t2">How do we upload files/images in Node.js?</a></li>
-                        <li><a href="#chap-26-t3">Multer diskStorage and fileFilter (Custom Filename &amp; Allowed
-                                Types)</a></li>
+                        <li><a href="#chap-26-t3">Multer diskStorage and fileFilter (Custom Filename &amp; Allowed Types)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-26-q1">Why can't express.json() read uploaded files?</a></li>
                         <li><a href="#chap-26-q2">diskStorage vs memoryStorage?</a></li>
                         <li><a href="#chap-26-q3">How do you secure file uploads?</a></li>
                         <li><a href="#chap-26-q4">upload.single vs upload.array vs upload.fields?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-26">Chapter 26</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-27">Global Error Handling</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">27</span> <a href="#chap-27">Global Error Handling</a>
+                <small>3 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-27-t1">What is Error-Handling Middleware?</a></li>
                         <li><a href="#chap-27-t2">How do we handle errors cleanly in Express?</a></li>
                         <li><a href="#chap-27-t3">Error Handling in Node.js (Complete Guide)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-27-q1">How does Express know a middleware is an error handler?</a></li>
                         <li><a href="#chap-27-q2">Why are async errors not caught in Express 4?</a></li>
                         <li><a href="#chap-27-q3">How do you handle a 404 (route not found)?</a></li>
                         <li><a href="#chap-27-q4">Should you keep the app running after uncaughtException?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-27">Chapter 27</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-28">Child Processes & Worker Threads</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
-                        <li><a href="#chap-28-t1">How does Node.js handle CPU-heavy tasks if it is single-threaded?</a>
-                        </li>
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">28</span> <a href="#chap-28">Child Processes & Worker Threads</a>
+                <small>5 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
+                        <li><a href="#chap-28-t1">How does Node.js handle CPU-heavy tasks if it is single-threaded?</a> </li>
                         <li><a href="#chap-28-t2">What is the Cluster Module? (Using All CPU Cores)</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-48"><b>📌
-                                    Node.js Child Process Module</b></a></li>
+                        <li class="toc-sub"><a href="#chap-48"><b>📌 Node.js Child Process Module</b></a></li>
                         <li><a href="#chap-28-t3">What is the Child Process Module?</a></li>
                         <li><a href="#chap-28-t4">Methods for Creating Child Processes</a></li>
                         <li><a href="#chap-28-t5">Syntax of exec(), spawn() and fork()</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-28-q1">exec() vs spawn()?</a></li>
                         <li><a href="#chap-28-q2">spawn() vs fork()?</a></li>
                         <li><a href="#chap-28-q3">When would you choose worker threads over child processes?</a></li>
                         <li><a href="#chap-28-q4">Does cluster make Node.js multi-threaded?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-28">Chapter 28</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-29">Process Management (PM2)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">29</span> <a href="#chap-29">Process Management (PM2)</a>
+                <small>3 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-29-t1">What is PM2?</a></li>
                         <li><a href="#chap-29-t2">What happens if our Node.js app crashes in production?</a></li>
                         <li><a href="#chap-29-t3">What is ecosystem.config.js in PM2?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-29-q1">Why not use nodemon in production?</a></li>
                         <li><a href="#chap-29-q2">pm2 restart vs pm2 reload?</a></li>
                         <li><a href="#chap-29-q3">How do apps survive a server reboot with PM2?</a></li>
                         <li><a href="#chap-29-q4">PM2 cluster mode vs the cluster module?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-29">Chapter 29</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 10: EXTERNAL MODULES &
-                UTILITIES</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-30">Sending Emails (Nodemailer)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 10: EXTERNAL MODULES & UTILITIES</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">30</span> <a href="#chap-30">Sending Emails (Nodemailer)</a>
+                <small>5 topics · 2 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-30-t1">What is Nodemailer?</a></li>
                         <li><a href="#chap-30-t2">Steps to Send an Email</a></li>
                         <li><a href="#chap-30-t3">Syntax of createTransport() and sendMail()</a></li>
@@ -1187,39 +1232,36 @@
                         <li><a href="#chap-30-t5">What is a pool in Nodemailer?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-30-q1">What protocol is used to send emails in Node.js?</a></li>
-                        <li><a href="#chap-30-q2">Can I use my personal Gmail account to send emails via Nodemailer?</a>
-                        </li>
+                        <li><a href="#chap-30-q2">Can I use my personal Gmail account to send emails via Nodemailer?</a> </li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-30">Chapter 30</a></td>
-        </tr>
-        <tr style="background-color: #2c3e50; color: white;">
-            <td colspan="2" style="text-align: center; font-weight: bold; padding: 10px;">SECTION 11: SECURITY,
-                REAL-TIME & PRODUCTION HEALTH</td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-31">Security Basics (Helmet, Rate Limiting, Validation, XSS, Injection)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+
+        <h3 class="toc-section">SECTION 11: SECURITY, REAL-TIME & PRODUCTION HEALTH</h3>
+        <details class="toc-chap">
+            <summary><span class="toc-num">31</span> <a href="#chap-31">Security Basics (Helmet, Rate Limiting, Validation, XSS, Injection)</a>
+                <small>9 topics · 5 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-31-t1">Why is Security Important in a Node.js Backend?</a></li>
                         <li><a href="#chap-31-t2">What is Helmet? (Secure HTTP Headers)</a></li>
                         <li><a href="#chap-31-t3">What is Rate Limiting?</a></li>
                         <li><a href="#chap-31-t4">What is a DoS / DDoS attack?</a></li>
                         <li><a href="#chap-31-t5">What is Input Validation? (Joi / Zod / express-validator)</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-38"><b>📌
-                                    Alternative: Data Validation with Joi</b></a></li>
+                        <li class="toc-sub"><a href="#chap-38"><b>📌 Alternative: Data Validation with Joi</b></a></li>
                         <li><a href="#chap-31-t6">How to validate server-side data?</a></li>
                         <li><a href="#chap-31-t7">SQL / NoSQL Injection and How to Prevent It</a></li>
                         <li><a href="#chap-31-t8">What is XSS (Cross-Site Scripting) and How to Prevent It?</a></li>
                         <li><a href="#chap-31-t9">Other Essential Security Practices (Checklist)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-31-q1">What is defence in depth?</a></li>
                         <li><a href="#chap-31-q2">How is XSS different from CSRF?</a></li>
                         <li><a href="#chap-31-q3">What is mass assignment?</a></li>
@@ -1227,80 +1269,81 @@
                         <li><a href="#chap-31-q5">Why remove the X-Powered-By header?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-31">Chapter 31</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-32">WebSockets & Socket.io (Real-Time)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">32</span> <a href="#chap-32">WebSockets & Socket.io (Real-Time)</a>
+                <small>2 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-32-t1">What are WebSockets? (HTTP vs WebSocket)</a></li>
                         <li><a href="#chap-32-t2">What is Socket.io?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-32-q1">HTTP polling vs WebSocket?</a></li>
                         <li><a href="#chap-32-q2">Is Socket.io the same as WebSocket?</a></li>
                         <li><a href="#chap-32-q3">How do you scale Socket.io across multiple servers?</a></li>
                         <li><a href="#chap-32-q4">io.emit vs socket.emit vs socket.broadcast.emit?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-32">Chapter 32</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-33">Logging (console, morgan, winston, pino)</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">33</span> <a href="#chap-33">Logging (console, morgan, winston, pino)</a>
+                <small>7 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-33-t1">What is Logging and Why is it Needed?</a></li>
                         <li><a href="#chap-33-t2">What is morgan? (HTTP Request Logger)</a></li>
                         <li><a href="#chap-33-t3">What is winston? (Application Logger)</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-41"><b>📌
-                                    Logging with Winston</b></a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-46"><b>📌
-                                    Node.js Logging Deep Dive</b></a></li>
+                        <li class="toc-sub"><a href="#chap-41"><b>📌 Logging with Winston</b></a></li>
+                        <li class="toc-sub"><a href="#chap-46"><b>📌 Node.js Logging Deep Dive</b></a></li>
                         <li><a href="#chap-33-t4">Basic Console Logging</a></li>
                         <li><a href="#chap-33-t5">Advanced Winston Configuration</a></li>
-                        <li style="list-style: none; margin-left: -18px; margin-top: 4px;"><a href="#chap-47"><b>📌 Pino
-                                    Logger</b></a></li>
+                        <li class="toc-sub"><a href="#chap-47"><b>📌 Pino Logger</b></a></li>
                         <li><a href="#chap-33-t6">What is Pino?</a></li>
                         <li><a href="#chap-33-t7">Integrating Pino with Express (pino-http)</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-33-q1">Why not use console.log in production?</a></li>
                         <li><a href="#chap-33-q2">morgan vs winston?</a></li>
                         <li><a href="#chap-33-q3">winston vs pino?</a></li>
                         <li><a href="#chap-33-q4">What is a correlation (request) ID?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-33">Chapter 33</a></td>
-        </tr>
-        <tr>
-            <td><b><a href="#chap-34">Memory Leaks in Node.js</a></b>
-                <div style="font-size: 0.9em; margin-top: 6px;"><i>Topics:</i>
-                    <ol class="pl" style="margin: 2px 0 6px 0;">
+            </div>
+        </details>
+        <details class="toc-chap">
+            <summary><span class="toc-num">34</span> <a href="#chap-34">Memory Leaks in Node.js</a>
+                <small>3 topics · 4 Qs</small></summary>
+            <div class="toc-body">
+                <div><i>Topics</i>
+                    <ol>
                         <li><a href="#chap-34-t1">What is a Memory Leak?</a></li>
                         <li><a href="#chap-34-t2">Common Causes of Memory Leaks (with Fixes)</a></li>
                         <li><a href="#chap-34-t3">How to Detect and Debug Memory Leaks?</a></li>
                     </ol>
                 </div>
-                <div style="font-size: 0.9em;"><i>Interview Questions:</i>
-                    <ol class="pl" style="margin: 2px 0 0 0;">
+                <div><i>Interview Questions</i>
+                    <ol>
                         <li><a href="#chap-34-q1">What is a memory leak in Node.js?</a></li>
                         <li><a href="#chap-34-q2">Common causes?</a></li>
                         <li><a href="#chap-34-q3">How do you detect a leak?</a></li>
                         <li><a href="#chap-34-q4">What does MaxListenersExceededWarning mean?</a></li>
                     </ol>
                 </div>
-            </td>
-            <td style="vertical-align: top;"><a href="#chap-34">Chapter 34</a></td>
-        </tr>
+            </div>
+        </details>
         <!-- NEXT-INDEX-ROW -->
-    </table>
+    </nav>
+
+    <a href="#master-index" class="toc-top" title="Back to Master Index">↑ Index</a>
 
     <!-- PART-END 1: Fundamentals -->
 
