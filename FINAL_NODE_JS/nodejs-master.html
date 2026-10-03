@@ -12022,7 +12022,43 @@ router.delete('/:userId', (req, res) => { /* req.user ready */ });
     </div>
 
     
-<h3 id="chap-39" style="border-bottom: 2px solid #2196f3; padding-bottom: 4px; margin-top: 35px;">📌 Pagination in APIs</h3>
+    <h3 id="chap-17-q1">Interview Questions (Detailed)</h3>
+    <div class="q">
+        <b style="color: #e91e63;">Q1. What is the exact difference between PUT and PATCH?</b>
+        <ul class="pl" style="margin-top: 5px;">
+            <li><b>PUT (Full Update):</b> It replaces the entire resource. If a User object has 5 fields and you only want to change the "name", sending a PUT request with only the "name" will erase the other 4 fields (unless you send all 5 fields again). It is idempotent.</li>
+            <li><b>PATCH (Partial Update):</b> It only modifies the specific fields you send. If you send only the "name", it updates the name and leaves the other 4 fields completely untouched.</li>
+        </ul>
+        <br>
+        <b style="color: #e91e63;" id="chap-17-q2">Q2. What does "Stateless" mean in REST architecture?</b>
+        <p style="margin: 5px 0 0 0;">Stateless means that the server does not remember anything about the client between requests. The client must include authentication tokens, IDs, and all required data in every single request.</p>
+    </div>
+
+    <div class="marathi-box">
+        <b>मराठी सारांश (Interview Questions &amp; Revision):</b>
+        <ul class="pl" style="margin-bottom: 0;">
+            <li><b>Interview चा सर्वात आवडता प्रश्न:</b> PUT आणि PATCH मध्ये काय फरक आहे?</li>
+            <li><b>उत्तर:</b> PUT संपूर्ण Data बदलून टाकतो (म्हणून जुना डेटा डिलीट होऊ शकतो जर आपण पूर्ण डेटा पाठवला नाही). पण PATCH फक्त तेवढाच भाग बदलतो जो आपण पाठवला आहे, बाकीचा डेटा सुरक्षित राहतो.</li>
+            <li><b>उदाहरण:</b> user <code>{ name, email, age }</code>. PUT मध्ये फक्त <code>{ name }</code> पाठवले तर email आणि age जाऊ शकतात. PATCH मध्ये फक्त name बदलते.</li>
+            <li><b>Idempotent:</b> PUT idempotent आहे (कितीही वेळा पाठवा, परिणाम same). PATCH नेहमी नसतो (उदा. "stock 1 ने वाढवा").</li>
+            <li><b>Stateless (Q2):</b> Server client ची मागची माहिती लक्षात ठेवत नाही. प्रत्येक request मध्ये token/id सगळे हवे.</li>
+            <li><b>Status codes:</b> यशस्वी update ला 200, resource नसेल तर 404.</li>
+        </ul>
+    </div>
+
+    <div class="notes-box">
+        <b style="font-size: 1.1em; color: #333;">Quick Revision Summary</b>
+        <table style="width: 100%; margin-top: 10px;">
+            <tr><th>Concept / Method</th><th>Description</th></tr>
+            <tr><td><b>REST</b></td><td>Representational State Transfer (an architectural style for APIs).</td></tr>
+            <tr><td><b>GET / POST / DELETE</b></td><td>Methods to Read, Create, and Delete data.</td></tr>
+            <tr><td><b>PUT</b></td><td>Method to fully replace/update a resource.</td></tr>
+            <tr><td><b>PATCH</b></td><td>Method to partially update specific fields of a resource.</td></tr>
+            <tr><td><b>express.Router()</b></td><td>Used to modularize and split API routes into separate files.</td></tr>
+        </table>
+    </div>
+
+    <h3 id="chap-39" style="border-bottom: 2px solid #2196f3; padding-bottom: 4px; margin-top: 35px;">📌 Pagination in APIs</h3>
     
     <h3 id="chap-17-t17">Q. What is Pagination and why do we use it?</h3>
     <div class="def-box">
@@ -12056,12 +12092,25 @@ app.get('/products', (req, res) => {
     </div>
     
     <div class="notes-box">
-        <b>Why we use Pagination:</b>
+        <b>Why we use Pagination (The Problem with Large Datasets):</b>
+        <p>APIs often return large datasets (e.g., all orders, all products, all posts). Guys, what happens a lot is that whenever our API brings some data for us, then the data is a lot.</p>
+        <p>If the API dumps everything in one response:</p>
         <ul class="pl">
-            <li><b>Performance:</b> Prevents loading thousands of records at once, which would slow down the server and client.</li>
-            <li><b>Better User Experience:</b> Makes data easier to browse in chunks.</li>
-            <li><b>Reduced Network Load:</b> Only small sets of data are transferred over the network.</li>
-            <li><b>Scalability:</b> Handles large datasets efficiently.</li>
+            <li><b>Too slow &rarr;</b> takes time to fetch.</li>
+            <li><b>Too heavy &rarr;</b> wastes bandwidth.</li>
+            <li><b>Too costly &rarr;</b> server load increases.</li>
+        </ul>
+        <p><b>Solution &rarr;</b> break data into pages (like in a book or search results).</p>
+        <p><i>In short: Pagination = splitting large results into smaller, manageable chunks.</i></p>
+    </div>
+
+    <div class="extra-box">
+        <b>Why Pagination Matters (Benefits):</b>
+        <ul class="pl">
+            <li><b>Performance:</b> Faster responses and less memory usage. Prevents loading thousands of records at once, which would slow down the server and client.</li>
+            <li><b>Better User Experience:</b> You don't overload users with 10,000 results at once, making data much easier to browse in chunks.</li>
+            <li><b>Cost & Reduced Network Load:</b> Saves network bandwidth and API costs (some APIs charge per call/data size). Only small sets of data are transferred over the network.</li>
+            <li><b>Control & Scalability:</b> Lets client apps choose how much data to fetch, making it easy to handle large datasets efficiently.</li>
         </ul>
     </div>
 
@@ -12096,22 +12145,424 @@ app.get('/products', (req, res) => {
 
     <div class="notes-box">
         <ul class="pl">
-            <li><b>1. Offset-based Pagination:</b>
+            <li><b>1. Offset + Limit (Page-based Pagination):</b>
+                <p>This is the <b>most common approach</b>, especially in SQL-based relational databases. It breaks the dataset into "pages".</p>
                 <ul class="pl">
-                    <li>Uses <code>LIMIT</code> and <code>OFFSET</code> (in SQL) or <code>.skip()</code> and <code>.limit()</code> (in MongoDB).</li>
-                    <li>Simple to implement, but becomes slow for very large datasets (e.g. millions of rows) because the database still has to count and skip all previous rows.</li>
+                    <li><b>How it works:</b> Uses <code>LIMIT</code> and <code>OFFSET</code> (in SQL) or <code>.skip()</code> and <code>.limit()</code> (in MongoDB).</li>
                     <li><b>LIMIT:</b> How many records to fetch per page.</li>
-                    <li><b>OFFSET:</b> How many records to skip before starting to fetch. Formula: <code>OFFSET = (page_number - 1) * limit</code>.</li>
+                    <li><b>OFFSET:</b> How many records to skip before starting to fetch data.</li>
                 </ul>
+                <br>
+                <b>Formula & API Styles:</b>
+                <pre style="background: #e9ecef; padding: 10px; border-radius: 5px; font-family: monospace; color: #d63384;">
+Formula: OFFSET = (page_number - 1) * limit
+Example: Page 3, Limit 20 -> Offset = (3 - 1) * 20 = 40
+
+API Page Style:   GET /products?page=3&amp;limit=20
+API Offset Style: GET /products?limit=20&amp;offset=40</pre>
+                
+                <b>Database Query (SQL Example):</b>
+                <pre style="background: #e9ecef; padding: 10px; border-radius: 5px; font-family: monospace; color: #0056b3;">
+SELECT id, name, price 
+FROM products 
+ORDER BY created_at DESC, id DESC 
+LIMIT 20 OFFSET 40;</pre>
+                
+                <b>Response Shape (Good Practice JSON):</b>
+                <pre style="background: #e9ecef; padding: 10px; border-radius: 5px; font-family: monospace; color: #198754;">
+{
+  "data": [ /* 20 products */ ],
+  "pagination": {
+    "type": "offset",
+    "page": 3,
+    "limit": 20,
+    "total_items": 1243,
+    "total_pages": 63,
+    "next": "/products?page=4&amp;limit=20",
+    "prev": "/products?page=2&amp;limit=20"
+  }
+}</pre>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 300px; background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50;">
+                        <b style="color: #2e7d32;">Pros (Advantages)</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li>Easy to implement &amp; debug.</li>
+                            <li>Supports jump-to-page UIs (e.g., "Go to page 17").</li>
+                            <li>Most ORMs support <code>.limit().offset()</code> out of the box.</li>
+                            <li>Great for small or mostly-static lists (admin tables, reports).</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; background: #ffebee; padding: 15px; border-radius: 5px; border-left: 4px solid #f44336;">
+                        <b style="color: #c62828;">Cons &amp; Performance Issues</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li><b>Performance:</b> Simple to implement, but becomes <i>slow for very large datasets</i> (e.g., millions of rows) because the database still has to sequentially count and skip all previous rows.</li>
+                            <li><b>Inconsistent under writes:</b> Inserts/deletes before your offset shift rows &rarr; duplicates/missing.</li>
+                            <li><b>Expensive Counts:</b> Returning exact total counts (<code>COUNT(*)</code>) is very slow on huge tables.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 300px; background: #fff3e0; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9800;">
+                        <b style="color: #ef6c00;">Best Practices</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li>Cap the limit (e.g., maximum 100 items per request).</li>
+                            <li>Avoid deep offsets (forbid offset > 10k or switch to cursor after page N).</li>
+                            <li>Compute <code>has_more</code> via LIMIT (fetch <code>limit + 1</code> to see if more exist) instead of using <code>COUNT(*)</code> every time.</li>
+                            <li>Cache <code>total_items</code> or return an "estimated_total".</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; background: #e3f2fd; padding: 15px; border-radius: 5px; border-left: 4px solid #2196f3;">
+                        <b style="color: #1565c0;">When to Use?</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li>Small / Medium lists.</li>
+                            <li>Mostly read-only data during a session.</li>
+                            <li>When you strictly need a "jump-to-page" UI feature.</li>
+                        </ul>
+                    </div>
+                </div>
             </li>
-            <li><b>2. Cursor-based Pagination:</b>
+            
+            <li style="margin-top: 20px;"><b>2. Cursor-based Pagination (Opaque Token):</b>
+                <p>Instead of using an offset, the API returns a cursor (usually a base64 or signed token). Think of it like a <b>bookmark</b> indicating exactly where the last page ended.</p>
                 <ul class="pl">
                     <li>Better for extremely large datasets and real-time feeds (like Instagram or Twitter).</li>
-                    <li>Uses a pointer (cursor) such as a unique ID or timestamp to know where the last page ended.</li>
-                    <li>The client sends the cursor with each request to fetch the next page, instead of skipping rows.</li>
+                    <li>Uses a pointer (cursor) such as a unique ID or timestamp. No skipping is done—the database jumps directly to that bookmark.</li>
                 </ul>
+                <br>
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; border-left: 4px solid #2196f3; margin-bottom: 15px;">
+                    <b style="color: #1565c0;">What is an "Opaque Token"? ✉️</b>
+                    <ul class="pl" style="margin: 5px 0 0 0;">
+                        <li><b>Literal Meaning:</b> "Opaque" means something you cannot see through.</li>
+                        <li><b>In APIs:</b> An opaque token is a string that has no meaning to the client (Frontend/App).</li>
+                        <li><b>The Envelope Analogy:</b> The client just passes it back to the server like a <b>sealed envelope</b>.</li>
+                        <li><b>Server Decodes It:</b> Only the server holds the key to open it, decode it, and understand exactly where the last page ended.</li>
+                    </ul>
+                </div>
+
+                <div style="background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50; margin-bottom: 15px;">
+                    <b style="color: #2e7d32;">What is "Signed (HMAC)"? 🔐</b>
+                    <ul class="pl" style="margin: 5px 0 0 0;">
+                        <li><b>HMAC:</b> Stands for Hash-based Message Authentication Code. It is a digital signature created using a secret key.</li>
+                        <li><b>Tamper-Proof:</b> If a malicious client tries to change the cursor data (e.g., changing <code>id: 500</code> to <code>id: 1000</code>), the signature breaks because they don't have the server's secret key.</li>
+                        <li><b>The Wax Seal Analogy:</b> It is like a bank manager putting a special wax seal on a document. If anyone alters the document, the seal breaks, and the server knows it's a fake!</li>
+                    </ul>
+                </div>
+                
+                <b>How it looks (API):</b>
+                <pre style="background: #e9ecef; padding: 10px; border-radius: 5px; font-family: monospace; color: #d63384;">
+GET /products?limit=20&amp;cursor=eyJjcmVhdGVkQXQiOjE3MTYzMDAwMDAwMDAsImlkIjo1MDB9...</pre>
+
+                <b>Token Contents (Server-Side Decoded):</b>
+                <p>The opaque token usually contains the last sorted values and current active filters. For example:</p>
+                <pre style="background: #e9ecef; padding: 10px; border-radius: 5px; font-family: monospace; color: #198754;">
+{ 
+  "createdAt": 1716300000000, 
+  "id": 500, 
+  "filters": { "q": "phone", "brand": "Acme" }, 
+  "sort": "createdAt.desc,id.desc" 
+}</pre>
+                <ul class="pl">
+                    <li><b>Security check:</b> Always include the sort + filters used to create the cursor. Reject the request if the client tries to change the filters while passing an old cursor.</li>
+                </ul>
+
+                <div style="background: #fff3e0; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9800; margin-top: 15px;">
+                    <b style="color: #ef6c00;">Good Practices</b>
+                    <ul class="pl" style="margin-bottom: 0;">
+                        <li><b>Opaque + Signed (HMAC):</b> Always sign the tokens so clients cannot tamper with or forge cursors.</li>
+                        <li><b>Include expiry:</b> Add an expiration time in the cursor if the data moves very fast.</li>
+                        <li><b>Reverse Pagination:</b> You can allow going backward by generating a <code>previous_cursor</code> and using a reversed order logic in the database query (e.g., using <code>&gt;</code> instead of <code>&lt;</code>).</li>
+                    </ul>
+                </div>
+
+                <br>
+                <b>SQL Query Example (Cursor Pagination):</b>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace; color: #0d6efd; border: 1px solid #dee2e6;">
+SELECT id, name, price, created_at
+FROM products
+WHERE (created_at, id) &lt; (:cursor_created_at, :cursor_id)
+ORDER BY created_at DESC, id DESC
+LIMIT :limit;</pre>
+
+                <b>Response Shape (Cursor JSON):</b>
+                <pre style="background: #e9ecef; padding: 10px; border-radius: 5px; font-family: monospace; color: #198754;">
+{
+  "data": [ /* 20 products */ ],
+  "pagination": {
+    "type": "cursor",
+    "limit": 20,
+    "next_cursor": "eyJjcmVhdGVkQXQiOjE3MTYzMDAw...",
+    "has_more": true
+  }
+}</pre>
+
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 300px; background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50;">
+                        <b style="color: #2e7d32;">Pros (Advantages)</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li><b>Consistent:</b> Works perfectly even with concurrent inserts/deletes (no duplicates or missing rows).</li>
+                            <li><b>Fast:</b> Database seeks directly via index without scanning skipped rows.</li>
+                            <li><b>Secure:</b> Hides internal keys, and tokens can be signed/expiring.</li>
+                            <li>You can tuck filters/sort inside the cursor for validation.</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; background: #ffebee; padding: 15px; border-radius: 5px; border-left: 4px solid #f44336;">
+                        <b style="color: #c62828;">Cons (Disadvantages)</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li><b>Complex:</b> Needs encoding/decoding and signing (HMAC) logic.</li>
+                            <li><b>No Jump-to-page:</b> Harder to support UIs that require jumping directly to page 10.</li>
+                            <li><b>Strict filters:</b> Tokens are tied to a particular sort/filter. You must return a <code>400 Bad Request</code> if the client changes them mid-pagination.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; border-left: 4px solid #2196f3; margin-top: 15px;">
+                    <b style="color: #1565c0;">When to Use? (Best Use Cases)</b>
+                    <ul class="pl" style="margin-bottom: 0;">
+                        <li>Extremely large datasets where Offset would be too slow.</li>
+                        <li>Real-time feeds where data is constantly being added or removed (e.g., Social Media feeds like Instagram, Twitter).</li>
+                        <li>Public APIs where you want to hide internal database keys or sorting logic from the user.</li>
+                    </ul>
+                </div>
+            </li>
+
+            <li style="margin-top: 20px;"><b>3. Keyset (Seek) Pagination:</b>
+                <p style="margin-bottom: 5px;">This method paginates by <b>values (keys)</b> rather than positions. Instead of telling the database to "skip 20 rows" (like in Offset), you explicitly say "give me the next items that come <i>after</i> this specific value."</p>
+                <ul class="pl">
+                    <li><b>No Opaque Tokens:</b> Unlike Cursor pagination, you don't hide the data in an encoded token. The client directly sends the raw values (e.g., <code>after_id=500</code>).</li>
+                    <li><b>Direct Seek:</b> The database directly jumps to the row where <code>id=500</code> and starts reading forward, making it extremely fast.</li>
+                </ul>
+                <br>
+                <b>How it looks (API):</b>
+                <pre style="background: #e9ecef; padding: 10px; border-radius: 5px; font-family: monospace; color: #d63384;">
+GET /products?limit=20&amp;after_id=500&amp;after_ts=1716300000000</pre>
+                
+                <b>SQL Query Example:</b>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace; color: #0d6efd; border: 1px solid #dee2e6;">
+SELECT id, name, price, created_at
+FROM products
+WHERE (created_at, id) &gt; (:after_ts, :after_id)
+ORDER BY created_at ASC, id ASC
+LIMIT :limit;</pre>
+
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 300px; background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50;">
+                        <b style="color: #2e7d32;">Pros (Advantages)</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li><b>Fast:</b> Seeks directly via index (similar to Cursor).</li>
+                            <li><b>Transparent:</b> Clients can easily build the URL since keys are plain values.</li>
+                            <li><b>Consistent:</b> No duplicates or missing rows on concurrent writes.</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; background: #ffebee; padding: 15px; border-radius: 5px; border-left: 4px solid #f44336;">
+                        <b style="color: #c62828;">Cons (Disadvantages)</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li><b>Leaks Data:</b> Exposes internal keys/timestamps to the client.</li>
+                            <li><b>No Jump-to-page:</b> You cannot jump to a specific page.</li>
+                            <li><b>Complex Client Logic:</b> Client has to track multiple keys instead of one single cursor token.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; border-left: 4px solid #2196f3; margin-top: 15px;">
+                    <b style="color: #1565c0;">When to Use? (Best Use Cases)</b>
+                    <ul class="pl" style="margin-bottom: 0;">
+                        <li>APIs where exposing internal keys (like <code>id</code> or <code>created_at</code>) is perfectly fine and not a security risk.</li>
+                        <li>When you want the performance of Cursor pagination but don't want the complexity of encoding/decoding and signing tokens.</li>
+                        <li>Internal microservices communicating with each other.</li>
+                    </ul>
+                </div>
+            </li>
+
+            <li style="margin-top: 20px;"><b>4. Time-window Pagination (Temporal Slices):</b>
+                <p style="margin-bottom: 5px;">This method pages through data by slicing it into fixed <b>time ranges</b> (e.g., fetching data hour-by-hour or day-by-day) instead of relying on a fixed number of rows.</p>
+                <ul class="pl">
+                    <li><b>Excellent for Analytics:</b> If you are building a dashboard chart that shows "Sales per Day", you only need data between <code>start_date</code> and <code>end_date</code>.</li>
+                    <li><b>Predictable System Load:</b> You can prevent users from querying 10 years of data at once by strictly enforcing a maximum time-window (e.g., max 1 month per request).</li>
+                    <li><b>Partitioning:</b> Very useful for large systems (like server logs) where databases are naturally partitioned by date. It queries only the specific partition for that date.</li>
+                </ul>
+                <br>
+                <b>How it looks (API):</b>
+                <pre style="background: #e9ecef; padding: 10px; border-radius: 5px; font-family: monospace; color: #d63384;">
+GET /events?start=2025-09-01T00:00:00Z&amp;end=2025-09-01T01:00:00Z&amp;limit=1000</pre>
+                
+                <b>SQL Query Example:</b>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; font-family: monospace; color: #0d6efd; border: 1px solid #dee2e6;">
+SELECT id, event_type, created_at
+FROM events
+WHERE created_at &gt;= :start AND created_at &lt; :end
+ORDER BY created_at ASC
+LIMIT :limit;</pre>
+
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
+                    <div style="flex: 1; min-width: 300px; background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50;">
+                        <b style="color: #2e7d32;">Pros (Advantages)</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li><b>Analytics Friendly:</b> Perfect for graphing and time-based queries.</li>
+                            <li><b>Predictable Bounds:</b> Safely fetches fixed chunks of time even during heavy writes.</li>
+                            <li><b>Partitioning:</b> Works seamlessly with date-partitioned databases.</li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1; min-width: 300px; background: #ffebee; padding: 15px; border-radius: 5px; border-left: 4px solid #f44336;">
+                        <b style="color: #c62828;">Cons (Disadvantages)</b>
+                        <ul class="pl" style="margin-bottom: 0;">
+                            <li><b>Data Skew:</b> One 1-hour window might have 10 events, another might have 10,000.</li>
+                            <li><b>Pagination within Pagination:</b> If a time window exceeds the `limit`, you have to fall back to Cursor/Keyset pagination inside that specific window.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; border-left: 4px solid #2196f3; margin-top: 15px;">
+                    <b style="color: #1565c0;">When to Use? (Best Use Cases)</b>
+                    <ul class="pl" style="margin-bottom: 0;">
+                        <li>Analytics and reporting dashboards (e.g., Google Analytics, Sales charts).</li>
+                        <li>System logs and event streams (e.g., fetching error logs from yesterday).</li>
+                        <li>Data export jobs (e.g., "Export all transactions for the month of August").</li>
+                    </ul>
+                </div>
             </li>
         </ul>
+    </div>
+    
+    <div class="marathi-box">
+        <b>मराठी सारांश (Offset + Limit Pagination):</b>
+        <ul class="pl">
+            <li>हा सर्वात जास्त वापरला जाणारा प्रकार आहे. SQL मध्ये खूप चालतो.</li>
+            <li><b>LIMIT:</b> एका वेळेस किती records दाखवायचे.</li>
+            <li><b>OFFSET:</b> सुरुवातीचे किती records सोडायचे (skip करायचे). सूत्र: <code>(page - 1) * limit</code>.</li>
+        </ul>
+        
+        <b>Pros (फायदे):</b>
+        <ul class="pl">
+            <li>Implement आणि debug करायला खूप सोपं आहे.</li>
+            <li>Jump-to-page UI (उदा. थेट "Page 17" वर जाणे) support करते.</li>
+            <li>बहुतेक ORMs (Mongoose, Sequelize) मध्ये <code>.limit().offset()</code> आधीपासूनच असते.</li>
+            <li>लहान किंवा न बदलणाऱ्या (static) lists साठी (उदा. admin tables, reports) एकदम भारी आहे.</li>
+        </ul>
+
+        <b>Cons &amp; Performance Issues (तोटे):</b>
+        <ul class="pl">
+            <li><b>Performance:</b> खूप मोठ्या data साठी (लाखो records) ही पद्धत slow होते (Deep offsets), कारण database ला मागचे सगळे rows मोजून skip करावे लागतात.</li>
+            <li><b>Data Inconsistency:</b> जर मध्येच नवीन record add किंवा delete झाला, तर rows shift होतात आणि काही records दोनदा दिसू शकतात किंवा गायब होऊ शकतात.</li>
+            <li>मोठ्या tables वर <code>COUNT(*)</code> मारून total items काढणे खूप expensive (slow) असते.</li>
+        </ul>
+
+        <b>Best Practices (उत्तम सवयी):</b>
+        <ul class="pl">
+            <li>Limit वर मर्यादा ठेवा (उदा. जास्तीत जास्त 100 items).</li>
+            <li>खूप पुढे जाणे (Deep offsets) टाळा (उदा. offset > 10k असेल तर error द्या किंवा Cursor pagination वापरा).</li>
+            <li>प्रत्येक वेळी <code>COUNT(*)</code> मारण्यापेक्षा, <code>limit + 1</code> records fetch करा, म्हणजे समजेल की पुढे अजून डेटा बाकी आहे (has_more).</li>
+            <li><code>total_items</code> cache मध्ये ठेवा किंवा "estimated_total" पाठवा.</li>
+        </ul>
+
+        <b>कधी वापरावे? (When to Use?):</b>
+        <ul class="pl" style="margin-bottom: 0;">
+            <li>जेव्हा list लहान किंवा मध्यम (Small/Medium) असेल.</li>
+            <li>जेव्हा डेटा सहसा बदलत नाही (Read-only data).</li>
+            <li>जेव्हा user ला थेट एखाद्या विशिष्ट page वर जाण्याची (jump-to-page) सोय देणे गरजेचे असते.</li>
+        </ul>
+    </div>
+
+    <div class="marathi-box" style="margin-top: 20px;">
+        <b>मराठी सारांश (Cursor-based Pagination / Opaque Token):</b>
+        <ul class="pl">
+            <li>Offset वापरण्याऐवजी, API एक cursor (साधारणपणे base64 किंवा signed token) देते. हा cursor एका <b>bookmark</b> सारखा काम करतो.</li>
+            <li>ही पद्धत अत्यंत मोठ्या डेटासेट (Millions of records) आणि real-time feeds (जसे Instagram, Twitter) साठी उत्तम आहे.</li>
+            <li>ह्यामध्ये database ला मागचे records skip करावे लागत नाहीत, तो थेट cursor च्या जागेवरून पुढचा डेटा देतो (Direct Jump).</li>
+        </ul>
+
+        <b>Opaque Token म्हणजे काय? (What is Opaque Token?): ✉️</b>
+        <ul class="pl" style="margin: 5px 0 10px 0;">
+            <li><b>अर्थ:</b> "Opaque" म्हणजे ज्याच्या आरपार पाहता येत नाही असे काहीतरी.</li>
+            <li><b>APIs मध्ये:</b> Opaque Token म्हणजे असा डेटा ज्याचा अर्थ Client (Frontend/App) ला समजत नाही.</li>
+            <li><b>बंद पाकीट:</b> Client साठी हे फक्त एका <b>"बंद पाकिटासारखे" (Sealed Envelope)</b> असते. तो ते पाकीट तसंच्या तसं पुढच्या request मध्ये पाठवतो.</li>
+            <li><b>Server डिकोड करतो:</b> फक्त Backend Server ते उघडून (decode करून) वाचू शकतो की डेटा कुठून पुढे पाठवायचा आहे.</li>
+        </ul>
+
+        <b>Signed (HMAC) म्हणजे काय? 🔐</b>
+        <ul class="pl" style="margin: 5px 0 10px 0;">
+            <li><b>HMAC:</b> हे एक प्रकारची Digital Signature (मोहर) असते जी एका secret key ने बनवली जाते.</li>
+            <li><b>Tamper-Proof:</b> जर एखाद्या हॅकरने cursor मधील डेटा बदलण्याचा प्रयत्न केला (उदा. <code>id: 500</code> ऐवजी <code>id: 1000</code>), तर ती signature match होत नाही आणि server ती request फेटाळून लावतो.</li>
+            <li><b>सोपे उदाहरण:</b> जसे बँकेचा मॅनेजर एखाद्या कागदावर स्वतःचा खास शिक्का मारतो. जर कुणी कागद बदलला, तर मॅनेजरला लगेच समजते की हा कागद बनावट आहे.</li>
+        </ul>
+
+        <b>Good Practices (उत्तम सवयी):</b>
+        <ul class="pl">
+            <li><b>Opaque + Signed (HMAC):</b> Cursor नेहमी sign (HMAC) केलेला असावा, जेणेकरून client तो स्वतःहून बदलू (forge) शकणार नाही.</li>
+            <li><b>Expiry:</b> जर डेटा खूप वेगाने बदलत असेल (fast-moving data), तर cursor ला expiry time द्या.</li>
+            <li><b>Security Check:</b> Client ने जर जुना cursor आणि नवीन filters पाठवले, तर ती request reject करा. (Filters आणि Sort नेहमी cursor मधील माहितीशी match झाले पाहिजेत).</li>
+            <li><b>Reverse Pagination:</b> तुम्ही <code>previous_cursor</code> बनवून उलट्या क्रमाने (reverse order) पण records दाखवू शकता (उदा. <code>&lt;</code> च्या जागी <code>&gt;</code> वापरून).</li>
+        </ul>
+
+        <b>Pros &amp; Cons (फायदे आणि तोटे):</b>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+            <div style="flex: 1; min-width: 300px; background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50;">
+                <b style="color: #2e7d32;">Pros (फायदे)</b>
+                <ul class="pl" style="margin-bottom: 0;">
+                    <li><b>Consistent:</b> नवीन records add/delete झाल्यावरही डेटा missing किंवा duplicate होत नाही.</li>
+                    <li><b>Fast:</b> Database थेट index वरून data शोधतो, rows मोजत बसत नाही (No scanning).</li>
+                    <li><b>Secure:</b> Internal keys लपवल्या जातात आणि token sign करता येते.</li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 300px; background: #ffebee; padding: 15px; border-radius: 5px; border-left: 4px solid #f44336;">
+                <b style="color: #c62828;">Cons (तोटे)</b>
+                <ul class="pl" style="margin-bottom: 0;">
+                    <li><b>Complex:</b> Encode/Decode आणि HMAC signing मुळे थोडं कठीण असते.</li>
+                    <li><b>No Jump:</b> थेट एखाद्या विशिष्ट page वर (उदा. Page 10) जाणे अवघड असते.</li>
+                    <li><b>Strict Filters:</b> जर युजरने मधीच filters/sort बदलले, तर जुना cursor चालत नाही (400 Error द्यावा लागतो).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="marathi-box" style="margin-top: 20px;">
+        <b>मराठी सारांश (Keyset / Seek Pagination):</b>
+        <ul class="pl">
+            <li>यात page numbers ऐवजी direct values (उदा. id, date) चा वापर केला जातो. याचा अर्थ "मला या value च्या पुढचा डेटा दे".</li>
+            <li>ही पद्धत Cursor सारखीच fast असते, पण यात token लपवलेले (opaque) नसते, ते URL मध्ये उघडपणे दिसते.</li>
+        </ul>
+        <b>Pros &amp; Cons (फायदे आणि तोटे):</b>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+            <div style="flex: 1; min-width: 300px; background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50;">
+                <b style="color: #2e7d32;">Pros (फायदे)</b>
+                <ul class="pl" style="margin-bottom: 0;">
+                    <li><b>Fast &amp; Consistent:</b> Index चा वापर केल्यामुळे ही पद्धत अत्यंत वेगवान असते. डेटा missing किंवा duplicate होत नाही.</li>
+                    <li><b>Transparent:</b> URL बनवणे सोपे असते (token decode करण्याची गरज नसते).</li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 300px; background: #ffebee; padding: 15px; border-radius: 5px; border-left: 4px solid #f44336;">
+                <b style="color: #c62828;">Cons (तोटे)</b>
+                <ul class="pl" style="margin-bottom: 0;">
+                    <li><b>Data Leak:</b> Database च्या internal keys (ids) client ला दिसतात.</li>
+                    <li><b>No Jump:</b> थेट एखाद्या विशिष्ट page वर जाता येत नाही.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="marathi-box" style="margin-top: 20px;">
+        <b>मराठी सारांश (Time-Window Pagination / Temporal Slices):</b>
+        <ul class="pl">
+            <li>यात डेटा ठराविक वेळेनुसार (Time Range) विभागला जातो (उदा. दर १ तासाचा डेटा).</li>
+            <li>Logs (System logs) किंवा Analytics Dashboards (ग्राफ्स) दाखवण्यासाठी ही पद्धत उत्तम आहे.</li>
+        </ul>
+        <b>Pros &amp; Cons (फायदे आणि तोटे):</b>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+            <div style="flex: 1; min-width: 300px; background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4caf50;">
+                <b style="color: #2e7d32;">Pros (फायदे)</b>
+                <ul class="pl" style="margin-bottom: 0;">
+                    <li><b>Analytics Friendly:</b> Time-based reports बनवण्यासाठी उत्तम.</li>
+                    <li><b>Predictable:</b> खूप जास्त ट्रॅफिक असले तरी ठरलेल्या वेळेचाच डेटा सुरक्षितपणे मिळतो.</li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 300px; background: #ffebee; padding: 15px; border-radius: 5px; border-left: 4px solid #f44336;">
+                <b style="color: #c62828;">Cons (तोटे)</b>
+                <ul class="pl" style="margin-bottom: 0;">
+                    <li><b>Data Skew:</b> एका वेळेत (उदा. रात्री) खूप कमी डेटा असू शकतो आणि दुसऱ्या वेळेत (उदा. दुपारी) खूप जास्त डेटा असू शकतो.</li>
+                    <li><b>Double Pagination:</b> जर एका वेळेत खूप जास्त डेटा असेल, तर त्या आत पुन्हा Cursor pagination वापरावे लागते.</li>
+                </ul>
+            </div>
+        </div>
     </div>
     
     <div class="code-title">Code Example: Offset-Based Pagination in Express.js</div>
@@ -12277,60 +12728,6 @@ app.get('/api/posts', async (req, res) => {
 
     
 
-    <h2>Interview Questions (Detailed)</h2>
-    <div class="q" id="chap-17-q1">
-        <b>Q1. What is the exact difference between PUT and PATCH?</b><br>
-        <ul class="pl">
-            <li><b>PUT (Full Update):</b> It replaces the entire resource. If a User object has 5 fields and you only want to change the "name", sending a PUT request with only the "name" will erase the other 4 fields (unless you send all 5 fields again). It is idempotent.</li>
-            <li><b>PATCH (Partial Update):</b> It only modifies the specific fields you send. If you send only the "name", it updates the name and leaves the other 4 fields completely untouched.</li>
-        </ul>
-    </div>
-    <div class="q" id="chap-17-q2">
-        <b>Q2. What does "Stateless" mean in REST architecture?</b><br>
-        <ul class="pl">
-            <li>Stateless means that the server does not remember anything about the client between requests. The client must include authentication tokens, IDs, and all required data in <i>every single</i> request.</li>
-        </ul>
-    </div>
-    <div class="marathi-box">
-    <b>मराठी सारांश:</b>
-    <ul class="pl" style="margin-bottom: 0;">
-        <li>Interview चा सर्वात आवडता प्रश्न: PUT आणि PATCH मध्ये काय फरक आहे?</li>
-        <li>उत्तर: PUT संपूर्ण Data बदलून टाकतो (म्हणून जुना डेटा डिलीट होऊ शकतो जर आपण पूर्ण डेटा पाठवला नाही).</li>
-        <li>पण PATCH फक्त तेवढाच भाग बदलतो जो आपण पाठवला आहे, बाकीचा डेटा सुरक्षित राहतो.</li>
-        <li><b>उदाहरण:</b> user <code>{ name, email, age }</code>. PUT मध्ये फक्त <code>{ name }</code> पाठवले तर email आणि age जाऊ शकतात. PATCH मध्ये फक्त name बदलते.</li>
-        <li><b>Idempotent:</b> PUT idempotent आहे (कितीही वेळा पाठवा, परिणाम same). PATCH नेहमी नसतो (उदा. "stock 1 ने वाढवा").</li>
-        <li><b>Stateless (Q2):</b> server client ची मागची माहिती लक्षात ठेवत नाही. प्रत्येक request मध्ये token / id सगळे हवे.</li>
-        <li><b>Status codes:</b> यशस्वी update ला <code>200</code>, resource नसेल तर <code>404</code>.</li>
-    </ul>
-</div>
-
-    <h3>Quick Revision Summary</h3>
-    <table>
-        <tr>
-            <th>Concept / Method</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td><b>REST</b></td>
-            <td>Representational State Transfer (an architectural style for APIs).</td>
-        </tr>
-        <tr>
-            <td><b>GET / POST / DELETE</b></td>
-            <td>Methods to Read, Create, and Delete data.</td>
-        </tr>
-        <tr>
-            <td><b>PUT</b></td>
-            <td>Method to fully replace/update a resource.</td>
-        </tr>
-        <tr>
-            <td><b>PATCH</b></td>
-            <td>Method to partially update specific fields of a resource.</td>
-        </tr>
-        <tr>
-            <td><b>express.Router()</b></td>
-            <td>Used to modularize and split API routes into separate files.</td>
-        </tr>
-    </table>
 
     <div class="part" id="part-6">SECTION 6: NODE.JS INTERNAL ARCHITECTURE</div>
 
