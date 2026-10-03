@@ -21,9 +21,11 @@ Whenever adding theory or notes, use the predefined CSS boxes:
 - Marathi explanations must be detailed, easy for quick revision, and ALWAYS in point-wise format (`<ul><li>`).
 - Definitions must also be in point-wise format (`<ul><li>`).
 
-## 4. Visuals & Diagrams (SVG Only)
+## 4. Visuals, Diagrams, Syntax, and Code Examples
+- **Syntax & Arguments Explanation:** Whenever you introduce or use a new built-in method, function, or command, you MUST include a dedicated point-wise detailed breakdown of its **Syntax** and explain every single **Argument/Parameter** it accepts.
 - Do NOT use text-based ASCII diagrams inside `<pre>` tags.
 - Wherever a workflow or architecture needs to be explained (e.g., Event Loop, DNS, MVC), you **MUST** create a proper, colorful `<svg>` diagram wrapped in a styled `<div>`. 
+- **Code Examples:** NEVER use inline code tags (`<br><code>...</code>`) for examples. ALWAYS use a proper block formatted `<pre>` tag with a faint/light background for code snippets (e.g. `<pre style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">`). 
 
 ## 5. Scope of Document (No Databases)
 - This HTML file is strictly for **Core Node.js, Express, and Backend Architecture**.
