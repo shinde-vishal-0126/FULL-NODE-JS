@@ -15535,10 +15535,38 @@ app.set('view engine', 'hbs');
     <div class="def-box">
         <b>Definition:</b>
         <ul class="pl">
-            <li><b>API</b> = Application Programming Interface.</li>
-            <li>It is a set of <b>rules and protocols</b> that lets one software application <b>communicate</b> with
-                another.</li>
-            <li>One side asks (request), the other side answers (response), in an agreed format (usually JSON).</li>
+            <li><b>API</b> stands for <b>Application Programming Interface</b>.</li>
+            <li>An API is a <b>well-defined contract</b> (a set of rules, protocols and data formats) that allows two
+                separate software components to <b>communicate and exchange data</b> with each other.</li>
+            <li>It defines <b>what</b> can be requested, <b>how</b> to request it, and <b>what</b> will be returned.</li>
+            <li>It exposes only the required functionality.</li>
+            <li>It <b>hides the internal implementation</b> (abstraction).</li>
+            <li>The consumer (client) only needs to know the API's <b>endpoints, inputs and outputs</b>.</li>
+            <li>The provider (server) can change its internal code freely, as long as the contract stays the same.</li>
+            <li>In web development, an API is usually a <b>Web API</b>.</li>
+            <li>The client sends an <b>HTTP request</b> to a URL (endpoint).</li>
+            <li>The server processes it and sends back an <b>HTTP response</b>, usually in <b>JSON</b> format, with a
+                status code.</li>
+        </ul>
+    </div>
+    <div class="notes-box">
+        <b>Key Parts of a Web API:</b>
+        <ul class="pl">
+            <li><b>Endpoint:</b> The URL where the API can be reached (e.g. <code>/api/users</code>).</li>
+            <li><b>HTTP Method:</b> The action to perform: GET (read), POST (create), PUT/PATCH (update), DELETE
+                (remove).</li>
+            <li><b>Request:</b> What the client sends — headers, URL params, query string, and body.</li>
+            <li><b>Response:</b> What the server returns — a status code (200, 404, 500…), headers, and a body
+                (JSON).</li>
+            <li><b>Headers:</b> Metadata such as <code>Content-Type</code> and <code>Authorization</code>.</li>
+        </ul>
+    </div>
+    <div class="notes-box">
+        <b>Types of APIs:</b>
+        <ul class="pl">
+            <li><b>By access:</b> Public (open), Private (internal), Partner (shared with specific companies).</li>
+            <li><b>By style/protocol:</b> REST, GraphQL, SOAP, gRPC, WebSocket.</li>
+            <li><b>Non-web APIs:</b> Library/OS APIs, e.g. Node's <code>fs.readFile()</code> is also an API.</li>
         </ul>
     </div>
     <div class="notes-box">
@@ -15547,9 +15575,37 @@ app.set('view engine', 'hbs');
                 fetch data from remote servers.</li>
             <li><b>Example:</b> A weather app calls <code>GET https://api.weather.com/today?city=Pune</code> and
                 receives <code>{ "temp": 31 }</code>.</li>
-            <li>The client does not need to know <i>how</i> the server works internally. It only needs the API's
-                endpoints and format.</li>
+            <li><b>Restaurant analogy:</b> You (client) → Waiter (API) → Kitchen (server/database).</li>
+            <li>You never enter the kitchen; you only use the menu (the API documentation).</li>
         </ul>
+    </div>
+    <div style="text-align: center; margin: 15px 0;">
+        <svg viewBox="0 0 640 170" style="max-width: 100%; height: auto;" xmlns="http://www.w3.org/2000/svg"
+            font-family="Segoe UI, sans-serif" font-size="13">
+            <defs>
+                <marker id="api-arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#555" />
+                </marker>
+            </defs>
+            <rect x="10" y="45" width="140" height="70" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" />
+            <text x="80" y="75" text-anchor="middle" font-weight="bold" fill="#0d47a1">Client</text>
+            <text x="80" y="95" text-anchor="middle" fill="#333">Browser / App</text>
+            <rect x="250" y="45" width="140" height="70" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" />
+            <text x="320" y="75" text-anchor="middle" font-weight="bold" fill="#1b5e20">API</text>
+            <text x="320" y="95" text-anchor="middle" fill="#333">Endpoints / Rules</text>
+            <rect x="490" y="45" width="140" height="70" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="2" />
+            <text x="560" y="75" text-anchor="middle" font-weight="bold" fill="#e65100">Server</text>
+            <text x="560" y="95" text-anchor="middle" fill="#333">Logic + Database</text>
+            <line x1="150" y1="65" x2="248" y2="65" stroke="#555" stroke-width="2" marker-end="url(#api-arr)" />
+            <line x1="390" y1="65" x2="488" y2="65" stroke="#555" stroke-width="2" marker-end="url(#api-arr)" />
+            <line x1="488" y1="98" x2="392" y2="98" stroke="#555" stroke-width="2" marker-end="url(#api-arr)" />
+            <line x1="248" y1="98" x2="152" y2="98" stroke="#555" stroke-width="2" marker-end="url(#api-arr)" />
+            <text x="200" y="40" text-anchor="middle" fill="#2196f3">HTTP Request</text>
+            <text x="200" y="135" text-anchor="middle" fill="#4caf50">JSON Response</text>
+            <text x="440" y="40" text-anchor="middle" fill="#2196f3">calls logic</text>
+            <text x="440" y="135" text-anchor="middle" fill="#ff9800">returns data</text>
+        </svg>
+        <div style="font-size: 0.85em; color: #666;">Figure: How an API connects a Client and a Server</div>
     </div>
     <div class="code-title">Code Example: Calling an API from Node.js (Node 18+ fetch)</div>
     <pre
@@ -15558,10 +15614,33 @@ const res = await fetch('https://jsonplaceholder.typicode.com/users/1');   // re
 const user = await res.json();                                             // response (JSON)
 console.log(res.status, user.name);                                        // 200 'Leanne Graham'
 </pre>
+    <div class="ex">
+        <b>Syntax:</b> <code>fetch(url, options)</code> → returns a <code>Promise&lt;Response&gt;</code>
+        <ul class="pl">
+            <li><b>url</b> (string): The API endpoint to call.</li>
+            <li><b>options</b> (object, optional): Request settings.
+                <ul class="pl">
+                    <li><b>method:</b> <code>'GET'</code> (default), <code>'POST'</code>, <code>'PUT'</code>,
+                        <code>'PATCH'</code>, <code>'DELETE'</code>.</li>
+                    <li><b>headers:</b> e.g. <code>{ 'Content-Type': 'application/json' }</code>.</li>
+                    <li><b>body:</b> The data to send (use <code>JSON.stringify(obj)</code> for JSON).</li>
+                </ul>
+            </li>
+            <li><b>res.status:</b> The HTTP status code (200, 404…).</li>
+            <li><b>res.json():</b> Reads the response body and parses it as JSON (also returns a Promise).</li>
+        </ul>
+    </div>
     <div class="marathi-box">
         <b>मराठी सारांश:</b>
         <ul class="pl" style="margin-bottom: 0;">
-            <li>API म्हणजे दोन सॉफ्टवेअरला एकमेकांशी बोलण्यासाठी बनवलेला मार्ग (नियमांचा संच).</li>
+            <li>API = Application Programming Interface.</li>
+            <li>API म्हणजे दोन सॉफ्टवेअरला एकमेकांशी बोलण्यासाठी बनवलेला मार्ग (नियमांचा संच / contract).</li>
+            <li>काय मागायचं, कसं मागायचं आणि काय उत्तर मिळेल — हे API ठरवते.</li>
+            <li>Server आतून कसं काम करतो ते API लपवते (abstraction).</li>
+            <li>Client फक्त Request पाठवतो (URL + Method + Data).</li>
+            <li>Server Response पाठवतो (Status code + JSON data).</li>
+            <li>मुख्य भाग: Endpoint, Method, Request, Response, Headers.</li>
+            <li>प्रकार: REST, GraphQL, SOAP, gRPC, WebSocket.</li>
             <li>जसे आपण हॉटेलमध्ये वेटरला ऑर्डर देतो आणि तो किचनमधून जेवण आणतो, तसेच API आपल्या App कडून Request घेते
                 आणि Server कडून Data आणते.</li>
             <li>आपल्याला किचन कसे चालते हे माहीत असण्याची गरज नसते. फक्त menu (API endpoints) माहीत हवा.</li>
