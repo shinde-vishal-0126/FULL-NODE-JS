@@ -16588,6 +16588,234 @@ v1.post('/orders', async (req, res) => {
             <li>In real systems they are mixed: REST/GraphQL for clients, gRPC between internal services.</li>
         </ul>
     </div>
+
+    <div class="def-box">
+        <b>What is RPC (Remote Procedure Call)? — The idea behind gRPC:</b>
+        <ul class="pl">
+            <li><b>RPC</b> is a way for one program to <b>call a function (procedure) on another computer</b> (a
+                remote server).</li>
+            <li>The call looks and feels exactly like calling a <b>local function</b>.</li>
+            <li>It <b>hides all the network complexity</b> from the caller:
+                <ul class="pl">
+                    <li>Sockets and connections.</li>
+                    <li>IP addresses and ports.</li>
+                    <li>Serialization (converting data to bytes and back).</li>
+                </ul>
+            </li>
+            <li>REST thinks in <b>resources</b> (<code>GET /accounts/42/balance</code>).</li>
+            <li>RPC thinks in <b>actions / functions</b> (<code>getBalance(42)</code>).</li>
+        </ul>
+    </div>
+    <div style="text-align: center; margin: 15px 0;">
+        <svg viewBox="0 0 640 150" style="max-width: 100%; height: auto;" xmlns="http://www.w3.org/2000/svg"
+            font-family="Segoe UI, sans-serif" font-size="13">
+            <defs>
+                <marker id="rpc-arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#555" />
+                </marker>
+            </defs>
+            <rect x="10" y="45" width="140" height="60" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" />
+            <text x="80" y="72" text-anchor="middle" font-weight="bold" fill="#0d47a1">Your Code</text>
+            <text x="80" y="90" text-anchor="middle" fill="#333">(Client)</text>
+            <rect x="250" y="45" width="140" height="60" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="2" />
+            <text x="320" y="72" text-anchor="middle" font-weight="bold" fill="#e65100">Network</text>
+            <text x="320" y="90" text-anchor="middle" fill="#333">(hidden by RPC)</text>
+            <rect x="490" y="45" width="140" height="60" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" />
+            <text x="560" y="72" text-anchor="middle" font-weight="bold" fill="#1b5e20">Remote Server</text>
+            <text x="560" y="90" text-anchor="middle" fill="#333">runs getBalance()</text>
+            <line x1="150" y1="62" x2="248" y2="62" stroke="#555" stroke-width="2" marker-end="url(#rpc-arr)" />
+            <line x1="390" y1="62" x2="488" y2="62" stroke="#555" stroke-width="2" marker-end="url(#rpc-arr)" />
+            <line x1="488" y1="90" x2="392" y2="90" stroke="#4caf50" stroke-width="2" stroke-dasharray="5,3"
+                marker-end="url(#rpc-arr)" />
+            <line x1="248" y1="90" x2="152" y2="90" stroke="#4caf50" stroke-width="2" stroke-dasharray="5,3"
+                marker-end="url(#rpc-arr)" />
+            <text x="320" y="30" text-anchor="middle" fill="#2196f3">call getBalance(accountId)</text>
+            <text x="320" y="130" text-anchor="middle" fill="#4caf50">returns 5000 (like a normal function)</text>
+        </svg>
+        <div style="font-size: 0.85em; color: #666;">Figure: RPC — calling a remote function as if it were local
+        </div>
+    </div>
+    <div class="notes-box">
+        <b>Example (Real Life) — Banking App:</b>
+        <ul class="pl">
+            <li>You are building a banking app.</li>
+            <li>You call a function <code>getBalance(accountId)</code> in your code.</li>
+            <li>Instead of running locally, this call actually goes to the bank's backend server.</li>
+            <li>The server runs the logic, fetches the balance from the database, and returns the result.</li>
+            <li>For you (the caller), it feels like you just called a normal local function.</li>
+        </ul>
+        <b>Older RPC Systems:</b>
+        <ul class="pl">
+            <li><b>Java RMI</b> (Remote Method Invocation): works only between Java programs.</li>
+            <li><b>XML-RPC:</b> sends calls as XML over HTTP.</li>
+            <li><b>SOAP:</b> uses XML over HTTP, with strict WSDL contracts.</li>
+            <li><b>Thrift</b> (from Facebook): binary RPC across many languages.</li>
+            <li><b>Problem:</b> they were heavy, slow (XML parsing), or complex to set up.</li>
+        </ul>
+        <b>→ That's why gRPC came.</b>
+    </div>
+
+    <div class="def-box">
+        <b>What is gRPC (Google Remote Procedure Call)?</b>
+        <ul class="pl">
+            <li><b>gRPC</b> is a modern, open-source, high-performance <b>RPC framework</b> developed by
+                <b>Google</b> (released in 2015).</li>
+            <li>It lets a client call methods on a remote server as if they were local functions.</li>
+            <li>It uses <b>HTTP/2</b> for transport.</li>
+            <li>It uses <b>Protocol Buffers (Protobuf)</b> for data serialization.</li>
+            <li>The API is defined once in a <code>.proto</code> file (the contract).</li>
+            <li>Client and server code is generated automatically from that file.</li>
+        </ul>
+    </div>
+    <div class="notes-box">
+        <b>Key Features of gRPC:</b>
+        <ul class="pl">
+            <li><b>1. HTTP/2 for transport:</b>
+                <ul class="pl">
+                    <li><b>Fast:</b> one long-lived connection, with compressed headers.</li>
+                    <li><b>Multiplexed:</b> many calls travel over one connection at the same time.</li>
+                    <li><b>Bidirectional:</b> client and server can both send messages at any time.</li>
+                </ul>
+            </li>
+            <li><b>2. Protocol Buffers (Protobuf) for serialization:</b>
+                <ul class="pl">
+                    <li><b>Lightweight:</b> messages are much smaller than JSON.</li>
+                    <li><b>Binary:</b> data is sent as bytes, not text.</li>
+                    <li><b>Faster than JSON</b> to encode and decode.</li>
+                </ul>
+            </li>
+            <li><b>3. Cross-language support:</b>
+                <ul class="pl">
+                    <li>The client can be in Python, the server in Java, and another service in Go.</li>
+                    <li>They all talk easily, because they share the same <code>.proto</code> contract.</li>
+                    <li>Supported: Node.js, Go, Java, Python, C++, C#, and more.</li>
+                </ul>
+            </li>
+            <li><b>4. Streaming support:</b>
+                <ul class="pl">
+                    <li><b>Unary:</b> one request → one response (like a normal function).</li>
+                    <li><b>Server streaming:</b> one request → many responses (e.g. live stock prices).</li>
+                    <li><b>Client streaming:</b> many requests → one response (e.g. uploading chunks).</li>
+                    <li><b>Bidirectional streaming:</b> both sides stream at the same time (e.g. chat).</li>
+                </ul>
+            </li>
+            <li><b>5. Strongly typed contracts:</b>
+                <ul class="pl">
+                    <li>The API is defined in a <code>.proto</code> file, with exact types for every field.</li>
+                    <li>It auto-generates code for both client and server.</li>
+                    <li>Wrong types are caught early, not at runtime.</li>
+                </ul>
+            </li>
+        </ul>
+        <b>Where gRPC is Used in Real Life:</b>
+        <ul class="pl">
+            <li><b>Companies:</b> Google, Netflix, Uber, AWS.</li>
+            <li><b>Domains:</b> IoT, Gaming, Finance.</li>
+            <li>Mainly in microservices, <b>where performance matters</b>.</li>
+        </ul>
+    </div>
+    <div class="code-title">Code Example: gRPC in Node.js (npm i @grpc/grpc-js @grpc/proto-loader)</div>
+    <pre
+        style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
+// bank.proto  — the contract
+syntax = "proto3";
+service Bank {
+  rpc GetBalance (BalanceRequest) returns (BalanceReply);
+}
+message BalanceRequest { int32 accountId = 1; }
+message BalanceReply   { int32 balance   = 1; }
+
+// server.js
+const grpc = require('@grpc/grpc-js');
+const loader = require('@grpc/proto-loader');
+const proto = grpc.loadPackageDefinition(loader.loadSync('bank.proto'));
+
+const server = new grpc.Server();
+server.addService(proto.Bank.service, {
+  GetBalance: (call, callback) => {
+    const balance = 5000;                          // fetch from DB in real code
+    callback(null, { balance });                   // (error, response)
+  }
+});
+server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
+  console.log('gRPC server on 50051');
+});
+
+// client.js
+const client = new proto.Bank('localhost:50051', grpc.credentials.createInsecure());
+client.GetBalance({ accountId: 42 }, (err, res) => {
+  console.log(res.balance);                        // 5000 — feels like a local call
+});
+</pre>
+    <div class="ex">
+        <b>Syntax &amp; Arguments:</b>
+        <ul class="pl">
+            <li><b><code>loader.loadSync(file)</code></b>: reads the <code>.proto</code> file and returns a package
+                definition.</li>
+            <li><b><code>grpc.loadPackageDefinition(def)</code></b>: turns it into JS objects (services and
+                clients).</li>
+            <li><b><code>server.addService(service, handlers)</code></b>
+                <ul class="pl">
+                    <li><b>service:</b> the service definition, e.g. <code>proto.Bank.service</code>.</li>
+                    <li><b>handlers:</b> object mapping each rpc name to a function <code>(call, callback)</code>.</li>
+                    <li><b>call.request:</b> the incoming message (e.g. <code>{ accountId: 42 }</code>).</li>
+                    <li><b>callback(error, response):</b> sends the result back.</li>
+                </ul>
+            </li>
+            <li><b><code>server.bindAsync(address, credentials, cb)</code></b>
+                <ul class="pl">
+                    <li><b>address:</b> host and port, e.g. <code>'0.0.0.0:50051'</code>.</li>
+                    <li><b>credentials:</b> <code>createInsecure()</code> for local dev; use SSL/TLS in
+                        production.</li>
+                    <li><b>cb:</b> runs after the port is bound.</li>
+                </ul>
+            </li>
+            <li><b><code>new proto.Bank(address, credentials)</code></b>: creates a client stub.</li>
+            <li>✅ <b>Output:</b> The client prints <code>5000</code>, as if <code>GetBalance</code> were a local
+                function.</li>
+        </ul>
+    </div>
+    <div class="marathi-box">
+        <b>मराठी सारांश (RPC आणि gRPC):</b>
+        <ul class="pl" style="margin-bottom: 0;">
+            <li><b>RPC</b> = Remote Procedure Call.</li>
+            <li>दुसऱ्या computer (server) वरचे function आपल्या code मधून local function सारखे call करणे.</li>
+            <li>Network ची सगळी complexity (sockets, IP, serialization) RPC लपवते.</li>
+            <li>REST = resources (<code>/accounts/42</code>). RPC = functions (<code>getBalance(42)</code>).</li>
+            <li><b>उदाहरण:</b> Banking app मध्ये <code>getBalance(accountId)</code> call केले.</li>
+            <li>ते प्रत्यक्षात bank च्या server वर जाते, DB मधून balance आणते आणि result परत देते.</li>
+            <li>आपल्याला ते साध्या local function सारखेच वाटते.</li>
+            <li><b>जुने RPC systems:</b>
+                <ul class="pl">
+                    <li><b>Java RMI:</b> फक्त Java programs मध्येच काम करते.</li>
+                    <li><b>XML-RPC:</b> function call XML मध्ये HTTP वरून पाठवतो.</li>
+                    <li><b>SOAP:</b> XML over HTTP, कडक नियम (WSDL contract).</li>
+                    <li><b>Thrift (Facebook):</b> binary RPC, अनेक languages साठी.</li>
+                </ul>
+            </li>
+            <li>पण हे systems जड (heavy), slow (XML parsing) किंवा setup ला complex होते.</li>
+            <li><b>→ म्हणून gRPC आले.</b></li>
+            <li><b>gRPC</b> = Google Remote Procedure Call. Google ने बनवलेले modern RPC framework (2015).</li>
+            <li><b>gRPC ची वैशिष्ट्ये:</b>
+                <ul class="pl">
+                    <li><b>HTTP/2:</b> fast, एकाच connection वर एकाच वेळी अनेक calls (multiplexed), आणि दोन्ही बाजूंनी
+                        संवाद (bidirectional).</li>
+                    <li><b>Protocol Buffers (Protobuf):</b> हलका (lightweight), binary format, JSON पेक्षा वेगवान.</li>
+                    <li><b>Cross-language:</b> client Python मध्ये, server Java मध्ये, दुसरी service Go मध्ये — तरी
+                        सगळे सहज बोलतात.</li>
+                    <li><b>Streaming:</b> unary (1→1), server streaming (1→अनेक), client streaming (अनेक→1),
+                        bidirectional (दोन्ही बाजूंनी).</li>
+                    <li><b>Strongly typed contract:</b> API <code>.proto</code> file मध्ये define होते.</li>
+                    <li>त्यावरून client आणि server चा code आपोआप तयार होतो.</li>
+                </ul>
+            </li>
+            <li><b>खऱ्या जगात वापर:</b> Google, Netflix, Uber, AWS.</li>
+            <li>IoT, Gaming, Finance — जिथे performance (वेग) महत्वाचा आहे तिथे gRPC वापरतात.</li>
+            <li><b>Code मध्ये:</b> server <code>GetBalance</code> function देतो.</li>
+            <li>Client <code>client.GetBalance({ accountId: 42 })</code> call करतो आणि <code>5000</code> मिळतात.</li>
+            <li><b>कुठे वापरतात:</b> मुख्यतः microservices एकमेकांशी बोलण्यासाठी (fast आणि कमी data).</li>
+        </ul>
+    </div>
     <div class="code-title">Code Example: Same Request in REST vs GraphQL</div>
     <pre
         style="padding: 10px; margin: 5px 0; background: #f4f4f4; color: #333; border: 1px solid #ddd; border-radius: 5px; font-family: monospace;">
