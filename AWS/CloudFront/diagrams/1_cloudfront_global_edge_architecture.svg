@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#00f0ff"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff9900"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="42" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800">Amazon CloudFront Global Tiered Edge Architecture</text>
+  <text x="550" y="68" text-anchor="middle" fill="#94a3b8" font-size="13">600+ Edge PoPs &#8226; Regional Edge Caches (REC) &#8226; Origin Shield &#8226; Sub-20ms Global Delivery</text>
+
+  <!-- Level 1: Global Clients -->
+  <g transform="translate(40, 110)" filter="url(#shadow)">
+    <rect width="180" height="360" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="180" height="38" rx="12" fill="#2563eb"/>
+    <text x="90" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Global Viewers</text>
+
+    <g transform="translate(15, 55)">
+      <rect width="150" height="55" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="22" fill="#38bdf8" font-size="11" font-weight="600">📱 Mobile Users</text>
+      <text x="12" y="40" fill="#94a3b8" font-size="10">Mumbai / Delhi</text>
+    </g>
+
+    <g transform="translate(15, 120)">
+      <rect width="150" height="55" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="22" fill="#38bdf8" font-size="11" font-weight="600">💻 Web Clients</text>
+      <text x="12" y="40" fill="#94a3b8" font-size="10">London / Frankfurt</text>
+    </g>
+
+    <g transform="translate(15, 185)">
+      <rect width="150" height="55" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="22" fill="#38bdf8" font-size="11" font-weight="600">📺 Smart TVs</text>
+      <text x="12" y="40" fill="#94a3b8" font-size="10">New York / Tokyo</text>
+    </g>
+
+    <g transform="translate(15, 255)">
+      <rect width="150" height="85" rx="6" fill="#0f172a" stroke="#3b82f6"/>
+      <text x="75" y="22" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="700">Anycast DNS</text>
+      <text x="75" y="42" text-anchor="middle" fill="#f8fafc" font-size="10">Route 53 Geo</text>
+      <text x="75" y="60" text-anchor="middle" fill="#94a3b8" font-size="9">Connects to</text>
+      <text x="75" y="74" text-anchor="middle" fill="#4ade80" font-size="9">nearest physical PoP</text>
+    </g>
+  </g>
+
+  <!-- Connectors Level 1 to Level 2 -->
+  <path d="M 220 230 L 280 230" stroke="#00f0ff" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
+  <text x="250" y="220" text-anchor="middle" fill="#00f0ff" font-size="9" font-weight="700">TLS 1.3</text>
+
+  <!-- Level 2: Edge Locations (PoPs) -->
+  <g transform="translate(280, 110)" filter="url(#shadow)">
+    <rect width="240" height="360" rx="12" fill="#1e293b" stroke="#00f0ff" stroke-width="2"/>
+    <rect width="240" height="38" rx="12" fill="#0891b2"/>
+    <text x="120" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">600+ Edge Locations (PoPs)</text>
+
+    <g transform="translate(15, 55)">
+      <rect width="210" height="75" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+      <text x="12" y="22" fill="#4ade80" font-size="11" font-weight="700">&#10004; L1 Cache Hit (90%+)</text>
+      <text x="12" y="40" fill="#e2e8f0" font-size="10">&#8226; Cached in Local RAM/SSD</text>
+      <text x="12" y="58" fill="#a7f3d0" font-size="11" font-weight="600">&#9889; Latency: 10ms - 15ms</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect width="210" height="90" rx="6" fill="#0f172a" stroke="#f59e0b"/>
+      <text x="12" y="22" fill="#fcd34d" font-size="11" font-weight="700">L1 Cache Miss</text>
+      <text x="12" y="42" fill="#94a3b8" font-size="10">&#8226; Forwards request to</text>
+      <text x="12" y="58" fill="#38bdf8" font-size="10">  Regional Edge Cache (REC)</text>
+      <text x="12" y="74" fill="#94a3b8" font-size="9">  over private AWS backbone</text>
+    </g>
+
+    <g transform="translate(15, 240)">
+      <rect width="210" height="100" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="22" fill="#38bdf8" font-size="11" font-weight="700">Edge Logic Engine</text>
+      <text x="12" y="42" fill="#94a3b8" font-size="10">&#8226; CloudFront Functions (JS)</text>
+      <text x="12" y="58" fill="#94a3b8" font-size="10">&#8226; Sub-millisecond execution</text>
+      <text x="12" y="74" fill="#4ade80" font-size="10">&#8226; URL rewrites, Auth checks</text>
+      <text x="12" y="90" fill="#94a3b8" font-size="9">&#8226; AWS WAF &amp; Shield DDoS</text>
+    </g>
+  </g>
+
+  <!-- Connectors Level 2 to Level 3 -->
+  <path d="M 520 230 L 570 230" stroke="#00f0ff" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
+
+  <!-- Level 3: Regional Edge Caches (REC) & Origin Shield -->
+  <g transform="translate(570, 110)" filter="url(#shadow)">
+    <rect width="240" height="360" rx="12" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+    <rect width="240" height="38" rx="12" fill="#7c3aed"/>
+    <text x="120" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Regional Edge Caches (REC)</text>
+
+    <g transform="translate(15, 55)">
+      <rect width="210" height="85" rx="6" fill="#0f172a" stroke="#8b5cf6"/>
+      <text x="12" y="22" fill="#a78bfa" font-size="11" font-weight="700">Mid-Tier Cache (REC)</text>
+      <text x="12" y="42" fill="#94a3b8" font-size="10">&#8226; 13 Mega-Caches Globally</text>
+      <text x="12" y="58" fill="#94a3b8" font-size="10">&#8226; Massive multi-TB capacity</text>
+      <text x="12" y="74" fill="#4ade80" font-size="10">&#8226; Retains objects much longer</text>
+    </g>
+
+    <g transform="translate(15, 150)">
+      <rect width="210" height="95" rx="6" fill="#0f172a" stroke="#10b981"/>
+      <text x="12" y="22" fill="#4ade80" font-size="11" font-weight="700">Origin Shield (Optional)</text>
+      <text x="12" y="42" fill="#94a3b8" font-size="10">&#8226; Single centralized cache layer</text>
+      <text x="12" y="58" fill="#94a3b8" font-size="10">&#8226; Collapses multiple requests</text>
+      <text x="12" y="74" fill="#fcd34d" font-size="10">&#8226; Minimizes load on S3/API</text>
+      <text x="12" y="88" fill="#94a3b8" font-size="9">  to near ZERO origin hits</text>
+    </g>
+
+    <g transform="translate(15, 255)">
+      <rect width="210" height="85" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="22" fill="#38bdf8" font-size="11" font-weight="700">AWS Private Backbone</text>
+      <text x="12" y="42" fill="#94a3b8" font-size="10">&#8226; Dedicated fiber optic links</text>
+      <text x="12" y="58" fill="#94a3b8" font-size="10">&#8226; Zero public internet hops</text>
+      <text x="12" y="74" fill="#4ade80" font-size="10">&#8226; 100% DDoS Resilient</text>
+    </g>
+  </g>
+
+  <!-- Connectors Level 3 to Origins -->
+  <path d="M 810 230 L 860 230" stroke="#ff9900" stroke-width="2.5" marker-end="url(#arrowOrange)"/>
+  <text x="835" y="220" text-anchor="middle" fill="#ff9900" font-size="9" font-weight="700">SigV4</text>
+
+  <!-- Level 4: Origins -->
+  <g transform="translate(860, 110)" filter="url(#shadow)">
+    <rect width="200" height="360" rx="12" fill="#1e293b" stroke="#ff9900" stroke-width="2"/>
+    <rect width="200" height="38" rx="12" fill="#d97706"/>
+    <text x="100" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Origins (Master Data)</text>
+
+    <!-- Origin A: S3 Bucket -->
+    <g transform="translate(15, 55)">
+      <rect width="170" height="80" rx="6" fill="#0f172a" stroke="#ff9900"/>
+      <text x="10" y="22" fill="#ff9900" font-size="11" font-weight="700">🪣 Amazon S3</text>
+      <text x="10" y="40" fill="#94a3b8" font-size="9">Private Media Bucket</text>
+      <text x="10" y="56" fill="#4ade80" font-size="9">&#8226; Protected by OAC</text>
+      <text x="10" y="70" fill="#fcd34d" font-size="9">&#8226; $0.00 Egress to CloudFront</text>
+    </g>
+
+    <!-- Origin B: Fastify API / ALB -->
+    <g transform="translate(15, 145)">
+      <rect width="170" height="85" rx="6" fill="#0f172a" stroke="#10b981"/>
+      <text x="10" y="22" fill="#4ade80" font-size="11" font-weight="700">⚡ Fastify API (ALB)</text>
+      <text x="10" y="40" fill="#94a3b8" font-size="9">Dynamic REST APIs</text>
+      <text x="10" y="56" fill="#94a3b8" font-size="9">&#8226; Cache-Control: no-store</text>
+      <text x="10" y="72" fill="#38bdf8" font-size="9">&#8226; TLS termination at Edge</text>
+    </g>
+
+    <!-- Origin C: Custom On-Prem / EC2 -->
+    <g transform="translate(15, 240)">
+      <rect width="170" height="100" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="10" y="22" fill="#38bdf8" font-size="11" font-weight="700">Custom Origin / EC2</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="9">Microservices / Auth</text>
+      <text x="10" y="58" fill="#94a3b8" font-size="9">&#8226; Custom HTTP Headers</text>
+      <text x="10" y="74" fill="#94a3b8" font-size="9">&#8226; Secret header check</text>
+      <text x="10" y="90" fill="#4ade80" font-size="9">&#10004; Blocks direct IP traffic</text>
+    </g>
+  </g>
+</svg>

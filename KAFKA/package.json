@@ -1,0 +1,26 @@
+{
+  "name": "kafka-nodejs-production",
+  "version": "1.0.0",
+  "description": "Production-grade Apache Kafka Node.js integration with complete explanations for Interview & System Design",
+  "main": "client.js",
+  "scripts": {
+    "admin": "node admin.js",
+    "producer": "node producer.js",
+    "consumer": "node consumer.js",
+    "dlq": "node dlq.js"
+  },
+  "keywords": [
+    "kafka",
+    "kafkajs",
+    "nodejs",
+    "producer",
+    "consumer",
+    "dlq",
+    "microservices"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  }
+}

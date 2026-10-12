@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <text x="550" y="42" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800">SQS Message Lifecycle &amp; Visibility Timeout Mechanics</text>
+  <text x="550" y="68" text-anchor="middle" fill="#94a3b8" font-size="13">Why receiving does not delete &#8226; The ephemeral ReceiptHandle &#8226; Automatic fault tolerance</text>
+
+  <!-- Step 1: Ingestion -->
+  <g transform="translate(60, 110)" filter="url(#shadow)">
+    <rect width="200" height="150" rx="10" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="200" height="32" rx="10" fill="#2563eb"/>
+    <text x="100" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">1. Ingestion</text>
+    <text x="20" y="62" fill="#f8fafc" font-size="12" font-weight="600">SendMessageCommand</text>
+    <text x="20" y="82" fill="#94a3b8" font-size="11">&#8226; Payload JSON (&lt; 256 KB)</text>
+    <text x="20" y="100" fill="#94a3b8" font-size="11">&#8226; Replicated across 3 AZs</text>
+    <text x="20" y="120" fill="#4ade80" font-size="11" font-weight="600">&#8226; State: VISIBLE</text>
+  </g>
+
+  <!-- Step 2: Poll & Visibility Lease -->
+  <g transform="translate(320, 110)" filter="url(#shadow)">
+    <rect width="220" height="150" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+    <rect width="220" height="32" rx="10" fill="#d97706"/>
+    <text x="110" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">2. In-Flight Lease</text>
+    <text x="20" y="60" fill="#f8fafc" font-size="12" font-weight="600">ReceiveMessageCommand</text>
+    <text x="20" y="80" fill="#fcd34d" font-size="11">&#8226; Visibility Timeout starts (60s)</text>
+    <text x="20" y="98" fill="#94a3b8" font-size="11">&#8226; Hidden from other workers</text>
+    <text x="20" y="116" fill="#38bdf8" font-size="11" font-weight="600">&#8226; Issues ReceiptHandle token</text>
+    <text x="20" y="134" fill="#94a3b8" font-size="10">(Message is NOT deleted!)</text>
+  </g>
+
+  <!-- Step 3: Worker Processing -->
+  <g transform="translate(600, 110)" filter="url(#shadow)">
+    <rect width="200" height="150" rx="10" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+    <rect width="200" height="32" rx="10" fill="#7c3aed"/>
+    <text x="100" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">3. Business Execution</text>
+    <text x="20" y="60" fill="#f8fafc" font-size="12" font-weight="600">Node.js Worker Task</text>
+    <text x="20" y="80" fill="#94a3b8" font-size="11">&#8226; Check Idempotency Key</text>
+    <text x="20" y="98" fill="#94a3b8" font-size="11">&#8226; Deduct Stock &amp; Charge Card</text>
+    <text x="20" y="116" fill="#94a3b8" font-size="11">&#8226; Save PDF to AWS S3</text>
+    <text x="20" y="134" fill="#94a3b8" font-size="11">&#8226; DB Status: 'PAID'</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M 260 185 L 320 185" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 540 185 L 600 185" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Decision Branch -->
+  <path d="M 800 185 L 850 185" stroke="#94a3b8" stroke-width="2"/>
+  <polygon points="850,185 880,155 910,185 880,215" fill="#334155" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="880" y="189" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">OK?</text>
+
+  <!-- Branch Success -->
+  <path d="M 880 155 L 880 115 L 940 115" stroke="#22c55e" stroke-width="2.5"/>
+  <polygon points="940,110 950,115 940,120" fill="#22c55e"/>
+  <text x="900" y="105" fill="#4ade80" font-size="11" font-weight="700">YES</text>
+
+  <g transform="translate(950, 70)" filter="url(#shadow)">
+    <rect width="120" height="90" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="60" y="24" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="700">DeleteMessage</text>
+    <text x="60" y="44" text-anchor="middle" fill="#e2e8f0" font-size="10">Passes ReceiptHandle</text>
+    <text x="60" y="65" text-anchor="middle" fill="#93c5fd" font-size="10">Purged permanently</text>
+    <text x="60" y="80" text-anchor="middle" fill="#4ade80" font-size="10">&#10004; Success</text>
+  </g>
+
+  <!-- Branch Failure / Crash -->
+  <path d="M 880 215 L 880 255 L 940 255" stroke="#ef4444" stroke-width="2.5"/>
+  <polygon points="940,250 950,255 940,260" fill="#ef4444"/>
+  <text x="900" y="248" fill="#f87171" font-size="11" font-weight="700">NO</text>
+
+  <g transform="translate(950, 210)" filter="url(#shadow)">
+    <rect width="120" height="90" rx="8" fill="#450a0a" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="60" y="24" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">Worker Crash</text>
+    <text x="60" y="44" text-anchor="middle" fill="#e2e8f0" font-size="10">No delete called</text>
+    <text x="60" y="62" text-anchor="middle" fill="#fcd34d" font-size="10">Timeout expires</text>
+    <text x="60" y="78" text-anchor="middle" fill="#f87171" font-size="10">Auto-redelivered!</text>
+  </g>
+
+  <!-- Loop back arrow from crash to Step 2 -->
+  <path d="M 1010 300 L 1010 350 L 430 350 L 430 260" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="425,265 430,255 435,265" fill="#f59e0b"/>
+  <text x="720" y="342" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="600">Re-appears as VISIBLE after 60s for next healthy worker</text>
+
+  <!-- Bottom Timeline -->
+  <g transform="translate(60, 390)">
+    <rect width="980" height="95" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="24" fill="#38bdf8" font-size="12" font-weight="700">TIMELINE OF VISIBILITY TIMEOUT (Default 30s - Extended to 60s):</text>
+    
+    <!-- Timeline Bar -->
+    <rect x="20" y="42" width="200" height="18" rx="4" fill="#3b82f6"/>
+    <text x="120" y="55" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="600">t=0s: ReceiveMessage</text>
+
+    <rect x="225" y="42" width="550" height="18" rx="4" fill="#d97706"/>
+    <text x="500" y="55" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">IN-FLIGHT WINDOW (Hidden from all other workers for 60 seconds)</text>
+
+    <rect x="780" y="42" width="180" height="18" rx="4" fill="#dc2626"/>
+    <text x="870" y="55" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="600">t=60s: Visible Again</text>
+
+    <text x="20" y="82" fill="#94a3b8" font-size="10">&#8226; If work takes 80s: Call <tspan fill="#38bdf8">ChangeMessageVisibility(ReceiptHandle, 60)</tspan> heartbeat to prevent premature redelivery.</text>
+  </g>
+</svg>

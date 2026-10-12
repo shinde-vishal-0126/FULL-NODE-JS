@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%" style="background:#0b0f19; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <linearGradient id="cffGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="lbeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9900" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.05"/>
+    </linearGradient>
+    <marker id="arrCyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#00f0ff"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="38" text-anchor="middle" fill="#f9fafb" font-size="22" font-weight="700">Edge Compute: CloudFront Functions vs. Lambda@Edge</text>
+  <text x="550" y="62" text-anchor="middle" fill="#9ca3af" font-size="13">Architectural comparison, trigger execution stages, runtime constraints, and decision matrix</text>
+
+  <!-- Pipeline Diagram (CloudFront Event Lifecycle) -->
+  <g transform="translate(50, 85)">
+    <rect width="1000" height="150" rx="12" fill="url(#pipeGrad)" stroke="#8b5cf6" stroke-width="1.2"/>
+    <text x="25" y="28" fill="#c084fc" font-size="12" font-weight="700">CLOUDFRONT 4-PHASE EVENT LIFECYCLE (TRIGGER HOOKS)</text>
+
+    <!-- Client Box -->
+    <rect x="25" y="50" width="90" height="75" rx="6" fill="#111827" stroke="#374151"/>
+    <text x="70" y="85" text-anchor="middle" fill="#f3f4f6" font-size="12" font-weight="600">Client</text>
+    <text x="70" y="102" text-anchor="middle" fill="#9ca3af" font-size="10">Browser/App</text>
+
+    <!-- Hook 1: Viewer Request -->
+    <g transform="translate(145, 45)">
+      <rect width="180" height="85" rx="6" fill="#1e293b" stroke="#00f0ff" stroke-width="1"/>
+      <text x="90" y="24" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="700">1. Viewer Request</text>
+      <rect x="15" y="35" width="150" height="18" rx="4" fill="#00f0ff" fill-opacity="0.2"/>
+      <text x="90" y="48" text-anchor="middle" fill="#00f0ff" font-size="9" font-weight="700">CF Functions (Ultra-fast)</text>
+      <rect x="15" y="58" width="150" height="18" rx="4" fill="#ff9900" fill-opacity="0.2"/>
+      <text x="90" y="71" text-anchor="middle" fill="#ff9900" font-size="9" font-weight="700">Lambda@Edge (Full)</text>
+    </g>
+
+    <!-- Cache Center -->
+    <rect x="355" y="55" width="110" height="65" rx="6" fill="#1e1b4b" stroke="#818cf8"/>
+    <text x="410" y="85" text-anchor="middle" fill="#a5b4fc" font-size="12" font-weight="700">Edge Cache</text>
+    <text x="410" y="103" text-anchor="middle" fill="#6ee7b7" font-size="10">Hit = Short Circuit</text>
+
+    <!-- Hook 2: Origin Request -->
+    <g transform="translate(495, 45)">
+      <rect width="180" height="85" rx="6" fill="#1e293b" stroke="#ff9900" stroke-width="1"/>
+      <text x="90" y="24" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">2. Origin Request</text>
+      <rect x="15" y="42" width="150" height="28" rx="4" fill="#ff9900" fill-opacity="0.2"/>
+      <text x="90" y="56" text-anchor="middle" fill="#ff9900" font-size="10" font-weight="700">Lambda@Edge ONLY</text>
+      <text x="90" y="67" text-anchor="middle" fill="#9ca3af" font-size="8">(Runs on Cache Miss)</text>
+    </g>
+
+    <!-- Origin Box -->
+    <rect x="705" y="50" width="100" height="75" rx="6" fill="#111827" stroke="#ff9900"/>
+    <text x="755" y="85" text-anchor="middle" fill="#ff9900" font-size="12" font-weight="700">Origin Server</text>
+    <text x="755" y="102" text-anchor="middle" fill="#9ca3af" font-size="10">S3 / Fastify API</text>
+
+    <!-- Hook 3: Origin Response -->
+    <g transform="translate(835, 45)">
+      <rect width="140" height="85" rx="6" fill="#1e293b" stroke="#ff9900" stroke-width="1"/>
+      <text x="70" y="24" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700">3. Origin Response</text>
+      <rect x="10" y="42" width="120" height="28" rx="4" fill="#ff9900" fill-opacity="0.2"/>
+      <text x="70" y="56" text-anchor="middle" fill="#ff9900" font-size="9" font-weight="700">Lambda@Edge ONLY</text>
+      <text x="70" y="67" text-anchor="middle" fill="#9ca3af" font-size="8">(Modify headers/cache)</text>
+    </g>
+  </g>
+
+  <!-- Side-by-Side Deep Dive Cards -->
+  <!-- Left: CloudFront Functions -->
+  <g transform="translate(50, 255)">
+    <rect width="480" height="395" rx="12" fill="url(#cffGrad)" stroke="#00f0ff" stroke-width="1.5"/>
+    <rect x="20" y="16" width="180" height="26" rx="6" fill="#00f0ff" fill-opacity="0.2"/>
+    <text x="110" y="33" text-anchor="middle" fill="#00f0ff" font-size="12" font-weight="700">CLOUDFRONT FUNCTIONS</text>
+    <text x="215" y="34" fill="#f9fafb" font-size="16" font-weight="700">Ultra-Lightweight Edge JS</text>
+
+    <g transform="translate(20, 55)">
+      <rect width="440" height="175" rx="8" fill="#111827" stroke="#1f2937"/>
+      <text x="15" y="25" fill="#38bdf8" font-size="12" font-weight="700">&#9889; Performance &amp; Specs:</text>
+      <text x="15" y="48" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Execution Time:</tspan> Sub-millisecond (&lt; 1ms limit)</text>
+      <text x="15" y="68" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Memory:</tspan> 2 MB</text>
+      <text x="15" y="88" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Runtime:</tspan> JavaScript (ECMAScript 5.1+ compliant)</text>
+      <text x="15" y="108" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Network Access:</tspan> <tspan fill="#ef4444">None</tspan> (Isolated V8 runtime)</text>
+      <text x="15" y="128" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Scale / Concurrency:</tspan> 10,000,000+ req/sec seamlessly</text>
+      <text x="15" y="148" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Cost:</tspan> $0.10 per 1M requests (1/6th of Lambda)</text>
+      <text x="15" y="165" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Supported Triggers:</tspan> Viewer Request, Viewer Response</text>
+    </g>
+
+    <text x="20" y="255" fill="#f3f4f6" font-size="12" font-weight="700">Primary Use Cases:</text>
+    <text x="20" y="275" fill="#cbd5e1" font-size="11">&#8226; Header manipulation (add CORS, Security headers, HSTS)</text>
+    <text x="20" y="295" fill="#cbd5e1" font-size="11">&#8226; URL rewrites &amp; redirects (e.g. /docs to /docs/index.html)</text>
+    <text x="20" y="315" fill="#cbd5e1" font-size="11">&#8226; Simple JWT signature validation (crypto module supported)</text>
+
+    <!-- Marathi badge -->
+    <rect x="20" y="335" width="440" height="45" rx="6" fill="#1e293b" stroke="#00f0ff" stroke-width="0.8"/>
+    <text x="30" y="352" fill="#38bdf8" font-size="10" font-weight="700">&#2350;&#2352;&#2366;&#2336;&#2368; &#2344;&#2379;&#2335;:</text>
+    <text x="30" y="368" fill="#e2e8f0" font-size="10">&#2326;&#2370;&#2346; fast (&lt;1ms) &#2309;&#2360;&#2340;&#2375;, URL rewrite, headers &#2348;&#2342;&#2354;&#2339;&#2381;&#2351;&#2366;&#2360;&#2366;&#2336;&#2368; &#2361;&#2375;&#2330; &#2357;&#2366;&#2346;&#2352;&#2354;&#2375; &#2346;&#2366;&#2361;&#2364;&#2367;&#2332;&#2375;.</text>
+  </g>
+
+  <!-- Right: Lambda@Edge -->
+  <g transform="translate(560, 255)">
+    <rect width="490" height="395" rx="12" fill="url(#lbeGrad)" stroke="#ff9900" stroke-width="1.5"/>
+    <rect x="20" y="16" width="150" height="26" rx="6" fill="#ff9900" fill-opacity="0.2"/>
+    <text x="95" y="33" text-anchor="middle" fill="#ff9900" font-size="12" font-weight="700">LAMBDA@EDGE</text>
+    <text x="185" y="34" fill="#f9fafb" font-size="16" font-weight="700">Full Node.js Compute at Edge</text>
+
+    <g transform="translate(20, 55)">
+      <rect width="450" height="175" rx="8" fill="#111827" stroke="#1f2937"/>
+      <text x="15" y="25" fill="#f59e0b" font-size="12" font-weight="700">&#9889; Performance &amp; Specs:</text>
+      <text x="15" y="48" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Execution Time:</tspan> 5s (viewer) / 30s (origin)</text>
+      <text x="15" y="68" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Memory:</tspan> 128 MB to 10,240 MB (10 GB)</text>
+      <text x="15" y="88" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Runtime:</tspan> Node.js 18.x/20.x, Python 3.11</text>
+      <text x="15" y="108" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Network Access:</tspan> <tspan fill="#10b981">Full Internet &amp; AWS SDK access</tspan></text>
+      <text x="15" y="128" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Body Access:</tspan> Read/Write request and response bodies</text>
+      <text x="15" y="148" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Cost:</tspan> $0.60 per 1M requests + duration GB-seconds</text>
+      <text x="15" y="165" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Supported Triggers:</tspan> All 4 hooks (Viewer &amp; Origin)</text>
+    </g>
+
+    <text x="20" y="255" fill="#f3f4f6" font-size="12" font-weight="700">Primary Use Cases:</text>
+    <text x="20" y="275" fill="#cbd5e1" font-size="11">&#8226; Complex Auth querying DynamoDB, RDS, or OAuth2 providers</text>
+    <text x="20" y="295" fill="#cbd5e1" font-size="11">&#8226; On-the-fly Image Resizing (Sharp lib in Node.js) on origin response</text>
+    <text x="20" y="315" fill="#cbd5e1" font-size="11">&#8226; Server-Side Rendering (SSR) HTML pages directly at the edge</text>
+
+    <!-- Marathi badge -->
+    <rect x="20" y="335" width="450" height="45" rx="6" fill="#1e293b" stroke="#ff9900" stroke-width="0.8"/>
+    <text x="30" y="352" fill="#fbbf24" font-size="10" font-weight="700">&#2350;&#2352;&#2366;&#2336;&#2368; &#2344;&#2379;&#2335;:</text>
+    <text x="30" y="368" fill="#e2e8f0" font-size="10">&#2332;&#2375;&#2357;&#2381;&#2361;&#2366; Database (DynamoDB) &#2325;&#2375;&#2306;&#2357;&#2366; 3rd party API call &#2325;&#2352;&#2366;&#2351;&#2330;&#2368; &#2309;&#2360;&#2340;&#2375;, &#2340;&#2375;&#2357;&#2381;&#2361;&#2366; Lambda@Edge &#2354;&#2366;&#2327;&#2340;&#2375;.</text>
+  </g>
+</svg>

@@ -1,0 +1,1553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Amazon CloudFront &amp; S3 Edge Architecture Master Handbook | Node.js Media Guide
+    </title>
+    <meta
+      name="description"
+      content="Comprehensive Amazon CloudFront &amp; S3 production handbook covering Origin Access Control (OAC), Signed URLs vs Cookies, HLS streaming, CloudFront Functions vs Lambda@Edge, and 25+ Senior Interview Q&amp;As with Marathi translations."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary: #0b0f19;
+        --bg-secondary: #111827;
+        --bg-tertiary: #1f2937;
+        --bg-card: rgba(17, 24, 39, 0.85);
+        --border-color: rgba(255, 255, 255, 0.08);
+        --border-hover: rgba(0, 240, 255, 0.4);
+        --text-primary: #f9fafb;
+        --text-secondary: #9ca3af;
+        --text-muted: #6b7280;
+        --accent-aws: #ff9900;
+        --accent-cyan: #00f0ff;
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-purple: #8b5cf6;
+        --accent-red: #ef4444;
+        --sidebar-width: 320px;
+        --shadow-subtle: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        --marathi-bg: rgba(255, 153, 0, 0.06);
+        --marathi-border: #ff9900;
+        --marathi-text: #fed7aa;
+        --code-bg: #030712;
+      }
+
+      [data-theme='light'] {
+        --bg-primary: #f8fafc;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #f1f5f9;
+        --bg-card: rgba(255, 255, 255, 0.95);
+        --border-color: rgba(0, 0, 0, 0.08);
+        --border-hover: rgba(0, 180, 216, 0.5);
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #94a3b8;
+        --accent-aws: #d97706;
+        --accent-cyan: #0284c7;
+        --accent-blue: #2563eb;
+        --accent-green: #059669;
+        --accent-purple: #7c3aed;
+        --shadow-subtle: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+        --marathi-bg: rgba(217, 119, 6, 0.08);
+        --marathi-border: #d97706;
+        --marathi-text: #78350f;
+        --code-bg: #0f172a;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.65;
+        font-size: 15px;
+        display: flex;
+        min-height: 100vh;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      /* Sidebar Navigation */
+      .sidebar {
+        width: var(--sidebar-width);
+        background-color: var(--bg-secondary);
+        border-right: 1px solid var(--border-color);
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        z-index: 100;
+        overflow-y: auto;
+      }
+      .sidebar-header {
+        padding: 24px 20px 16px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .sidebar-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(0, 240, 255, 0.12);
+        color: var(--accent-cyan);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 10px;
+      }
+      .sidebar-title {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .sidebar-title span {
+        color: var(--accent-cyan);
+      }
+      .sidebar-search {
+        padding: 12px 20px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .search-input {
+        width: 100%;
+        padding: 9px 12px;
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-primary);
+        font-size: 13px;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .search-input:focus {
+        border-color: var(--accent-cyan);
+      }
+      .nav-links {
+        list-style: none;
+        padding: 12px 10px 40px;
+      }
+      .nav-item {
+        margin-bottom: 2px;
+      }
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+      .nav-link:hover {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        transform: translateX(3px);
+      }
+      .nav-link.active {
+        background: rgba(0, 240, 255, 0.1);
+        color: var(--accent-cyan);
+        font-weight: 600;
+        border-left: 3px solid var(--accent-cyan);
+      }
+      .nav-num {
+        font-family: 'Fira Code', monospace;
+        font-size: 11px;
+        color: var(--text-muted);
+        min-width: 20px;
+      }
+
+      /* Main Content */
+      .main-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        background: rgba(11, 15, 25, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 14px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 90;
+      }
+      [data-theme='light'] .topbar {
+        background: rgba(248, 250, 252, 0.85);
+      }
+      .breadcrumbs {
+        font-size: 13px;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .breadcrumbs a {
+        color: var(--text-secondary);
+        text-decoration: none;
+      }
+      .breadcrumbs a:hover {
+        color: var(--accent-cyan);
+      }
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+      .btn:hover {
+        border-color: var(--accent-cyan);
+        color: var(--accent-cyan);
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #00f0ff, #0077b6);
+        color: #0b0f19;
+        border: none;
+        font-weight: 700;
+      }
+      .btn-primary:hover {
+        opacity: 0.9;
+        color: #0b0f19;
+        box-shadow: 0 4px 15px rgba(0, 240, 255, 0.35);
+      }
+
+      .content {
+        padding: 32px 48px 100px;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* Hero Banner */
+      .hero {
+        background: linear-gradient(145deg, rgba(17, 24, 39, 0.95), rgba(15, 23, 42, 0.8));
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 40px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-subtle);
+      }
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 450px;
+        height: 450px;
+        background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        background: rgba(255, 153, 0, 0.15);
+        border: 1px solid rgba(255, 153, 0, 0.3);
+        color: var(--accent-aws);
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+      .hero-title {
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 1.25;
+        margin-bottom: 12px;
+        color: var(--text-primary);
+        letter-spacing: -0.5px;
+      }
+      .hero-title span {
+        background: linear-gradient(90deg, #00f0ff, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-desc {
+        font-size: 16px;
+        color: var(--text-secondary);
+        max-width: 820px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+        border-top: 1px solid var(--border-color);
+        padding-top: 24px;
+      }
+      .stat-card {
+        background: var(--bg-tertiary);
+        padding: 14px 18px;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+      }
+      .stat-val {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--accent-cyan);
+        font-family: 'Fira Code', monospace;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-top: 2px;
+      }
+
+      /* Section Styling */
+      section {
+        margin-bottom: 60px;
+        scroll-margin-top: 85px;
+      }
+      .section-header {
+        margin-bottom: 24px;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 14px;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+      }
+      .section-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        letter-spacing: -0.3px;
+      }
+      .section-num {
+        color: var(--accent-cyan);
+        font-family: 'Fira Code', monospace;
+        font-size: 18px;
+      }
+
+      /* SVG Diagram Container */
+      .diagram-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 24px;
+        margin: 24px 0;
+        box-shadow: var(--shadow-subtle);
+        text-align: center;
+        transition: border-color 0.2s;
+      }
+      .diagram-card:hover {
+        border-color: var(--border-hover);
+      }
+      .diagram-card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
+      }
+      .diagram-caption {
+        margin-top: 14px;
+        font-size: 13px;
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      /* Marathi Language Card */
+      .marathi-card {
+        background: var(--marathi-bg);
+        border-left: 4px solid var(--marathi-border);
+        border-radius: 0 10px 10px 0;
+        padding: 16px 20px;
+        margin: 20px 0;
+        font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+      }
+      .marathi-title {
+        font-weight: 700;
+        color: var(--accent-aws);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+      .marathi-text {
+        color: var(--text-primary);
+        font-size: 14.5px;
+        line-height: 1.7;
+      }
+
+      /* Code Blocks */
+      .code-container {
+        position: relative;
+        background: var(--code-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin: 20px 0;
+        overflow: hidden;
+      }
+      .code-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid var(--border-color);
+        font-family: 'Fira Code', monospace;
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+      .copy-btn {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.2s;
+      }
+      .copy-btn:hover {
+        border-color: var(--accent-cyan);
+        color: var(--accent-cyan);
+      }
+      pre {
+        padding: 18px 20px;
+        overflow-x: auto;
+        font-family: 'Fira Code', monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #e2e8f0;
+      }
+
+      /* Comparison Tables */
+      .table-container {
+        overflow-x: auto;
+        margin: 24px 0;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 13.5px;
+      }
+      th {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        padding: 14px 18px;
+        font-weight: 700;
+        border-bottom: 1px solid var(--border-color);
+      }
+      td {
+        padding: 13px 18px;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-secondary);
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      /* Q&A Accordion Style */
+      .qa-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 16px;
+        overflow: hidden;
+        transition: all 0.25s ease;
+      }
+      .qa-card:hover {
+        border-color: var(--border-hover);
+      }
+      .qa-header {
+        padding: 18px 22px;
+        cursor: pointer;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        user-select: none;
+      }
+      .qa-title {
+        font-size: 15.5px;
+        font-weight: 700;
+        color: var(--text-primary);
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+      .qa-badge {
+        font-family: 'Fira Code', monospace;
+        font-size: 12px;
+        color: var(--accent-cyan);
+        background: rgba(0, 240, 255, 0.1);
+        padding: 2px 8px;
+        border-radius: 4px;
+        flex-shrink: 0;
+      }
+      .qa-toggle {
+        font-size: 18px;
+        color: var(--text-muted);
+        transition: transform 0.25s ease;
+      }
+      .qa-card.open .qa-toggle {
+        transform: rotate(180deg);
+        color: var(--accent-cyan);
+      }
+      .qa-body {
+        padding: 0 22px 22px;
+        display: none;
+        border-top: 1px solid var(--border-color);
+        padding-top: 18px;
+        color: var(--text-secondary);
+        font-size: 14.5px;
+        line-height: 1.7;
+      }
+      .qa-card.open .qa-body {
+        display: block;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .sidebar {
+          display: none;
+        }
+        .content {
+          padding: 24px 20px 80px;
+        }
+        .hero {
+          padding: 24px;
+        }
+        .hero-title {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sticky Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-badge">&#9889; CloudFront &amp; S3 Edge</div>
+        <div class="sidebar-title">CloudFront <span>Handbook</span></div>
+      </div>
+      <div class="sidebar-search">
+        <input
+          type="text"
+          id="sidebarSearch"
+          class="search-input"
+          placeholder="Search architecture, Q&amp;As..."
+        />
+      </div>
+      <ul class="nav-links">
+        <li class="nav-item">
+          <a href="#section-1" class="nav-link"
+            ><span class="nav-num">01</span> Global Edge Architecture</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-2" class="nav-link"
+            ><span class="nav-num">02</span> Core CDN Terminology</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-3" class="nav-link"
+            ><span class="nav-num">03</span> Origin Access Control (OAC)</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-4" class="nav-link"
+            ><span class="nav-num">04</span> Cache Behaviors &amp; TTLs</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-5" class="nav-link"
+            ><span class="nav-num">05</span> Cache Hit/Miss &amp; Origin Shield</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-6" class="nav-link"
+            ><span class="nav-num">06</span> Invalidation vs Cache-Busting</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-7" class="nav-link"
+            ><span class="nav-num">07</span> Signed URLs vs Signed Cookies</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-8" class="nav-link"
+            ><span class="nav-num">08</span> Edge Compute (Functions vs Edge)</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-9" class="nav-link"
+            ><span class="nav-num">09</span> Node.js / Fastify Service Code</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-10" class="nav-link"
+            ><span class="nav-num">10</span> HLS Video Streaming Guide</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-11" class="nav-link"
+            ><span class="nav-num">11</span> AWS WAF &amp; Geo-Security</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-12" class="nav-link"
+            ><span class="nav-num">12</span> Cost Optimization &amp; Traps</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="#section-13" class="nav-link"
+            ><span class="nav-num">13</span> 25+ Senior Interview Q&amp;A</a
+          >
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main View Area -->
+    <div class="main-wrapper">
+      <!-- Top Navigation Bar -->
+      <header class="topbar">
+        <div class="breadcrumbs">
+          <a href="#">AWS Production Suite</a>
+          <span>/</span>
+          <a href="#">CloudFront</a>
+          <span>/</span>
+          <span style="color: var(--text-primary); font-weight: 600">Enterprise Handbook</span>
+        </div>
+        <div class="topbar-actions">
+          <a href="Amazon_CloudFront_Downloadable_Document.html" target="_blank" class="btn"
+            >&#128438; Printable View</a
+          >
+          <button id="themeToggle" class="btn" aria-label="Toggle Theme">&#127769; Theme</button>
+        </div>
+      </header>
+
+      <!-- Main Content Container -->
+      <main class="content">
+        <!-- Hero Header -->
+        <div class="hero">
+          <div class="hero-badge">&#9729; AWS Content Delivery Network (CDN)</div>
+          <h1 class="hero-title">Amazon CloudFront &amp; S3 <span>Edge Architecture</span></h1>
+          <p class="hero-desc">
+            The definitive production handbook for software engineers, cloud architects, and Node.js
+            developers. Master Origin Access Control (OAC), low-latency HLS video streaming, edge
+            compute triggers, and 25+ real-world interview challenges with Marathi translations.
+          </p>
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-val">Global</div>
+              <div class="stat-label">Distributed Edge Network</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val">Cache-aware</div>
+              <div class="stat-label">Latency Varies by Route</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val">100%</div>
+              <div class="stat-label">Private S3 with OAC</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val">25+</div>
+              <div class="stat-label">Interview Q&amp;As (मराठी)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 1: Architecture Blueprint -->
+        <section id="section-1">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">01.</span> Global Edge Infrastructure &amp; 3-Tier Hierarchy
+            </h2>
+          </div>
+          <p>
+            Amazon CloudFront uses AWS's global network to deliver media, APIs, and static assets
+            from edge locations. It operates through edge locations and regional edge caches, with
+            Origin Shield available as an optional additional cache layer. Latency depends on the
+            viewer route, cache state, and origin behavior.
+          </p>
+
+          <div class="diagram-card">
+            <img
+              src="diagrams/1_cloudfront_global_edge_architecture.svg"
+              alt="CloudFront Global Edge Architecture"
+            />
+            <div class="diagram-caption">
+              Figure 1.1: 3-Tier Architecture — Edge Locations (PoPs), Regional Edge Caches (REC),
+              and Origin Shield guarding private S3.
+            </div>
+          </div>
+
+          <div class="marathi-card">
+            <div class="marathi-title">हिंदी स्पष्टीकरण</div>
+            <div class="marathi-text">
+              CloudFront का edge network viewer के पास cached content दे सकता है। Edge locations की
+              संख्या और latency समय के साथ बदल सकती है; cache miss पर request configured cache
+              layers और origin तक जा सकती है।
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: Core Terminology -->
+        <section id="section-2">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">02.</span> Core CloudFront Terminology
+            </h2>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Terminology</th>
+                  <th>Technical AWS Definition</th>
+                  <th>Real-World Fastify / Media Analogy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Distribution</strong></td>
+                  <td>
+                    Top-level CDN configuration assigned a DNS domain name (e.g.
+                    <code>d111.cloudfront.net</code>).
+                  </td>
+                  <td>The public entry gateway serving all website and video media.</td>
+                </tr>
+                <tr>
+                  <td><strong>Origin</strong></td>
+                  <td>
+                    Authoritative source where original un-cached assets live (S3 Bucket, ALB, EC2,
+                    API Gateway).
+                  </td>
+                  <td>The master warehouse (S3 storage) holding raw files.</td>
+                </tr>
+                <tr>
+                  <td><strong>Origin Access Control (OAC)</strong></td>
+                  <td>
+                    SigV4 authorization mechanism ensuring only CloudFront can read S3 bucket
+                    objects.
+                  </td>
+                  <td>The digital security badge allowing only CloudFront inside.</td>
+                </tr>
+                <tr>
+                  <td><strong>Cache Behavior</strong></td>
+                  <td>
+                    URL path pattern (e.g., <code>/images/*</code>) controlling TTL, cookies,
+                    headers, and query strings.
+                  </td>
+                  <td>Routing middleware directing specific paths to custom cache logic.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION 3: Origin Access Control (OAC) -->
+        <section id="section-3">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">03.</span> Origin Access Control (OAC) vs Legacy OAI
+            </h2>
+          </div>
+          <p>
+            In August 2022, AWS released <strong>Origin Access Control (OAC)</strong>, completely
+            replacing legacy Origin Access Identity (OAI). OAC uses AWS SigV4, supports
+            customer-managed KMS encryption, and works in all AWS regions.
+          </p>
+
+          <div class="diagram-card">
+            <img
+              src="diagrams/2_oac_private_s3_security.svg"
+              alt="Origin Access Control Security Architecture"
+            />
+            <div class="diagram-caption">
+              Figure 3.1: Securing Private S3 Buckets using OAC SigV4 cryptographic signatures and
+              AWS:SourceArn.
+            </div>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>S3 Bucket Policy Enforcing CloudFront OAC</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy JSON</button>
+            </div>
+            <pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowCloudFrontOACReadOnly",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "cloudfront.amazonaws.com"
+      },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::blackbuck-production-media/*",
+      "Condition": {
+        "StringEquals": {
+          "AWS:SourceArn": "arn:aws:cloudfront::123456789012:distribution/E2AB1CDEFGHIJK"
+        }
+      }
+    }
+  ]
+}</code></pre>
+          </div>
+
+          <div class="marathi-card">
+            <div class="marathi-title">
+              &#2350;&#2352;&#2366;&#2336;&#2368; &#2360;&#2306;&#2342;&#2352;&#2381;&#2349;
+              (Marathi Insight)
+            </div>
+            <div class="marathi-text">
+              OAC मुळे S3 Bucket पूर्णपणे Private राहते. Bucket Policy मध्ये
+              <code>AWS:SourceArn</code> देऊन आपण खात्री करतो की फक्त आपल्याच CloudFront
+              Distribution ला फाईल वाचण्याची परवानगी आहे. कोणीही थेट S3 URL वापरून फाईल चोरू शकत
+              नाही.
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: Cache Behaviors & TTLs -->
+        <section id="section-4">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">04.</span> Cache Behaviors, TTLs, and Cache-Control Headers
+            </h2>
+          </div>
+          <p>
+            CloudFront evaluates object expiration based on three configurable values:
+            <strong>Minimum TTL</strong>, <strong>Default TTL</strong>, and
+            <strong>Maximum TTL</strong>, paired with HTTP origin headers.
+          </p>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>Production Cache-Control Header Configurations</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy Headers</button>
+            </div>
+            <pre><code># 1. Static Hashed Assets (JS, CSS, Images, HLS .ts chunks)
+Cache-Control: public, max-age=31536000, immutable
+
+# 2. Dynamic API JSON Responses (Stale-While-Revalidate)
+Cache-Control: public, max-age=60, stale-while-revalidate=300
+
+# 3. Sensitive / Private User Data
+Cache-Control: no-cache, no-store, must-revalidate, private</code></pre>
+          </div>
+        </section>
+
+        <!-- SECTION 5: Cache Hit, Miss & Origin Shield -->
+        <section id="section-5">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">05.</span> Cache Hit, Miss, and Origin Shield Lifecycle
+            </h2>
+          </div>
+          <p>
+            Understanding the request path during a cache hit vs miss is vital for maintaining low
+            latency and zero origin overload.
+          </p>
+
+          <div class="diagram-card">
+            <img
+              src="diagrams/3_cache_hit_miss_invalidation_workflow.svg"
+              alt="Cache Hit Miss Invalidation Workflow"
+            />
+            <div class="diagram-caption">
+              Figure 5.1: Edge request resolution, header inspection (X-Cache), and invalidation
+              lifecycle.
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 6: Invalidation vs Cache Busting -->
+        <section id="section-6">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">06.</span> Cache Invalidation vs. Versioned Cache-Busting
+            </h2>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Factor</th>
+                  <th>CloudFront Invalidation API</th>
+                  <th>Versioned URLs (Cache-Busting)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Mechanism</strong></td>
+                  <td><code>aws cloudfront create-invalidation --paths "/*"</code></td>
+                  <td>File name contains hash: <code>app.b8c2d.js</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Propagation Speed</strong></td>
+                  <td>Usually propagates within minutes; actual time can vary</td>
+                  <td>New versioned URL avoids waiting for invalidation</td>
+                </tr>
+                <tr>
+                  <td><strong>Cost</strong></td>
+                  <td>Pricing and free allowance can change; check current AWS pricing</td>
+                  <td>No invalidation charge, but object storage and delivery still have costs</td>
+                </tr>
+                <tr>
+                  <td><strong>Origin Load</strong></td>
+                  <td>High risk: purges cache causing thundering herd to S3</td>
+                  <td>Zero risk: smooth transition between asset versions</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION 7: Signed URLs vs Signed Cookies -->
+        <section id="section-7">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">07.</span> Securing Private Content: Signed URLs vs Signed
+              Cookies
+            </h2>
+          </div>
+          <p>
+            Delivering paid courses, medical records, or HLS video streaming requires cryptographic
+            signature validation at the edge.
+          </p>
+
+          <div class="diagram-card">
+            <img
+              src="diagrams/4_signed_urls_vs_signed_cookies.svg"
+              alt="Signed URLs vs Signed Cookies"
+            />
+            <div class="diagram-caption">
+              Figure 7.1: Single file protection (Signed URL) vs HLS video playlist and segment
+              streaming (Signed Cookies).
+            </div>
+          </div>
+
+          <div class="marathi-card">
+            <div class="marathi-title">
+              &#2350;&#2352;&#2366;&#2336;&#2368; &#2360;&#2306;&#2342;&#2352;&#2381;&#2349;
+              (Marathi Insight)
+            </div>
+            <div class="marathi-text">
+              एकाच फाईलसाठी (उदा. Invoice PDF) <strong>Signed URL</strong> वापरणे सोपे आहे. परंतु
+              <strong>HLS Video Streaming</strong> साठी <strong>Signed Cookies</strong> वापरणे
+              आवश्यक आहे, कारण ब्राउझर आपोआप ती Cookie प्रत्येक .ts व्हिडिओ तुकड्यासोबत पाठवतो.
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 8: Edge Compute -->
+        <section id="section-8">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">08.</span> Edge Compute: CloudFront Functions vs.
+              Lambda@Edge
+            </h2>
+          </div>
+          <p>
+            Running code at edge locations allows you to intercept viewer requests before they hit
+            the cache or modify responses before returning to users.
+          </p>
+
+          <div class="diagram-card">
+            <img
+              src="diagrams/5_cloudfront_functions_vs_lambda_at_edge.svg"
+              alt="CloudFront Functions vs Lambda@Edge"
+            />
+            <div class="diagram-caption">
+              Figure 8.1: 4-phase event triggers, memory limits, and runtime comparison between
+              CloudFront Functions and Lambda@Edge.
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 9: Node.js / Fastify Code -->
+        <section id="section-9">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">09.</span> Enterprise Node.js / Fastify Production
+              Implementation
+            </h2>
+          </div>
+          <p>
+            Complete backend service for generating signed download URLs and HLS video streaming
+            cookies using <code>@aws-sdk/cloudfront-signer</code>.
+          </p>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>src/services/cloudfront.service.js</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copy Code</button>
+            </div>
+            <pre><code>import { getSignedUrl, getSignedCookies } from '@aws-sdk/cloudfront-signer';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const CLOUDFRONT_DOMAIN = process.env.CLOUDFRONT_DOMAIN || 'https://media.blackbuck.com';
+const KEY_PAIR_ID = process.env.CLOUDFRONT_KEY_PAIR_ID;
+const PRIVATE_KEY = process.env.CLOUDFRONT_PRIVATE_KEY
+  || fs.readFileSync(path.resolve(process.cwd(), 'certs/cloudfront_private_key.pem'), 'utf-8');
+
+/**
+ * Generate a CloudFront Signed URL for a single file download.
+ */
+export function generateSignedDownloadUrl(s3Key, expiresInSeconds = 900) {
+  const url = `${CLOUDFRONT_DOMAIN}/${s3Key}`;
+  const dateLessThan = new Date(Date.now() + expiresInSeconds * 1000).toISOString();
+
+  return getSignedUrl({
+    url,
+    keyPairId: KEY_PAIR_ID,
+    privateKey: PRIVATE_KEY,
+    dateLessThan,
+  });
+}
+
+/**
+ * Generate CloudFront Signed Cookies for HLS streaming (wildcard directory access).
+ */
+export function generateHlsStreamingCookies(resourcePath, expiresInSeconds = 7200) {
+  const resourceUrl = `${CLOUDFRONT_DOMAIN}/${resourcePath}`;
+  const dateLessThan = new Date(Date.now() + expiresInSeconds * 1000).toISOString();
+
+  const policy = JSON.stringify({
+    Statement: [
+      {
+        Resource: resourceUrl,
+        Condition: {
+          DateLessThan: {
+            'AWS:EpochTime': Math.floor(new Date(dateLessThan).getTime() / 1000),
+          },
+        },
+      },
+    ],
+  });
+
+  return getSignedCookies({
+    policy,
+    keyPairId: KEY_PAIR_ID,
+    privateKey: PRIVATE_KEY,
+  });
+}</code></pre>
+          </div>
+        </section>
+
+        <!-- SECTION 10: HLS Video Streaming -->
+        <section id="section-10">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">10.</span> HLS Video Streaming &amp; Range Requests
+            </h2>
+          </div>
+          <p>
+            HTTP Live Streaming (HLS) delivers adaptive bitrate video via a master playlist
+            (<code>.m3u8</code>) referencing hundreds of small 6-second video chunks
+            (<code>.ts</code>). CloudFront optimizes video delivery by natively caching byte-range
+            requests (<code>HTTP 206 Partial Content</code>) at the edge, drastically speeding up
+            scrubbing and seeking.
+          </p>
+        </section>
+
+        <!-- SECTION 11: Security & WAF -->
+        <section id="section-11">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">11.</span> CloudFront Security: AWS WAF &amp;
+              Geo-Restrictions
+            </h2>
+          </div>
+          <p>
+            Deploy AWS WAF to automatically filter Layer 7 malicious traffic, rate-limit aggressive
+            clients (e.g. 2,000 requests per 5 minutes), block SQLi/XSS probes, and restrict video
+            streaming to specific countries (Geo-restriction).
+          </p>
+        </section>
+
+        <!-- SECTION 12: Cost Optimization -->
+        <section id="section-12">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">12.</span> Cost Optimization Strategies &amp; Production
+              Traps
+            </h2>
+          </div>
+          <ul style="padding-left: 20px; margin-bottom: 20px; line-height: 1.8">
+            <li>
+              <strong>PriceClass_100:</strong> For US/Europe-only traffic, select PriceClass_100 to
+              save up to 40% on CDN Data Transfer Out fees.
+            </li>
+            <li>
+              <strong>Brotli Compression:</strong> Enable automatic compression in Cache Behavior to
+              shrink JS/CSS payloads by 20% compared to Gzip.
+            </li>
+            <li>
+              <strong>Avoid Global Invalidation:</strong> Never run
+              <code>create-invalidation --paths "/*"</code> on every git push; use unique content
+              hashes.
+            </li>
+          </ul>
+        </section>
+
+        <!-- SECTION 13: 25+ Senior Interview Questions & Answers -->
+        <section id="section-13">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">13.</span> 25+ Mid-to-Senior S3 &amp; CloudFront Interview
+              Questions
+            </h2>
+          </div>
+          <p style="margin-bottom: 24px">
+            Exhaustive real-world scenario questions asked by technical interviewers, complete with
+            architectural rationale and Marathi translations.
+          </p>
+
+          <!-- Q1 -->
+          <div class="qa-card open">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q01</span> What is the difference between Origin Access
+                Identity (OAI) and Origin Access Control (OAC)?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> OAI is the legacy S3 origin-access mechanism and has
+                limitations, including lack of SSE-KMS support; avoid characterizing it simply as
+                SigV2. OAC is recommended for new S3 origins: it signs requests with SigV4, supports
+                SSE-KMS configurations, and allows bucket policies scoped to a distribution ARN.
+              </p>
+              <div class="marathi-card">
+                <div class="marathi-title">
+                  &#2350;&#2352;&#2366;&#2336;&#2368; &#2313;&#2340;&#2381;&#2340;&#2352;
+                </div>
+                <div class="marathi-text">
+                  OAI ही जुनी पद्धत आहे जी KMS encryption आणि नवीन AWS Regions ला चालत नाही. OAC ही
+                  SigV4 वापरणारी आधुनिक पद्धत आहे आणि Bucket Policy मध्ये
+                  <code>AWS:SourceArn</code> तपासून S3 ला १००% सुरक्षित ठेवते.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q02</span> How does CloudFront handle Cache Hits vs Cache
+                Misses? What headers verify this?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> On a Cache Hit, CloudFront returns the cached asset with
+                <code>X-Cache: Hit from cloudfront</code>; <code>Age</code> may indicate cache age.
+                Actual latency depends on viewer network, location, and cache state. On a Cache
+                Miss, CloudFront obtains the object through the configured cache/origin path and may
+                cache it according to policy.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q03</span> When should you use CloudFront Signed URLs vs
+                Signed Cookies?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> Use <strong>Signed URLs</strong> for single individual
+                files (invoice PDF, installer binary) or when clients do not support cookies (mobile
+                apps, smart TVs, cURL). Use <strong>Signed Cookies</strong> for HLS / DASH video
+                streaming (where the master playlist loads hundreds of small .ts chunks) or
+                protecting an entire directory (<code>/members/*</code>) without altering URL paths.
+              </p>
+              <div class="marathi-card">
+                <div class="marathi-title">
+                  &#2350;&#2352;&#2366;&#2336;&#2368; &#2313;&#2340;&#2381;&#2340;&#2352;
+                </div>
+                <div class="marathi-text">
+                  एकाच फाईलसाठी (PDF) Signed URL वापरावी. पण HLS Video Streaming साठी Signed Cookies
+                  वापरावी, कारण व्हिडिओच्या हजारो .ts तुकड्यांसाठी ब्राउझर आपोआप ती Cookie पाठवतो.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q04</span> Explain the difference between CloudFront
+                Functions and Lambda@Edge.
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> <strong>CloudFront Functions</strong> run lightweight
+                JavaScript (&lt; 1ms execution, 2MB RAM) at CloudFront edge locations on Viewer
+                Request/Response only, with no network access — ideal for lightweight URL/header
+                logic. <strong>Lambda@Edge</strong> supports all four event stages and
+                longer-running code, subject to its runtime and deployment restrictions. Check
+                current limits and pricing before selecting either option.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q05</span> How do you prevent the "Thundering Herd" problem
+                when a new video goes viral?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> Consider <strong>CloudFront Origin Shield</strong> to
+                reduce duplicate origin fetches for concurrent misses. Request collapsing depends on
+                cache key and timing; it lowers origin load but does not guarantee exactly one
+                origin request for every global miss.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q06</span> What is the danger of running `create-invalidation
+                --paths "/*"` in CI/CD?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> A wildcard invalidation can cause a burst of cache misses
+                and increased origin requests. Pricing and free allowances can change, so check
+                current AWS pricing; <code>/*</code> counts as one path. Prefer versioned hashed
+                filenames and invalidate entry points selectively when needed.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q07</span> Can clients upload files to S3 through CloudFront?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> Yes, by allowing <code>PUT/POST</code> in the Cache
+                Behavior. However, for large files (> 100MB), S3 Multipart Upload with Presigned
+                URLs or S3 Transfer Acceleration is preferred because CloudFront imposes timeout and
+                payload restrictions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q08</span> What status code does CloudFront return when an
+                expired Signed URL is accessed?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> CloudFront returns an immediate
+                <strong>`HTTP 403 Forbidden`</strong> with
+                <code>&lt;Code&gt;AccessDenied&lt;/Code&gt;</code> without contacting S3 origin.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q9 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q09</span> What is the difference between `max-age` and
+                `s-maxage` in Cache-Control?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> <code>max-age</code> applies to both browser and CDN
+                caches. <code>s-maxage</code> (shared max-age) specifically overrides
+                <code>max-age</code> for public shared caches (like CloudFront) while being ignored
+                by the browser.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q10 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q10</span> How do HTTP Range Requests (HTTP 206) accelerate
+                video scrubbing?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> CloudFront natively caches byte ranges. When a video player
+                asks for <code>bytes=500000-1000000</code>, CloudFront serves just those bytes
+                directly from edge RAM, avoiding full file downloads.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q11 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q11</span> How do you rotate CloudFront signing keys without
+                downtime?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> Use <strong>CloudFront Key Groups</strong>. Add the new
+                public key alongside the old public key in the Key Group. Deploy the new private key
+                to your Node.js application. Once all old tokens expire, remove the old key.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q12 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q12</span> Why must ACM SSL certificates for CloudFront be
+                created in `us-east-1`?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> CloudFront is managed from the global AWS control plane in
+                <code>us-east-1</code> (N. Virginia), so ACM certificates must exist in
+                <code>us-east-1</code> to be distributed globally to all edge locations.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q13 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q13</span> What is the Claim-Check Pattern in S3 + SQS /
+                CloudFront architectures?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> For payloads exceeding SQS's 256 KB limit, upload the large
+                payload to S3, send a lightweight JSON message (claim check) containing the S3
+                pointer to SQS, and have worker consumers download the payload from S3 or
+                CloudFront.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q14 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q14</span> How do you support Single Page Application (SPA)
+                routing in CloudFront?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> Configure a <strong>Custom Error Response</strong> in
+                CloudFront: map HTTP `403 Forbidden` and `404 Not Found` to
+                <code>/index.html</code> with HTTP response code `200 OK`, allowing client-side
+                routers (React, Vue) to handle the path.
+              </p>
+            </div>
+          </div>
+
+          <!-- Q15 -->
+          <div class="qa-card">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="qa-badge">Q15</span> What is CloudFront Field-Level Encryption?
+              </div>
+              <div class="qa-toggle">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>Answer:</strong> An edge security feature that encrypts sensitive fields
+                (like credit card numbers) at the CloudFront Edge PoP using a public key before
+                forwarding to the origin server, ensuring end-to-end security.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="review-interview-notes">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="section-num">हिंदी</span> Interview Perspective
+            </h2>
+          </div>
+          <ul>
+            <li>
+              <strong>Cache design:</strong> Cache key, TTL, Minimum TTL और origin headers का संबंध
+              समझाएँ। निजी responses के लिए zero Minimum TTL और user-safe cache key पर ज़ोर दें।
+            </li>
+            <li>
+              <strong>Origin Shield:</strong> यह concurrent misses घटा सकता है, पर हर global miss के
+              लिए एक origin request की guarantee नहीं देता।
+            </li>
+            <li>
+              <strong>Signed access:</strong> Signed URL या cookie का चुनाव client/player की क्षमता
+              और protected resources की संख्या के आधार पर करें।
+            </li>
+            <li>
+              <strong>Limits:</strong> Cacheable GET response की सीमा और HTTP request-body सीमा अलग
+              हैं; interview में वर्तमान AWS quota का स्रोत/तारीख बताएं।
+            </li>
+            <li>
+              <strong>Observability:</strong> `X-Cache`, `Age`, origin latency, error rate और
+              cache-hit ratio साथ में देखें; fixed latency promise न करें।
+            </li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      // Theme toggle
+      const themeBtn = document.getElementById('themeToggle');
+      const currentTheme = localStorage.getItem('cf_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      themeBtn.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+
+      themeBtn.addEventListener('click', () => {
+        const activeTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('cf_theme', newTheme);
+        themeBtn.textContent = newTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      });
+
+      // Q&A Accordion
+      function toggleQA(element) {
+        const card = element.parentElement;
+        card.classList.toggle('open');
+      }
+
+      // Copy Code functionality
+      function copyCode(btn) {
+        const pre = btn.closest('.code-container').querySelector('pre');
+        navigator.clipboard.writeText(pre.innerText).then(() => {
+          const originalText = btn.textContent;
+          btn.textContent = 'Copied!';
+          btn.style.color = '#10b981';
+          btn.style.borderColor = '#10b981';
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.color = '';
+            btn.style.borderColor = '';
+          }, 2000);
+        });
+      }
+
+      // Search filter
+      const searchInput = document.getElementById('sidebarSearch');
+      searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.qa-card').forEach((card) => {
+          const text = card.innerText.toLowerCase();
+          if (text.includes(term)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

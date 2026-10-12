@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%" style="background:#0b0f19; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <linearGradient id="urlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="cookieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="cryptoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.05"/>
+    </linearGradient>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#60a5fa"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#c084fc"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="40" text-anchor="middle" fill="#f9fafb" font-size="22" font-weight="700">CloudFront Private Content: Signed URLs vs. Signed Cookies</text>
+  <text x="550" y="65" text-anchor="middle" fill="#9ca3af" font-size="13">Securing media, documents, and HLS streaming using CloudFront Key Groups and RSA-2048</text>
+
+  <!-- Comparison Column 1: Signed URLs -->
+  <g transform="translate(50, 95)">
+    <rect width="480" height="340" rx="12" fill="url(#urlGrad)" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect x="20" y="16" width="130" height="24" rx="6" fill="#3b82f6" fill-opacity="0.25"/>
+    <text x="85" y="32" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="700">OPTION 1: SIGNED URL</text>
+    <text x="165" y="33" fill="#f9fafb" font-size="16" font-weight="700">Single Resource Protection</text>
+
+    <!-- Architecture preview -->
+    <rect x="20" y="55" width="440" height="65" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="30" y="78" fill="#60a5fa" font-size="11" font-weight="700">Query Parameters appended to URL:</text>
+    <text x="30" y="96" fill="#cbd5e1" font-size="10" font-family="monospace">https://cdn.domain.com/invoice-992.pdf?Expires=1719830000</text>
+    <text x="30" y="110" fill="#93c5fd" font-size="10" font-family="monospace">&amp;Signature=a8b3...&amp;Key-Pair-Id=K2JC1FTYYYYYYY</text>
+
+    <!-- Use Cases & Pros/Cons -->
+    <text x="20" y="145" fill="#f3f4f6" font-size="13" font-weight="700">Best For &amp; Key Characteristics:</text>
+    <text x="20" y="170" fill="#cbd5e1" font-size="12">&#8226; <tspan font-weight="bold" fill="#60a5fa">Individual File Downloads:</tspan> One-off PDF, invoice, APK.</text>
+    <text x="20" y="195" fill="#cbd5e1" font-size="12">&#8226; <tspan font-weight="bold" fill="#60a5fa">Client Restriction:</tspan> Mobile apps, smart TVs, or CLI tools (curl).</text>
+    <text x="20" y="220" fill="#cbd5e1" font-size="12">&#8226; <tspan font-weight="bold" fill="#60a5fa">Shareable Links:</tspan> Time-limited download link in email or SMS.</text>
+    <text x="20" y="245" fill="#ef4444" font-size="12">&#8226; <tspan font-weight="bold">Drawback:</tspan> Unsuitable for HLS video (each .ts chunk needs signing!).</text>
+
+    <!-- Marathi summary box -->
+    <rect x="20" y="265" width="440" height="58" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="0.8"/>
+    <text x="30" y="285" fill="#93c5fd" font-size="11" font-weight="700">&#2350;&#2352;&#2366;&#2336;&#2368; &#2360;&#2306;&#2342;&#2352;&#2381;&#2349; (Marathi Insight):</text>
+    <text x="30" y="305" fill="#e2e8f0" font-size="11">&#2346;&#2381;&#2352;&#2340;&#2381;&#2351;&#2375;&#2325; single file (PDF/Receipt) &#2360;&#2366;&#2336;&#2368; URL &#2350;&#2343;&#2381;&#2351;&#2375;&#2330; signature &#2346;&#2366;&#2336;&#2357;&#2354;&#2368; &#2332;&#2366;&#2340;&#2375;.</text>
+  </g>
+
+  <!-- Comparison Column 2: Signed Cookies -->
+  <g transform="translate(560, 95)">
+    <rect width="490" height="340" rx="12" fill="url(#cookieGrad)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <rect x="20" y="16" width="140" height="24" rx="6" fill="#8b5cf6" fill-opacity="0.25"/>
+    <text x="90" y="32" text-anchor="middle" fill="#d8b4fe" font-size="11" font-weight="700">OPTION 2: SIGNED COOKIE</text>
+    <text x="175" y="33" fill="#f9fafb" font-size="16" font-weight="700">Multi-File / HLS Stream Access</text>
+
+    <!-- Architecture preview -->
+    <rect x="20" y="55" width="450" height="65" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="30" y="78" fill="#c084fc" font-size="11" font-weight="700">HTTP Set-Cookie Headers (Domain-wide):</text>
+    <text x="30" y="96" fill="#cbd5e1" font-size="10" font-family="monospace">Set-Cookie: CloudFront-Expires=1719830000; Path=/course/*</text>
+    <text x="30" y="110" fill="#d8b4fe" font-size="10" font-family="monospace">Set-Cookie: CloudFront-Signature=...; CloudFront-Key-Pair-Id=...</text>
+
+    <!-- Use Cases & Pros/Cons -->
+    <text x="20" y="145" fill="#f3f4f6" font-size="13" font-weight="700">Best For &amp; Key Characteristics:</text>
+    <text x="20" y="170" fill="#cbd5e1" font-size="12">&#8226; <tspan font-weight="bold" fill="#c084fc">HLS / DASH Video Streaming:</tspan> Master .m3u8 + 10,000 .ts chunks.</text>
+    <text x="20" y="195" fill="#cbd5e1" font-size="12">&#8226; <tspan font-weight="bold" fill="#c084fc">Subscriber Protected Area:</tspan> Access to entire folder tree (/members/*).</text>
+    <text x="20" y="220" fill="#cbd5e1" font-size="12">&#8226; <tspan font-weight="bold" fill="#c084fc">Clean Clean URLs:</tspan> No messy query params in browser address bar.</text>
+    <text x="20" y="245" fill="#34d399" font-size="12">&#8226; <tspan font-weight="bold">Advantage:</tspan> Browser automatically includes cookie on every sub-request!</text>
+
+    <!-- Marathi summary box -->
+    <rect x="20" y="265" width="450" height="58" rx="6" fill="#1e293b" stroke="#8b5cf6" stroke-width="0.8"/>
+    <text x="30" y="285" fill="#d8b4fe" font-size="11" font-weight="700">&#2350;&#2352;&#2366;&#2336;&#2368; &#2360;&#2306;&#2342;&#2352;&#2381;&#2349; (Marathi Insight):</text>
+    <text x="30" y="305" fill="#e2e8f0" font-size="11">HLS Video &#2360;&#2366;&#2336;&#2368; Signed Cookie &#2309;&#2340;&#2381;&#2351;&#2306;&#2340; &#2350;&#2361;&#2340;&#2381;&#2340;&#2381;&#2357;&#2366;&#2330;&#2368; &#2310;&#2361;&#2375;, &#2325;&#2366;&#2352;&#2339; &#2361;&#2332;&#2366;&#2352;&#2379; .ts video parts &#2360;&#2381;&#2357;&#2340;&#2307;&#2330; play &#2361;&#2379;&#2340;&#2366;&#2340;.</text>
+  </g>
+
+  <!-- Cryptographic Mechanism Card (Bottom) -->
+  <g transform="translate(50, 455)">
+    <rect width="1000" height="195" rx="12" fill="url(#cryptoGrad)" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="20" y="16" width="130" height="22" rx="6" fill="#10b981" fill-opacity="0.25"/>
+    <text x="85" y="31" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">CRYPTO SECURITY</text>
+    <text x="165" y="32" fill="#f9fafb" font-size="15" font-weight="700">How CloudFront Key Groups Validate Signatures</text>
+
+    <!-- Node.js Fastify Backend -->
+    <g transform="translate(30, 55)">
+      <rect width="260" height="115" rx="8" fill="#111827" stroke="#374151"/>
+      <text x="15" y="25" fill="#10b981" font-size="12" font-weight="700">1. Fastify App (@aws-sdk)</text>
+      <text x="15" y="45" fill="#9ca3af" font-size="11">&#8226; Generates Policy JSON</text>
+      <text x="15" y="65" fill="#9ca3af" font-size="11">&#8226; Signs with <tspan fill="#f59e0b">RSA Private Key</tspan></text>
+      <text x="15" y="85" fill="#9ca3af" font-size="11">&#8226; Produces SHA-1/SHA-256 Hash</text>
+      <text x="15" y="102" fill="#34d399" font-size="10" font-family="monospace">getSignedUrl() / getSignedCookies()</text>
+    </g>
+
+    <path d="M 300 115 L 360 115" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+    <!-- Client Browser / App -->
+    <g transform="translate(370, 55)">
+      <rect width="250" height="115" rx="8" fill="#111827" stroke="#374151"/>
+      <text x="15" y="25" fill="#60a5fa" font-size="12" font-weight="700">2. Client Playback</text>
+      <text x="15" y="45" fill="#9ca3af" font-size="11">&#8226; Receives Signed URL or Cookie</text>
+      <text x="15" y="65" fill="#9ca3af" font-size="11">&#8226; Sends request to CloudFront Edge</text>
+      <text x="15" y="85" fill="#9ca3af" font-size="11">&#8226; Passes Signature + Key-Pair-Id</text>
+      <text x="15" y="102" fill="#93c5fd" font-size="10" font-family="monospace">GET /master.m3u8</text>
+    </g>
+
+    <path d="M 630 115 L 690 115" stroke="#c084fc" stroke-width="2" marker-end="url(#arrowPurple)"/>
+
+    <!-- CloudFront Edge Verification -->
+    <g transform="translate(700, 55)">
+      <rect width="270" height="115" rx="8" fill="#1e293b" stroke="#00f0ff"/>
+      <text x="15" y="25" fill="#00f0ff" font-size="12" font-weight="700">3. CloudFront Edge PoP</text>
+      <text x="15" y="45" fill="#9ca3af" font-size="11">&#8226; Looks up <tspan fill="#38bdf8">Public Key</tspan> in Key Group</text>
+      <text x="15" y="65" fill="#9ca3af" font-size="11">&#8226; Checks Expiration date &amp; IP CIDR</text>
+      <text x="15" y="85" fill="#34d399" font-size="11" font-weight="600">&#10003; Valid: Streams Video / File</text>
+      <text x="15" y="102" fill="#ef4444" font-size="10">&#10007; Invalid: Returns 403 Forbidden</text>
+    </g>
+  </g>
+</svg>

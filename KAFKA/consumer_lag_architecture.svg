@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="consumedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+    <linearGradient id="lagGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="950" height="420" rx="16" fill="url(#bgGrad)"/>
+
+  <!-- Title Header -->
+  <text x="475" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#38bdf8" text-anchor="middle" letter-spacing="0.5">Kafka Consumer Lag Architecture</text>
+  <text x="475" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Formula: Lag = Log End Offset (LEO) - Current Consumer Offset</text>
+
+  <!-- Partition Log Box -->
+  <rect x="50" y="110" width="850" height="110" rx="12" fill="url(#boxGrad)" stroke="#475569" stroke-width="2" filter="url(#shadow)"/>
+  <text x="70" y="140" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Partition 0 (Commit Log on Disk)</text>
+
+  <!-- Offset Cells -->
+  <!-- Processed/Committed offsets: 100, 101, 102, 103 -->
+  <g transform="translate(70, 155)">
+    <!-- Offset 100 -->
+    <rect x="0" y="0" width="85" height="50" rx="6" fill="url(#consumedGrad)" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="42" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Offset 100</text>
+    <text x="42" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#dcfce7" text-anchor="middle">Processed</text>
+
+    <!-- Offset 101 -->
+    <rect x="95" y="0" width="85" height="50" rx="6" fill="url(#consumedGrad)" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="137" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Offset 101</text>
+    <text x="137" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#dcfce7" text-anchor="middle">Processed</text>
+
+    <!-- Offset 102 -->
+    <rect x="190" y="0" width="85" height="50" rx="6" fill="url(#consumedGrad)" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="232" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Offset 102</text>
+    <text x="232" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#dcfce7" text-anchor="middle">Processed</text>
+
+    <!-- Offset 103 (Committed) -->
+    <rect x="285" y="0" width="95" height="50" rx="6" fill="url(#consumedGrad)" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="332" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Offset 103</text>
+    <text x="332" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#bae6fd" text-anchor="middle">Current Offset</text>
+
+    <!-- UNPROCESSED (LAG) OFFSETS: 104, 105, 106, 107 -->
+    <!-- Offset 104 -->
+    <rect x="420" y="0" width="85" height="50" rx="6" fill="url(#lagGrad)" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="462" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Offset 104</text>
+    <text x="462" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#fee2e2" text-anchor="middle">Lagging</text>
+
+    <!-- Offset 105 -->
+    <rect x="515" y="0" width="85" height="50" rx="6" fill="url(#lagGrad)" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="557" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Offset 105</text>
+    <text x="557" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#fee2e2" text-anchor="middle">Lagging</text>
+
+    <!-- Offset 106 -->
+    <rect x="610" y="0" width="85" height="50" rx="6" fill="url(#lagGrad)" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="652" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Offset 106</text>
+    <text x="652" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#fee2e2" text-anchor="middle">Lagging</text>
+
+    <!-- Offset 107 (Log End Offset) -->
+    <rect x="705" y="0" width="95" height="50" rx="6" fill="url(#lagGrad)" stroke="#fbbf24" stroke-width="2.5"/>
+    <text x="752" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Offset 107</text>
+    <text x="752" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#fef08a" text-anchor="middle">Log End (LEO)</text>
+  </g>
+
+  <!-- Pointers & Brackets -->
+  <!-- Consumer pointer -->
+  <path d="M 402 270 L 402 225" stroke="#38bdf8" stroke-width="3" fill="none" marker-end="url(#arrowBlue)"/>
+  <rect x="320" y="275" width="165" height="50" rx="8" fill="#0284c7" filter="url(#shadow)"/>
+  <text x="402" y="296" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Consumer A (Committed)</text>
+  <text x="402" y="314" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#e0f2fe" text-anchor="middle">Last Offset Read = 103</text>
+
+  <!-- Producer pointer at LEO -->
+  <path d="M 822 270 L 822 225" stroke="#fbbf24" stroke-width="3" fill="none"/>
+  <rect x="740" y="275" width="165" height="50" rx="8" fill="#d97706" filter="url(#shadow)"/>
+  <text x="822" y="296" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Producer (Latest Write)</text>
+  <text x="822" y="314" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#fef3c7" text-anchor="middle">Log End Offset (LEO) = 107</text>
+
+  <!-- Lag Highlight Range Bracket -->
+  <path d="M 480 85 L 825 85" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <rect x="580" y="65" width="150" height="28" rx="6" fill="#7f1d1d" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="655" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#fca5a5" text-anchor="middle">CONSUMER LAG = 4</text>
+
+  <!-- Diagnostic Alert Footer -->
+  <rect x="50" y="350" width="850" height="50" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="70" y="380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#cbd5e1">
+    <tspan font-weight="bold" fill="#38bdf8">Interview Rule:</tspan> If Lag increases steadily, Consumer processing is slower than Producer ingestion. Solutions: Scale consumers, tune batch size, or optimize downstream I/O.
+  </text>
+</svg>

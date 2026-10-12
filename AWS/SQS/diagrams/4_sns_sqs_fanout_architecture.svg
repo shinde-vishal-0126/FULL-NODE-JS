@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <text x="550" y="40" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800">SNS to SQS Fan-Out Architecture Pattern</text>
+  <text x="550" y="66" text-anchor="middle" fill="#94a3b8" font-size="13">Publish once to SNS Topic &#8226; Automatic fan-out replication to isolated SQS subscriber queues</text>
+
+  <!-- Publisher -->
+  <g transform="translate(40, 180)">
+    <rect width="180" height="120" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <rect width="180" height="30" rx="10" fill="#0284c7"/>
+    <text x="90" y="20" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">Order Service API</text>
+    <text x="90" y="65" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="600">Fastify Producer</text>
+    <text x="90" y="90" text-anchor="middle" fill="#94a3b8" font-size="10">Publish: ORDER_PLACED</text>
+  </g>
+
+  <!-- Arrow to SNS -->
+  <path d="M 220 240 L 310 240" stroke="#38bdf8" stroke-width="3"/>
+  <polygon points="310,235 320,240 310,245" fill="#38bdf8"/>
+  <text x="265" y="230" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="700">PUBLISH</text>
+
+  <!-- SNS Topic -->
+  <g transform="translate(320, 160)">
+    <rect width="200" height="160" rx="12" fill="#1e293b" stroke="#ec4899" stroke-width="2"/>
+    <rect width="200" height="35" rx="12" fill="#db2777"/>
+    <text x="100" y="23" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Amazon SNS Topic</text>
+    <text x="100" y="70" text-anchor="middle" fill="#fbcfe8" font-size="13" font-weight="700">order-events-topic</text>
+    <text x="100" y="95" text-anchor="middle" fill="#94a3b8" font-size="11">Pub/Sub Broadcast</text>
+    <text x="100" y="115" text-anchor="middle" fill="#94a3b8" font-size="10">Multi-Subscriber Delivery</text>
+    <rect x="25" y="128" width="150" height="22" rx="4" fill="#0f172a"/>
+    <text x="100" y="143" text-anchor="middle" fill="#f472b6" font-size="10">Filters supported (opt)</text>
+  </g>
+
+  <!-- Fan out arrows -->
+  <path d="M 520 210 L 610 140" stroke="#ff9900" stroke-width="2.5"/>
+  <polygon points="606,133 615,137 608,145" fill="#ff9900"/>
+
+  <path d="M 520 240 L 610 240" stroke="#ff9900" stroke-width="2.5"/>
+  <polygon points="610,235 620,240 610,245" fill="#ff9900"/>
+
+  <path d="M 520 270 L 610 340" stroke="#ff9900" stroke-width="2.5"/>
+  <polygon points="608,335 615,343 606,347" fill="#ff9900"/>
+
+  <!-- Subscribed SQS Queues -->
+  <!-- Queue 1 -->
+  <g transform="translate(620, 90)">
+    <rect width="200" height="90" rx="8" fill="#1e293b" stroke="#ff9900" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#ff9900" font-size="11" font-weight="700">SQS: billing-queue</text>
+    <text x="15" y="45" fill="#94a3b8" font-size="10">&#8226; Consumer: Billing Worker</text>
+    <text x="15" y="65" fill="#94a3b8" font-size="10">&#8226; Charges customer card</text>
+    <text x="15" y="80" fill="#4ade80" font-size="9">Independent scale &amp; retention</text>
+  </g>
+
+  <!-- Queue 2 -->
+  <g transform="translate(620, 195)">
+    <rect width="200" height="90" rx="8" fill="#1e293b" stroke="#ff9900" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#ff9900" font-size="11" font-weight="700">SQS: notification-queue</text>
+    <text x="15" y="45" fill="#94a3b8" font-size="10">&#8226; Consumer: Email/SMS Worker</text>
+    <text x="15" y="65" fill="#94a3b8" font-size="10">&#8226; Twilio &amp; AWS SES</text>
+    <text x="15" y="80" fill="#4ade80" font-size="9">Slow external API buffer</text>
+  </g>
+
+  <!-- Queue 3 -->
+  <g transform="translate(620, 300)">
+    <rect width="200" height="90" rx="8" fill="#1e293b" stroke="#ff9900" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#ff9900" font-size="11" font-weight="700">SQS: analytics-queue</text>
+    <text x="15" y="45" fill="#94a3b8" font-size="10">&#8226; Consumer: BigData Worker</text>
+    <text x="15" y="65" fill="#94a3b8" font-size="10">&#8226; Snowflake / Redshift write</text>
+    <text x="15" y="80" fill="#4ade80" font-size="9">Zero impact on billing!</text>
+  </g>
+
+  <!-- Workers Right Column -->
+  <g transform="translate(860, 90)">
+    <rect width="180" height="90" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="90" y="35" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="600">Billing Service</text>
+    <text x="90" y="55" text-anchor="middle" fill="#94a3b8" font-size="10">Polls billing-queue</text>
+    <text x="90" y="72" text-anchor="middle" fill="#4ade80" font-size="10">Deletes own message</text>
+  </g>
+
+  <g transform="translate(860, 195)">
+    <rect width="180" height="90" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="90" y="35" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="600">Notification Service</text>
+    <text x="90" y="55" text-anchor="middle" fill="#94a3b8" font-size="10">Polls notification-queue</text>
+    <text x="90" y="72" text-anchor="middle" fill="#4ade80" font-size="10">Deletes own message</text>
+  </g>
+
+  <g transform="translate(860, 300)">
+    <rect width="180" height="90" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="90" y="35" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="600">Analytics Service</text>
+    <text x="90" y="55" text-anchor="middle" fill="#94a3b8" font-size="10">Polls analytics-queue</text>
+    <text x="90" y="72" text-anchor="middle" fill="#4ade80" font-size="10">Deletes own message</text>
+  </g>
+
+  <path d="M 820 135 L 860 135" stroke="#94a3b8" stroke-width="2"/>
+  <path d="M 820 240 L 860 240" stroke="#94a3b8" stroke-width="2"/>
+  <path d="M 820 345 L 860 345" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Footer explanation -->
+  <text x="550" y="440" text-anchor="middle" fill="#94a3b8" font-size="12">Key Architectural Value: Each subscriber queue operates completely isolated with independent retry policies and zero cross-service coupling.</text>
+</svg>

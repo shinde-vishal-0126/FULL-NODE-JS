@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon SQS Master Handbook | Node.js E-Commerce Architecture & Interview Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: #1f2937;
+      --bg-code: #030712;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-aws: #ff9900;
+      --accent-cyan: #00f0ff;
+      --accent-blue: #3b82f6;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-purple: #8b5cf6;
+      --border-color: #374151;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+    }
+
+    .light-theme {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #f1f5f9;
+      --bg-code: #0f172a;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent-aws: #d97706;
+      --accent-cyan: #0284c7;
+      --accent-blue: #2563eb;
+      --accent-green: #059669;
+      --accent-red: #dc2626;
+      --accent-purple: #7c3aed;
+      --border-color: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+      font-size: 16px;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .marathi-text {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      line-height: 1.7;
+    }
+
+    /* Sticky Action Header */
+    header.top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(17, 24, 39, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .light-theme header.top-bar {
+      background-color: rgba(255, 255, 255, 0.88);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .aws-badge {
+      background: linear-gradient(135deg, #ff9900, #ffb84d);
+      color: #111;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .header-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .btn-pdf {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-pdf:hover {
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      border-color: var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--border-color);
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+      height: calc(100vh - 100px);
+      overflow-y: auto;
+      padding-right: 12px;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .sidebar::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 10px;
+    }
+
+    .toc-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .toc-list a {
+      display: block;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: all 0.15s ease;
+      line-height: 1.4;
+    }
+
+    .toc-list a:hover {
+      color: var(--text-main);
+      background-color: var(--bg-card);
+    }
+
+    .toc-list a.active {
+      color: var(--accent-cyan);
+      background-color: rgba(0, 240, 255, 0.1);
+      font-weight: 600;
+    }
+
+    /* Content */
+    .content {
+      min-width: 0;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(17, 24, 39, 0.95));
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 153, 0, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    h1.doc-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent-aws));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .light-theme h1.doc-title {
+      background: linear-gradient(135deg, #0f172a 40%, #d97706);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .doc-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+    }
+
+    .badge-aws { border-color: rgba(255, 153, 0, 0.4); color: #ffb84d; }
+    .badge-node { border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
+    .badge-marathi { border-color: rgba(139, 92, 246, 0.4); color: #c084fc; }
+
+    /* Sections */
+    section {
+      margin-bottom: 56px;
+      scroll-margin-top: 80px;
+    }
+
+    h2.section-heading {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2.section-heading .num {
+      color: var(--accent-aws);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.3rem;
+    }
+
+    h3.sub-heading {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      margin: 28px 0 14px 0;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text-main);
+    }
+
+    /* Cards & Marathi Callouts */
+    .card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .marathi-card {
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-left: 5px solid var(--accent-purple);
+      border-radius: 0 10px 10px 0;
+      padding: 18px 22px;
+      margin: 20px 0;
+    }
+
+    .marathi-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #c084fc;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .alert {
+      border-left: 4px solid;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      background-color: var(--bg-secondary);
+    }
+
+    .alert-important { border-color: var(--accent-aws); background: rgba(255, 153, 0, 0.08); }
+    .alert-tip { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.08); }
+    .alert-warning { border-color: var(--accent-red); background: rgba(239, 68, 68, 0.08); }
+
+    .alert-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14.5px;
+    }
+
+    th {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      padding: 12px 16px;
+      font-weight: 600;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+      background-color: var(--bg-secondary);
+      color: var(--text-main);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: var(--bg-card);
+    }
+
+    /* Code Blocks */
+    pre {
+      background-color: var(--bg-code);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 18px 20px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #e2e8f0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--accent-cyan);
+    }
+
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+      color: inherit;
+    }
+
+    /* Images */
+    figure.diagram-card {
+      margin: 32px 0;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    figure.diagram-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    figcaption {
+      padding: 14px 20px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* Accordion */
+    .qa-box {
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      margin-bottom: 16px;
+      background-color: var(--bg-secondary);
+      overflow: hidden;
+    }
+
+    .qa-header {
+      padding: 16px 20px;
+      background-color: var(--bg-card);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: background-color 0.2s ease;
+    }
+
+    .qa-header:hover {
+      background-color: rgba(255, 153, 0, 0.08);
+    }
+
+    .qa-title {
+      font-weight: 700;
+      font-size: 15.5px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qa-title .q-num {
+      color: var(--accent-aws);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+    }
+
+    .qa-icon {
+      font-size: 16px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .qa-box.open .qa-icon {
+      transform: rotate(180deg);
+    }
+
+    .qa-body {
+      padding: 20px;
+      display: none;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .qa-box.open .qa-body {
+      display: block;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #111827 !important;
+        font-size: 11pt;
+      }
+
+      header.top-bar, .sidebar, .btn, .theme-toggle {
+        display: none !important;
+      }
+
+      .container {
+        display: block !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+
+      .hero-banner {
+        background: #f3f4f6 !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        padding: 20px !important;
+        margin-bottom: 24px !important;
+      }
+
+      h1.doc-title {
+        color: #111827 !important;
+        -webkit-text-fill-color: #111827 !important;
+        font-size: 22pt !important;
+      }
+
+      .qa-body {
+        display: block !important;
+      }
+
+      .qa-header {
+        background: #f9fafb !important;
+      }
+
+      pre {
+        background-color: #f8fafc !important;
+        color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
+        page-break-inside: avoid;
+      }
+
+      figure.diagram-card {
+        page-break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+      }
+
+      section {
+        page-break-inside: auto;
+      }
+
+      h2.section-heading {
+        page-break-after: avoid;
+        color: #1e3a8a !important;
+      }
+
+      @page {
+        margin: 12mm;
+        size: A4 portrait;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="top-bar">
+    <div class="logo-container">
+      <span class="aws-badge">AWS SQS Handbook</span>
+      <span class="header-title">Amazon SQS Complete Guide & Interview Handbook</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" id="expandAllBtn" onclick="toggleAllQA()">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg>
+        Expand All Q&As
+      </button>
+      <button class="btn btn-secondary" onclick="toggleTheme()">
+        <span id="themeIcon">☀️</span> Light / Dark
+      </button>
+      <button class="btn btn-pdf" onclick="window.print()">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        Download / Print PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="toc-title">Table of Contents</div>
+      <ul class="toc-list" id="tocList">
+        <li><a href="#section-1">1. SQS Overview & Core Problem</a></li>
+        <li><a href="#section-2">2. Core Concepts & Definitions</a></li>
+        <li><a href="#section-3">3. SQS Mechanics & Lifecycle</a></li>
+        <li><a href="#section-4">4. Standard vs. FIFO Queues</a></li>
+        <li><a href="#section-5">5. SQS vs. Apache Kafka</a></li>
+        <li><a href="#section-6">6. Step-by-Step SQS Setup in Node.js</a></li>
+        <li><a href="#section-7">7. Exhaustive SQS Methods Breakdown</a></li>
+        <li><a href="#section-8">8. Exhaustive SQS Properties Breakdown</a></li>
+        <li><a href="#section-9">9. E-Commerce Order Architecture</a></li>
+        <li><a href="#section-10">10. End-to-End Production Code</a></li>
+        <li><a href="#section-11">11. Idempotency & Outbox Pattern</a></li>
+        <li><a href="#section-12">12. Advanced Enterprise SQS Patterns</a></li>
+        <li><a href="#section-13">13. Poison Messages & DLQ</a></li>
+        <li><a href="#section-14">14. Master Interview Q&A (32)</a></li>
+        <li><a href="#section-15">15. Quick Revision Cheat Sheet</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <h1 class="doc-title">Amazon SQS (Simple Queue Service)</h1>
+        <p class="doc-subtitle">Complete Production Architecture, Real-World E-Commerce Example, Node.js AWS SDK v3 Setup, Complete Method & Property Dictionary, Advanced Enterprise Patterns & 32 Interview Questions with Marathi Explanations</p>
+        <div class="tag-container">
+          <span class="badge badge-aws">AWS SQS SDK v3</span>
+          <span class="badge badge-node">Fastify Node.js</span>
+          <span class="badge badge-aws">SNS Fan-Out & S3 Claim-Check</span>
+          <span class="badge badge-marathi">मराठी स्पष्टीकरण समाविष्ट</span>
+        </div>
+      </div>
+
+      <!-- Section 1 -->
+      <section id="section-1">
+        <h2 class="section-heading"><span class="num">01.</span> Executive Overview & The Problem SQS Solves</h2>
+        <p><strong>Amazon Simple Queue Service (Amazon SQS)</strong> is a fully managed message queuing service provided by AWS. It allows distributed microservices, background worker processes, and databases to communicate asynchronously without requiring services to wait for slow downstream tasks.</p>
+
+        <h3 class="sub-heading">Normal Production Example: E-Commerce Order Placement</h3>
+        <p>In a standard E-Commerce application (such as Amazon or Flipkart), when a customer clicks <strong>"Place Order"</strong>, multiple downstream tasks must execute:</p>
+        <ul style="margin-left: 24px; margin-bottom: 16px;">
+          <li>Deduct inventory and verify stock</li>
+          <li>Save order record in database</li>
+          <li>Execute payment verification</li>
+          <li>Generate PDF Tax Invoice</li>
+          <li>Send email confirmation & SMS notification</li>
+          <li>Notify warehouse inventory</li>
+        </ul>
+
+        <div class="alert alert-warning">
+          <div class="alert-title">❌ Synchronous Bottleneck (Without SQS)</div>
+          If the API performs all these operations synchronously inside the HTTP request, the client waits <strong>10 to 15 seconds</strong>. If the email server is slow or payment API timeouts, the Fastify thread blocks, memory spikes, and the entire website crashes for all users!
+        </div>
+
+        <div class="alert alert-tip">
+          <div class="alert-title">✅ Asynchronous Decoupling (With SQS)</div>
+          With SQS, Fastify saves the order as <code>PENDING</code>, publishes the work item, and returns <strong>HTTP 201 Created after the required durable writes succeed</strong>. Actual latency depends on the database, queue, and network. Use an outbox when the database write and queue publish must not diverge.
+        </div>
+
+        <div class="marathi-card">
+          <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण (Marathi Explanation)</div>
+          <p class="marathi-text"><strong>Amazon SQS म्हणजे काय आणि त्याचा ई-कॉमर्समध्ये काय फायदा होतो?</strong><br>
+          जेव्हा एखादा ग्राहक Amazon वरून वस्तू खरेदी करतो (Place Order), तेव्हा बिल तयार करणे, ईमेल पाठवणे, आणि गोदामात मेसेज पाठवणे ही सर्व कामे करावी लागतात. जर ही कामे API ने थेट केली, तर गिऱ्हाईकाला स्क्रीनवर १५ सेकंद वाट पाहावी लागेल आणि जर ईमेल सर्व्हर डाऊन असेल तर ऑर्डर कॅन्सल होईल.<br>
+          <strong>SQS चा फायदा:</strong> API फक्त ऑर्डर डेटाबेसमध्ये नोंदवतो आणि SQS रांगेत मेसेज टाकून अवघ्या ४० मिलीसेकंदात गिऱ्हाईकाला "Order Placed!" असा मेसेज दाखवतो. नंतर बॅकग्राउंड वर्कर SQS मधून तो मेसेज घेऊन निवांतपणे बिल बनवतात आणि ईमेल पाठवतात. यामुळे ॲप कधीही क्रॅश होत नाही.</p>
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section id="section-2">
+        <h2 class="section-heading"><span class="num">02.</span> Core SQS Concepts & Point-Wise Definitions</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Term</th>
+                <th>Architectural Definition (English)</th>
+                <th>मराठीत सोपी व्याख्या</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Queue</strong></td>
+                <td>A distributed, highly available AWS message buffer identified by an HTTPS URL.</td>
+                <td>AWS वरील सुरक्षित रांग जिथे मेसेजेस येऊन थांबतात.</td>
+              </tr>
+              <tr>
+                <td><strong>Producer</strong></td>
+                <td>The service publishing messages to SQS (e.g. Fastify API using <code>SendMessageCommand</code>).</td>
+                <td>मेसेज तयार करून रांगेत पाठवणारा प्रोग्राम (उदा. Fastify API).</td>
+              </tr>
+              <tr>
+                <td><strong>Consumer (Worker)</strong></td>
+                <td>A background Node.js process polling SQS with <code>ReceiveMessageCommand</code> and executing tasks.</td>
+                <td>रांगेतून मेसेज उचलून काम पूर्ण करणारा बॅकग्राउंड वर्कर.</td>
+              </tr>
+              <tr>
+                <td><strong>Message</strong></td>
+                <td>A unit of work (JSON payload up to 256 KB) containing task metadata.</td>
+                <td>कामाची माहिती असणारा डेटा (जास्तीत जास्त २५६ KB).</td>
+              </tr>
+              <tr>
+                <td><strong>Receipt Handle</strong></td>
+                <td>An ephemeral operational token returned when receiving a message. <strong>Required to delete</strong>.</td>
+                <td>मेसेज वाचल्यावर मिळणारे पावती टोकन, जे मेसेज डिलीट करण्यासाठी लागते.</td>
+              </tr>
+              <tr>
+                <td><strong>Visibility Timeout</strong></td>
+                <td>The window (0s–12h; default 30s) during which SQS hides a received message from other workers.</td>
+                <td>एका वर्करने मेसेज घेतल्यावर तो इतरांना दिसू नये म्हणून लपवण्याचा वेळ.</td>
+              </tr>
+              <tr>
+                <td><strong>Dead-Letter Queue (DLQ)</strong></td>
+                <td>A secondary queue isolating failing "poison messages" after exceeding <code>maxReceiveCount</code>.</td>
+                <td>वारंवार फेल होणारे खराब मेसेजेस बाजूला ठेवणारी सुरक्षित रांग.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 3 -->
+      <section id="section-3">
+        <h2 class="section-heading"><span class="num">03.</span> SQS Mechanics & Message Lifecycle</h2>
+        <figure class="diagram-card">
+          <img src="diagrams/2_visibility_timeout_lifecycle.svg" alt="SQS Lifecycle Architecture">
+          <figcaption><strong>Figure 3.1:</strong> SQS Message Lifecycle: Enqueue &rarr; Invisibility Window &rarr; Worker Execution &rarr; Task Commit &rarr; DeleteMessage.</figcaption>
+        </figure>
+
+        <div class="alert alert-important">
+          <div class="alert-title">Critical Question: Why Does Receiving a Message NOT Delete It?</div>
+          If SQS automatically deleted a message upon retrieval, any worker crash, server reboot, or out-of-memory error during execution would permanently destroy the customer's order! By requiring an explicit <code>DeleteMessageCommand</code> with the <code>ReceiptHandle</code>, SQS guarantees that if a worker crashes, the visibility timeout will expire and the message will safely reappear for another worker to process.
+        </div>
+      </section>
+
+      <!-- Section 4 -->
+      <section id="section-4">
+        <h2 class="section-heading"><span class="num">04.</span> Standard Queue vs. FIFO Queue</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Standard Queue</th>
+                <th>FIFO Queue (<code>.fifo</code>)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Throughput</strong></td>
+                <td>Scales to high throughput, subject to service quotas and workload.</td>
+                <td>Depends on queue configuration, batching, and current AWS quotas.</td>
+              </tr>
+              <tr>
+                <td><strong>Delivery Guarantee</strong></td>
+                <td><strong>At-Least-Once Delivery</strong> (Occasional duplicates).</td>
+                <td>Deduplicates producer sends within a 5-minute interval; consumer side effects still require idempotency.</td>
+              </tr>
+              <tr>
+                <td><strong>Ordering</strong></td>
+                <td><strong>Best-Effort Ordering</strong>.</td>
+                <td><strong>Strict First-In-First-Out</strong> preserved per <code>MessageGroupId</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>Message Group ID</strong></td>
+                <td>Not supported.</td>
+                <td><strong>Mandatory</strong> (<code>MessageGroupId</code>). Enables parallel processing across groups!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 5 -->
+      <section id="section-5">
+        <h2 class="section-heading"><span class="num">05.</span> Amazon SQS vs. Apache Kafka</h2>
+        <figure class="diagram-card">
+          <img src="diagrams/6_sqs_vs_kafka_comparison.svg" alt="SQS vs Kafka Architectural Comparison">
+          <figcaption><strong>Figure 5.1:</strong> SQS Task Queue (Competing Workers & Destructive Deletion) vs. Kafka Commit Log (Multiple Consumer Groups & Replayability).</figcaption>
+        </figure>
+      </section>
+
+      <!-- Section 6: SQS Setup in Node.js -->
+      <section id="section-6">
+        <h2 class="section-heading"><span class="num">06.</span> Step-by-Step Guide: How to Setup, Install & Integrate SQS in Node.js (AWS SDK v3)</h2>
+
+        <h3 class="sub-heading">Step 1: Install Dependencies via NPM</h3>
+        <pre><code>npm init -y
+npm install @aws-sdk/client-sqs dotenv</code></pre>
+
+        <h3 class="sub-heading">Step 2: Setup Environment Variables (<code>.env</code>)</h3>
+        <pre><code>AWS_REGION=ap-south-1
+        SQS_ORDER_QUEUE_URL=https://sqs.ap-south-1.amazonaws.com/123456789012/order-processing-queue
+        SQS_ORDER_DLQ_URL=https://sqs.ap-south-1.amazonaws.com/123456789012/order-processing-dlq
+        <p>Use the AWS SDK default credential provider chain (ECS task role, EC2 instance profile, or EKS workload identity) in deployed environments. Keep static credentials out of source control; use an approved local profile for development.</p>
+
+        <h3 class="sub-heading">Step 3: Centralized SQS Client Configuration (<code>config/sqs.js</code>)</h3>
+        <pre><code>import { SQSClient } from "@aws-sdk/client-sqs";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+export const sqsClient = new SQSClient({
+  region: process.env.AWS_REGION || "ap-south-1",
+  maxAttempts: 3 // Automatic retry with exponential backoff
+});</code></pre>
+      </section>
+
+      <!-- Section 7: SQS Methods Breakdown -->
+      <section id="section-7">
+        <h2 class="section-heading"><span class="num">07.</span> Exhaustive Breakdown: Every SQS Method & Command</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>SQS Method / Command</th>
+                <th>Technical Purpose (English)</th>
+                <th>मराठी सविस्तर स्पष्टीकरण आणि उपयोग</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>new SQSClient({ region })</code></td>
+                <td>Instantiates AWS SQS SDK client service object with retry policy.</td>
+                <td>AWS SQS सर्व्हरशी संपर्क सुरू करणारा मुख्य क्लायंट.</td>
+              </tr>
+              <tr>
+                <td><code>SendMessageCommand</code></td>
+                <td>Publishes a single JSON task message into the designated SQS queue.</td>
+                <td>रांगेत नवीन मेसेज पाठवण्यासाठी वापरतात.</td>
+              </tr>
+              <tr>
+                <td><code>SendMessageBatchCommand</code></td>
+                <td>Sends up to 10 messages in one network call, slashing AWS API cost.</td>
+                <td>एकाच फेरीत १० मेसेजेस पाठवण्यासाठी वापरतात, ज्यामुळे पैसे आणि वेळ वाचतात.</td>
+              </tr>
+              <tr>
+                <td><code>ReceiveMessageCommand</code></td>
+                <td>Polls available messages from queue (supports Long Polling).</td>
+                <td>रांगेतून मेसेज वाचण्यासाठी वापरतात.</td>
+              </tr>
+              <tr>
+                <td><code>DeleteMessageCommand</code></td>
+                <td>Permanently deletes processed message using <code>ReceiptHandle</code>.</td>
+                <td>काम झाल्यावर मेसेज कायमचा काढून टाकण्यासाठी (Delete) वापरतात.</td>
+              </tr>
+              <tr>
+                <td><code>DeleteMessageBatchCommand</code></td>
+                <td>Deletes up to 10 processed messages in a single batch request.</td>
+                <td>एकाच वेळी १० मेसेजेस डिलीट करण्यासाठी वापरतात.</td>
+              </tr>
+              <tr>
+                <td><code>ChangeMessageVisibilityCommand</code></td>
+                <td>Extends invisibility window for long-running worker tasks.</td>
+                <td>काम संपायला जास्त वेळ लागत असल्यास लपवण्याचा वेळ (Visibility Timeout) वाढवण्यासाठी वापरतात.</td>
+              </tr>
+              <tr>
+                <td><code>GetQueueAttributesCommand</code></td>
+                <td>Retrieves queue metadata and backlog message counts.</td>
+                <td>रांगेत किती मेसेजेस बाकी आहेत आणि किती प्रोसेस होत आहेत ते तपासण्यासाठी वापरतात.</td>
+              </tr>
+              <tr>
+                <td><code>PurgeQueueCommand</code></td>
+                <td>Deletes all messages in the SQS queue without deleting queue.</td>
+                <td>रांगेतील सर्व मेसेजेस एका झटक्यात साफ (रिकामे) करण्यासाठी वापरतात.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 8: SQS Properties Breakdown -->
+      <section id="section-8">
+        <h2 class="section-heading"><span class="num">08.</span> Exhaustive Breakdown: Every SQS Property & Attribute</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>SQS Property</th>
+                <th>Technical Purpose (English)</th>
+                <th>मराठी सविस्तर स्पष्टीकरण आणि उपयोग</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>QueueUrl</code></td>
+                <td>Full HTTPS endpoint identifying the target queue.</td>
+                <td>ज्या रांगेत मेसेज टाकायचा किंवा वाचायचा आहे तिचा HTTPS पत्ता.</td>
+              </tr>
+              <tr>
+                <td><code>MessageBody</code></td>
+                <td>The task payload data in stringified JSON format (max 256 KB).</td>
+                <td>मेसेजमधील मुख्य मजकूर किंवा डेटा (JSON स्वरूपात).</td>
+              </tr>
+              <tr>
+                <td><code>ReceiptHandle</code></td>
+                <td>Ephemeral identifier required to delete or update an in-flight message.</td>
+                <td>मेसेज वाचल्यावर मिळणारे पावती टोकन, जे मेसेज डिलीट करण्यासाठी लागते.</td>
+              </tr>
+              <tr>
+                <td><code>MessageId</code></td>
+                <td>Immutable system UUID assigned by SQS upon ingestion.</td>
+                <td>मेसेज SQS मध्ये आल्यावर SQS ने दिलेला कायमचा युनिक आयडी.</td>
+              </tr>
+              <tr>
+                <td><code>WaitTimeSeconds: 20</code></td>
+                <td>Enables long polling up to 20s; can reduce empty receives, with savings dependent on workload.</td>
+                <td>रांगेत मेसेज येईपर्यंत २० सेकंद थांबून राहणे (लॉंग पोलिंग), ज्यामुळे बिल वाचते.</td>
+              </tr>
+              <tr>
+                <td><code>VisibilityTimeout: 60</code></td>
+                <td>Seconds message stays hidden from other workers while active.</td>
+                <td>मेसेज उचलल्यावर तो इतर वर्कर्सपासून किती सेकंद लपवून ठेवायचा हा वेळ.</td>
+              </tr>
+              <tr>
+                <td><code>MaxNumberOfMessages</code></td>
+                <td>Maximum messages retrieved per call (1 to 10).</td>
+                <td>एका वेळी जास्तीत जास्त किती मेसेजेस उचलायचे (१ ते १० पर्यंत).</td>
+              </tr>
+              <tr>
+                <td><code>DelaySeconds</code></td>
+                <td>Delivery delay before message becomes visible (0 to 15 mins).</td>
+                <td>मेसेज पाठवल्यावर सुरुवातीला किती सेकंद थांबवून ठेवायचे तो वेळ.</td>
+              </tr>
+              <tr>
+                <td><code>MessageGroupId</code></td>
+                <td>Mandatory in FIFO. Enforces strict order within the group.</td>
+                <td>FIFO रांगेत मेसेजचा क्रम सांभाळण्यासाठी लागणारा ग्रुप आयडी.</td>
+              </tr>
+              <tr>
+                <td><code>MessageDeduplicationId</code></td>
+                <td>FIFO deduplication token valid for a 5-minute window.</td>
+                <td>FIFO मध्ये ५ मिनिटांच्या आत आलेला डुप्लिकेट मेसेज थांबवणारा टोकन.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section 9: E-Commerce Architecture Diagram -->
+      <section id="section-9">
+        <h2 class="section-heading"><span class="num">09.</span> Real-World Architecture: E-Commerce Order Fulfillment System</h2>
+        <figure class="diagram-card">
+          <img src="diagrams/1_sqs_decoupled_architecture.svg" alt="E-Commerce Architecture Diagram">
+          <figcaption><strong>Figure 9.1:</strong> E-Commerce Order Processing System: Fastify API &rarr; SQS Queue &rarr; Worker Fleet &rarr; Idempotent Task Fulfillment &rarr; DeleteMessage.</figcaption>
+        </figure>
+      </section>
+
+      <!-- Section 10: Production Code -->
+      <section id="section-10">
+        <h2 class="section-heading"><span class="num">10.</span> End-to-End Production Code: Fastify Producer & Worker</h2>
+
+        <h3 class="sub-heading">1. Fastify Order Producer Route</h3>
+        <pre><code>fastify.post("/api/orders", async (request, reply) => {
+  const { customerId, totalAmount, items } = request.body;
+  const orderNumber = `ORD-${Date.now()}`;
+  const idempotencyKey = `ORDER_KEY_${orderNumber}`;
+
+  // Publish task to SQS
+  await sqsClient.send(new SendMessageCommand({
+    QueueUrl: process.env.SQS_ORDER_QUEUE_URL,
+    MessageBody: JSON.stringify({
+      orderNumber,
+      customerId,
+      totalAmount,
+      items,
+      idempotencyKey,
+      createdAt: new Date().toISOString()
+    })
+  }));
+
+  // Return only after the required durable writes succeed; latency depends on the workload.
+  return reply.status(201).send({
+    message: "Order placed successfully! Processing in background.",
+    orderNumber
+  });
+});</code></pre>
+  <p><strong>Production consistency note:</strong> This snippet focuses on publishing and omits the database write for brevity. Use a transactional outbox and idempotent publisher/consumer when the order record and SQS message must not diverge.</p>
+
+  <h3 class="sub-heading">2. Worker Consumer with Long Polling & SQS Deletion</h3>
+        <pre><code>async function startWorker() {
+  while (!isShuttingDown) {
+    const response = await sqsClient.send(new ReceiveMessageCommand({
+      QueueUrl: queueUrl,
+      MaxNumberOfMessages: 1,
+      WaitTimeSeconds: 20,       // Long Polling
+      VisibilityTimeout: 60      // Set above expected processing time; extend for long jobs
+    }));
+
+    for (const message of response.Messages ?? []) {
+      try {
+        const order = JSON.parse(message.Body);
+        await fulfillOrder(order);
+
+        // Delete message ONLY after fulfillment succeeds!
+        await sqsClient.send(new DeleteMessageCommand({
+          QueueUrl: queueUrl,
+          ReceiptHandle: message.ReceiptHandle
+        }));
+      } catch (err) {
+        console.error("Task failed:", err.message);
+      }
+    }
+  }
+}</code></pre>
+      </section>
+
+      <!-- Section 12: Advanced Enterprise Patterns -->
+      <section id="section-12">
+        <h2 class="section-heading"><span class="num">12.</span> Advanced Enterprise SQS Patterns (Senior Interview Hot Topics)</h2>
+        <figure class="diagram-card">
+          <img src="diagrams/4_sns_sqs_fanout_architecture.svg" alt="SNS to SQS Fan-Out Architecture Pattern">
+          <figcaption><strong>Figure 12.1:</strong> Enterprise SQS Pattern: Amazon SNS to SQS Fan-Out (1-to-Many Multi-Subscriber Architecture).</figcaption>
+        </figure>
+
+        <figure class="diagram-card" style="margin-top: 24px;">
+          <img src="diagrams/7_s3_claim_check_pattern.svg" alt="S3 Claim-Check Pattern Architecture">
+          <figcaption><strong>Figure 12.2:</strong> Handling Large Payloads (&gt; 256 KB) via the Amazon S3 Claim-Check Pattern.</figcaption>
+        </figure>
+
+        <div class="card">
+          <h3 class="sub-heading" style="margin-top:0;">1. The SNS + SQS Fan-Out Pattern (1-to-Many Broadcasting)</h3>
+          <p>Amazon SQS is point-to-point. When 3 different services (Billing, Shipping, Analytics) need the same <code>ORDER_PLACED</code> event, front the queues with an <strong>Amazon SNS Topic</strong>. The API publishes once to SNS, and SNS automatically replicates duplicate messages into all 3 SQS queues.</p>
+        </div>
+
+        <div class="card">
+          <h3 class="sub-heading" style="margin-top:0;">2. Handling Messages &gt; 256 KB via S3 Claim-Check Pattern</h3>
+          <p>SQS enforces a hard 256 KB payload cap. For large payloads (e.g. 10 MB invoice PDF or large batch data), upload the file to <strong>Amazon S3</strong> and place only the S3 Bucket Name and Object Key inside the SQS message body (the Claim-Check ticket).</p>
+        </div>
+
+        <div class="card">
+          <h3 class="sub-heading" style="margin-top:0;">3. Worker Autoscaling Mechanics (CloudWatch & KEDA)</h3>
+          <p>Never autoscale workers based on CPU! Autoscale based on <strong>Backlog Per Worker</strong>:
+          <code>ApproximateNumberOfMessagesVisible / ActiveWorkerCount</code> using AWS ECS Target Tracking or <strong>KEDA (Kubernetes Event-driven Autoscaling)</strong> with the <code>aws-sqs</code> trigger.</p>
+        </div>
+
+        <div class="marathi-card">
+          <div class="marathi-card-title">🌐 हिंदी स्पष्टीकरण — Advanced SQS Patterns</div>
+          <p class="marathi-text">
+            <strong>1. SNS to SQS Fan-Out:</strong> यदि Billing, Notifications और Analytics जैसी कई services को एक ही event चाहिए, तो producer उसे SNS topic पर भेज सकता है। SNS प्रत्येक subscribed SQS queue को उसकी अलग copy देता है; हर service अपनी गति से consume करती है।<br>
+            <strong>2. S3 Claim-Check:</strong> SQS message size की सीमा 256 KB है। बड़े payload को S3 में रखें और message में bucket/key reference भेजें। Consumer को object पढ़ने की permission चाहिए; सफल processing के बाद retention और cleanup policy लागू करें।<br>
+            <strong>3. Autoscaling:</strong> Queue backlog और oldest-message age को worker capacity के साथ देखें। ECS या KEDA scaling में cooldown, maximum replicas और downstream database capacity भी निर्धारित करें।
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 13: Poison Messages & DLQ -->
+      <section id="section-13">
+        <h2 class="section-heading"><span class="num">13.</span> Poison Messages, Dead-Letter Queues (DLQ) &amp; CloudWatch Monitoring</h2>
+        <figure class="diagram-card">
+          <img src="diagrams/5_dlq_poison_message_workflow.svg" alt="Dead Letter Queue and Poison Message Flow">
+          <figcaption><strong>Figure 13.1:</strong> Poison Message Isolation via SQS Dead-Letter Queue &amp; CloudWatch Alerting.</figcaption>
+        </figure>
+
+        <p>A <strong>poison message</strong> repeatedly fails processing. SQS moves a message after the configured receive count is exceeded without deletion; it cannot directly observe application failure. Choose <code>maxReceiveCount</code> for the workload and inspect messages before redrive.</p>
+
+        <div class="card" style="margin-top: 16px;">
+          <h3 class="sub-heading" style="margin-top: 0;">Critical CloudWatch Metrics for SQS:</h3>
+          <ul style="margin-left: 20px; line-height: 1.8; color: var(--text-muted);">
+            <li><code>ApproximateAgeOfOldestMessage</code>: How long the oldest task has been waiting. Key SLA latency metric.</li>
+            <li><code>ApproximateNumberOfMessagesVisible</code>: Backlog size used for horizontal autoscaling via ECS or KEDA.</li>
+            <li><code>DLQ ApproximateNumberOfMessagesVisible</code>: Must be 0! Triggers PagerDuty alert if &gt; 0.</li>
+          </ul>
+        </div>
+
+        <div class="marathi-card" style="margin-top: 16px;">
+          <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण — पॉइझन मेसेज आणि DLQ</div>
+          <p class="marathi-text">
+            गलत या असफल message बार-बार process हो सकता है। SQS configured receive count पर redrive करता है; वह application failure स्वयं नहीं पहचानता। सही count चुनें और DLQ message की जाँच के बाद ही redrive करें।
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 14: 32 Interview Questions with Marathi -->
+      <section id="section-14">
+        <h2 class="section-heading"><span class="num">14.</span> Master Interview Questions & Answers (All 32 Q&As with Marathi)</h2>
+
+        <!-- Render all 32 questions -->
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q01.</span> What is Amazon SQS, and how does it fit into an E-Commerce backend?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Amazon SQS is a fully managed message queue that decouples microservices. In E-Commerce, when an order is placed, Fastify pushes a message to SQS and immediately returns HTTP 201 to the customer. Background workers asynchronously process payments, invoices, and emails without blocking customer checkout.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">Amazon SQS ही AWS ची मेसेज रांग सेवा आहे. ई-कॉमर्समध्ये ऑर्डर केल्यावर Fastify API तात्काळ रिस्पॉन्स देऊन मेसेज SQS मध्ये टाकतो आणि बॅकग्राउंड वर्कर बिल बनवणे आणि ईमेल पाठवण्याचे काम करतात, ज्यामुळे सर्वर कधीही स्लो होत नाही.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q02.</span> Explain the internal architecture and message flow of Amazon SQS.</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> SQS follows Producer&ndash;Queue&ndash;Consumer architecture: Producer calls <code>SendMessage</code> &rarr; SQS replicates across AZs &rarr; Consumer calls <code>ReceiveMessage</code> with Long Polling &rarr; Message hidden during Visibility Timeout &rarr; Consumer processes task &rarr; Consumer calls <code>DeleteMessage</code> with <code>ReceiptHandle</code>.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">Producer मेसेज पाठवतो, SQS तो सुरक्षित रांगेत ठेवतो. वर्करने मेसेज घेतल्यावर तो तात्पुरता लपवला जातो. काम पूर्ण झाल्यावरच वर्कर पावती टोकन (ReceiptHandle) देऊन तो मेसेज कायमचा डिलीट करतो.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q03.</span> What is the difference between Amazon SQS and Apache Kafka?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> SQS is a managed Task Queue where workers pull and delete tasks after completion. Kafka is an append-only commit log where consumer groups track offsets. SQS deletes messages upon acknowledgment; Kafka retains records for days, enabling full replayability.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">SQS हे काम झाल्यावर मेसेज डिलीट करते (Task Queue). Kafka मेसेज वहीसारखा कायमस्वरूपी सेव्ह ठेवतो (Event Log) जेणेकरून जुने मेसेज पुन्हा वाचता येतात (Replay).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q04.</span> Difference between Standard and FIFO Queues?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Standard queues scale to high throughput and provide at-least-once delivery with best-effort ordering. FIFO queues preserve order per <code>MessageGroupId</code> and deduplicate producer sends within a five-minute interval; throughput depends on queue configuration and current AWS quotas.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">Standard queue में संदेश क्रम से बाहर आ सकते हैं और दोबारा deliver हो सकते हैं। FIFO queue एक ही <code>MessageGroupId</code> के संदेश क्रम से process करती है; पाँच मिनट की deduplication duplicate sends घटाती है, लेकिन consumer processing की exactly-once guarantee नहीं है।</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q05.</span> What is "At-Least-Once Delivery," and why do duplicates happen?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Guarantees messages are delivered at least once. Duplicates happen if a worker commits a task, but crashes before calling <code>DeleteMessage</code>. SQS visibility timeout expires and redelivers the message. Handled via database idempotency.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">जर वर्करने काम केले पण मेसेज डिलीट करण्याआधी इंटरनेट गेले, तर SQS तोच मेसेज पुन्हा पाठवतो. म्हणून कोडमध्ये Idempotency असणे आवश्यक असते.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q06.</span> What is Visibility Timeout?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> The window (0s–12h; default 30s) during which SQS hides an in-flight message so other workers cannot receive it.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">वर्करने मेसेज उचलल्यावर दुसऱ्या कोणाला दिसू नये म्हणून तो जितका वेळ लपवून ठेवला जातो त्याला Visibility Timeout म्हणतात (डीफॉल्ट ३० सेकंद).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q07.</span> What happens if a worker crashes after receiving a message?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> If not deleted before the visibility timeout expires, a message can become visible for redelivery. Standard queues are at-least-once; consumers must be idempotent, and retention/DLQ settings still matter.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">वर्कर क्रॅश झाला तरी काही अडचण येत नाही. वेळ संपल्यावर तो मेसेज पुन्हा रांगेत दिसतो आणि दुसरा वर्कर काम पूर्ण करतो.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q08.</span> What is Long Polling, and why is it essential?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Setting <code>WaitTimeSeconds: 20</code> enables long polling and can reduce empty receives and worker wake-ups. Savings depend on workload; it does not eliminate empty responses in every case.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">रांगेत मेसेज येईपर्यंत २० सेकंद थांबून राहणे याला Long Polling म्हणतात. यामुळे रिकाम्या फेऱ्या टळतात आणि AWS चे बिल ८०% वाचते.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q09.</span> What is a Dead-Letter Queue (DLQ)?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> An isolated queue for messages that fail repeatedly beyond <code>maxReceiveCount</code>, stopping poison messages from burning CPU.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">३ वेळा फेल होणारे चुकीचे मेसेजेस बाजूला काढून ठेवणारी रांग म्हणजे DLQ, जेणेकरून मुख्य सिस्टीम अडकून पडत नाही.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q10.</span> What is MaxReceiveCount?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Threshold of failed receive attempts before SQS automatically transfers the message to the DLQ.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">मेसेज किती वेळा अयशस्वी झाल्यावर DLQ मध्ये पाठवायचा ती संख्या (उदा. ३ वेळा).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q11.</span> Retrying vs. DLQ?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Retry is for temporary transient failures; DLQ isolates permanent poison payloads.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">Retry तात्पुरत्या अडचणींसाठी (उदा. नेटवर्क स्लो), DLQ कायमच्या चुकीच्या डेटासाठी असते.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q12.</span> Message Retention vs Visibility Timeout?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Retention is total storage lifespan (14 days max). Visibility timeout is the in-flight processing window (30s default).</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">Retention म्हणजे मेसेज SQS मध्ये किती दिवस साठवून राहील (१४ दिवस). Visibility म्हणजे वर्करने मेसेज घेतल्यावर तो किती वेळ लपवला जाईल (३० सेकंद).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q13.</span> Why is ReceiptHandle required instead of MessageId to delete?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> SQS generates a new ReceiptHandle on every receive. It proves the caller holds the active processing lease, preventing race conditions.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">प्रत्येक वेळी मेसेज वाचताना SQS नवीन पावती (ReceiptHandle) देते, त्यावरून सिद्ध होते की हाच वर्कर सध्या काम करत आहे.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q14.</span> How do you implement SQS in Node.js?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Use <code>@aws-sdk/client-sqs</code>: initialize <code>SQSClient</code>, send with <code>SendMessageCommand</code>, poll with <code>ReceiveMessageCommand</code>, and delete with <code>DeleteMessageCommand</code>.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">AWS SDK v3 चे पॅकेज वापरून क्लायंट बनवला जातो, SendMessage ने पाठवला जातो आणि Delete ने डिलीट केला जातो.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q15.</span> Error handling in SQS workers?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Wrap in <code>try/catch</code>. On transient error, do NOT delete message; allow visibility timeout to expire for auto-retry.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">तात्पुरती एरर आल्यास मेसेज डिलीट करू नये, SQS आपोआप थोड्या वेळाने पुन्हा प्रयत्न करेल.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q16.</span> Graceful Shutdown in Node.js SQS Worker?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Catch <code>SIGTERM</code>, set shutdown flag to stop polling, await in-flight tasks, then exit cleanly.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">सर्व्हर बंद होताना चालू असलेले काम पूर्ण होऊ देणे आणि नवीन मेसेज घेणे थांबवून सुरक्षित बाहेर पडणे.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q17.</span> Concurrency control in Node.js SQS Worker?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Fetch at most 10 messages per batch and use concurrency limiters (<code>p-limit</code>) to prevent downstream resource exhaustion.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">डेटाबेस क्रॅश होऊ नये म्हणून एकाच वेळी मर्यादित कामे (उदा. ५ ते १०) केली जातात.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q18.</span> What is MessageGroupId in FIFO SQS?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Enforces strict sequence for messages with the same group ID, while allowing parallel processing across different groups.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">FIFO मध्ये सारख्या ग्रुपचे मेसेजेस क्रमाने चालतात, पण वेगवेगळ्या ग्रुपचे मेसेजेस एकाच वेळी पॅरलल चालतात.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q19.</span> MessageDeduplicationId in FIFO SQS?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Unique token suppressing duplicate sends within a 5-minute deduplication window.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">FIFO मध्ये ५ मिनिटांच्या आत आलेला डुप्लिकेट मेसेज थांबवणारा टोकन.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q20.</span> What is Idempotency, and why is it mandatory?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Ensuring repeated execution produces the same business outcome. Essential because SQS standard queues deliver at least once.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">एकाच मेसेजवर कितीही वेळा प्रक्रिया झाली तरी दुबार पैसे न कापणे किंवा दुबार ऑर्डर न होणे म्हणजे Idempotency.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q21.</span> Designing SQS for 50,000 orders in a flash sale?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Fastify creates PENDING order and enqueues to SQS. Horizontally scaled workers consume with long polling and idempotent writes.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">फ्लॅश सेलमध्ये सर्व ऑर्डर्स SQS मध्ये साठवून वर्कर हळूहळू सुरक्षितपणे डेटाबेसमध्ये सेव्ह करतात.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q22.</span> Critical CloudWatch Metrics for SQS?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> <code>ApproximateAgeOfOldestMessage</code> (latency), <code>ApproximateNumberOfMessagesVisible</code> (backlog), and DLQ visible messages.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">सर्वात जुना मेसेज किती वेळ अडकला आहे आणि रांगेत किती मेसेजेस बाकी आहेत हे तपासणे.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q23.</span> Handling long-running tasks exceeding Visibility Timeout?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Use <code>ChangeMessageVisibilityCommand</code> periodically as a heartbeat to extend the visibility window.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">काम संपायला वेळ लागत असेल तर SQS कडून अजून वेळ मागून घेणे (ChangeMessageVisibility).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q24.</span> Preventing duplicates across distributed worker pods?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Enforce <code>UNIQUE</code> constraint on <code>idempotencyKey</code> in the database. Catch duplicate collision and discard safely.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">डेटाबेसमध्ये युनिक की वापरणे जेणेकरून डुप्लिकेट मेसेज आला तरी डेटाबेस एरर देऊन तो थांबवतो.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q25.</span> What is a "Poison Message"?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> A corrupt payload causing perpetual worker crashes. Mitigated via schema validation and Dead-Letter Queue.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">खराब डेटा असलेला मेसेज जो प्रत्येक वेळी सिस्टीम क्रॅश करतो. याला DLQ मध्ये टाकले जाते.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q26.</span> Delivery Delay vs Visibility Timeout?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Delay postpones initial delivery when sent. Visibility timeout hides a message after it has been received.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">Delay सुरुवातीला मेसेज थांबवून ठेवतो. Visibility Timeout मेसेज वर्करने घेतल्यावर इतरांपासून लपवतो.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q27.</span> Solving Dual-Write Consistency between DB and SQS?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Use Transactional Outbox Pattern: save order and outbox record in same database transaction; background daemon publishes to SQS.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">एकाच ट्रान्झॅक्शनमध्ये ऑर्डर आणि आउटबॉक्स टेबल सेव्ह करणे, जेणेकरून डेटा कधीही गहाळ होत नाही.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q28.</span> Ensuring DeleteMessage happens ONLY after successful processing?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Place <code>DeleteMessageCommand</code> immediately after the resolved business transaction. If the transaction throws, execution jumps to `catch`, leaving the message in SQS for redelivery.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">डेटाबेस ट्रान्झॅक्शन यशस्वी झाल्यावरच शेवटी DeleteMessage चालवणे.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q29.</span> How would you structure an E-Commerce Order Fulfillment worker?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> SQS poller &rarr; payload validation &rarr; idempotency check &rarr; payment verification & invoice generation &rarr; status update &rarr; SQS deletion.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">मेसेज घेणे, डेटा तपासणे, पेमेंट तपासणे, बिल बनवणे, आणि शेवटी SQS मेसेज डिलीट करणे.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q30.</span> Securing SQS in production?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> IAM Least Privilege, IAM Roles for ECS/K8s, KMS Server-Side Encryption, enforce HTTPS, and VPC Endpoints.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">पासवर्ड न ठेवता IAM Roles वापरणे, डेटा एन्क्रिप्शन चालू ठेवणे आणि प्रायव्हेट नेटवर्क वापरणे.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q31.</span> Queue has 100,000 pending messages and growing. How to troubleshoot?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Check oldest message age, inspect database CPU and connection saturation, scale worker pods horizontally, and verify batch processing.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">डेटाबेसवर लोड आलाय का तपासणे, वर्कर क्रॅश होत नाहीये ना पाहणे, आणि नवीन वर्कर सर्व्हर वाढवणे.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="qa-box">
+          <div class="qa-header" onclick="toggleQA(this)">
+            <div class="qa-title"><span class="q-num">Q32.</span> Testing SQS consumer in Node.js?</div>
+            <div class="qa-icon">&#9660;</div>
+          </div>
+          <div class="qa-body">
+            <p><strong>English Answer:</strong> Unit test with <code>aws-sdk-client-mock</code> asserting DeleteMessage is only called on success. Integration test with LocalStack.</p>
+            <div class="marathi-card">
+              <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+              <p class="marathi-text">युनिट टेस्टिंगसाठी `aws-sdk-client-mock` आणि लोकल टेस्टिंगसाठी Docker मध्ये LocalStack वापरणे.</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Section 15: Quick Revision -->
+      <section id="section-15">
+        <h2 class="section-heading"><span class="num">15.</span> Quick Revision Cheat Sheet</h2>
+        <div class="card">
+          <ul style="margin-left: 20px;">
+            <li><strong>Standard SQS:</strong> High throughput, subject to service quotas; at-least-once delivery.</li>
+            <li><strong>FIFO SQS:</strong> Strict order per <code>MessageGroupId</code>, 5-min deduplication.</li>
+            <li><strong>Long Polling:</strong> Consider <code>WaitTimeSeconds: 20</code> to reduce empty receives; measure cost and latency for the workload.</li>
+            <li><strong>ReceiptHandle:</strong> Required to delete. Never delete using MessageId.</li>
+            <li><strong>Fan-Out:</strong> Use SNS Topic fronting SQS Queues for 1-to-many publish-subscribe.</li>
+            <li><strong>Large Payloads (&gt; 256 KB):</strong> Use S3 Claim-Check Pattern.</li>
+            <li><strong>Autoscaling:</strong> Scale workers on Backlog per Task (<code>VisibleMessages / WorkerCount</code>) via KEDA / ECS.</li>
+            <li><strong>Idempotency:</strong> Enforce at the business/database layer with unique keys.</li>
+            <li><strong>DLQ:</strong> Set <code>maxReceiveCount</code> for the workload; SQS counts receives before redrive, not application failures.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="hindi-interview-perspective">
+        <h2 class="section-heading">हिंदी Interview Perspective</h2>
+        <ul>
+          <li>Standard SQS at-least-once है। FIFO की पाँच-मिनट deduplication consumer side effects को exactly-once नहीं बनाती; business idempotency आवश्यक है।</li>
+          <li>Visibility timeout को expected processing duration के अनुरूप रखें; long jobs में उसे extend करें और duplicates के लिए तैयार रहें।</li>
+          <li>Database write और queue publish के dual-write risk का उत्तर transactional outbox तथा idempotent consumer से दें।</li>
+          <li>DLQ का receive count application failure नहीं पहचानता। Oldest-message age, backlog, in-flight messages और DLQ alarms monitor करें।</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light-theme');
+      const icon = document.getElementById('themeIcon');
+      icon.textContent = document.body.classList.contains('light-theme') ? '🌙' : '☀️';
+    }
+
+    function toggleQA(element) {
+      const box = element.parentElement;
+      box.classList.toggle('open');
+    }
+
+    let allExpanded = false;
+    function toggleAllQA() {
+      allExpanded = !allExpanded;
+      document.querySelectorAll('.qa-box').forEach(box => {
+        if (allExpanded) {
+          box.classList.add('open');
+        } else {
+          box.classList.remove('open');
+        }
+      });
+      document.getElementById('expandAllBtn').innerHTML = allExpanded ?
+        `<svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 20l8-8h-6V4h-4v8H4z"/></svg> Collapse All Q&As` :
+        `<svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4l-8 8h6v8h4v-8h6z"/></svg> Expand All Q&As`;
+    }
+
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.toc-list a');
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (pageYOffset >= sectionTop) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

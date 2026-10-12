@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 820" width="100%" height="100%">
+  <defs>
+    <style>
+      .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 25px; font-weight: 800; fill: #ffffff; letter-spacing: 1.2px; }
+      .main-subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .box-header { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; }
+      .step-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #ffffff; }
+      .badge { font-family: 'Segoe UI', system-ui, monospace; font-size: 12px; font-weight: 700; }
+      .comment-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; }
+      .comment-body { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #cbd5e1; line-height: 1.4; }
+      .marathi-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #fbbf24; }
+      .marathi-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; fill: #fef3c7; }
+    </style>
+
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#c084fc" />
+    </marker>
+    <marker id="arr-ret" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 8 0 L 0 4 L 8 8 Z" fill="#10b981" />
+    </marker>
+
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="cluster-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1250" height="820" rx="16" fill="url(#bg)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- ================= TOP HEADER & DEFINITION BANNER ================= -->
+  <g transform="translate(40, 25)">
+    <text x="585" y="24" text-anchor="middle" class="main-title">DECOUPLED ASYNCHRONOUS ARCHITECTURE WITH APACHE KAFKA</text>
+    <text x="585" y="46" text-anchor="middle" class="main-subtitle">Case Study: Amazon Order Fulfillment • Zero Cascading Failure • Sub-30ms User Response</text>
+
+    <!-- Definition Banner -->
+    <rect x="50" y="60" width="1070" height="42" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.2" />
+    <text x="70" y="86" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#34d399">📌 DECOUPLING PRINCIPLE:</text>
+    <text x="245" y="86" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e2e8f0">
+      Producers and Consumers have <tspan font-weight="700" fill="#ffffff">ZERO direct connections</tspan>. Order Service publishes one event to a Kafka Topic and completes immediately. Consumers read asynchronously at their own speed.
+    </text>
+  </g>
+
+  <!-- ================= LEFT: CLIENT & PRODUCER (ORDER SERVICE) ================= -->
+  <g transform="translate(35, 150)">
+    <!-- User Client -->
+    <g filter="url(#card-shadow)">
+      <rect width="130" height="135" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+      <circle cx="65" cy="45" r="18" fill="#38bdf8" />
+      <path d="M 40 85 C 40 68 50 63 65 63 C 80 63 90 68 90 85" fill="#38bdf8" />
+      <text x="65" y="112" text-anchor="middle" class="box-header">👤 User Client</text>
+    </g>
+
+    <!-- Request Arrow -->
+    <path d="M 130 190 L 195 190" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-blue)" />
+    <text x="162" y="180" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#38bdf8">POST /order</text>
+
+    <!-- Immediate Fast Response Arrow -->
+    <path d="M 195 240 L 130 240" stroke="#10b981" stroke-width="2.5" marker-start="url(#arr-ret)" />
+    <rect x="135" y="248" width="55" height="18" rx="4" fill="#064e3b" />
+    <text x="162" y="261" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="700" fill="#6ee7b7">200 OK</text>
+    <text x="162" y="278" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#10b981">&lt; 30ms!</text>
+
+    <!-- Order Service (Producer) -->
+    <g transform="translate(195, 0)" filter="url(#card-shadow)">
+      <rect width="215" height="490" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8" />
+      <!-- Header -->
+      <rect width="215" height="38" rx="12" fill="#0f172a" />
+      <rect y="26" width="215" height="12" fill="#0f172a" />
+      <text x="107" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#38bdf8">ORDER SERVICE (Producer)</text>
+
+      <!-- Step 1: Save DB -->
+      <g transform="translate(15, 55)">
+        <rect width="185" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1" />
+        <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#f8fafc">1. Save Order to DB</text>
+        <text x="12" y="40" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#38bdf8">Latency: ~20 ms</text>
+      </g>
+
+      <!-- Step 2: Publish Event -->
+      <g transform="translate(15, 120)">
+        <rect width="185" height="65" rx="6" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5" />
+        <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">2. Publish Event</text>
+        <text x="12" y="42" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#e0f2fe">Event: "OrderPlaced"</text>
+        <text x="12" y="56" font-family="'Segoe UI', sans-serif" font-size="10" fill="#bae6fd">Topic: order-events (5ms)</text>
+      </g>
+
+      <!-- Step 3: Return Immediately -->
+      <g transform="translate(15, 200)">
+        <rect width="185" height="50" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+        <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#6ee7b7">3. Return 200 OK</text>
+        <text x="12" y="40" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#a7f3d0">Total Time: ~25-30ms!</text>
+      </g>
+
+      <!-- Producer Benefits Note -->
+      <g transform="translate(15, 275)">
+        <rect width="185" height="195" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1" />
+        <text x="92" y="22" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f59e0b">🛡️ Producer Advantages</text>
+        <text x="10" y="48" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• No waiting for SMS</text>
+        <text x="10" y="70" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• No waiting for Email</text>
+        <text x="10" y="92" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• No waiting for Analytics</text>
+        <text x="10" y="114" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Doesn't know who reads</text>
+        <text x="10" y="136" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Zero coupling to others</text>
+        <text x="10" y="162" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#38bdf8">100% Non-Blocking!</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Publish Arrow (Order Service -> Kafka Cluster) -->
+  <path d="M 445 305 L 505 305" stroke="#38bdf8" stroke-width="3" marker-end="url(#arr-blue)" />
+  <rect x="445" y="280" width="60" height="20" rx="4" fill="#0284c7" />
+  <text x="475" y="294" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#ffffff">Publish</text>
+
+  <!-- ================= MIDDLE: APACHE KAFKA CLUSTER ================= -->
+  <g transform="translate(510, 150)" filter="url(#card-shadow)">
+    <!-- Main Cluster Box -->
+    <rect width="320" height="490" rx="14" fill="url(#cluster-grad)" stroke="#f59e0b" stroke-width="2" />
+    
+    <!-- Title -->
+    <rect width="320" height="42" rx="14" fill="#0f172a" />
+    <rect y="30" width="320" height="12" fill="#0f172a" />
+    <text x="160" y="26" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="800" fill="#fbbf24">⚡ APACHE KAFKA CLUSTER</text>
+
+    <!-- Topic Box -->
+    <g transform="translate(18, 55)">
+      <rect width="284" height="220" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1.4" />
+      <text x="142" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#fde68a">TOPIC: [ order-placed ]</text>
+
+      <!-- Partition 0 -->
+      <g transform="translate(15, 38)">
+        <text x="0" y="15" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#94a3b8">Partition 0 (Broker 1)</text>
+        <g transform="translate(0, 22)">
+          <rect width="58" height="32" rx="4" fill="#334155" stroke="#64748b" stroke-width="1" />
+          <text x="29" y="20" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" fill="#ffffff">#101</text>
+          <rect x="64" width="58" height="32" rx="4" fill="#334155" stroke="#64748b" stroke-width="1" />
+          <text x="93" y="20" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" fill="#ffffff">#102</text>
+          <rect x="128" width="58" height="32" rx="4" fill="#334155" stroke="#64748b" stroke-width="1" />
+          <text x="157" y="20" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" fill="#ffffff">#103</text>
+          <rect x="192" width="60" height="32" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1" />
+          <text x="222" y="20" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" font-weight="700" fill="#ffffff">#104</text>
+        </g>
+      </g>
+
+      <!-- Partition 1 -->
+      <g transform="translate(15, 115)">
+        <text x="0" y="15" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#94a3b8">Partition 1 (Broker 2)</text>
+        <g transform="translate(0, 22)">
+          <rect width="58" height="32" rx="4" fill="#334155" stroke="#64748b" stroke-width="1" />
+          <text x="29" y="20" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" fill="#ffffff">#201</text>
+          <rect x="64" width="58" height="32" rx="4" fill="#334155" stroke="#64748b" stroke-width="1" />
+          <text x="93" y="20" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" fill="#ffffff">#202</text>
+          <rect x="128" width="58" height="32" rx="4" fill="#334155" stroke="#64748b" stroke-width="1" />
+          <text x="157" y="20" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" fill="#ffffff">#203</text>
+          <rect x="192" width="60" height="32" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1" />
+          <text x="222" y="20" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" font-weight="700" fill="#ffffff">#204</text>
+        </g>
+      </g>
+
+      <text x="142" y="205" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#a7f3d0">
+        ✔ Replicated across multiple physical brokers!
+      </text>
+    </g>
+
+    <!-- Buffer / Backpressure Card -->
+    <g transform="translate(18, 290)">
+      <rect width="284" height="180" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="142" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#38bdf8">📦 Shock Absorber / Buffer</text>
+      <text x="12" y="50" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• Flash Sale Burst: 50,000 req/sec</text>
+      <text x="12" y="72" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• Kafka absorbs traffic safely on disk</text>
+      <text x="12" y="94" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• Slow consumers pull at 500 req/sec</text>
+      <text x="12" y="116" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• Neither Producer nor Consumer crashes!</text>
+      <text x="142" y="152" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#34d399">Zero Data Loss Guaranteed!</text>
+    </g>
+  </g>
+
+  <!-- Consumer Fan-Out Arrows (Kafka -> Consumers) -->
+  <path d="M 830 200 L 900 200" stroke="#c084fc" stroke-width="2.5" marker-end="url(#arr-purple)" />
+  <path d="M 830 280 L 900 280" stroke="#c084fc" stroke-width="2.5" marker-end="url(#arr-purple)" />
+  <path d="M 830 360 L 900 360" stroke="#c084fc" stroke-width="2.5" marker-end="url(#arr-purple)" />
+  <path d="M 830 440 L 900 440" stroke="#c084fc" stroke-width="2.5" marker-end="url(#arr-purple)" />
+  <path d="M 830 540 L 900 540" stroke="#10b981" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arr-green)" />
+
+  <!-- ================= RIGHT: INDEPENDENT CONSUMER GROUPS ================= -->
+  <g transform="translate(900, 150)">
+    
+    <!-- Consumer 1: Inventory -->
+    <g transform="translate(0, 15)" filter="url(#card-shadow)">
+      <rect width="315" height="65" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#38bdf8">📦 1. INVENTORY SERVICE</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">Deducts stock quantity immediately</text>
+      <text x="15" y="56" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Consumer Group: [ inventory-group ]</text>
+    </g>
+
+    <!-- Consumer 2: Email -->
+    <g transform="translate(0, 95)" filter="url(#card-shadow)">
+      <rect width="315" height="65" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#38bdf8">📧 2. EMAIL SERVICE</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">Dispatches email confirmation receipt</text>
+      <text x="15" y="56" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Consumer Group: [ email-service-group ]</text>
+    </g>
+
+    <!-- Consumer 3: SMS (Fault Tolerance Demo) -->
+    <g transform="translate(0, 175)" filter="url(#card-shadow)">
+      <rect width="315" height="85" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="1.4" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#fb7185">💬 3. SMS SERVICE (Down for 2 hours?)</text>
+      <text x="15" y="44" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#fecdd3">Even if crashed, events wait safely in Kafka!</text>
+      <text x="15" y="62" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#34d399">✔ On restart: Resumes reading pending SMS!</text>
+      <text x="15" y="76" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Order never fails!</text>
+    </g>
+
+    <!-- Consumer 4: Analytics -->
+    <g transform="translate(0, 275)" filter="url(#card-shadow)">
+      <rect width="315" height="65" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#38bdf8">📊 4. ANALYTICS PIPELINE</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">Streams live revenue dashboard &amp; KPIs</text>
+      <text x="15" y="56" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Consumer Group: [ analytics-pipeline ]</text>
+    </g>
+
+    <!-- Consumer 5: Newly Added Fraud Service -->
+    <g transform="translate(0, 355)" filter="url(#card-shadow)">
+      <rect width="315" height="85" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#34d399">🆕 5. FRAUD DETECTION (New Service!)</text>
+      <text x="15" y="44" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#d1fae5">Added 6 months later with ZERO changes</text>
+      <text x="15" y="62" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#d1fae5">to Order Service! Can re-read past events.</text>
+      <text x="15" y="76" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="700" fill="#6ee7b7">True Decoupled Architecture!</text>
+    </g>
+
+  </g>
+
+  <!-- ================= BOTTOM MARATHI SUMMARY CALLOUT ================= -->
+  <g transform="translate(35, 680)" filter="url(#card-shadow)">
+    <rect width="1180" height="110" rx="12" fill="#1c1917" stroke="#d97706" stroke-width="1.5" />
+    <text x="20" y="26" class="marathi-title">🇮🇳 थोडक्यात मराठीत स्पष्टीकरण (Kafka द्वारे Decoupled सिस्टीम कशी चालते?):</text>
+    <text x="20" y="48" class="marathi-text">
+      १. <tspan font-weight="700" fill="#fde68a">अतिवेगवान ऑर्डर (Fast Response)</tspan>: Order Service फक्त काफ्कामध्ये एक मेसेज टाकते आणि अवघ्या ३० मि.से. मध्ये ग्राहकाला ऑर्डर कन्फर्मेशन देते.
+    </text>
+    <text x="20" y="70" class="marathi-text">
+      २. <tspan font-weight="700" fill="#fde68a">शॉक ॲब्झॉर्बर (Buffer / Shock Absorber)</tspan>: सेलच्या दिवशी १ लाखांची ट्रॅफिक आली, तरी सर्व्हर क्रॅश होत नाही; काफ्का तो डेटा साठवून ठेवतो आणि हळूहळू पुरवतो.
+    </text>
+    <text x="20" y="92" class="marathi-text">
+      ३. <tspan font-weight="700" fill="#fde68a">स्वतंत्र सर्व्हिसेस (Decoupling)</tspan>: SMS सर्व्हिस २ तास बंद पडली तरी ऑर्डर फेल होत नाही; ती पुन्हा सुरू झाल्यावर पेंडिंग मेसेज आपोआप पाठवले जातात!
+    </text>
+  </g>
+
+</svg>

@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gridBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <!-- Card 1: Scalability (Blue) -->
+    <linearGradient id="card1Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <!-- Card 2: Throughput (Emerald) -->
+    <linearGradient id="card2Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <!-- Card 3: Durability (Amber) -->
+    <linearGradient id="card3Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <!-- Card 4: Fault Tolerance (Rose/Red) -->
+    <linearGradient id="card4Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <!-- Card 5: Complete Decoupling (Purple) -->
+    <linearGradient id="card5Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9333ea"/>
+      <stop offset="100%" stop-color="#7e22ce"/>
+    </linearGradient>
+    <!-- Card 6: Real-Time Streaming (Cyan) -->
+    <linearGradient id="card6Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0891b2"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="480" rx="16" fill="url(#gridBg)"/>
+
+  <!-- Title Header -->
+  <text x="480" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#38bdf8" text-anchor="middle" letter-spacing="0.5">THE 6 CORE PILLARS OF KAFKA'S DESIGN</text>
+  <text x="480" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Architectural principles engineered by LinkedIn to handle billions of events per day</text>
+
+  <!-- ══════════════════════ ROW 1 ══════════════════════ -->
+
+  <!-- Pillar 1: Scalability -->
+  <g transform="translate(40, 95)">
+    <rect width="270" height="160" rx="12" fill="#1e293b" stroke="#0284c7" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <rect x="15" y="15" width="42" height="42" rx="8" fill="url(#card1Grad)"/>
+    <!-- Icon: Scale / Growth -->
+    <text x="36" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#ffffff" text-anchor="middle">📈</text>
+    <text x="70" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">1. Scalability</text>
+    <text x="70" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#38bdf8">Horizontal Partitioning</text>
+    
+    <text x="16" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Topics divided into Partitions</text>
+    <text x="16" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Distributed across multi-broker cluster</text>
+    <text x="16" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Add nodes without stopping cluster</text>
+    <text x="16" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#38bdf8">Scale: Thousands of Brokers</text>
+  </g>
+
+  <!-- Pillar 2: High Throughput -->
+  <g transform="translate(345, 95)">
+    <rect width="270" height="160" rx="12" fill="#1e293b" stroke="#059669" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <rect x="15" y="15" width="42" height="42" rx="8" fill="url(#card2Grad)"/>
+    <!-- Icon: Speed / Lightning -->
+    <text x="36" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#ffffff" text-anchor="middle">⚡</text>
+    <text x="70" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">2. High Throughput</text>
+    <text x="70" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#34d399">Sequential I/O &amp; Zero-Copy</text>
+    
+    <text x="16" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Sequential append-only disk writes</text>
+    <text x="16" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Linux Zero-Copy (sendfile syscall)</text>
+    <text x="16" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Relies on OS PageCache (No GC pause)</text>
+    <text x="16" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#34d399">Speed: &gt; 1M messages / second</text>
+  </g>
+
+  <!-- Pillar 3: Durability -->
+  <g transform="translate(650, 95)">
+    <rect width="270" height="160" rx="12" fill="#1e293b" stroke="#d97706" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <rect x="15" y="15" width="42" height="42" rx="8" fill="url(#card3Grad)"/>
+    <!-- Icon: Storage Disk -->
+    <text x="36" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#ffffff" text-anchor="middle">💾</text>
+    <text x="70" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">3. Durability &amp; Disk</text>
+    <text x="70" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#fbbf24">Persisted Replicated Log</text>
+    
+    <text x="16" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Data safely committed to disk</text>
+    <text x="16" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Multi-node partition replicas (RF = 3)</text>
+    <text x="16" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Not lost on server power crash</text>
+    <text x="16" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#fbbf24">Retention: Days, Years, or Forever</text>
+  </g>
+
+  <!-- ══════════════════════ ROW 2 ══════════════════════ -->
+
+  <!-- Pillar 4: Fault Tolerance -->
+  <g transform="translate(40, 280)">
+    <rect width="270" height="160" rx="12" fill="#1e293b" stroke="#e11d48" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <rect x="15" y="15" width="42" height="42" rx="8" fill="url(#card4Grad)"/>
+    <!-- Icon: Shield / Resilience -->
+    <text x="36" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#ffffff" text-anchor="middle">🛡️</text>
+    <text x="70" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">4. Fault Tolerance</text>
+    <text x="70" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#fb7185">Survives Broker Crashes</text>
+    
+    <text x="16" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Leader-Follower replica model</text>
+    <text x="16" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• In-Sync Replicas (ISR) track leader</text>
+    <text x="16" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Automatic leader failover in millis</text>
+    <text x="16" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#fb7185">Reliability: High Availability (99.99%)</text>
+  </g>
+
+  <!-- Pillar 5: Complete Decoupling -->
+  <g transform="translate(345, 280)">
+    <rect width="270" height="160" rx="12" fill="#1e293b" stroke="#9333ea" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <rect x="15" y="15" width="42" height="42" rx="8" fill="url(#card5Grad)"/>
+    <!-- Icon: Link Break / Decoupling -->
+    <text x="36" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#ffffff" text-anchor="middle">🔗</text>
+    <text x="70" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">5. Decoupling</text>
+    <text x="70" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#c084fc">Producers &amp; Consumers Split</text>
+    
+    <text x="16" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Producers don't wait for consumers</text>
+    <text x="16" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Built-in backpressure buffer for bursts</text>
+    <text x="16" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Add new consumers with zero code changes</text>
+    <text x="16" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#c084fc">Design: Async Pub/Sub Architecture</text>
+  </g>
+
+  <!-- Pillar 6: Real-Time Streaming -->
+  <g transform="translate(650, 280)">
+    <rect width="270" height="160" rx="12" fill="#1e293b" stroke="#0891b2" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <rect x="15" y="15" width="42" height="42" rx="8" fill="url(#card6Grad)"/>
+    <!-- Icon: Live Broadcast / Radio -->
+    <text x="36" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#ffffff" text-anchor="middle">📡</text>
+    <text x="70" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">6. Real-Time Stream</text>
+    <text x="70" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#22d3ee">Continuous Event Flow</text>
+    
+    <text x="16" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Replaces slow nightly EOD batch jobs</text>
+    <text x="16" y="105" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Sub-second event processing latency</text>
+    <text x="16" y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1">• Live fraud detection, GPS tracking, &amp; metrics</text>
+    <text x="16" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#22d3ee">Latency: Milliseconds (&lt; 10ms)</text>
+  </g>
+</svg>

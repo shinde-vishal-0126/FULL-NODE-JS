@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#00f0ff"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <text x="550" y="42" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800">Amazon S3 + CloudFront CDN Architecture with OAC</text>
+  <text x="550" y="68" text-anchor="middle" fill="#94a3b8" font-size="13">Global Edge Caching &#8226; Private S3 Origin &#8226; Origin Access Control (OAC) &#8226; Low Latency (12ms)</text>
+
+  <!-- Left: Global Users -->
+  <g transform="translate(40, 110)" filter="url(#shadow)">
+    <rect width="200" height="360" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="200" height="38" rx="12" fill="#2563eb"/>
+    <text x="100" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Global End Users</text>
+
+    <!-- User 1 -->
+    <g transform="translate(15, 55)">
+      <rect width="170" height="60" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="24" fill="#38bdf8" font-size="11" font-weight="600">📱 Mobile App User</text>
+      <text x="12" y="44" fill="#94a3b8" font-size="10">Mumbai, India</text>
+    </g>
+
+    <!-- User 2 -->
+    <g transform="translate(15, 125)">
+      <rect width="170" height="60" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="24" fill="#38bdf8" font-size="11" font-weight="600">💻 Web App User</text>
+      <text x="12" y="44" fill="#94a3b8" font-size="10">London, UK</text>
+    </g>
+
+    <!-- User 3 -->
+    <g transform="translate(15, 195)">
+      <rect width="170" height="60" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="12" y="24" fill="#38bdf8" font-size="11" font-weight="600">📺 Smart TV Client</text>
+      <text x="12" y="44" fill="#94a3b8" font-size="10">New York, USA</text>
+    </g>
+
+    <rect x="15" y="270" width="170" height="80" rx="6" fill="#0f172a" stroke="#3b82f6"/>
+    <text x="85" y="295" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="700">DNS Request</text>
+    <text x="85" y="315" text-anchor="middle" fill="#f8fafc" font-size="10">cdn.blackbuck.com</text>
+    <text x="85" y="335" text-anchor="middle" fill="#4ade80" font-size="10">Routed to nearest PoP</text>
+  </g>
+
+  <!-- Connectors User to CDN -->
+  <path d="M 240 230 L 320 230" stroke="#00f0ff" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
+  <text x="280" y="220" text-anchor="middle" fill="#00f0ff" font-size="10" font-weight="700">HTTPS</text>
+
+  <!-- Center: AWS CloudFront CDN -->
+  <g transform="translate(320, 110)" filter="url(#shadow)">
+    <rect width="400" height="360" rx="12" fill="#1e293b" stroke="#00f0ff" stroke-width="2"/>
+    <rect width="400" height="38" rx="12" fill="#0891b2"/>
+    <text x="200" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Amazon CloudFront (600+ Global Edge PoPs)</text>
+
+    <!-- Cache Hit -->
+    <g transform="translate(20, 55)">
+      <rect width="360" height="80" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+      <text x="15" y="25" fill="#4ade80" font-size="12" font-weight="700">&#10004; SCENARIO A: EDGE CACHE HIT (92% of Traffic)</text>
+      <text x="15" y="46" fill="#e2e8f0" font-size="10">&#8226; Video / Image served directly from edge memory RAM/SSD.</text>
+      <text x="15" y="64" fill="#a7f3d0" font-size="11" font-weight="600">&#9889; Latency: 12ms &#8226; Zero Origin S3 Traffic &#8226; 80% Cost Savings</text>
+    </g>
+
+    <!-- Cache Miss -->
+    <g transform="translate(20, 145)">
+      <rect width="360" height="90" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="15" y="24" fill="#fcd34d" font-size="12" font-weight="700">&#9654; SCENARIO B: CACHE MISS (First Request)</text>
+      <text x="15" y="44" fill="#94a3b8" font-size="10">&#8226; CloudFront signs request with <tspan fill="#38bdf8" font-weight="600">SigV4 (OAC)</tspan></text>
+      <text x="15" y="62" fill="#94a3b8" font-size="10">&#8226; Fetches master object from S3 Origin private bucket</text>
+      <text x="15" y="80" fill="#fcd34d" font-size="10">&#8226; Caches object at edge for next 1 year (Cache-Control)</text>
+    </g>
+
+    <!-- Features -->
+    <g transform="translate(20, 245)">
+      <rect width="360" height="95" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="15" y="24" fill="#38bdf8" font-size="11" font-weight="700">Security &amp; Edge Capabilities:</text>
+      <text x="15" y="44" fill="#94a3b8" font-size="10">&#8226; Origin Access Control (OAC) cryptographically signs fetch</text>
+      <text x="15" y="62" fill="#94a3b8" font-size="10">&#8226; Free SSL/TLS Certificates via AWS Certificate Manager (ACM)</text>
+      <text x="15" y="80" fill="#4ade80" font-size="10">&#8226; AWS Shield Standard: Built-in Layer 3/4 DDoS Mitigation</text>
+    </g>
+  </g>
+
+  <!-- Connectors CDN to S3 -->
+  <path d="M 720 230 L 800 230" stroke="#00f0ff" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
+  <text x="760" y="215" text-anchor="middle" fill="#00f0ff" font-size="9" font-weight="700">OAC SigV4</text>
+  <text x="760" y="245" text-anchor="middle" fill="#94a3b8" font-size="9">Private Origin</text>
+
+  <!-- Right: Amazon S3 Origin -->
+  <g transform="translate(800, 110)" filter="url(#shadow)">
+    <rect width="260" height="360" rx="12" fill="#1e293b" stroke="#ff9900" stroke-width="2"/>
+    <rect width="260" height="38" rx="12" fill="#d97706"/>
+    <text x="130" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Amazon S3 Origin Bucket</text>
+
+    <!-- Block Public Access Badge -->
+    <g transform="translate(15, 55)">
+      <rect width="230" height="65" rx="6" fill="#450a0a" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="12" y="22" fill="#f87171" font-size="11" font-weight="700">&#128274; Block Public Access = ON</text>
+      <text x="12" y="40" fill="#fca5a5" font-size="10">&#10006; Direct internet access is 403 Forbidden</text>
+      <text x="12" y="54" fill="#94a3b8" font-size="9">Nobody can access s3.amazonaws.com directly</text>
+    </g>
+
+    <!-- Bucket Policy Box -->
+    <g transform="translate(15, 130)">
+      <rect width="230" height="115" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1.5"/>
+      <text x="10" y="22" fill="#4ade80" font-size="11" font-weight="700">&#10004; Bucket Policy: Allow OAC Only</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="9">"Principal": { "Service":</text>
+      <text x="18" y="56" fill="#f8fafc" font-size="9"> "cloudfront.amazonaws.com" }</text>
+      <text x="10" y="74" fill="#94a3b8" font-size="9">"Condition": { "StringEquals": {</text>
+      <text x="18" y="88" fill="#fcd34d" font-size="9">"AWS:SourceArn": "arn:.../E3X..."</text>
+      <text x="10" y="104" fill="#94a3b8" font-size="9">}}</text>
+    </g>
+
+    <!-- Storage Assets -->
+    <g transform="translate(15, 255)">
+      <rect width="230" height="90" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="10" y="22" fill="#ff9900" font-size="11" font-weight="700">Master Stored Files:</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="10">&#8226; videos/contest_101.mp4</text>
+      <text x="10" y="58" fill="#94a3b8" font-size="10">&#8226; thumbnails/user_55.jpg</text>
+      <text x="10" y="76" fill="#4ade80" font-size="10">&#10004; $0.00 data transfer to CloudFront!</text>
+    </g>
+  </g>
+
+  <!-- Denied Direct Path Warning -->
+  <path d="M 140 470 L 140 500 L 930 500 L 930 470" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrowRed)"/>
+  <text x="535" y="492" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">&#10006; Direct User HTTP GET to S3 URL &#8594; BLOCKED (403 Access Denied) by Bucket Policy</text>
+</svg>

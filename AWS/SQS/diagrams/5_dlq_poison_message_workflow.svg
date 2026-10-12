@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <text x="550" y="40" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800">Dead-Letter Queue (DLQ) &amp; Poison Message Quarantine</text>
+  <text x="550" y="66" text-anchor="middle" fill="#94a3b8" font-size="13">Redrive Policy: maxReceiveCount: 3 &#8226; Automatic isolation &#8226; CloudWatch Alarms</text>
+
+  <!-- Primary Queue -->
+  <g transform="translate(60, 110)">
+    <rect width="280" height="270" rx="12" fill="#1e293b" stroke="#ff9900" stroke-width="2"/>
+    <rect width="280" height="38" rx="12" fill="#d97706"/>
+    <text x="140" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Primary Queue: order-queue</text>
+
+    <!-- Corrupt message box -->
+    <g transform="translate(20, 60)">
+      <rect width="240" height="60" rx="6" fill="#450a0a" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="12" y="24" fill="#fca5a5" font-size="11" font-weight="700">💀 Poison Message (Corrupted JSON)</text>
+      <text x="12" y="42" fill="#fecaca" font-size="10">{"orderId": null, "syntaxErr": ...</text>
+    </g>
+
+    <!-- Good messages -->
+    <g transform="translate(20, 135)">
+      <rect width="240" height="40" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1"/>
+      <text x="12" y="24" fill="#a7f3d0" font-size="10">✔ Normal Order Message 101</text>
+    </g>
+    <g transform="translate(20, 185)">
+      <rect width="240" height="40" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1"/>
+      <text x="12" y="24" fill="#a7f3d0" font-size="10">✔ Normal Order Message 102</text>
+    </g>
+
+    <text x="140" y="250" text-anchor="middle" fill="#94a3b8" font-size="10">Redrive Target: order-dlq</text>
+  </g>
+
+  <!-- Worker Center -->
+  <g transform="translate(420, 110)">
+    <rect width="260" height="270" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <rect width="260" height="38" rx="12" fill="#0284c7"/>
+    <text x="130" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Worker Node.js Consumer</text>
+
+    <!-- Retry Loop Display -->
+    <g transform="translate(15, 55)">
+      <rect width="230" height="45" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="12" y="20" fill="#fcd34d" font-size="10" font-weight="700">Delivery Attempt #1 (Fail)</text>
+      <text x="12" y="36" fill="#94a3b8" font-size="9">Worker throws JSON SyntaxError</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <rect width="230" height="45" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="12" y="20" fill="#fcd34d" font-size="10" font-weight="700">Delivery Attempt #2 (Fail)</text>
+      <text x="12" y="36" fill="#94a3b8" font-size="9">Worker throws error &amp; skips delete</text>
+    </g>
+
+    <g transform="translate(15, 165)">
+      <rect width="230" height="45" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+      <text x="12" y="20" fill="#f87171" font-size="10" font-weight="700">Delivery Attempt #3 (Fail)</text>
+      <text x="12" y="36" fill="#fca5a5" font-size="9">ReceiveCount hits maxReceiveCount!</text>
+    </g>
+
+    <text x="130" y="245" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">Auto Redrive Triggered by AWS</text>
+  </g>
+
+  <!-- Connectors from Primary to Worker -->
+  <path d="M 340 170 L 420 170" stroke="#f59e0b" stroke-width="2"/>
+  <path d="M 420 200 L 340 200" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Redrive arrow to DLQ -->
+  <path d="M 680 270 L 760 270" stroke="#ef4444" stroke-width="3"/>
+  <polygon points="760,265 770,270 760,275" fill="#ef4444"/>
+  <text x="725" y="260" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">REDRIVE</text>
+
+  <!-- DLQ -->
+  <g transform="translate(770, 110)">
+    <rect width="270" height="270" rx="12" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+    <rect width="270" height="38" rx="12" fill="#dc2626"/>
+    <text x="135" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Dead-Letter Queue (DLQ)</text>
+    <text x="135" y="70" text-anchor="middle" fill="#fca5a5" font-size="13" font-weight="700">order-processing-dlq</text>
+
+    <g transform="translate(15, 90)">
+      <rect width="240" height="55" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+      <text x="12" y="22" fill="#f87171" font-size="10" font-weight="700">Isolate Corrupt Payload</text>
+      <text x="12" y="38" fill="#94a3b8" font-size="9">Unblocks good orders in primary queue</text>
+    </g>
+
+    <g transform="translate(15, 155)">
+      <rect width="240" height="55" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="12" y="22" fill="#fbbf24" font-size="10" font-weight="700">CloudWatch Alarm: &gt; 0 msgs</text>
+      <text x="12" y="38" fill="#94a3b8" font-size="9">PagerDuty alert to On-Call DevOps</text>
+    </g>
+
+    <text x="135" y="245" text-anchor="middle" fill="#4ade80" font-size="10">Inspect &#8226; Fix Bug &#8226; Redrive</text>
+  </g>
+
+  <!-- Footer explanation -->
+  <text x="550" y="440" text-anchor="middle" fill="#94a3b8" font-size="12">Without DLQ: Poison message loops indefinitely, consuming 100% CPU and blocking valid customer orders.</text>
+</svg>

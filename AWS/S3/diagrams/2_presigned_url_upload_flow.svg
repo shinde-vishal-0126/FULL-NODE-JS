@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff9900"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="42" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800">Direct Client-to-S3 Upload with Presigned URLs</text>
+  <text x="550" y="68" text-anchor="middle" fill="#94a3b8" font-size="13">Zero Server Bottleneck &#8226; Fastify Node.js Authorizes &#8226; 500MB+ Direct S3 Upload</text>
+
+  <!-- Node 1: Client Browser / Mobile -->
+  <g transform="translate(40, 120)" filter="url(#shadow)">
+    <rect width="220" height="340" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="220" height="40" rx="12" fill="#2563eb"/>
+    <text x="110" y="25" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Client (Browser / App)</text>
+
+    <g transform="translate(15, 60)">
+      <rect width="190" height="60" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="10" y="24" fill="#f8fafc" font-size="11" font-weight="600">User selects 500 MB video</text>
+      <text x="10" y="44" fill="#94a3b8" font-size="10">contest_video_hd.mp4</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect width="190" height="85" rx="6" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="10" y="22" fill="#38bdf8" font-size="11" font-weight="700">Direct Upload Agent</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="10">&#8226; Receives Presigned URL</text>
+      <text x="10" y="60" fill="#94a3b8" font-size="10">&#8226; PUT file bytes directly</text>
+      <text x="10" y="78" fill="#4ade80" font-size="10">&#8226; Tracks % progress</text>
+    </g>
+
+    <rect x="15" y="250" width="190" height="70" rx="6" fill="#064e3b" stroke="#10b981"/>
+    <text x="105" y="275" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="700">HTTP 200 OK</text>
+    <text x="105" y="295" text-anchor="middle" fill="#e2e8f0" font-size="10">Upload finished in S3</text>
+  </g>
+
+  <!-- Flow 1: Client to Fastify (Request Presigned URL) -->
+  <path d="M 260 160 L 440 160" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <text x="350" y="150" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="700">1. POST /api/upload-url</text>
+  <text x="350" y="180" text-anchor="middle" fill="#94a3b8" font-size="9">{ fileName, contentType, size }</text>
+
+  <!-- Flow 2: Fastify to Client (Return Presigned URL) -->
+  <path d="M 440 220 L 260 220" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrowBlue)"/>
+  <text x="350" y="212" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="700">2. Returns { presignedUrl, key }</text>
+  <text x="350" y="238" text-anchor="middle" fill="#fcd34d" font-size="9">Expires in 300 seconds (5 min)</text>
+
+  <!-- Node 2: Fastify API -->
+  <g transform="translate(450, 120)" filter="url(#shadow)">
+    <rect width="250" height="340" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <rect width="250" height="40" rx="12" fill="#059669"/>
+    <text x="125" y="25" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Fastify Node.js API</text>
+
+    <g transform="translate(15, 60)">
+      <rect width="220" height="60" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="10" y="22" fill="#38bdf8" font-size="11" font-weight="700">Auth &amp; Validation</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="10">&#8226; Verify JWT / User role</text>
+      <text x="10" y="54" fill="#94a3b8" font-size="10">&#8226; Check video size &lt; 2 GB</text>
+    </g>
+
+    <g transform="translate(15, 135)">
+      <rect width="220" height="85" rx="6" fill="#0f172a" stroke="#f59e0b"/>
+      <text x="10" y="22" fill="#fcd34d" font-size="11" font-weight="700">getSignedUrl() with SDK v3</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="10">PutObjectCommand({</text>
+      <text x="18" y="58" fill="#94a3b8" font-size="10">Bucket, Key, ContentType</text>
+      <text x="10" y="74" fill="#94a3b8" font-size="10">})</text>
+    </g>
+
+    <g transform="translate(15, 235)">
+      <rect width="220" height="90" rx="6" fill="#0f172a" stroke="#4ade80"/>
+      <text x="10" y="22" fill="#4ade80" font-size="11" font-weight="700">&#9889; Ultra Low Resource Usage</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="10">&#8226; 0 MB binary file memory</text>
+      <text x="10" y="60" fill="#94a3b8" font-size="10">&#8226; API handles 50,000 req/s</text>
+      <text x="10" y="78" fill="#94a3b8" font-size="10">&#8226; Fastify event loop free!</text>
+    </g>
+  </g>
+
+  <!-- Flow 3: Direct S3 Upload from Client (Bypasses API!) -->
+  <path d="M 150 460 L 150 495 L 940 495 L 940 460" stroke="#10b981" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <text x="550" y="485" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="700">3. HTTP PUT {Presigned URL} — 500 MB Raw Payload Direct to S3!</text>
+
+  <!-- Node 3: Amazon S3 Bucket -->
+  <g transform="translate(830, 120)" filter="url(#shadow)">
+    <rect width="230" height="340" rx="12" fill="#1e293b" stroke="#ff9900" stroke-width="2"/>
+    <rect width="230" height="40" rx="12" fill="#d97706"/>
+    <text x="115" y="25" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Amazon S3 Storage</text>
+
+    <g transform="translate(15, 60)">
+      <rect width="200" height="65" rx="6" fill="#0f172a" stroke="#ff9900"/>
+      <text x="10" y="22" fill="#ff9900" font-size="11" font-weight="700">Validates Signature</text>
+      <text x="10" y="40" fill="#94a3b8" font-size="10">&#8226; Matches AWS SigV4</text>
+      <text x="10" y="56" fill="#94a3b8" font-size="10">&#8226; Checks URL expiration</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect width="200" height="80" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="10" y="22" fill="#38bdf8" font-size="11" font-weight="600">Stores Object</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="10">Key: videos/101/video.mp4</text>
+      <text x="10" y="60" fill="#94a3b8" font-size="10">Replicated across 3 AZs</text>
+    </g>
+
+    <g transform="translate(15, 235)">
+      <rect width="200" height="90" rx="6" fill="#0f172a" stroke="#ec4899"/>
+      <text x="10" y="22" fill="#f472b6" font-size="11" font-weight="700">S3 Event Notification</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="10">&#8226; s3:ObjectCreated:Put</text>
+      <text x="10" y="60" fill="#94a3b8" font-size="10">&#8226; Pushes to SQS / Kafka</text>
+      <text x="10" y="78" fill="#4ade80" font-size="10">&#8226; Triggers Video Workers</text>
+    </g>
+  </g>
+</svg>

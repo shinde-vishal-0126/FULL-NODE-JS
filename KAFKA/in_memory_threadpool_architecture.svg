@@ -1,0 +1,299 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 820" width="100%" height="100%">
+  <defs>
+    <style>
+      .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 25px; font-weight: 800; fill: #ffffff; letter-spacing: 1.2px; }
+      .main-subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .box-header { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; }
+      .step-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #ffffff; }
+      .badge { font-family: 'Segoe UI', system-ui, monospace; font-size: 12px; font-weight: 700; }
+      .comment-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; }
+      .comment-body { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #cbd5e1; line-height: 1.4; }
+      .marathi-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #fbbf24; }
+      .marathi-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; fill: #fef3c7; }
+    </style>
+
+    <!-- Filters -->
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow-danger" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ef4444" flood-opacity="0.65" />
+    </filter>
+    <filter id="glow-success" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#10b981" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 8 0 L 0 4 L 8 8 Z" fill="#10b981" />
+    </marker>
+    <marker id="arr-yellow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f59e0b" />
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#ef4444" />
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#c084fc" />
+    </marker>
+
+    <!-- Gradients -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="jvm-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0b1120" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1250" height="820" rx="16" fill="url(#bg)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- ================= TOP HEADER & DEFINITION BANNER ================= -->
+  <g transform="translate(40, 25)">
+    <text x="585" y="24" text-anchor="middle" class="main-title">ASYNCHRONOUS OPTION 1: IN-MEMORY THREADPOOL / BACKGROUND THREADS</text>
+    <text x="585" y="46" text-anchor="middle" class="main-subtitle">Early Async Evolution • Fast Response to User, But Critical Data Loss Vulnerability</text>
+
+    <!-- Definition Card -->
+    <rect x="50" y="60" width="1070" height="42" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="70" y="86" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#38bdf8">📌 DEFINITION:</text>
+    <text x="165" y="86" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e2e8f0">
+      Instead of blocking the request, the <tspan font-weight="700" fill="#ffffff">API Thread</tspan> completes the DB save, pushes background tasks to an <tspan fill="#38bdf8" font-weight="700">Internal In-Memory Queue (RAM)</tspan>, and responds immediately (~50ms). Internal worker threads process tasks in the background.
+    </text>
+  </g>
+
+  <!-- ================= LEFT: CLIENT USER & FAST RESPONSE ================= -->
+  <g transform="translate(35, 160)">
+    <!-- User Card -->
+    <g filter="url(#card-shadow)">
+      <rect width="130" height="150" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+      <circle cx="65" cy="50" r="20" fill="#38bdf8" />
+      <path d="M 38 95 C 38 75 50 70 65 70 C 80 70 92 75 92 95" fill="#38bdf8" />
+      <text x="65" y="122" text-anchor="middle" class="box-header">👤 User Client</text>
+      <text x="65" y="138" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">(Browser / App)</text>
+    </g>
+
+    <!-- User Experience: Great Latency -->
+    <g transform="translate(0, 175)">
+      <rect width="130" height="150" rx="10" fill="#064e3b" stroke="#10b981" stroke-width="1.2" />
+      <text x="65" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#34d399">⚡ Fast Response</text>
+      <text x="12" y="50" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#a7f3d0">
+        • No UI freeze!
+      </text>
+      <text x="12" y="70" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#a7f3d0">
+        • Instant 200 OK
+      </text>
+      <text x="12" y="90" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#a7f3d0">
+        • Great UX for buyer
+      </text>
+      <text x="12" y="118" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#6ee7b7">
+        Latency: ~50ms
+      </text>
+      <text x="12" y="135" font-family="'Segoe UI', sans-serif" font-size="9" fill="#a7f3d0">
+        (95% faster than sync!)
+      </text>
+    </g>
+  </g>
+
+  <!-- Request Arrow (User -> API Thread) -->
+  <path d="M 165 210 L 265 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-blue)" />
+  <rect x="175" y="185" width="80" height="20" rx="4" fill="#0369a1" />
+  <text x="215" y="199" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#ffffff">HTTP POST</text>
+  <text x="215" y="226" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">/placeOrder</text>
+
+  <!-- Immediate Return Arrow (API Thread -> User) -->
+  <path d="M 270 260 L 165 260" stroke="#10b981" stroke-width="2.5" marker-start="url(#arr-green)" />
+  <rect x="170" y="270" width="90" height="20" rx="4" fill="#065f46" />
+  <text x="215" y="284" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#6ee7b7">HTTP 200 OK</text>
+  <text x="215" y="306" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#10b981">Takes only ~50ms</text>
+
+  <!-- ================= MIDDLE: SINGLE SERVER JVM MEMORY BOUNDARY ================= -->
+  <g transform="translate(270, 150)" filter="url(#card-shadow)">
+    <!-- Server RAM / JVM Box -->
+    <rect width="470" height="530" rx="14" fill="url(#jvm-grad)" stroke="#f59e0b" stroke-width="1.8" />
+
+    <!-- Window Title -->
+    <rect width="470" height="42" rx="14" fill="#0f172a" />
+    <rect y="30" width="470" height="12" fill="#0f172a" />
+    <circle cx="22" cy="21" r="5" fill="#ef4444" />
+    <circle cx="37" cy="21" r="5" fill="#f59e0b" />
+    <circle cx="52" cy="21" r="5" fill="#10b981" />
+    <text x="235" y="26" text-anchor="middle" class="box-header" fill="#fbbf24">ORDER SERVICE INSTANCE (JVM / Server RAM)</text>
+
+    <!-- 1. API Thread Box -->
+    <g transform="translate(25, 55)">
+      <rect width="420" height="60" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.4" />
+      <circle cx="25" cy="30" r="10" fill="#0284c7" />
+      <text x="25" y="34" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#ffffff">T1</text>
+      <text x="45" y="28" class="step-text" fill="#38bdf8">Main API Request Thread</text>
+      <text x="45" y="47" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">1. Saves Order to DB (50ms) ──► 2. Submits tasks to Queue ──► 3. Returns 200 OK</text>
+    </g>
+
+    <!-- Arrow from API Thread to Queue -->
+    <line x1="235" y1="115" x2="235" y2="148" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-blue)" />
+    <text x="245" y="136" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#38bdf8">Submit Tasks (Non-blocking)</text>
+
+    <!-- 2. In-Memory Queue (BlockingQueue in Heap RAM) -->
+    <g transform="translate(25, 150)">
+      <rect width="420" height="85" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" />
+      <text x="15" y="22" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#fbbf24">📦 IN-MEMORY TASK QUEUE (Java BlockingQueue / RAM)</text>
+      <text x="15" y="38" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ef4444">⚠️ Stored only in volatile RAM heap — NOT persisted to disk!</text>
+
+      <!-- Task Blocks in Queue -->
+      <g transform="translate(15, 48)">
+        <rect width="115" height="26" rx="5" fill="#334155" stroke="#64748b" stroke-width="1" />
+        <text x="57" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#f8fafc">Task: Send Email</text>
+      </g>
+      <g transform="translate(145, 48)">
+        <rect width="115" height="26" rx="5" fill="#334155" stroke="#64748b" stroke-width="1" />
+        <text x="57" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#f8fafc">Task: Send SMS</text>
+      </g>
+      <g transform="translate(275, 48)">
+        <rect width="125" height="26" rx="5" fill="#334155" stroke="#64748b" stroke-width="1" />
+        <text x="62" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#f8fafc">Task: Analytics</text>
+      </g>
+    </g>
+
+    <!-- Arrow from Queue to Workers -->
+    <line x1="235" y1="235" x2="235" y2="265" stroke="#c084fc" stroke-width="2.5" marker-end="url(#arr-purple)" />
+    <text x="245" y="253" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#c084fc">ThreadPoolExecutor Picks Tasks</text>
+
+    <!-- 3. ThreadPool / Background Workers Container -->
+    <g transform="translate(25, 270)">
+      <rect width="420" height="175" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="1.4" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#c084fc">⚙️ THREAD POOL / BACKGROUND WORKERS</text>
+      <text x="320" y="24" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">(Inside same process)</text>
+
+      <!-- Worker 1 -->
+      <g transform="translate(15, 38)">
+        <rect width="390" height="38" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1" />
+        <text x="15" y="23" class="step-text" fill="#e2e8f0">👷 Worker Thread 1</text>
+        <line x1="150" y1="19" x2="220" y2="19" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)" />
+        <text x="235" y="23" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#38bdf8">Calls Email Service (Async)</text>
+      </g>
+
+      <!-- Worker 2 -->
+      <g transform="translate(15, 82)">
+        <rect width="390" height="38" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1" />
+        <text x="15" y="23" class="step-text" fill="#e2e8f0">👷 Worker Thread 2</text>
+        <line x1="150" y1="19" x2="220" y2="19" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)" />
+        <text x="235" y="23" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#38bdf8">Calls SMS Service (Async)</text>
+      </g>
+
+      <!-- Worker 3 -->
+      <g transform="translate(15, 126)">
+        <rect width="390" height="38" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1" />
+        <text x="15" y="23" class="step-text" fill="#e2e8f0">👷 Worker Thread 3</text>
+        <line x1="150" y1="19" x2="220" y2="19" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)" />
+        <text x="235" y="23" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#38bdf8">Calls Analytics Pipeline (Async)</text>
+      </g>
+    </g>
+
+    <!-- Danger Warning Card inside Server -->
+    <g transform="translate(20, 465)" filter="url(#glow-danger)">
+      <rect width="430" height="50" rx="8" fill="#7f1d1d" stroke="#ef4444" stroke-width="1.5" />
+      <text x="215" y="22" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">
+        💥 SERVER CRASH / RESTART = 100% DATA LOSS!
+      </text>
+      <text x="215" y="40" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#fca5a5">
+        Queue is stored in RAM. Any unhandled exception or redeploy wipes pending tasks.
+      </text>
+    </g>
+  </g>
+
+  <!-- ================= RIGHT: 3 FATAL FLAWS & WHY KAFKA IS NEEDED ================= -->
+  <g transform="translate(765, 150)">
+    
+    <!-- Flaw 1: Data Loss -->
+    <g transform="translate(0, 0)" filter="url(#card-shadow)">
+      <rect width="445" height="112" rx="10" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#ef4444" />
+      <text x="30" y="21" class="comment-title" fill="#ef4444">1. DATA LOSS ON CRASH OR RESTART (Volatile RAM)</text>
+      <text x="20" y="45" class="comment-body">
+        Tasks reside purely in memory (<tspan fill="#fca5a5" font-weight="700">JVM Heap</tspan>). If the application server
+      </text>
+      <text x="20" y="65" class="comment-body">
+        crashes, restarts for deployment, or suffers power failure,
+      </text>
+      <text x="20" y="85" class="comment-body">
+        <tspan fill="#f87171" font-weight="700">all queued emails, SMS, and analytics are permanently lost!</tspan>
+      </text>
+    </g>
+
+    <!-- Flaw 2: Memory Exhaustion / OOM -->
+    <g transform="translate(0, 126)" filter="url(#card-shadow)">
+      <rect width="445" height="112" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#f59e0b" />
+      <text x="30" y="21" class="comment-title" fill="#f59e0b">2. OUT OF MEMORY ERROR (OutOfMemoryError)</text>
+      <text x="20" y="45" class="comment-body">
+        During a sudden traffic spike (e.g. flash sales), thousands of tasks
+      </text>
+      <text x="20" y="65" class="comment-body">
+        flood the in-memory queue faster than worker threads can drain them.
+      </text>
+      <text x="20" y="85" class="comment-body">
+        RAM overflows ──► <tspan fill="#fde68a" font-weight="700">java.lang.OutOfMemoryError</tspan> crashes the entire app!
+      </text>
+    </g>
+
+    <!-- Flaw 3: No Distributed Scaling -->
+    <g transform="translate(0, 252)" filter="url(#card-shadow)">
+      <rect width="445" height="112" rx="10" fill="#1e293b" stroke="#a855f7" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#a855f7" />
+      <text x="30" y="21" class="comment-title" fill="#c084fc">3. CANNOT SCALE ACROSS MULTIPLE SERVERS</text>
+      <text x="20" y="45" class="comment-body">
+        The thread pool lives only on <tspan fill="#e9d5ff" font-weight="700">one physical server</tspan>. Work cannot be
+      </text>
+      <text x="20" y="65" class="comment-body">
+        distributed or load-balanced to other idle machines in the cluster.
+      </text>
+      <text x="20" y="85" class="comment-body">
+        If Server A is overloaded, Server B cannot help process its tasks.
+      </text>
+    </g>
+
+    <!-- The Solution Transition to Kafka -->
+    <g transform="translate(0, 378)" filter="url(#card-shadow)">
+      <rect width="445" height="142" rx="10" fill="#042f2e" stroke="#14b8a6" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#14b8a6" />
+      <text x="30" y="21" class="comment-title" fill="#2dd4bf">💡 WHY DEDICATED STREAMING (KAFKA) IS ESSENTIAL</text>
+      <text x="20" y="45" class="comment-body" fill="#ccfbf1">
+        • <tspan fill="#5eead4" font-weight="700">Durable Disk Storage:</tspan> Events are written to disk, not volatile RAM.
+      </text>
+      <text x="20" y="67" class="comment-body" fill="#ccfbf1">
+        • <tspan fill="#5eead4" font-weight="700">Cluster-wide Distribution:</tspan> Tasks are distributed across 100s of nodes.
+      </text>
+      <text x="20" y="89" class="comment-body" fill="#ccfbf1">
+        • <tspan fill="#5eead4" font-weight="700">Zero Data Loss:</tspan> Even if servers crash, data is safely replicated.
+      </text>
+      <text x="20" y="111" class="comment-body" fill="#ccfbf1">
+        • <tspan fill="#5eead4" font-weight="700">Backpressure Protection:</tspan> Consumers read at their own safe pace.
+      </text>
+      <text x="20" y="130" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#2dd4bf">
+        Result: True High Availability, Durability &amp; Unlimited Scalability!
+      </text>
+    </g>
+
+  </g>
+
+  <!-- ================= BOTTOM MARATHI SUMMARY CALLOUT ================= -->
+  <g transform="translate(35, 700)" filter="url(#card-shadow)">
+    <rect width="1175" height="95" rx="12" fill="#1c1917" stroke="#d97706" stroke-width="1.5" />
+    <text x="20" y="26" class="marathi-title">🇮🇳 थोडक्यात मराठीत स्पष्टीकरण (Background Threads / ThreadPool चे तोटे):</text>
+    <text x="20" y="48" class="marathi-text">
+      १. <tspan font-weight="700" fill="#fde68a">गती वाढते पण धोका मोठा (Fast but Risky)</tspan>: API थ्रेड लगेच मोकळा होतो (५० मि.से.), परंतु सर्व उर्वरित कामे फक्त सर्व्हरच्या RAM मेमरीमध्ये असतात.
+    </text>
+    <text x="20" y="68" class="marathi-text">
+      २. <tspan font-weight="700" fill="#fde68a">डेटा गहाळ होणे (Data Loss on Crash)</tspan>: जर सर्व्हर अचानक क्रॅश झाला किंवा नवीन कोड Deploy करण्यासाठी रिस्टार्ट झाला, तर RAM मधील सर्व मेल्स/मेसेज नष्ट होतात!
+    </text>
+    <text x="20" y="88" class="marathi-text">
+      ३. <tspan font-weight="700" fill="#fde68a">काफ्काची गरज का पडली?</tspan>: कारण काफ्का डेटा RAM मध्ये न ठेवता हार्ड डिस्कवर Replicate करून सेव्ह करतो, ज्यामुळे सर्व्हर क्रॅश झाला तरी एकही मेसेज नष्ट होत नाही.
+    </text>
+  </g>
+
+</svg>

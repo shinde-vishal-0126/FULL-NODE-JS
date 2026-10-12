@@ -1,0 +1,261 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 820" width="100%" height="100%">
+  <defs>
+    <style>
+      .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 25px; font-weight: 800; fill: #ffffff; letter-spacing: 1.2px; }
+      .main-subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .box-header { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14.5px; font-weight: 700; fill: #f8fafc; }
+      .step-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; font-weight: 700; fill: #ffffff; }
+      .badge { font-family: 'Segoe UI', system-ui, monospace; font-size: 11px; font-weight: 700; }
+      .marathi-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #fbbf24; }
+      .marathi-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; fill: #fef3c7; }
+    </style>
+
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+    </marker>
+    <marker id="arr-gold" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f59e0b" />
+    </marker>
+
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1250" height="820" rx="16" fill="url(#bg)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- ================= TOP HEADER & LIFECYCLE BANNER ================= -->
+  <g transform="translate(40, 22)">
+    <text x="585" y="24" text-anchor="middle" class="main-title">END-TO-END KAFKA MESSAGE FLOW LIFECYCLE</text>
+    <text x="585" y="46" text-anchor="middle" class="main-subtitle">From Record Generation ──► Hashing ──► Broker Leader ──► ISR Replication ──► Consumer Pull &amp; Commit</text>
+
+    <!-- Definition Banner -->
+    <rect x="50" y="60" width="1070" height="42" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="70" y="86" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#38bdf8">📌 THE LIFECYCLE:</text>
+    <text x="210" y="86" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e2e8f0">
+      Producer generates record ──► Partitioner calculates destination ──► Leader Broker writes to disk &amp; assigns offset ──► Replicas copy ──► Consumer pulls batch &amp; commits offset.
+    </text>
+  </g>
+
+  <!-- ================= STEP 1: PRODUCER SEND ================= -->
+  <g transform="translate(40, 145)" filter="url(#card-shadow)">
+    <rect width="210" height="510" rx="12" fill="#0f172a" stroke="#38bdf8" stroke-width="1.6" />
+    <rect width="210" height="38" rx="12" fill="#1e293b" />
+    <rect y="26" width="210" height="12" fill="#1e293b" />
+    <text x="105" y="24" text-anchor="middle" class="box-header" fill="#38bdf8">1. PRODUCER SEND</text>
+
+    <g transform="translate(15, 55)">
+      <rect width="180" height="150" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#fbbf24">ProducerRecord:</text>
+      <text x="12" y="46" font-family="'Segoe UI', monospace" font-size="9.5" fill="#93c5fd">Topic: match-events</text>
+      <text x="12" y="68" font-family="'Segoe UI', monospace" font-size="9.5" fill="#fde68a">Key: "match_101"</text>
+      <text x="12" y="90" font-family="'Segoe UI', monospace" font-size="9.5" fill="#86efac">Val: "Virat hit 6"</text>
+      <text x="12" y="112" font-family="'Segoe UI', monospace" font-size="9.5" fill="#cbd5e1">Timestamp: 10:00:00</text>
+      <text x="12" y="134" font-family="'Segoe UI', monospace" font-size="9" fill="#94a3b8">Headers: traceId=123</text>
+    </g>
+
+    <g transform="translate(15, 225)">
+      <rect width="180" height="145" rx="8" fill="#1e293b" stroke="#0284c7" stroke-width="1.2" />
+      <text x="12" y="22" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#38bdf8">Internal Prep:</text>
+      <text x="12" y="44" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Serializes key &amp; value</text>
+      <text x="12" y="66" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Batches in accumulator</text>
+      <text x="12" y="88" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Compresses using lz4</text>
+      <text x="12" y="112" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#10b981">Zero client wait if async</text>
+      <text x="12" y="130" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">linger.ms: 10ms</text>
+    </g>
+
+    <g transform="translate(15, 390)">
+      <rect width="180" height="95" rx="6" fill="#042f2e" stroke="#10b981" stroke-width="1" />
+      <text x="90" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#34d399">Production Config</text>
+      <text x="12" y="48" font-family="'Segoe UI', monospace" font-size="9.5" fill="#ccfbf1">acks = all</text>
+      <text x="12" y="66" font-family="'Segoe UI', monospace" font-size="9.5" fill="#ccfbf1">idempotence = true</text>
+      <text x="12" y="84" font-family="'Segoe UI', monospace" font-size="9.5" fill="#ccfbf1">retries = Integer.MAX</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 250 280 L 290 280" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-blue)" />
+
+  <!-- ================= STEP 2: PARTITION ROUTING ================= -->
+  <g transform="translate(290, 145)" filter="url(#card-shadow)">
+    <rect width="210" height="510" rx="12" fill="#0f172a" stroke="#f59e0b" stroke-width="1.6" />
+    <rect width="210" height="38" rx="12" fill="#1e293b" />
+    <rect y="26" width="210" height="12" fill="#1e293b" />
+    <text x="105" y="24" text-anchor="middle" class="box-header" fill="#fbbf24">2. ROUTING LOGIC</text>
+
+    <!-- Hashing Card -->
+    <g transform="translate(15, 55)">
+      <rect width="180" height="130" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#fbbf24">MurmurHash2:</text>
+      <text x="12" y="46" font-family="'Segoe UI', monospace" font-size="10" fill="#fde68a">hash("match_101")</text>
+      <text x="12" y="66" font-family="'Segoe UI', monospace" font-size="10" fill="#fde68a">% 3 Partitions</text>
+      <text x="12" y="92" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">= PARTITION 1</text>
+      <text x="12" y="112" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Guaranteed Order!</text>
+    </g>
+
+    <!-- Cluster Metadata / KRaft -->
+    <g transform="translate(15, 205)">
+      <rect width="180" height="150" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="1.2" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#c084fc">Cluster Metadata:</text>
+      <text x="12" y="46" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Producer checks metadata cache</text>
+      <text x="12" y="70" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Finds: Partition 1 Leader is <tspan fill="#38bdf8" font-weight="700">Broker 2</tspan></text>
+      <text x="12" y="98" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="700" fill="#e9d5ff">Managed by:</text>
+      <text x="12" y="116" font-family="'Segoe UI', sans-serif" font-size="9" fill="#cbd5e1">KRaft (Modern Kafka)</text>
+      <text x="12" y="132" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">ZooKeeper (Older Kafka)</text>
+    </g>
+
+    <g transform="translate(15, 375)">
+      <rect width="180" height="110" rx="6" fill="#1e293b" stroke="#334155" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#f87171">If Key was NULL:</text>
+      <text x="12" y="46" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">• Sticky Partitioner batches</text>
+      <text x="12" y="66" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">• Round Robin spread</text>
+      <text x="12" y="88" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#fca5a5">• Per-match order lost!</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 500 280 L 540 280" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arr-gold)" />
+
+  <!-- ================= STEP 3: BROKER LEADER WRITE ================= -->
+  <g transform="translate(540, 145)" filter="url(#card-shadow)">
+    <rect width="210" height="510" rx="12" fill="#0f172a" stroke="#38bdf8" stroke-width="1.6" />
+    <rect width="210" height="38" rx="12" fill="#1e293b" />
+    <rect y="26" width="210" height="12" fill="#1e293b" />
+    <text x="105" y="24" text-anchor="middle" class="box-header" fill="#38bdf8">3. BROKER LEADER</text>
+
+    <g transform="translate(15, 55)">
+      <rect width="180" height="135" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#38bdf8">Broker 2 (P1 Leader):</text>
+      <text x="12" y="46" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Appends to local disk log</text>
+      <text x="12" y="68" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Assigns sequential</text>
+      <rect x="12" y="80" width="156" height="26" rx="4" fill="#0284c7" />
+      <text x="90" y="98" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" font-weight="800" fill="#ffffff">OFFSET: 1045</text>
+      <text x="12" y="124" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Immutable &amp; permanent</text>
+    </g>
+
+    <!-- Zero-Copy & PageCache -->
+    <g transform="translate(15, 210)">
+      <rect width="180" height="130" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#34d399">Storage Engine:</text>
+      <text x="12" y="46" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Sequential NVMe write</text>
+      <text x="12" y="68" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Linux OS PageCache</text>
+      <text x="12" y="90" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Zero JVM GC pause</text>
+      <text x="12" y="112" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="700" fill="#6ee7b7">Throughput: &gt;1M msg/s</text>
+    </g>
+
+    <g transform="translate(15, 360)">
+      <rect width="180" height="125" rx="6" fill="#1e293b" stroke="#334155" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#cbd5e1">Default Retention:</text>
+      <text x="12" y="46" font-family="'Segoe UI', monospace" font-size="9" fill="#93c5fd">retention.ms: 7 days</text>
+      <text x="12" y="66" font-family="'Segoe UI', monospace" font-size="9" fill="#93c5fd">retention.bytes: size</text>
+      <text x="12" y="90" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Stored on disk safely.</text>
+      <text x="12" y="110" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Never deleted on read!</text>
+    </g>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 750 280 L 790 280" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-blue)" />
+
+  <!-- ================= STEP 4: ISR REPLICATION & ACK ================= -->
+  <g transform="translate(790, 145)" filter="url(#card-shadow)">
+    <rect width="210" height="510" rx="12" fill="#0f172a" stroke="#10b981" stroke-width="1.6" />
+    <rect width="210" height="38" rx="12" fill="#1e293b" />
+    <rect y="26" width="210" height="12" fill="#1e293b" />
+    <text x="105" y="24" text-anchor="middle" class="box-header" fill="#34d399">4. REPLICATION &amp; ACK</text>
+
+    <!-- ISR Replication -->
+    <g transform="translate(15, 55)">
+      <rect width="180" height="145" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.2" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#34d399">Followers Replicate:</text>
+      <text x="12" y="46" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Broker 1 (Replica) copies</text>
+      <text x="12" y="68" font-family="'Segoe UI', sans-serif" font-size="10" fill="#cbd5e1">• Broker 3 (Replica) copies</text>
+      <text x="12" y="92" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#fde68a">ISR Quorum Reached!</text>
+      <text x="12" y="112" font-family="'Segoe UI', monospace" font-size="9" fill="#a7f3d0">min.insync.replicas=2</text>
+      <text x="12" y="130" font-family="'Segoe UI', sans-serif" font-size="9" fill="#6ee7b7">Marked COMMITTED ✔</text>
+    </g>
+
+    <!-- ACK Sent Back -->
+    <g transform="translate(15, 220)">
+      <rect width="180" height="130" rx="8" fill="#042f2e" stroke="#10b981" stroke-width="1.4" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="800" fill="#34d399">ACK to Producer:</text>
+      <text x="12" y="48" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ccfbf1">• Leader sends success ACK</text>
+      <text x="12" y="70" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ccfbf1">• Producer knows data safe</text>
+      <text x="12" y="94" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#ffffff">Zero Data Loss</text>
+      <text x="12" y="114" font-family="'Segoe UI', sans-serif" font-size="9" fill="#a7f3d0">Survives leader crash!</text>
+    </g>
+
+    <g transform="translate(15, 370)">
+      <rect width="180" height="115" rx="6" fill="#1e293b" stroke="#334155" />
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#f59e0b">Leader Failover:</text>
+      <text x="12" y="46" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">If Leader dies, Controller</text>
+      <text x="12" y="66" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">promotes ISR in ms!</text>
+      <text x="12" y="90" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="700" fill="#38bdf8">High Availability!</text>
+    </g>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M 1000 280 L 1040 280" stroke="#10b981" stroke-width="2.5" marker-end="url(#arr-green)" />
+
+  <!-- ================= STEP 5: CONSUMER PULL & COMMIT ================= -->
+  <g transform="translate(1040, 145)" filter="url(#card-shadow)">
+    <rect width="170" height="510" rx="12" fill="#0f172a" stroke="#c084fc" stroke-width="1.6" />
+    <rect width="170" height="38" rx="12" fill="#1e293b" />
+    <rect y="26" width="170" height="12" fill="#1e293b" />
+    <text x="85" y="24" text-anchor="middle" class="box-header" fill="#d8b4fe">5. CONSUME &amp; COMMIT</text>
+
+    <!-- Consumer Fetch -->
+    <g transform="translate(12, 55)">
+      <rect width="146" height="145" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="1.2" />
+      <text x="10" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#d8b4fe">PULL Model:</text>
+      <text x="10" y="46" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">• Consumer polls broker</text>
+      <text x="10" y="68" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">• Pulls batches of records</text>
+      <text x="10" y="90" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">• Controls own rate</text>
+      <text x="10" y="112" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="700" fill="#a7f3d0">No buffer overflow!</text>
+      <text x="10" y="130" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Pulls Offset 1045</text>
+    </g>
+
+    <!-- Offset Commit -->
+    <g transform="translate(12, 220)">
+      <rect width="146" height="145" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="10" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#38bdf8">Commit Offset:</text>
+      <text x="10" y="46" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">• Processes business logic</text>
+      <text x="10" y="68" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">• Commits offset 1046</text>
+      <text x="10" y="90" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#cbd5e1">• Saved in Kafka topic:</text>
+      <text x="10" y="110" font-family="'Segoe UI', monospace" font-size="8.5" fill="#fde68a">__consumer_offsets</text>
+      <text x="10" y="130" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="700" fill="#6ee7b7">Safe Resume on Crash</text>
+    </g>
+
+    <g transform="translate(12, 385)">
+      <rect width="146" height="100" rx="6" fill="#1e293b" stroke="#334155" />
+      <text x="10" y="24" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#cbd5e1">Offset Control:</text>
+      <text x="10" y="46" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">• auto.offset.reset</text>
+      <text x="10" y="66" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">• earliest vs latest</text>
+      <text x="10" y="86" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">• manual commit</text>
+    </g>
+  </g>
+
+  <!-- ================= BOTTOM MARATHI SUMMARY CALLOUT ================= -->
+  <g transform="translate(40, 680)" filter="url(#card-shadow)">
+    <rect width="1170" height="110" rx="12" fill="#1c1917" stroke="#d97706" stroke-width="1.5" />
+    <text x="20" y="26" class="marathi-title">🇮🇳 थोडक्यात मराठीत स्पष्टीकरण (End-to-End Message Journey):</text>
+    <text x="20" y="48" class="marathi-text">
+      १. <tspan font-weight="700" fill="#fde68a">प्रवास (Journey)</tspan>: Producer (मेसेज बनवतो) ──► Partitioner (योग्य partition ठरवतो) ──► Leader Broker (लॉगमध्ये लिहून Offset देतो) ──► Replicas (कॉपी करतात).
+    </text>
+    <text x="20" y="70" class="marathi-text">
+      २. <tspan font-weight="700" fill="#fde68a">कन्झ्युमरची Pull पद्धत</tspan>: काफ्का मेसेज ढकलत (Push) नाही; तर Consumer आपल्या गतीने ब्रोकरकडून डेटा खेचून (Pull) घेतो, त्यामुळे सर्व्हर ओव्हरलोड होत नाही.
+    </text>
+    <text x="20" y="92" class="marathi-text">
+      ३. <tspan font-weight="700" fill="#fde68a">Offset Commit</tspan>: काम झाल्यावर Consumer आपला वाचलेला नंबर (Offset) सेव्ह करतो, जेणेकरून क्रॅश झाल्यावर पुन्हा तिथूनच सुरुवात करता येईल.
+    </text>
+  </g>
+
+</svg>

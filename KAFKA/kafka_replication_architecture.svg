@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="repBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <!-- Producer Gradient (Green) -->
+    <linearGradient id="prodGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+
+    <!-- Leader Gradient (Sky Blue) -->
+    <linearGradient id="leaderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+
+    <!-- Follower Gradient (Purple) -->
+    <linearGradient id="folGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+
+    <!-- Failover Alert Gradient (Amber/Orange) -->
+    <linearGradient id="alertGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <filter id="repShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#22c55e"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="950" height="480" rx="16" fill="url(#repBg)"/>
+
+  <!-- Title Header -->
+  <text x="475" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#38bdf8" text-anchor="middle">Kafka Partition Replication &amp; Fault Tolerance (RF = 3)</text>
+  <text x="475" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Leader handles all client I/O while In-Sync Replicas (ISR) continuously sync data</text>
+
+  <!-- ════════════════ 1. PRODUCER CLIENT (TOP) ════════════════ -->
+  <g transform="translate(345, 80)">
+    <rect width="260" height="65" rx="10" fill="#1e293b" stroke="#22c55e" stroke-width="2" filter="url(#repShadow)"/>
+    <rect x="10" y="10" width="240" height="45" rx="6" fill="url(#prodGrad)"/>
+    <text x="130" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">PRODUCER CLIENT</text>
+    <text x="130" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#dcfce7" text-anchor="middle">Publishes with acks = -1 (all)</text>
+  </g>
+
+  <!-- Flow 1: Producer Write Arrow -->
+  <path d="M 475 145 L 475 185" stroke="#22c55e" stroke-width="3" fill="none" marker-end="url(#arrowGreen)"/>
+  <rect x="490" y="152" width="130" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="555" y="167" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#4ade80" text-anchor="middle">1. Write Request</text>
+
+  <!-- ════════════════ 2. BROKER 1: LEADER PARTITION (MIDDLE) ════════════════ -->
+  <g transform="translate(295, 190)">
+    <rect width="360" height="95" rx="12" fill="#0f172a" stroke="#0284c7" stroke-width="2.5" filter="url(#repShadow)"/>
+    <rect x="12" y="12" width="336" height="34" rx="6" fill="url(#leaderGrad)"/>
+    <text x="180" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">BROKER 1 : LEADER PARTITION</text>
+    
+    <text x="180" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#cbd5e1" text-anchor="middle">Handles all Client Reads &amp; Writes (Port 9092)</text>
+    <text x="180" y="83" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">Appends to Commit Log on NVMe Disk</text>
+  </g>
+
+  <!-- Flow 2: Left Replication Arrow (to Broker 2) -->
+  <path d="M 370 285 L 230 335" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="5,4" fill="none" marker-end="url(#arrowBlue)"/>
+  <rect x="190" y="295" width="135" height="20" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+  <text x="257" y="309" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#7dd3fc" text-anchor="middle">2. Replicate (Sync Fetch)</text>
+
+  <!-- Flow 2: Right Replication Arrow (to Broker 3) -->
+  <path d="M 580 285 L 720 335" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="5,4" fill="none" marker-end="url(#arrowBlue)"/>
+  <rect x="625" y="295" width="135" height="20" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+  <text x="692" y="309" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#7dd3fc" text-anchor="middle">2. Replicate (Sync Fetch)</text>
+
+  <!-- ════════════════ 3. BROKER 2: FOLLOWER REPLICA (BOTTOM LEFT) ════════════════ -->
+  <g transform="translate(60, 340)">
+    <rect width="360" height="95" rx="12" fill="#1e293b" stroke="#8b5cf6" stroke-width="2" filter="url(#repShadow)"/>
+    <rect x="12" y="12" width="336" height="34" rx="6" fill="url(#folGrad)"/>
+    <text x="180" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">BROKER 2 : FOLLOWER REPLICA</text>
+    
+    <text x="180" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#cbd5e1" text-anchor="middle">In-Sync Replica (ISR) Member</text>
+    <text x="180" y="83" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">Passive Backup (Ready for instant promotion)</text>
+  </g>
+
+  <!-- ════════════════ 4. BROKER 3: FOLLOWER REPLICA (BOTTOM RIGHT) ════════════════ -->
+  <g transform="translate(530, 340)">
+    <rect width="360" height="95" rx="12" fill="#1e293b" stroke="#8b5cf6" stroke-width="2" filter="url(#repShadow)"/>
+    <rect x="12" y="12" width="336" height="34" rx="6" fill="url(#folGrad)"/>
+    <text x="180" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">BROKER 3 : FOLLOWER REPLICA</text>
+    
+    <text x="180" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#cbd5e1" text-anchor="middle">In-Sync Replica (ISR) Member</text>
+    <text x="180" y="83" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">Passive Backup (Ready for instant promotion)</text>
+  </g>
+
+  <!-- Bottom Alert Bar: High Availability Guarantee -->
+  <rect x="60" y="445" width="830" height="26" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1"/>
+  <text x="475" y="462" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#fde68a" text-anchor="middle">
+    🛡️ <tspan font-weight="bold">Automatic Failover:</tspan> If Broker 1 crashes, Controller immediately promotes Broker 2 or Broker 3 to Leader in milliseconds with ZERO data loss!
+  </text>
+</svg>

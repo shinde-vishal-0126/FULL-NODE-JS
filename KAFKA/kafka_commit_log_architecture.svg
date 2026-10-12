@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 780" width="100%" height="100%">
+  <defs>
+    <style>
+      .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 25px; font-weight: 800; fill: #ffffff; letter-spacing: 1.2px; }
+      .main-subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .box-header { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; }
+      .offset-num { font-family: 'Segoe UI', system-ui, monospace; font-size: 15px; font-weight: 800; fill: #ffffff; }
+      .offset-label { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10px; font-weight: 600; fill: #94a3b8; }
+      .comment-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; }
+      .comment-body { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #cbd5e1; line-height: 1.4; }
+      .marathi-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #fbbf24; }
+      .marathi-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; fill: #fef3c7; }
+    </style>
+
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <marker id="arr-cyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#a855f7" />
+    </marker>
+    <marker id="arr-up-green" markerWidth="8" markerHeight="8" refX="4" refY="2" orient="auto">
+      <path d="M 0 8 L 4 0 L 8 8 Z" fill="#10b981" />
+    </marker>
+    <marker id="arr-up-purple" markerWidth="8" markerHeight="8" refX="4" refY="2" orient="auto">
+      <path d="M 0 8 L 4 0 L 8 8 Z" fill="#c084fc" />
+    </marker>
+
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="log-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1250" height="780" rx="16" fill="url(#bg)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- ================= TOP HEADER & DEFINITION BANNER ================= -->
+  <g transform="translate(40, 25)">
+    <text x="585" y="24" text-anchor="middle" class="main-title">KAFKA CORE ARCHITECTURE: DISTRIBUTED APPEND-ONLY COMMIT LOG</text>
+    <text x="585" y="46" text-anchor="middle" class="main-subtitle">Immutable Disk Persistence • Sequential Monotonic Offsets • Independent Multi-Consumer Pointers</text>
+
+    <!-- Definition Card -->
+    <rect x="50" y="60" width="1070" height="42" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="70" y="86" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#38bdf8">📌 DEFINITION:</text>
+    <text x="165" y="86" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e2e8f0">
+      A <tspan font-weight="700" fill="#ffffff">Commit Log</tspan> is a physical, append-only disk structure where records are permanently ordered by arrival time. Messages are <tspan fill="#38bdf8" font-weight="700">NEVER deleted upon read</tspan>, allowing multiple consumers to replay and read at their own speeds.
+    </text>
+  </g>
+
+  <!-- ================= MIDDLE: COMMIT LOG VISUALIZATION ================= -->
+  <g transform="translate(40, 150)" filter="url(#card-shadow)">
+    <!-- Container -->
+    <rect width="700" height="480" rx="14" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8" />
+    
+    <!-- Title -->
+    <rect width="700" height="42" rx="14" fill="#1e293b" />
+    <rect y="30" width="700" height="12" fill="#1e293b" />
+    <text x="350" y="26" text-anchor="middle" class="box-header" fill="#38bdf8">KAFKA TOPIC: [ order-events ] ── PARTITION 0 (Disk Segment File)</text>
+
+    <!-- Producer Write Indicator (Append Only) -->
+    <g transform="translate(40, 65)">
+      <rect width="210" height="32" rx="6" fill="#0369a1" />
+      <text x="105" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#ffffff">PRODUCER (Writes New Events)</text>
+      <path d="M 220 16 L 470 16 L 470 65" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#arr-cyan)" />
+      <text x="340" y="10" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#38bdf8">Strictly Append to Tail (Sequential I/O)</text>
+    </g>
+
+    <!-- Commit Log Blocks (Offsets 0 to 5) -->
+    <g transform="translate(40, 155)">
+      <!-- Offset 0 -->
+      <g transform="translate(0, 0)">
+        <rect width="90" height="90" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+        <text x="45" y="32" text-anchor="middle" class="offset-label">OFFSET</text>
+        <text x="45" y="58" text-anchor="middle" class="offset-num" fill="#f8fafc">0</text>
+        <rect x="10" y="68" width="70" height="14" rx="3" fill="#334155" />
+        <text x="45" y="79" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#cbd5e1">Order #101</text>
+      </g>
+      <!-- Offset 1 -->
+      <g transform="translate(98, 0)">
+        <rect width="90" height="90" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+        <text x="45" y="32" text-anchor="middle" class="offset-label">OFFSET</text>
+        <text x="45" y="58" text-anchor="middle" class="offset-num" fill="#f8fafc">1</text>
+        <rect x="10" y="68" width="70" height="14" rx="3" fill="#334155" />
+        <text x="45" y="79" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#cbd5e1">Order #102</text>
+      </g>
+      <!-- Offset 2 -->
+      <g transform="translate(196, 0)">
+        <rect width="90" height="90" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+        <text x="45" y="32" text-anchor="middle" class="offset-label">OFFSET</text>
+        <text x="45" y="58" text-anchor="middle" class="offset-num" fill="#f8fafc">2</text>
+        <rect x="10" y="68" width="70" height="14" rx="3" fill="#334155" />
+        <text x="45" y="79" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#cbd5e1">Order #103</text>
+      </g>
+      <!-- Offset 3 -->
+      <g transform="translate(294, 0)">
+        <rect width="90" height="90" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+        <text x="45" y="32" text-anchor="middle" class="offset-label">OFFSET</text>
+        <text x="45" y="58" text-anchor="middle" class="offset-num" fill="#f8fafc">3</text>
+        <rect x="10" y="68" width="70" height="14" rx="3" fill="#334155" />
+        <text x="45" y="79" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#cbd5e1">Order #104</text>
+      </g>
+      <!-- Offset 4 -->
+      <g transform="translate(392, 0)">
+        <rect width="90" height="90" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+        <text x="45" y="32" text-anchor="middle" class="offset-label">OFFSET</text>
+        <text x="45" y="58" text-anchor="middle" class="offset-num" fill="#f8fafc">4</text>
+        <rect x="10" y="68" width="70" height="14" rx="3" fill="#334155" />
+        <text x="45" y="79" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#cbd5e1">Order #105</text>
+      </g>
+      <!-- Offset 5 (Tail) -->
+      <g transform="translate(490, 0)">
+        <rect width="115" height="90" rx="8" fill="#0f2942" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,2" />
+        <text x="57" y="32" text-anchor="middle" class="offset-label" fill="#38bdf8">NEW RECORD</text>
+        <text x="57" y="58" text-anchor="middle" class="offset-num" fill="#38bdf8">5 (Tail)</text>
+        <rect x="15" y="68" width="85" height="14" rx="3" fill="#0369a1" />
+        <text x="57" y="79" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ffffff">Incoming Event</text>
+      </g>
+    </g>
+
+    <!-- Retention Banner -->
+    <g transform="translate(40, 275)">
+      <rect width="615" height="28" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="307" y="18" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">
+        🛡️ Disk Retention Policy: Records kept for 7 days / 30 days regardless of how many consumers read them!
+      </text>
+    </g>
+
+    <!-- Consumer Group Pointers Below -->
+    <!-- Consumer A: Slow Reader (Offset 1) -->
+    <g transform="translate(85, 335)">
+      <line x1="50" y1="0" x2="50" y2="-22" stroke="#10b981" stroke-width="2.5" marker-end="url(#arr-up-green)" />
+      <rect width="190" height="95" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#34d399">CONSUMER GROUP A</text>
+      <text x="15" y="44" font-family="'Segoe UI', sans-serif" font-size="11" fill="#a7f3d0">Service: Inventory Service</text>
+      <text x="15" y="64" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#ffffff">Current Offset: [ 1 ]</text>
+      <text x="15" y="82" font-family="'Segoe UI', sans-serif" font-size="10" fill="#6ee7b7">(Processing slower at own pace)</text>
+    </g>
+
+    <!-- Consumer B: Fast Real-time Reader (Offset 4) -->
+    <g transform="translate(380, 335)">
+      <line x1="55" y1="0" x2="55" y2="-22" stroke="#c084fc" stroke-width="2.5" marker-end="url(#arr-up-purple)" />
+      <rect width="195" height="95" rx="8" fill="#3b0764" stroke="#a855f7" stroke-width="1.5" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#d8b4fe">CONSUMER GROUP B</text>
+      <text x="15" y="44" font-family="'Segoe UI', sans-serif" font-size="11" fill="#e9d5ff">Service: Real-Time Analytics</text>
+      <text x="15" y="64" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#ffffff">Current Offset: [ 4 ]</text>
+      <text x="15" y="82" font-family="'Segoe UI', sans-serif" font-size="10" fill="#c084fc">(Near real-time tail of log)</text>
+    </g>
+
+    <!-- Note on Independent Offsets -->
+    <text x="350" y="455" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#38bdf8">
+      ✨ Consumer A &amp; Consumer B read from the exact same file without blocking or deleting data for each other!
+    </text>
+  </g>
+
+  <!-- ================= RIGHT COLUMN: EXPLANATORY CARDS ================= -->
+  <g transform="translate(770, 150)">
+    <!-- Card 1: Append-Only Speed -->
+    <g transform="translate(0, 0)" filter="url(#card-shadow)">
+      <rect width="440" height="110" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#38bdf8" />
+      <text x="30" y="21" class="comment-title" fill="#38bdf8">1. SEQUENTIAL DISK I/O = EXTREME SPEED</text>
+      <text x="20" y="45" class="comment-body">
+        Kafka never searches or updates random spots in files. It only <tspan fill="#7dd3fc" font-weight="700">appends</tspan>
+      </text>
+      <text x="20" y="65" class="comment-body">
+        to the end of the log file. Sequential disk writing on modern NVMe / HDD
+      </text>
+      <text x="20" y="85" class="comment-body">
+        is as fast as RAM writes (> 600 MB/sec)!
+      </text>
+    </g>
+
+    <!-- Card 2: Replayability -->
+    <g transform="translate(0, 122)" filter="url(#card-shadow)">
+      <rect width="440" height="110" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#10b981" />
+      <text x="30" y="21" class="comment-title" fill="#34d399">2. REPLAYABILITY &amp; TIME TRAVEL</text>
+      <text x="20" y="45" class="comment-body">
+        If a bug is found in the Analytics service, developers can fix the code
+      </text>
+      <text x="20" y="65" class="comment-body">
+        and <tspan fill="#6ee7b7" font-weight="700">reset the consumer offset back to 0</tspan>.
+      </text>
+      <text x="20" y="85" class="comment-body">
+        The service can re-process historical events as if they just happened!
+      </text>
+    </g>
+
+    <!-- Card 3: No Deletion on Consumption -->
+    <g transform="translate(0, 244)" filter="url(#card-shadow)">
+      <rect width="440" height="110" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#f59e0b" />
+      <text x="30" y="21" class="comment-title" fill="#f59e0b">3. MULTIPLE INDEPENDENT READERS</text>
+      <text x="20" y="45" class="comment-body">
+        Unlike RabbitMQ (where reading deletes the message), Kafka keeps it.
+      </text>
+      <text x="20" y="65" class="comment-body">
+        If tomorrow you add a new <tspan fill="#fde68a" font-weight="700">Fraud Detection System</tspan>, it can immediately
+      </text>
+      <text x="20" y="85" class="comment-body">
+        start reading from Offset 0 without changing anything in Producer!
+      </text>
+    </g>
+
+    <!-- Card 4: Offsets vs In-Memory State -->
+    <g transform="translate(0, 366)" filter="url(#card-shadow)">
+      <rect width="440" height="112" rx="10" fill="#3b0764" stroke="#a855f7" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#a855f7" />
+      <text x="30" y="21" class="comment-title" fill="#d8b4fe">4. ZERO BROKER OVERHEAD (Dumb Broker, Smart Client)</text>
+      <text x="20" y="45" class="comment-body" fill="#e9d5ff">
+        • Broker does not track which individual users got each message.
+      </text>
+      <text x="20" y="65" class="comment-body" fill="#e9d5ff">
+        • Consumers simply store their current number: <tspan fill="#f5d0fe" font-weight="700">Offset = 4</tspan>.
+      </text>
+      <text x="20" y="85" class="comment-body" fill="#e9d5ff">
+        • Broker memory stays clean even with 10,000,000 active messages!
+      </text>
+    </g>
+  </g>
+
+  <!-- ================= BOTTOM MARATHI SUMMARY CALLOUT ================= -->
+  <g transform="translate(40, 655)" filter="url(#card-shadow)">
+    <rect width="1170" height="95" rx="12" fill="#1c1917" stroke="#d97706" stroke-width="1.5" />
+    <text x="20" y="26" class="marathi-title">🇮🇳 थोडक्यात मराठीत स्पष्टीकरण (Commit Log आणि Offset संकल्पना):</text>
+    <text x="20" y="48" class="marathi-text">
+      १. <tspan font-weight="700" fill="#fde68a">कमिट लॉग (Commit Log)</tspan>: काफ्का एका वहीसारखे (Ledger) आहे; नवीन मेसेज नेहमी शेवटच्या पानावर जोडला जातो (Append-Only) आणि तो कधीही बदलता येत नाही.
+    </text>
+    <text x="20" y="68" class="marathi-text">
+      २. <tspan font-weight="700" fill="#fde68a">ऑफसेट (Offset)</tspan>: प्रत्येक मेसेजला एक युनिक नंबर (0, 1, 2, 3...) मिळतो. वाचल्यानंतर मेसेज डिलीट होत नाही, तर तो डिस्कवर सुरक्षित राहतो.
+    </text>
+    <text x="20" y="88" class="marathi-text">
+      ३. <tspan font-weight="700" fill="#fde68a">स्वतंत्र वाचक (Multiple Consumers)</tspan>: इन्व्हेंटरी सर्व्हिस आणि ॲनालिटिक्स सर्व्हिस आपापल्या गतीने स्वतंत्रपणे मेसेज वाचू शकतात (Replay देखील करू शकतात).
+    </text>
+  </g>
+
+</svg>

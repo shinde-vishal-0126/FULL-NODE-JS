@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 500" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <defs>
+    <linearGradient id="awsOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9900" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="nodeGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="blueCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="45" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800" letter-spacing="0.5">Amazon SQS Decoupled E-Commerce Architecture</text>
+  <text x="550" y="70" text-anchor="middle" fill="#94a3b8" font-size="13">Synchronous API Ingestion &lt; 40ms &#8226; Asynchronous Distributed Worker Pool</text>
+
+  <!-- Box 1: Customer -->
+  <g transform="translate(40, 130)" filter="url(#glow)">
+    <rect width="180" height="260" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+    <rect width="180" height="40" rx="12" fill="#3b82f6" />
+    <text x="90" y="26" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Customer Client</text>
+    
+    <circle cx="90" cy="95" r="28" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="90" y="102" text-anchor="middle" fill="#3b82f6" font-size="20">📱</text>
+    
+    <text x="90" y="155" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="600">Mobile / Web App</text>
+    <text x="90" y="180" text-anchor="middle" fill="#94a3b8" font-size="11">Clicks "Place Order"</text>
+    
+    <rect x="20" y="205" width="140" height="32" rx="6" fill="#0f172a" stroke="#22c55e" stroke-width="1"/>
+    <text x="90" y="225" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="600">201 Created (40ms)</text>
+  </g>
+
+  <!-- Arrow 1: To Fastify API -->
+  <path d="M 220 220 L 290 220" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrowBlue)"/>
+  <text x="255" y="208" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="600">POST</text>
+
+  <!-- Box 2: Fastify API -->
+  <g transform="translate(300, 110)" filter="url(#glow)">
+    <rect width="210" height="300" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <rect width="210" height="42" rx="12" fill="url(#nodeGreen)" />
+    <text x="105" y="27" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Fastify Node.js API</text>
+    
+    <rect x="15" y="60" width="180" height="48" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="25" y="80" fill="#38bdf8" font-size="11" font-weight="600">1. Validate Body</text>
+    <text x="25" y="96" fill="#94a3b8" font-size="10">Check items &amp; amount</text>
+    
+    <rect x="15" y="120" width="180" height="48" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="25" y="140" fill="#38bdf8" font-size="11" font-weight="600">2. DB Write (25ms)</text>
+    <text x="25" y="156" fill="#94a3b8" font-size="10">Status = 'PENDING'</text>
+    
+    <rect x="15" y="180" width="180" height="48" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="25" y="200" fill="#ff9900" font-size="11" font-weight="600">3. SQS SendMessage (15ms)</text>
+    <text x="25" y="216" fill="#94a3b8" font-size="10">Push ORDER_PLACED</text>
+    
+    <text x="105" y="265" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="700">⚡ Non-blocking API</text>
+    <text x="105" y="283" text-anchor="middle" fill="#94a3b8" font-size="10">Returns immediately</text>
+  </g>
+
+  <!-- Arrow 2: To SQS -->
+  <path d="M 510 230 L 570 230" stroke="#ff9900" stroke-width="3"/>
+  <polygon points="570,225 580,230 570,235" fill="#ff9900"/>
+  <text x="545" y="218" text-anchor="middle" fill="#ff9900" font-size="10" font-weight="700">ENQUEUE</text>
+
+  <!-- Box 3: Amazon SQS Queue -->
+  <g transform="translate(580, 110)" filter="url(#glow)">
+    <rect width="210" height="300" rx="12" fill="#1e293b" stroke="#ff9900" stroke-width="2"/>
+    <rect width="210" height="42" rx="12" fill="url(#awsOrange)" />
+    <text x="105" y="27" text-anchor="middle" fill="#111827" font-size="14" font-weight="800">AWS SQS Buffer</text>
+    
+    <rect x="15" y="60" width="180" height="36" rx="6" fill="#0f172a" stroke="#ff9900" stroke-width="1"/>
+    <text x="105" y="83" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="600">order-processing-queue</text>
+    
+    <!-- Messages in Queue -->
+    <g transform="translate(20, 110)">
+      <rect x="0" y="0" width="170" height="24" rx="4" fill="#334155"/>
+      <text x="10" y="16" fill="#f8fafc" font-size="10">📦 Msg 1: ORD-901</text>
+      <text x="125" y="16" fill="#4ade80" font-size="9">VISIBLE</text>
+      
+      <rect x="0" y="32" width="170" height="24" rx="4" fill="#334155"/>
+      <text x="10" y="48" fill="#f8fafc" font-size="10">📦 Msg 2: ORD-902</text>
+      <text x="125" y="48" fill="#4ade80" font-size="9">VISIBLE</text>
+      
+      <rect x="0" y="64" width="170" height="24" rx="4" fill="#334155"/>
+      <text x="10" y="80" fill="#f8fafc" font-size="10">📦 Msg 3: ORD-903</text>
+      <text x="125" y="80" fill="#f59e0b" font-size="9">IN-FLIGHT</text>
+    </g>
+    
+    <rect x="15" y="225" width="180" height="60" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+    <text x="25" y="244" fill="#f87171" font-size="11" font-weight="600">order-processing-dlq</text>
+    <text x="25" y="260" fill="#94a3b8" font-size="9">maxReceiveCount: 3</text>
+    <text x="25" y="274" fill="#94a3b8" font-size="9">Quarantines poison payloads</text>
+  </g>
+
+  <!-- Arrow 3: Long Polling to Workers -->
+  <path d="M 790 200 L 850 170" stroke="#38bdf8" stroke-width="2.5"/>
+  <polygon points="846,165 854,168 849,176" fill="#38bdf8"/>
+  
+  <path d="M 790 260 L 850 260" stroke="#38bdf8" stroke-width="2.5"/>
+  <polygon points="850,255 860,260 850,265" fill="#38bdf8"/>
+
+  <path d="M 790 310 L 850 340" stroke="#38bdf8" stroke-width="2.5"/>
+  <polygon points="849,334 854,342 846,345" fill="#38bdf8"/>
+
+  <!-- Box 4: Workers Pool -->
+  <g transform="translate(860, 110)" filter="url(#glow)">
+    <rect width="200" height="300" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <rect width="200" height="42" rx="12" fill="#0284c7" />
+    <text x="100" y="27" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Worker Fleet (Node.js)</text>
+    
+    <g transform="translate(15, 55)">
+      <rect width="170" height="65" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="10" y="20" fill="#38bdf8" font-size="11" font-weight="700">Worker Node 1</text>
+      <text x="10" y="38" fill="#94a3b8" font-size="10">&#8226; Verify Payment (Stripe)</text>
+      <text x="10" y="54" fill="#94a3b8" font-size="10">&#8226; Update SQL Database</text>
+    </g>
+
+    <g transform="translate(15, 130)">
+      <rect width="170" height="65" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="10" y="20" fill="#38bdf8" font-size="11" font-weight="700">Worker Node 2</text>
+      <text x="10" y="38" fill="#94a3b8" font-size="10">&#8226; Generate PDF Tax Invoice</text>
+      <text x="10" y="54" fill="#94a3b8" font-size="10">&#8226; Upload to AWS S3</text>
+    </g>
+
+    <g transform="translate(15, 205)">
+      <rect width="170" height="65" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="10" y="20" fill="#38bdf8" font-size="11" font-weight="700">Worker Node 3</text>
+      <text x="10" y="38" fill="#94a3b8" font-size="10">&#8226; Send SES Email / Twilio</text>
+      <text x="10" y="54" fill="#4ade80" font-size="10">&#8226; DeleteMessage(ReceiptHandle)</text>
+    </g>
+
+    <text x="100" y="290" text-anchor="middle" fill="#94a3b8" font-size="10">Auto-scales via KEDA / ECS</text>
+  </g>
+
+  <!-- Bottom Key -->
+  <g transform="translate(100, 445)">
+    <circle cx="10" cy="10" r="5" fill="#4ade80"/>
+    <text x="25" y="14" fill="#94a3b8" font-size="11">Visible (Available for poll)</text>
+    
+    <circle cx="210" cy="10" r="5" fill="#f59e0b"/>
+    <text x="225" y="14" fill="#94a3b8" font-size="11">In-Flight (Visibility lease active)</text>
+
+    <circle cx="450" cy="10" r="5" fill="#ef4444"/>
+    <text x="465" y="14" fill="#94a3b8" font-size="11">DLQ (Poison message after 3 retries)</text>
+
+    <text x="800" y="14" fill="#38bdf8" font-size="11" font-weight="600">Long Polling: WaitTimeSeconds = 20</text>
+  </g>
+</svg>

@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%" style="background:#0b0f19; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <linearGradient id="cfGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="hitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="missGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#b91c1c" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="invalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.05"/>
+    </linearGradient>
+    <marker id="arrowCyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#00f0ff"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="550" y="42" text-anchor="middle" fill="#f9fafb" font-size="22" font-weight="700" letter-spacing="0.5">CloudFront Edge Caching: Hit, Miss &amp; Invalidation Lifecycle</text>
+  <text x="550" y="68" text-anchor="middle" fill="#9ca3af" font-size="13">Detailed request flow, TTL evaluation, origin fetch, and cache purging mechanisms</text>
+
+  <!-- Flow 1: Cache Hit Flow (Top Left / Center) -->
+  <g transform="translate(50, 95)">
+    <rect width="480" height="240" rx="12" fill="url(#hitGrad)" stroke="#10b981" stroke-width="1.5" stroke-dasharray="none"/>
+    <rect x="16" y="14" width="100" height="22" rx="6" fill="#10b981" fill-opacity="0.2"/>
+    <text x="66" y="29" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">SCENARIO A</text>
+    <text x="130" y="30" fill="#f9fafb" font-size="16" font-weight="700">Cache HIT (Edge Serving)</text>
+    <text x="130" y="48" fill="#9ca3af" font-size="12">Latency: ~5-15ms &#8226; Zero Origin S3 Traffic</text>
+
+    <!-- Step 1: User Request -->
+    <rect x="25" y="70" width="110" height="60" rx="8" fill="#111827" stroke="#374151"/>
+    <text x="80" y="95" text-anchor="middle" fill="#f3f4f6" font-size="12" font-weight="600">Client / Browser</text>
+    <text x="80" y="115" text-anchor="middle" fill="#9ca3af" font-size="10">GET /banner.jpg</text>
+
+    <!-- Arrow 1 -->
+    <path d="M 135 100 L 205 100" stroke="#00f0ff" stroke-width="2" marker-end="url(#arrowCyan)"/>
+    <text x="170" y="92" text-anchor="middle" fill="#00f0ff" font-size="10" font-weight="600">Request</text>
+
+    <!-- Step 2: Edge PoP -->
+    <rect x="215" y="70" width="120" height="60" rx="8" fill="#1e293b" stroke="#00f0ff" stroke-width="1.5"/>
+    <text x="275" y="95" text-anchor="middle" fill="#00f0ff" font-size="12" font-weight="700">CloudFront PoP</text>
+    <text x="275" y="115" text-anchor="middle" fill="#10b981" font-size="10" font-weight="600">Object in SSD RAM</text>
+
+    <!-- Arrow 2: Return Cache Hit -->
+    <path d="M 215 115 L 135 115" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)"/>
+    <text x="175" y="132" text-anchor="middle" fill="#34d399" font-size="10" font-weight="600">200 OK (HIT)</text>
+
+    <!-- Headers box -->
+    <rect x="25" y="148" width="430" height="74" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="0.8"/>
+    <text x="40" y="170" fill="#34d399" font-size="11" font-weight="700">Response Headers from CloudFront:</text>
+    <text x="40" y="190" fill="#e2e8f0" font-size="11" font-family="monospace">X-Cache: <tspan fill="#34d399">Hit from cloudfront</tspan></text>
+    <text x="40" y="208" fill="#e2e8f0" font-size="11" font-family="monospace">Age: <tspan fill="#60a5fa">3420</tspan> (seconds) &#8226; Cache-Control: public, max-age=86400</text>
+  </g>
+
+  <!-- Flow 2: Cache Miss Flow (Top Right) -->
+  <g transform="translate(560, 95)">
+    <rect width="490" height="240" rx="12" fill="url(#missGrad)" stroke="#ef4444" stroke-width="1.5"/>
+    <rect x="16" y="14" width="100" height="22" rx="6" fill="#ef4444" fill-opacity="0.2"/>
+    <text x="66" y="29" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">SCENARIO B</text>
+    <text x="130" y="30" fill="#f9fafb" font-size="16" font-weight="700">Cache MISS (Origin Fetch &amp; Store)</text>
+    <text x="130" y="48" fill="#9ca3af" font-size="12">Latency: ~80-250ms &#8226; Fetches from Origin S3 Bucket</text>
+
+    <!-- Client -->
+    <rect x="20" y="70" width="85" height="55" rx="6" fill="#111827" stroke="#374151"/>
+    <text x="62" y="95" text-anchor="middle" fill="#f3f4f6" font-size="11" font-weight="600">Client</text>
+    <text x="62" y="112" text-anchor="middle" fill="#9ca3af" font-size="9">GET /new.mp4</text>
+
+    <!-- CF Edge -->
+    <rect x="145" y="70" width="100" height="55" rx="6" fill="#1e293b" stroke="#ef4444" stroke-width="1.2"/>
+    <text x="195" y="93" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">CloudFront</text>
+    <text x="195" y="110" text-anchor="middle" fill="#fca5a5" font-size="9">MISS (Not Found)</text>
+
+    <!-- Origin S3 -->
+    <rect x="360" y="70" width="110" height="55" rx="6" fill="#111827" stroke="#ff9900" stroke-width="1.2"/>
+    <text x="415" y="93" text-anchor="middle" fill="#ff9900" font-size="11" font-weight="700">Origin S3 Bucket</text>
+    <text x="415" y="110" text-anchor="middle" fill="#9ca3af" font-size="9">via OAC Signature</text>
+
+    <!-- Path 1: Client to Edge -->
+    <path d="M 105 85 L 140 85" stroke="#00f0ff" stroke-width="1.5" marker-end="url(#arrowCyan)"/>
+    <!-- Path 2: Edge to Origin -->
+    <path d="M 245 85 L 355 85" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+    <text x="300" y="78" text-anchor="middle" fill="#f87171" font-size="9" font-weight="600">Origin Req</text>
+
+    <!-- Path 3: Origin to Edge -->
+    <path d="M 355 105 L 245 105" stroke="#ff9900" stroke-width="1.5" marker-end="url(#arrowAmber)"/>
+    <text x="300" y="120" text-anchor="middle" fill="#ff9900" font-size="9" font-weight="600">200 + Cache</text>
+
+    <!-- Path 4: Edge to Client -->
+    <path d="M 140 105 L 105 105" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+    <!-- Headers box -->
+    <rect x="20" y="148" width="450" height="74" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="0.8"/>
+    <text x="35" y="170" fill="#f87171" font-size="11" font-weight="700">Response Headers on Miss:</text>
+    <text x="35" y="190" fill="#e2e8f0" font-size="11" font-family="monospace">X-Cache: <tspan fill="#f87171">Miss from cloudfront</tspan></text>
+    <text x="35" y="208" fill="#e2e8f0" font-size="11" font-family="monospace">Age: <tspan fill="#60a5fa">0</tspan> &#8226; Object cached at Edge PoP for subsequent requests</text>
+  </g>
+
+  <!-- Flow 3: Cache Invalidation Lifecycle (Bottom Full Width) -->
+  <g transform="translate(50, 360)">
+    <rect width="1000" height="285" rx="12" fill="url(#invalGrad)" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="20" y="16" width="105" height="22" rx="6" fill="#f59e0b" fill-opacity="0.2"/>
+    <text x="72" y="31" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">INVALIDATION</text>
+    <text x="140" y="32" fill="#f9fafb" font-size="16" font-weight="700">Cache Invalidation vs. Versioned Cache Busting</text>
+    <text x="140" y="50" fill="#9ca3af" font-size="12">When files change in S3, how do 600+ edge locations update instantly?</text>
+
+    <!-- Method A: Invalidation API -->
+    <g transform="translate(30, 70)">
+      <rect width="450" height="190" rx="8" fill="#111827" stroke="#f59e0b" stroke-width="1"/>
+      <text x="20" y="30" fill="#fbbf24" font-size="13" font-weight="700">Method 1: CloudFront Invalidation API</text>
+      <text x="20" y="50" fill="#9ca3af" font-size="11">Tells Edge PoPs: "Evict this cached copy immediately"</text>
+
+      <rect x="20" y="65" width="410" height="42" rx="4" fill="#0f172a" stroke="#374151"/>
+      <text x="30" y="85" fill="#a5f3fc" font-size="11" font-family="monospace">aws cloudfront create-invalidation \</text>
+      <text x="30" y="100" fill="#fef08a" font-size="11" font-family="monospace">  --distribution-id E123XYZ --paths "/*"</text>
+
+      <text x="20" y="130" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Time to propagate:</tspan> ~60-180 seconds across all global PoPs.</text>
+      <text x="20" y="150" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Cost:</tspan> First 1,000 paths/month free, then $0.005 per path.</text>
+      <text x="20" y="170" fill="#ef4444" font-size="11">&#9888; Overusing /* causes thundering herd traffic back to S3 origin!</text>
+    </g>
+
+    <!-- Method B: Versioned URLs (Cache-Busting) -->
+    <g transform="translate(520, 70)">
+      <rect width="450" height="190" rx="8" fill="#111827" stroke="#10b981" stroke-width="1"/>
+      <text x="20" y="30" fill="#34d399" font-size="13" font-weight="700">Method 2: Versioned URLs (Industry Standard &#11088;)</text>
+      <text x="20" y="50" fill="#9ca3af" font-size="11">Change the file URL / query string whenever assets update</text>
+
+      <rect x="20" y="65" width="410" height="42" rx="4" fill="#0f172a" stroke="#374151"/>
+      <text x="30" y="85" fill="#a7f3d0" font-size="11" font-family="monospace">GET /assets/app.c8d9e1f.js</text>
+      <text x="30" y="100" fill="#6ee7b7" font-size="11" font-family="monospace">Cache-Control: public, max-age=31536000, immutable</text>
+
+      <text x="20" y="130" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Propagation Time:</tspan> 0 seconds (Immediate cache update).</text>
+      <text x="20" y="150" fill="#e5e7eb" font-size="11">&#8226; <tspan font-weight="bold">Cost:</tspan> $0.00 (No invalidation requests needed).</text>
+      <text x="20" y="170" fill="#34d399" font-size="11">&#10003; Infinite caching (1 year) with 100% cache hit ratio guaranteed!</text>
+    </g>
+  </g>
+</svg>

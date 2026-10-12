@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Amazon CloudFront &amp; S3 Edge Architecture — Complete Engineering Guide &amp; Interview
+      Handbook
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #0f172a;
+        --text-muted: #475569;
+        --border: #e2e8f0;
+        --accent: #0284c7;
+        --accent-aws: #d97706;
+        --marathi-bg: #fffbeb;
+        --marathi-border: #f59e0b;
+        --marathi-text: #78350f;
+        --code-bg: #f8fafc;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        font-size: 14px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .doc-header {
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 24px;
+        margin-bottom: 36px;
+      }
+      .doc-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        background: #e0f2fe;
+        color: #0369a1;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+      }
+      .doc-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.3;
+        margin-bottom: 8px;
+      }
+      .doc-subtitle {
+        font-size: 15px;
+        color: var(--text-muted);
+        margin-bottom: 16px;
+      }
+      .doc-meta {
+        display: flex;
+        gap: 20px;
+        font-size: 12px;
+        color: #64748b;
+      }
+
+      .print-bar {
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .btn-print {
+        padding: 8px 16px;
+        background: var(--accent);
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 13px;
+      }
+      .btn-print:hover {
+        background: #0369a1;
+      }
+
+      section {
+        margin-bottom: 40px;
+        page-break-inside: avoid;
+      }
+      h2 {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+      }
+
+      .diagram-box {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        margin: 16px 0;
+        text-align: center;
+        background: #f8fafc;
+        page-break-inside: avoid;
+      }
+      .diagram-box img {
+        max-width: 100%;
+        height: auto;
+      }
+      .diagram-caption {
+        font-size: 12px;
+        color: #64748b;
+        margin-top: 10px;
+        font-style: italic;
+      }
+
+      .marathi-card {
+        background: var(--marathi-bg);
+        border-left: 4px solid var(--marathi-border);
+        border-radius: 0 6px 6px 0;
+        padding: 12px 16px;
+        margin: 16px 0;
+        font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+        page-break-inside: avoid;
+      }
+      .marathi-title {
+        font-weight: 700;
+        color: var(--accent-aws);
+        font-size: 11px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .marathi-text {
+        color: var(--marathi-text);
+        font-size: 13.5px;
+        line-height: 1.6;
+      }
+
+      pre {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 14px;
+        overflow-x: auto;
+        font-family: 'Fira Code', monospace;
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 14px 0;
+        page-break-inside: avoid;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        font-size: 13px;
+        page-break-inside: avoid;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 10px 12px;
+        text-align: left;
+      }
+      th {
+        background: #f1f5f9;
+        font-weight: 700;
+      }
+
+      .qa-box {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 14px;
+        page-break-inside: avoid;
+      }
+      .qa-title {
+        font-weight: 700;
+        font-size: 14px;
+        color: #0f172a;
+        margin-bottom: 6px;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          font-size: 12px;
+        }
+        .print-bar {
+          display: none;
+        }
+        .diagram-box {
+          border: none;
+          background: transparent;
+          padding: 0;
+        }
+        @page {
+          margin: 15mm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-bar">
+      <button class="btn-print" onclick="window.print()">&#128438; Print / Save as PDF</button>
+    </div>
+
+    <header class="doc-header">
+      <div class="doc-badge">AWS Production Guide</div>
+      <h1 class="doc-title">Amazon CloudFront &amp; S3 Edge Architecture</h1>
+      <div class="doc-subtitle">
+        Complete Production Handbook: Origin Access Control (OAC), Signed Cookies/URLs, HLS Video
+        Delivery &amp; 25+ Interview Questions
+      </div>
+      <div class="doc-meta">
+        <span>&#9998; Author: Principal Cloud Architect</span>
+        <span>&#128197; Version: 2026 Production Edition</span>
+        <span>&#128274; Security: 100% Private S3 (OAC SigV4)</span>
+      </div>
+    </header>
+
+    <!-- Section 1 -->
+    <section>
+      <h2>1. Global Edge Architecture &amp; 3-Tier Hierarchy</h2>
+      <p>
+        Amazon CloudFront delivers media and web applications through a 3-tier hierarchy: Edge
+        Locations (PoPs), Regional Edge Caches (REC), and Origin Shield guarding private S3 buckets.
+      </p>
+      <div class="diagram-box">
+        <img src="diagrams/1_cloudfront_global_edge_architecture.svg" alt="Global Architecture" />
+        <div class="diagram-caption">
+          Figure 1.1: 3-Tier Edge Hierarchy connecting global users to private S3 storage.
+        </div>
+      </div>
+      <div class="marathi-card">
+        <div class="marathi-title">हिंदी स्पष्टीकरण</div>
+        <div class="marathi-text">
+          CloudFront viewer के पास cached content उपलब्ध करा सकता है। वास्तविक latency viewer के
+          network, location और cache state पर निर्भर करती है; निश्चित millisecond दावा न करें।
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section>
+      <h2>2. Origin Access Control (OAC) Architecture</h2>
+      <p>
+        OAC is recommended for new S3 origins. It signs origin requests with SigV4 and supports
+        SSE-KMS configurations. OAI is a legacy mechanism with limitations, including lack of
+        SSE-KMS support; avoid describing it simply as SigV2.
+      </p>
+      <div class="diagram-box">
+        <img src="diagrams/2_oac_private_s3_security.svg" alt="OAC Security" />
+        <div class="diagram-caption">
+          Figure 2.1: S3 Bucket Policy restricts read access strictly to CloudFront Distribution
+          ARN.
+        </div>
+      </div>
+      <pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Sid": "AllowCloudFrontServicePrincipalReadOnly",
+    "Effect": "Allow",
+    "Principal": { "Service": "cloudfront.amazonaws.com" },
+    "Action": "s3:GetObject",
+    "Resource": "arn:aws:s3:::blackbuck-production-media/*",
+    "Condition": {
+      "StringEquals": { "AWS:SourceArn": "arn:aws:cloudfront::123456789012:distribution/E2AB1CDEFGHIJK" }
+    }
+  }]
+}</code></pre>
+    </section>
+
+    <!-- Section 3 -->
+    <section>
+      <h2>3. Edge Cache Hit, Miss &amp; Invalidation Lifecycle</h2>
+      <div class="diagram-box">
+        <img
+          src="diagrams/3_cache_hit_miss_invalidation_workflow.svg"
+          alt="Cache Hit Miss Invalidation"
+        />
+        <div class="diagram-caption">
+          Figure 3.1: Cache Hit vs. Cache Miss origin roundtrip, and versioned URL benefits. Latency
+          depends on viewer route and cache state.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section>
+      <h2>4. Signed URLs vs. Signed Cookies</h2>
+      <div class="diagram-box">
+        <img
+          src="diagrams/4_signed_urls_vs_signed_cookies.svg"
+          alt="Signed URLs vs Signed Cookies"
+        />
+        <div class="diagram-caption">
+          Figure 4.1: Signed URLs (single file) vs Signed Cookies (HLS video stream and folder
+          access).
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section>
+      <h2>5. Edge Compute: CloudFront Functions vs Lambda@Edge</h2>
+      <div class="diagram-box">
+        <img
+          src="diagrams/5_cloudfront_functions_vs_lambda_at_edge.svg"
+          alt="CloudFront Functions vs Lambda@Edge"
+        />
+        <div class="diagram-caption">
+          Figure 5.1: 4-phase event triggers and performance matrix.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6 -->
+    <section>
+      <h2>6. 25+ Mid-to-Senior S3 &amp; CloudFront Interview Questions</h2>
+
+      <div class="qa-box">
+        <div class="qa-title">
+          Q01: What is the difference between Origin Access Identity (OAI) and Origin Access Control
+          (OAC)?
+        </div>
+        <p>
+          <strong>Answer:</strong> OAI is a legacy S3 origin-access mechanism with limitations,
+          including lack of SSE-KMS support; avoid characterizing it simply as SigV2. OAC is
+          recommended for new S3 origins: it signs requests with SigV4 and permits a bucket policy
+          scoped to the distribution ARN.
+        </p>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-title">Q02: When should you use Signed URLs vs Signed Cookies?</div>
+        <p>
+          <strong>Answer:</strong> Signed URLs suit individual files and clients that do not send
+          cookies. Signed Cookies are convenient for HLS or multiple private resources when the
+          player sends cookies on every request; signed URLs can also work if the player can sign or
+          rewrite each resource URL.
+        </p>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-title">
+          Q03: How do you eliminate the "Thundering Herd" problem when video traffic spikes?
+        </div>
+        <p>
+          <strong>Answer:</strong> Consider CloudFront Origin Shield to reduce duplicate origin
+          fetches for concurrent misses. Request collapsing depends on cache key and timing; it does
+          not guarantee exactly one origin request for every global miss.
+        </p>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-title">
+          Q04: Why is running `create-invalidation --paths "/*"` dangerous in CI/CD?
+        </div>
+        <p>
+          <strong>Answer:</strong> A wildcard invalidation can cause a burst of cache misses and
+          increased origin requests. Pricing and free allowances can change; <code>/*</code> counts
+          as one path. Prefer versioned hashed filenames and check current AWS pricing.
+        </p>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-title">
+          Q05: What is the Claim-Check Pattern in S3 + SQS / CloudFront architectures?
+        </div>
+        <p>
+          <strong>Answer:</strong> For payloads exceeding SQS's 256 KB limit, upload the large file
+          to S3, send a lightweight reference pointer (claim check) to SQS, and have consumers
+          retrieve the object from S3 or CloudFront.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Hindi Interview Perspective</h2>
+      <ul>
+        <li>
+          Cache key, TTL और Minimum TTL का संबंध बताएं; user-specific response को cache करने से पहले
+          data isolation स्पष्ट करें।
+        </li>
+        <li>
+          Origin Shield origin load घटा सकता है, लेकिन exactly-one-request guarantee नहीं देता।
+        </li>
+        <li>
+          Signed URL और cookie का चुनाव client/player support और protected resource scope के अनुसार
+          करें।
+        </li>
+        <li>
+          Cacheable GET response limit और HTTP request-body limit अलग quotas हैं; उत्तर देने से पहले
+          current AWS quota जाँचें।
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>

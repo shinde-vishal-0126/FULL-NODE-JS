@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrowS3" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrowSQS" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ff9900"/>
+    </marker>
+    <marker id="arrowWorker" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <text x="550" y="40" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800">S3 Claim-Check Pattern (Handling Payloads &gt; 256 KB)</text>
+  <text x="550" y="66" text-anchor="middle" fill="#94a3b8" font-size="13">Bypass SQS 256 KB payload cap &#8226; Store payload in S3 &#8226; Pass pointer token via SQS</text>
+
+  <!-- Box 1: Producer -->
+  <g transform="translate(50, 150)" filter="url(#shadow)">
+    <rect width="200" height="230" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <rect width="200" height="38" rx="12" fill="#0284c7"/>
+    <text x="100" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Producer API / Service</text>
+    
+    <g transform="translate(15, 55)">
+      <rect width="170" height="40" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+      <text x="10" y="20" fill="#f87171" font-size="10" font-weight="700">Payload: 15 MB PDF</text>
+      <text x="10" y="34" fill="#94a3b8" font-size="9">&gt; 256 KB SQS Limit!</text>
+    </g>
+
+    <g transform="translate(15, 110)">
+      <text x="5" y="16" fill="#4ade80" font-size="10" font-weight="600">1. PutObject to S3</text>
+      <text x="5" y="32" fill="#94a3b8" font-size="9">Uploads raw 15MB blob</text>
+      <text x="5" y="52" fill="#ff9900" font-size="10" font-weight="600">2. SendMessage to SQS</text>
+      <text x="5" y="68" fill="#94a3b8" font-size="9">Sends JSON ticket pointer</text>
+    </g>
+  </g>
+
+  <!-- Top Path: To S3 Bucket -->
+  <path d="M 250 200 L 400 130" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrowS3)"/>
+  <text x="315" y="150" fill="#4ade80" font-size="10" font-weight="700">1. Upload Blob (15MB)</text>
+
+  <!-- Box 2: Amazon S3 Bucket -->
+  <g transform="translate(420, 80)" filter="url(#shadow)">
+    <rect width="260" height="130" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <rect width="260" height="35" rx="12" fill="#059669"/>
+    <text x="130" y="23" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Amazon S3 Storage Bucket</text>
+    <text x="130" y="62" text-anchor="middle" fill="#a7f3d0" font-size="11" font-weight="600">s3://order-invoices-bucket/</text>
+    <rect x="25" y="75" width="210" height="35" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="130" y="96" text-anchor="middle" fill="#94a3b8" font-size="10">key: "invoices/2026/ORD-901.pdf"</text>
+  </g>
+
+  <!-- Bottom Path: To SQS Queue -->
+  <path d="M 250 280 L 400 320" stroke="#ff9900" stroke-width="2.5" marker-end="url(#arrowSQS)"/>
+  <text x="290" y="325" fill="#ff9900" font-size="10" font-weight="700">2. Lightweight JSON Ticket</text>
+
+  <!-- Box 3: Amazon SQS Queue -->
+  <g transform="translate(420, 260)" filter="url(#shadow)">
+    <rect width="260" height="150" rx="12" fill="#1e293b" stroke="#ff9900" stroke-width="2"/>
+    <rect width="260" height="35" rx="12" fill="#d97706"/>
+    <text x="130" y="23" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Amazon SQS Queue (Claim Check)</text>
+    
+    <g transform="translate(15, 45)">
+      <rect width="230" height="90" rx="6" fill="#0f172a" stroke="#475569"/>
+      <text x="10" y="20" fill="#38bdf8" font-size="10" font-weight="600">SQS Payload (Under 1 KB!):</text>
+      <text x="10" y="38" fill="#fcd34d" font-size="9">{"orderId": "ORD-901",</text>
+      <text x="10" y="54" fill="#fcd34d" font-size="9"> "s3Bucket": "order-invoices",</text>
+      <text x="10" y="70" fill="#fcd34d" font-size="9"> "s3Key": "invoices/ORD-901.pdf"}</text>
+    </g>
+  </g>
+
+  <!-- Path SQS to Consumer -->
+  <path d="M 680 335 L 830 280" stroke="#ff9900" stroke-width="2.5" marker-end="url(#arrowSQS)"/>
+  <text x="730" y="335" fill="#ff9900" font-size="10" font-weight="700">3. Poll SQS Ticket</text>
+
+  <!-- Path S3 to Consumer -->
+  <path d="M 680 145 L 830 200" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrowS3)"/>
+  <text x="730" y="165" fill="#4ade80" font-size="10" font-weight="700">4. Fetch 15MB from S3</text>
+
+  <!-- Box 4: Consumer Worker -->
+  <g transform="translate(850, 150)" filter="url(#shadow)">
+    <rect width="200" height="230" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <rect width="200" height="38" rx="12" fill="#0284c7"/>
+    <text x="100" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Consumer Worker Fleet</text>
+
+    <g transform="translate(15, 55)">
+      <rect width="170" height="155" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="10" y="20" fill="#f8fafc" font-size="10" font-weight="600">&#8226; Reads S3 Bucket &amp; Key</text>
+      <text x="10" y="42" fill="#4ade80" font-size="10" font-weight="600">&#8226; Downloads raw PDF</text>
+      <text x="10" y="64" fill="#38bdf8" font-size="10" font-weight="600">&#8226; Executes processing</text>
+      <text x="10" y="86" fill="#f8fafc" font-size="10">&#8226; DeleteMessage(Receipt)</text>
+      <text x="10" y="108" fill="#f8fafc" font-size="10">&#8226; Purges/Archives in S3</text>
+      <text x="85" y="138" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="700">&#10004; Complete</text>
+    </g>
+  </g>
+
+  <!-- Bottom Banner -->
+  <text x="550" y="450" text-anchor="middle" fill="#94a3b8" font-size="12">Key Takeaway: The Claim-Check pattern gives you the infinite buffering benefits of SQS while seamlessly supporting multi-gigabyte files.</text>
+</svg>

@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="100%" height="100%">
+  <defs>
+    <linearGradient id="srBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <!-- Producer Gradient (Green) -->
+    <linearGradient id="srProdGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+
+    <!-- Schema Registry Gradient (Amber/Orange) -->
+    <linearGradient id="srRegGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+
+    <!-- Broker Gradient (Sky Blue) -->
+    <linearGradient id="srBrokerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+
+    <!-- Consumer Gradient (Purple) -->
+    <linearGradient id="srConsGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#7e22ce"/>
+    </linearGradient>
+
+    <filter id="srShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#22c55e"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#c084fc"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="490" rx="16" fill="url(#srBg)"/>
+
+  <!-- Title Header -->
+  <text x="480" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#38bdf8" text-anchor="middle">Confluent Schema Registry &amp; Avro / Protobuf Workflow</text>
+  <text x="480" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Ensures strict contract compatibility &amp; minimizes payload size via 5-byte header architecture</text>
+
+  <!-- ════════════════ 1. PRODUCER (TOP LEFT) ════════════════ -->
+  <g transform="translate(50, 90)">
+    <rect width="260" height="110" rx="12" fill="#1e293b" stroke="#22c55e" stroke-width="2" filter="url(#srShadow)"/>
+    <rect x="12" y="12" width="236" height="34" rx="6" fill="url(#srProdGrad)"/>
+    <text x="130" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">PRODUCER SERVICE</text>
+    
+    <text x="130" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">Serializes event with Avro/Protobuf</text>
+    <text x="130" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#4ade80" text-anchor="middle">Attaches 5-byte Schema ID Header</text>
+  </g>
+
+  <!-- ════════════════ 2. SCHEMA REGISTRY (TOP RIGHT) ════════════════ -->
+  <g transform="translate(620, 90)">
+    <rect width="290" height="110" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="2" filter="url(#srShadow)"/>
+    <rect x="12" y="12" width="266" height="34" rx="6" fill="url(#srRegGrad)"/>
+    <text x="145" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">CONFLUENT SCHEMA REGISTRY</text>
+    
+    <text x="145" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">Central REST Repository (Port: 8081)</text>
+    <text x="145" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">Enforces BACKWARD / FORWARD Rules</text>
+  </g>
+
+  <!-- Arrow 1: Producer to Schema Registry (Register/Fetch ID) -->
+  <path d="M 310 135 L 610 135" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arrowAmber)"/>
+  <rect x="350" y="112" width="220" height="22" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="460" y="127" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#fde68a" text-anchor="middle">1. Register / Fetch Schema ID (e.g. ID = 42)</text>
+
+  <!-- ════════════════ 3. KAFKA BROKER CLUSTER (MIDDLE) ════════════════ -->
+  <g transform="translate(50, 245)">
+    <rect width="260" height="95" rx="12" fill="#0f172a" stroke="#0284c7" stroke-width="2" filter="url(#srShadow)"/>
+    <rect x="12" y="12" width="236" height="34" rx="6" fill="url(#srBrokerGrad)"/>
+    <text x="130" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">KAFKA BROKER (TOPIC)</text>
+    
+    <text x="130" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">Topic: "order-avro-events"</text>
+    <text x="130" y="83" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">Stores Raw Bytes (Zero CPU Deserialization)</text>
+  </g>
+
+  <!-- Arrow 2: Producer sends payload to Kafka Broker -->
+  <path d="M 180 200 L 180 240" stroke="#22c55e" stroke-width="3" fill="none" marker-end="url(#arrowGreen)"/>
+  <rect x="195" y="208" width="230" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="310" y="223" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#4ade80" text-anchor="middle">2. Sends Payload with 5-Byte Header</text>
+
+  <!-- 5-Byte Wire Format Breakdown Badge -->
+  <g transform="translate(480, 240)">
+    <rect width="430" height="100" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="215" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#38bdf8" text-anchor="middle">5-Byte Wire Format Optimization</text>
+    
+    <!-- Byte 0 -->
+    <rect x="25" y="35" width="100" height="35" rx="6" fill="#334155" stroke="#64748b" stroke-width="1"/>
+    <text x="75" y="52" font-family="monospace" font-size="10" font-weight="bold" fill="#f8fafc" text-anchor="middle">Byte 0: 0x00</text>
+    <text x="75" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Magic Byte</text>
+
+    <!-- Bytes 1-4 -->
+    <rect x="135" y="35" width="120" height="35" rx="6" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="195" y="52" font-family="monospace" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Bytes 1-4: ID=42</text>
+    <text x="195" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" fill="#bae6fd" text-anchor="middle">Schema Registry ID</text>
+
+    <!-- Bytes 5+ -->
+    <rect x="265" y="35" width="140" height="35" rx="6" fill="#15803d" stroke="#4ade80" stroke-width="1"/>
+    <text x="335" y="52" font-family="monospace" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Bytes 5+: Binary</text>
+    <text x="335" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" fill="#dcfce7" text-anchor="middle">Compact Avro Payload</text>
+
+    <text x="215" y="88" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#cbd5e1" text-anchor="middle">✨ Full schema is NOT sent with every message = Massive Bandwidth Savings!</text>
+  </g>
+
+  <!-- ════════════════ 4. CONSUMER (BOTTOM LEFT) ════════════════ -->
+  <g transform="translate(50, 375)">
+    <rect width="260" height="95" rx="12" fill="#1e293b" stroke="#a855f7" stroke-width="2" filter="url(#srShadow)"/>
+    <rect x="12" y="12" width="236" height="34" rx="6" fill="url(#srConsGrad)"/>
+    <text x="130" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">CONSUMER SERVICE</text>
+    
+    <text x="130" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">Reads 5-byte header from record</text>
+    <text x="130" y="83" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#d8b4fe" text-anchor="middle">Safely deserializes into typed object</text>
+  </g>
+
+  <!-- Arrow 3: Broker to Consumer (Fetch record) -->
+  <path d="M 180 340 L 180 370" stroke="#38bdf8" stroke-width="3" fill="none" marker-end="url(#arrowBlue)"/>
+  <text x="200" y="360" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#38bdf8">3. Pull Record</text>
+
+  <!-- Arrow 4: Consumer fetches Schema ID from Schema Registry -->
+  <path d="M 310 420 L 765 420 L 765 205" stroke="#c084fc" stroke-width="2.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arrowPurple)"/>
+  <rect x="400" y="408" width="310" height="22" rx="4" fill="#0f172a" stroke="#c084fc" stroke-width="1"/>
+  <text x="555" y="423" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#e9d5ff" text-anchor="middle">4. Fetch Schema ID 42 (Cached locally in consumer RAM)</text>
+
+</svg>

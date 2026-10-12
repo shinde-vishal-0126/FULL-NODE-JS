@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 820" width="100%" height="100%">
+  <defs>
+    <style>
+      .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 25px; font-weight: 800; fill: #ffffff; letter-spacing: 1.2px; }
+      .main-subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .box-header { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14.5px; font-weight: 700; fill: #f8fafc; }
+      .step-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; font-weight: 700; fill: #ffffff; }
+      .badge { font-family: 'Segoe UI', system-ui, monospace; font-size: 11px; font-weight: 700; }
+      .comment-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; }
+      .comment-body { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #cbd5e1; line-height: 1.4; }
+      .marathi-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #fbbf24; }
+      .marathi-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; fill: #fef3c7; }
+    </style>
+
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#c084fc" />
+    </marker>
+    <marker id="arr-gold" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f59e0b" />
+    </marker>
+
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1250" height="820" rx="16" fill="url(#bg)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- ================= TOP HEADER & DEFINITION BANNER ================= -->
+  <g transform="translate(40, 22)">
+    <text x="585" y="24" text-anchor="middle" class="main-title">KAFKA CONSUMER GROUPS &amp; PARTITION REBALANCING</text>
+    <text x="585" y="46" text-anchor="middle" class="main-subtitle">1 Partition = Exactly 1 Consumer in Group • High Parallelism • Automatic Failover</text>
+
+    <!-- Definition Banner -->
+    <rect x="50" y="60" width="1070" height="42" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="70" y="86" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#38bdf8">📌 THE GOLDEN RULE:</text>
+    <text x="215" y="86" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e2e8f0">
+      Within the same Consumer Group, each partition is consumed by <tspan font-weight="700" fill="#38bdf8">EXACTLY ONE</tspan> consumer. One consumer can read multiple partitions, but multiple consumers in the same group never read the same partition!
+    </text>
+  </g>
+
+  <!-- ================= LEFT: TOPIC WITH 4 PARTITIONS ================= -->
+  <g transform="translate(40, 145)" filter="url(#card-shadow)">
+    <rect width="360" height="510" rx="14" fill="#0f172a" stroke="#f59e0b" stroke-width="1.8" />
+    <rect width="360" height="40" rx="14" fill="#1e293b" />
+    <rect y="28" width="360" height="12" fill="#1e293b" />
+    <text x="180" y="25" text-anchor="middle" class="box-header" fill="#fbbf24">TOPIC: [ order-status ]</text>
+
+    <!-- Partition 0 -->
+    <g transform="translate(20, 55)">
+      <rect width="320" height="80" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#38bdf8">PARTITION 0</text>
+      <text x="220" y="24" font-family="'Segoe UI', monospace" font-size="10" fill="#94a3b8">Broker 1 (Leader)</text>
+      <g transform="translate(15, 34)">
+        <rect width="55" height="30" rx="4" fill="#334155" /><text x="27" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 0</text>
+        <rect x="62" width="55" height="30" rx="4" fill="#334155" /><text x="89" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 1</text>
+        <rect x="124" width="55" height="30" rx="4" fill="#334155" /><text x="151" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 2</text>
+        <rect x="186" width="55" height="30" rx="4" fill="#0284c7" /><text x="213" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 3</text>
+      </g>
+    </g>
+
+    <!-- Partition 1 -->
+    <g transform="translate(20, 145)">
+      <rect width="320" height="80" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#38bdf8">PARTITION 1</text>
+      <text x="220" y="24" font-family="'Segoe UI', monospace" font-size="10" fill="#94a3b8">Broker 2 (Leader)</text>
+      <g transform="translate(15, 34)">
+        <rect width="55" height="30" rx="4" fill="#334155" /><text x="27" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 0</text>
+        <rect x="62" width="55" height="30" rx="4" fill="#334155" /><text x="89" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 1</text>
+        <rect x="124" width="55" height="30" rx="4" fill="#0284c7" /><text x="151" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 2</text>
+      </g>
+    </g>
+
+    <!-- Partition 2 -->
+    <g transform="translate(20, 235)">
+      <rect width="320" height="80" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#38bdf8">PARTITION 2</text>
+      <text x="220" y="24" font-family="'Segoe UI', monospace" font-size="10" fill="#94a3b8">Broker 3 (Leader)</text>
+      <g transform="translate(15, 34)">
+        <rect width="55" height="30" rx="4" fill="#334155" /><text x="27" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 0</text>
+        <rect x="62" width="55" height="30" rx="4" fill="#334155" /><text x="89" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 1</text>
+        <rect x="124" width="55" height="30" rx="4" fill="#0284c7" /><text x="151" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 2</text>
+      </g>
+    </g>
+
+    <!-- Partition 3 -->
+    <g transform="translate(20, 325)">
+      <rect width="320" height="80" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#38bdf8">PARTITION 3</text>
+      <text x="220" y="24" font-family="'Segoe UI', monospace" font-size="10" fill="#94a3b8">Broker 1 (Leader)</text>
+      <g transform="translate(15, 34)">
+        <rect width="55" height="30" rx="4" fill="#334155" /><text x="27" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 0</text>
+        <rect x="62" width="55" height="30" rx="4" fill="#0284c7" /><text x="89" y="19" text-anchor="middle" class="badge" fill="#ffffff">Off: 1</text>
+      </g>
+    </g>
+
+    <!-- Note -->
+    <text x="180" y="445" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f59e0b">
+      ⚡ 4 Partitions = Max 4 Active Consumers per Group!
+    </text>
+    <text x="180" y="465" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">
+      Any 5th consumer in the same group stays IDLE.
+    </text>
+  </g>
+
+  <!-- ================= MIDDLE: CONSUMER GROUP 1 (INVENTORY APP) ================= -->
+  <g transform="translate(440, 145)" filter="url(#card-shadow)">
+    <rect width="370" height="510" rx="14" fill="#1e293b" stroke="#38bdf8" stroke-width="1.6" />
+    <rect width="370" height="40" rx="14" fill="#0f172a" />
+    <rect y="28" width="370" height="12" fill="#0f172a" />
+    <text x="185" y="25" text-anchor="middle" class="box-header" fill="#38bdf8">GROUP 1: "inventory-service-group"</text>
+
+    <!-- Consumer C1 -->
+    <g transform="translate(20, 55)">
+      <rect width="330" height="95" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.4" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#34d399">👷 Consumer C1</text>
+      <text x="15" y="44" font-family="'Segoe UI', sans-serif" font-size="11" fill="#e2e8f0">Reads Partitions: <tspan font-weight="700" fill="#38bdf8">P0</tspan> and <tspan font-weight="700" fill="#38bdf8">P1</tspan></text>
+      <text x="15" y="65" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">Pulls messages independently at 1,500 msg/sec</text>
+      <text x="15" y="82" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="600" fill="#6ee7b7">Tracks committed offset: P0=3, P1=2</text>
+    </g>
+
+    <!-- Consumer C2 (CRASH DEMO) -->
+    <g transform="translate(20, 165)">
+      <rect width="330" height="125" rx="8" fill="#0f172a" stroke="#ef4444" stroke-width="1.6" />
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#f87171">💥 Consumer C2 (CRASHED / DOWN!)</text>
+      <text x="15" y="44" font-family="'Segoe UI', sans-serif" font-size="11" fill="#fca5a5">Was reading: <tspan font-weight="700">P2</tspan> and <tspan font-weight="700">P3</tspan></text>
+      
+      <!-- Rebalance Card -->
+      <rect x="12" y="55" width="305" height="58" rx="6" fill="#7f1d1d" />
+      <text x="20" y="74" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">🔄 AUTOMATIC REBALANCE TRIGGERED!</text>
+      <text x="20" y="92" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#fecdd3">Kafka detects missing heartbeat from C2.</text>
+      <text x="20" y="105" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#fecdd3">P2 &amp; P3 are immediately re-assigned to Consumer C1!</text>
+    </g>
+
+    <!-- Rebalance Summary -->
+    <g transform="translate(20, 305)">
+      <rect width="330" height="185" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1" />
+      <text x="165" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#fbbf24">🎯 Group Rebalance Behavior</text>
+      <text x="15" y="50" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• No data loss: C1 resumes from C2's last saved offset!</text>
+      <text x="15" y="72" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• When C2 recovers, rebalance triggers again to redistribute.</text>
+      <text x="15" y="94" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• Coordinator Broker uses heartbeats to detect alive consumers.</text>
+      <text x="15" y="120" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#38bdf8">Rebalance Protocols in Kafka:</text>
+      <text x="15" y="140" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">• Eager Rebalance: Stop-the-world</text>
+      <text x="15" y="158" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">• Cooperative Sticky: Seamless incremental migration</text>
+    </g>
+  </g>
+
+  <!-- ================= RIGHT: CONSUMER GROUP 2 (ANALYTICS APP) ================= -->
+  <g transform="translate(850, 145)" filter="url(#card-shadow)">
+    <rect width="360" height="510" rx="14" fill="#1e293b" stroke="#c084fc" stroke-width="1.6" />
+    <rect width="360" height="40" rx="14" fill="#0f172a" />
+    <rect y="28" width="360" height="12" fill="#0f172a" />
+    <text x="180" y="25" text-anchor="middle" class="box-header" fill="#d8b4fe">GROUP 2: "analytics-realtime-group"</text>
+
+    <!-- 4 Consumers (1-to-1 Mapping) -->
+    <g transform="translate(20, 50)">
+      <rect width="320" height="60" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+      <text x="15" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#d8b4fe">Worker A ──► Reads Partition 0</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">Processes P0 stream independently</text>
+    </g>
+
+    <g transform="translate(20, 120)">
+      <rect width="320" height="60" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+      <text x="15" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#d8b4fe">Worker B ──► Reads Partition 1</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">Processes P1 stream independently</text>
+    </g>
+
+    <g transform="translate(20, 190)">
+      <rect width="320" height="60" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+      <text x="15" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#d8b4fe">Worker C ──► Reads Partition 2</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">Processes P2 stream independently</text>
+    </g>
+
+    <g transform="translate(20, 260)">
+      <rect width="320" height="60" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+      <text x="15" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#d8b4fe">Worker D ──► Reads Partition 3</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">Processes P3 stream independently</text>
+    </g>
+
+    <!-- Multi-Group Isolation Note -->
+    <g transform="translate(20, 335)">
+      <rect width="320" height="155" rx="8" fill="#042f2e" stroke="#10b981" stroke-width="1.2" />
+      <text x="15" y="22" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#34d399">✨ Multi-Group Isolation (Pub/Sub)</text>
+      <text x="15" y="44" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#ccfbf1">• Group 1 and Group 2 read the SAME topic.</text>
+      <text x="15" y="66" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#ccfbf1">• Each group maintains its OWN offset!</text>
+      <text x="15" y="88" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#ccfbf1">• If Group 1 crashes, Group 2 is 100% unaffected.</text>
+      <text x="15" y="110" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#ccfbf1">• Reading does NOT delete the data.</text>
+      <text x="15" y="135" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#6ee7b7">Pure Event-Driven Microservices!</text>
+    </g>
+  </g>
+
+  <!-- ================= BOTTOM MARATHI SUMMARY CALLOUT ================= -->
+  <g transform="translate(40, 680)" filter="url(#card-shadow)">
+    <rect width="1170" height="110" rx="12" fill="#1c1917" stroke="#d97706" stroke-width="1.5" />
+    <text x="20" y="26" class="marathi-title">🇮🇳 थोडक्यात मराठीत स्पष्टीकरण (Consumer Groups व Rebalance चे नियम):</text>
+    <text x="20" y="48" class="marathi-text">
+      १. <tspan font-weight="700" fill="#fde68a">सुवर्ण नियम (Golden Rule)</tspan>: एकाच Consumer Group मध्ये, एका Partition ला <tspan font-weight="700" fill="#ffffff">केवळ एकच Consumer</tspan> वाचू शकतो (डुप्लिकेट काम टाळण्यासाठी).
+    </text>
+    <text x="20" y="70" class="marathi-text">
+      २. <tspan font-weight="700" fill="#fde68a">कन्झ्युमर क्रॅश झाल्यास (Rebalancing)</tspan>: जर Consumer C2 बंद पडला, तर काफ्का त्याचे partitions लगेच दुसऱ्या जिवंत Consumer ला (C1) देतो; काम थांबत नाही.
+    </text>
+    <text x="20" y="92" class="marathi-text">
+      ३. <tspan font-weight="700" fill="#fde68a">स्वतंत्र ग्रुप्स (Multi-Group Isolation)</tspan>: Inventory Group आणि Analytics Group दोघेही एकाच टॉपिकचा डेटा आपापल्या वेगाने स्वतंत्रपणे वाचतात.
+    </text>
+  </g>
+
+</svg>

@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Amazon S3 & CloudFront Master Production Handbook | Node.js Media Architecture Guide
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-primary: #0b0f19;
+        --bg-secondary: #111827;
+        --bg-card: #1f2937;
+        --bg-code: #030712;
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+        --accent-aws: #ff9900;
+        --accent-cyan: #00f0ff;
+        --accent-blue: #3b82f6;
+        --accent-green: #10b981;
+        --accent-red: #ef4444;
+        --accent-purple: #8b5cf6;
+        --border-color: #374151;
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      }
+
+      .light-theme {
+        --bg-primary: #f8fafc;
+        --bg-secondary: #ffffff;
+        --bg-card: #f1f5f9;
+        --bg-code: #0f172a;
+        --text-main: #0f172a;
+        --text-muted: #475569;
+        --accent-aws: #d97706;
+        --accent-cyan: #0284c7;
+        --accent-blue: #2563eb;
+        --accent-green: #059669;
+        --accent-red: #dc2626;
+        --accent-purple: #7c3aed;
+        --border-color: #cbd5e1;
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-main);
+        line-height: 1.6;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: rgba(17, 24, 39, 0.9);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 14px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .light-theme header {
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+
+      .logo-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .badge-aws {
+        background: linear-gradient(135deg, #ff9900, #d97706);
+        color: #111827;
+        font-weight: 800;
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        letter-spacing: 0.5px;
+      }
+      .logo-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .btn {
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-main);
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+      .btn:hover {
+        border-color: var(--accent-aws);
+        color: var(--accent-aws);
+      }
+      .btn-primary {
+        background: #2563eb;
+        color: #fff;
+        border-color: #2563eb;
+      }
+      .btn-primary:hover {
+        background: #1d4ed8;
+        color: #fff;
+      }
+
+      .layout-container {
+        display: flex;
+        min-height: calc(100vh - 65px);
+      }
+
+      /* Sticky Sidebar Navigation */
+      aside {
+        width: 320px;
+        flex-shrink: 0;
+        background-color: var(--bg-secondary);
+        border-right: 1px solid var(--border-color);
+        padding: 24px 16px;
+        position: sticky;
+        top: 65px;
+        height: calc(100vh - 65px);
+        overflow-y: auto;
+      }
+      .sidebar-title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+        padding-left: 8px;
+      }
+      .nav-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .nav-list a {
+        display: block;
+        padding: 7px 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: all 0.2s ease;
+        line-height: 1.4;
+      }
+      .nav-list a:hover {
+        color: var(--text-main);
+        background: var(--bg-card);
+      }
+      .nav-list a.active {
+        color: #38bdf8;
+        background: rgba(56, 189, 248, 0.12);
+        font-weight: 600;
+        border-left: 3px solid #38bdf8;
+      }
+
+      /* Main Content */
+      main {
+        flex: 1;
+        padding: 40px 48px;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow-x: hidden;
+      }
+
+      section {
+        margin-bottom: 56px;
+        scroll-margin-top: 85px;
+      }
+
+      h1.hero-title {
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 50%, #ff9900 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .light-theme h1.hero-title {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #d97706 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-meta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .meta-tag {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        padding: 4px 10px;
+        border-radius: 20px;
+      }
+
+      .section-heading {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 18px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-main);
+      }
+      .section-heading .num {
+        color: var(--accent-aws);
+      }
+
+      .sub-heading {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 24px 0 12px;
+        color: var(--text-main);
+      }
+
+      p {
+        margin-bottom: 14px;
+        font-size: 14.5px;
+        color: var(--text-main);
+        line-height: 1.7;
+      }
+
+      /* Vector Diagram Card */
+      .diagram-card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 16px;
+        margin: 24px 0;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+      }
+      .diagram-img {
+        width: 100%;
+        max-width: 1060px;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
+      }
+      .diagram-caption {
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+
+      /* Cards and Grids */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 18px;
+        transition:
+          transform 0.2s,
+          border-color 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent-aws);
+      }
+      .card-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Marathi Language Card */
+      .marathi-card {
+        background: linear-gradient(135deg, rgba(255, 153, 0, 0.06), rgba(59, 130, 246, 0.04));
+        border: 1px solid rgba(255, 153, 0, 0.25);
+        border-left: 4px solid var(--accent-aws);
+        border-radius: 8px;
+        padding: 16px 20px;
+        margin: 20px 0;
+        font-family: 'Noto Sans Devanagari', sans-serif;
+      }
+      .marathi-card-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--accent-aws);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .marathi-text {
+        font-size: 14px;
+        color: var(--text-main);
+        line-height: 1.8;
+      }
+
+      /* Code Blocks */
+      .code-container {
+        position: relative;
+        margin: 18px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-code);
+      }
+      .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 14px;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid var(--border-color);
+        font-size: 11px;
+        color: var(--text-muted);
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .btn-copy {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-copy:hover {
+        color: #fff;
+        border-color: #38bdf8;
+      }
+      pre {
+        padding: 14px 16px;
+        overflow-x: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: #f8fafc;
+      }
+      code {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      p code,
+      li code,
+      td code {
+        background: var(--bg-card);
+        color: #38bdf8;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 12px;
+        border: 1px solid var(--border-color);
+      }
+
+      /* Data Tables */
+      .table-container {
+        overflow-x: auto;
+        margin: 20px 0;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      th {
+        background: var(--bg-secondary);
+        color: var(--text-main);
+        font-weight: 700;
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      td {
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-main);
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.015);
+      }
+
+      /* Accordion for Interview Questions */
+      .qa-search-bar {
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-secondary);
+        color: var(--text-main);
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+      .qa-box {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        background: var(--bg-secondary);
+        transition: border-color 0.2s;
+      }
+      .qa-box.open {
+        border-color: var(--accent-aws);
+      }
+      .qa-header {
+        padding: 14px 18px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-secondary);
+        user-select: none;
+      }
+      .qa-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-main);
+      }
+      .qa-title .q-num {
+        color: var(--accent-aws);
+        margin-right: 8px;
+      }
+      .qa-icon {
+        font-size: 12px;
+        color: var(--text-muted);
+        transition: transform 0.2s;
+      }
+      .qa-box.open .qa-icon {
+        transform: rotate(180deg);
+      }
+      .qa-body {
+        padding: 16px 18px;
+        display: none;
+        border-top: 1px solid var(--border-color);
+        background: rgba(0, 0, 0, 0.15);
+        font-size: 13.5px;
+      }
+      .qa-box.open .qa-body {
+        display: block;
+      }
+
+      @media (max-width: 900px) {
+        .layout-container {
+          flex-direction: column;
+        }
+        aside {
+          width: 100%;
+          height: auto;
+          position: static;
+        }
+        main {
+          padding: 24px 16px;
+        }
+      }
+
+      @media print {
+        header,
+        aside,
+        .btn,
+        .qa-search-bar {
+          display: none !important;
+        }
+        main {
+          padding: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .diagram-card {
+          page-break-inside: avoid;
+        }
+        .qa-body {
+          display: block !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo-area">
+        <span class="badge-aws">AWS MASTER GUIDE</span>
+        <div class="logo-title">Amazon S3 &amp; CloudFront Production Handbook</div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn" onclick="toggleAllQA()">Expand All Q&amp;As</button>
+        <button class="btn" onclick="toggleTheme()">🌓 Light / Dark</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save PDF</button>
+      </div>
+    </header>
+
+    <div class="layout-container">
+      <!-- Sidebar Navigation -->
+      <aside>
+        <div class="sidebar-title">Handbook Navigation</div>
+        <ul class="nav-list">
+          <li><a href="#section-1" class="active">01. What is Amazon S3?</a></li>
+          <li><a href="#section-2">02. Problem with Server Disks</a></li>
+          <li><a href="#section-3">03. S3 Terminology &amp; Mental Model</a></li>
+          <li><a href="#section-4">04. S3 Bucket Mechanics &amp; Rules</a></li>
+          <li><a href="#section-5">05. Object Anatomy</a></li>
+          <li><a href="#section-6">06. S3 Key Design &amp; Prefixes</a></li>
+          <li><a href="#section-7">07. S3 Storage Classes</a></li>
+          <li><a href="#section-8">08. Security &amp; The 4 Pillars</a></li>
+          <li><a href="#section-9">09. Presigned URLs (Upload/Download)</a></li>
+          <li><a href="#section-10">10. S3 Multipart Uploads (&gt;100MB)</a></li>
+          <li><a href="#section-11">11. AWS SDK v3 in Node.js / Fastify</a></li>
+          <li><a href="#section-12">12. Database + S3 Architecture</a></li>
+          <li><a href="#section-13">13. Asynchronous Pipeline: Kafka/SQS</a></li>
+          <li><a href="#section-14">14. CloudFront CDN &amp; OAC Security</a></li>
+          <li><a href="#section-15">15. Senior Interview Questions</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main>
+        <!-- Hero Header -->
+        <section id="hero">
+          <h1 class="hero-title">Amazon S3 &amp; CloudFront Complete Production Handbook</h1>
+          <div class="hero-meta">
+            <span class="meta-tag">⚡ Node.js / Fastify Microservices</span>
+            <span class="meta-tag">🔒 AWS SDK v3 Modular Client</span>
+            <span class="meta-tag">🌐 Origin Access Control (OAC)</span>
+            <span class="meta-tag">🎬 FFmpeg Video Streaming Pipeline</span>
+            <span class="meta-tag">🌐 मराठी स्पष्टीकरण (Marathi Translation)</span>
+          </div>
+          <p>
+            Amazon S3 (Simple Storage Service) is the foundational object-storage backbone of modern
+            cloud architecture. This production handbook covers end-to-end design patterns for
+            Fastify, microservices, multi-gigabyte video uploads via Presigned URLs, multipart
+            streaming, SQS/Kafka media queues, CloudFront CDN edge distribution, and 15+ senior
+            interview technical deep-dives.
+          </p>
+        </section>
+
+        <!-- Section 1 -->
+        <section id="section-1">
+          <h2 class="section-heading"><span class="num">01.</span> What is Amazon S3?</h2>
+          <p>
+            Amazon S3 is a highly scalable, distributed object storage service. Unlike local hard
+            drives or virtual block storage, S3 stores files as <strong>objects</strong> identified
+            by unique <strong>keys</strong> inside <strong>buckets</strong>.
+          </p>
+
+          <!-- Vector Diagram 1 -->
+          <figure class="diagram-card">
+            <img
+              src="diagrams/1_s3_storage_architecture.svg"
+              class="diagram-img"
+              alt="Amazon S3 Object Storage Architecture"
+            />
+            <figcaption class="diagram-caption">
+              Figure 1.1: Amazon S3 Flat Key-Value Namespace, Buckets, Logical Prefixes and Object
+              Anatomy.
+            </figcaption>
+          </figure>
+
+          <div class="marathi-card">
+            <div class="marathi-card-title">🌐 हिंदी स्पष्टीकरण — Amazon S3 क्या है?</div>
+            <p class="marathi-text">
+              Amazon S3 एक object-storage सेवा है, जिसमें data को bucket और key से रखा और प्राप्त
+              किया जाता है। S3 Standard उच्च durability के लिए बनाया गया है, लेकिन durability का
+              अर्थ zero risk, availability या backup नहीं है। Versioning और recovery controls अलग से
+              configure करें।
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="section-2">
+          <h2 class="section-heading">
+            <span class="num">02.</span> Why Do We Need S3? The Problem with Server Disks
+          </h2>
+          <p>
+            Saving user uploads directly to the local server disk via
+            <code>fs.writeFile()</code> creates three critical production bottlenecks:
+          </p>
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-title">💥 1. Server Disk Exhaustion</div>
+              <p>
+                1,000 users uploading 500 MB videos will fill a 50 GB server SSD in minutes,
+                crashing the operating system and database.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title">🔀 2. Multi-Server State Split</div>
+              <p>
+                Behind a Load Balancer, a file uploaded to Server A does not exist on Server B,
+                causing random 404 Not Found errors on subsequent requests.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title">📦 3. Container Destruction</div>
+              <p>
+                Docker containers on ECS and Kubernetes are ephemeral; restarting or redeploying
+                destroys all local files permanently.
+              </p>
+            </div>
+          </div>
+
+          <div class="marathi-card">
+            <div class="marathi-card-title">
+              🌐 मराठी स्पष्टीकरण — सर्व्हरवर फाईल्स का सेव्ह करू नयेत?
+            </div>
+            <p class="marathi-text">
+              जर युझरने सर्व्हरच्या हार्ड डिस्कवर थेट ५०० MB चा व्हिडिओ सेव्ह केला, तर काही वेळात
+              सर्व्हरची मेमरी भरेल आणि ॲप क्रॅश होईल. तसेच लोड बॅलन्सरवर अनेक सर्व्हर्स असल्यास एका
+              सर्व्हरवरील फाईल दुसऱ्याला दिसत नाही. म्हणून सर्व सर्व्हर्स **S3** या एकाच मध्यवर्ती
+              क्लाऊड स्टोरेजला जोडले जातात.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="section-3">
+          <h2 class="section-heading">
+            <span class="num">03.</span> S3 Terminology &amp; Mental Model
+          </h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Term</th>
+                  <th>Architectural Definition</th>
+                  <th>मराठीत सोपी व्याख्या</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Bucket</strong></td>
+                  <td>Globally unique top-level container for objects in a selected AWS region.</td>
+                  <td>सर्व फाईल्स साठवून ठेवणारी मुख्य बादली (Container).</td>
+                </tr>
+                <tr>
+                  <td><strong>Object</strong></td>
+                  <td>
+                    The data entity consisting of raw bytes, key, metadata, tags, and version.
+                  </td>
+                  <td>S3 मध्ये साठवलेली मूळ फाईल (उदा. फोटो, व्हिडिओ).</td>
+                </tr>
+                <tr>
+                  <td><strong>Key</strong></td>
+                  <td>
+                    Full string identifier uniquely addressing the object (e.g.
+                    <code>videos/101/final.mp4</code>).
+                  </td>
+                  <td>फाईलचा संपूर्ण युनिक मार्ग व नाव.</td>
+                </tr>
+                <tr>
+                  <td><strong>Prefix</strong></td>
+                  <td>
+                    Logical grouping of keys separated by <code>/</code> delimiters acting as
+                    virtual folders.
+                  </td>
+                  <td>व्हर्च्युअल फोल्डरचे नाव.</td>
+                </tr>
+                <tr>
+                  <td><strong>Presigned URL</strong></td>
+                  <td>
+                    Cryptographically signed token granting temporary (e.g., 5-min) read/write
+                    access.
+                  </td>
+                  <td>ठराविक वेळेसाठी तयार केलेली तात्पुरती सुरक्षित लिंक.</td>
+                </tr>
+                <tr>
+                  <td><strong>Multipart Upload</strong></td>
+                  <td>
+                    Uploads large files in parts; current documented part sizes are 5 MiB–5 GiB
+                    (final part may be smaller), up to 10,000 parts.
+                  </td>
+                  <td>मोठ्या फाईल्स तुकड्या-तुकड्यांत जलद आणि सुरक्षितपणे पाठवणे.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Section 8: Security -->
+        <section id="section-8">
+          <h2 class="section-heading">
+            <span class="num">08.</span> S3 Security Architecture &amp; The 4 Pillars
+          </h2>
+          <p>Production enterprise security requires a defense-in-depth approach:</p>
+
+          <!-- Vector Diagram 6 -->
+          <figure class="diagram-card">
+            <img
+              src="diagrams/6_s3_security_iam_bucket_policy.svg"
+              class="diagram-img"
+              alt="S3 Security, IAM, Bucket Policies and Encryption"
+            />
+            <figcaption class="diagram-caption">
+              Figure 8.1: Defense-in-Depth S3 Security: Block Public Access, IAM Roles, Bucket
+              Policies, and KMS Encryption.
+            </figcaption>
+          </figure>
+
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-title">🔒 Block Public Access</div>
+              <p>
+                Master account-level and bucket-level kill-switch ensuring no public ACL or policy
+                can expose private data.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title">🛡️ IAM Roles</div>
+              <p>
+                Least privilege access granted to EC2/ECS tasks without hardcoding static AWS Access
+                Keys in source code.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title">📜 Bucket Policies</div>
+              <p>
+                Resource policies enforcing HTTPS TLS 1.2+ encryption in transit (<code
+                  >aws:SecureTransport: false</code
+                >
+                DENY).
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title">🔑 KMS Encryption</div>
+              <p>
+                Server-side encryption at rest using AES-256 (SSE-S3) or Customer Managed Keys
+                (SSE-KMS) with CloudTrail audit logs.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 9: Presigned URLs -->
+        <section id="section-9">
+          <h2 class="section-heading">
+            <span class="num">09.</span> Presigned URLs (Upload &amp; Download Direct to S3)
+          </h2>
+          <p>
+            Never route multi-megabyte user file uploads through your Fastify API server. Generate
+            an ephemeral <strong>Presigned PUT URL</strong>:
+          </p>
+          <p>
+            A presigned URL is a bearer credential: anyone who obtains it can use it until expiry,
+            within the signing principal's permissions. A presigned PUT can overwrite its target
+            key. Use authorized, unpredictable keys and independently validate content and size.
+          </p>
+
+          <!-- Vector Diagram 2 -->
+          <figure class="diagram-card">
+            <img
+              src="diagrams/2_presigned_url_upload_flow.svg"
+              class="diagram-img"
+              alt="Direct Client-to-S3 Upload with Presigned URLs"
+            />
+            <figcaption class="diagram-caption">
+              Figure 9.1: High-Performance Architecture: Fastify authorizes upload (35ms), client
+              uploads 500 MB direct to S3.
+            </figcaption>
+          </figure>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>services/s3Presign.js (Node.js SDK v3)</span>
+              <button class="btn-copy" onclick="copyCode(this)">Copy Code</button>
+            </div>
+            <pre><code>import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+const s3Client = new S3Client({ region: "ap-south-1" });
+
+export async function generateUploadUrl(key, contentType, expiresInSeconds = 300) {
+  const command = new PutObjectCommand({
+    Bucket: process.env.AWS_S3_BUCKET,
+    Key: key,
+    ContentType: contentType
+  });
+
+  // Client has 5 minutes to complete the upload
+  const presignedUrl = await getSignedUrl(s3Client, command, { expiresIn: expiresInSeconds });
+  return { presignedUrl, key };
+}</code></pre>
+          </div>
+
+          <div class="marathi-card">
+            <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण — Presigned URL चा फायदा</div>
+            <p class="marathi-text">
+              जर ५०० MB चा व्हिडिओ थेट Node.js सर्व्हरवर पाठवला, तर सर्व्हरची रॅम आणि नेटवर्क संपून
+              जाते. Presigned URL वापरल्याने Fastify फक्त ५ मिनिटांसाठी वैध असलेली एक तात्पुरती
+              सुरक्षित लिंक बनवून युझरला देते. युझरचा फोन किंवा ब्राउझर थेट AWS S3 वर फाईल अपलोड
+              करतो, ज्यामुळे Node.js सर्व्हर एका सेकंदात हजारो युझर्स हाताळू शकतो!
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 10: Multipart Uploads -->
+        <section id="section-10">
+          <h2 class="section-heading"><span class="num">10.</span> S3 Multipart Uploads</h2>
+          <p>
+            For files exceeding 100 MB (such as 4K video footage or large database dumps), standard
+            single-stream PUT requests risk timeout failure. Multipart upload breaks the file into
+            parallel chunks:
+          </p>
+
+          <!-- Vector Diagram 3 -->
+          <figure class="diagram-card">
+            <img
+              src="diagrams/3_multipart_upload_workflow.svg"
+              class="diagram-img"
+              alt="S3 Multipart Upload Architecture"
+            />
+            <figcaption class="diagram-caption">
+              Figure 10.1: Parallel Chunk Upload, Independent Part Retries, and Assembly via
+              CompleteMultipartUpload.
+            </figcaption>
+          </figure>
+        </section>
+
+        <!-- Section 13: Asynchronous Pipeline -->
+        <section id="section-13">
+          <h2 class="section-heading">
+            <span class="num">13.</span> Asynchronous Media Pipeline: S3 + SQS / Kafka + FFmpeg
+          </h2>
+          <p>
+            When a user uploads a raw video, transcoding it to HLS adaptive streaming and generating
+            thumbnails is computationally heavy. Decouple it asynchronously:
+          </p>
+          <p>
+            S3 event notifications can be delivered more than once and are not guaranteed to arrive
+            in order. Make workers idempotent and use object version IDs or event sequencers where
+            appropriate.
+          </p>
+
+          <!-- Vector Diagram 5 -->
+          <figure class="diagram-card">
+            <img
+              src="diagrams/5_s3_event_sqs_kafka_processing.svg"
+              class="diagram-img"
+              alt="Asynchronous Video Processing with S3, SQS, Kafka, and FFmpeg"
+            />
+            <figcaption class="diagram-caption">
+              Figure 13.1: Event-Driven Pipeline: S3 ObjectCreated Notifications &rarr; SQS/Kafka
+              &rarr; FFmpeg Transcoding Worker Fleet.
+            </figcaption>
+          </figure>
+        </section>
+
+        <!-- Section 14: CloudFront CDN -->
+        <section id="section-14">
+          <h2 class="section-heading">
+            <span class="num">14.</span> Amazon CloudFront CDN &amp; Origin Access Control (OAC)
+          </h2>
+          <p>
+            CloudFront can serve cached media close to viewers. Actual latency depends on network
+            route, cache state, and origin behavior; compare the full request-path costs:
+          </p>
+
+          <!-- Vector Diagram 4 -->
+          <figure class="diagram-card">
+            <img
+              src="diagrams/4_s3_cloudfront_cdn_architecture.svg"
+              class="diagram-img"
+              alt="Amazon S3 + CloudFront CDN Architecture with OAC"
+            />
+            <figcaption class="diagram-caption">
+              Figure 14.1: CloudFront Edge Caching with Private S3 Origin and Origin Access Control
+              (OAC).
+            </figcaption>
+          </figure>
+
+          <div class="card-grid">
+            <div class="card">
+              <div class="card-title">⚡ Viewer-near Caching</div>
+              <p>
+                CloudFront serves cached videos and images from RAM/NVMe at local edge PoPs,
+                eliminating round-trips to the origin S3 region.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title">💰 Zero S3 Egress Cost</div>
+              <p>
+                S3-to-CloudFront transfer is generally not charged as S3 internet egress; S3
+                requests, CloudFront delivery, and related feature charges still apply. Check
+                current regional pricing.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-title">🛡️ OAC SigV4 Security</div>
+              <p>
+                S3 blocks all direct public requests (403 Forbidden). Only requests
+                cryptographically signed by your CloudFront distribution are accepted.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 15: Interview Questions -->
+        <section id="section-15">
+          <h2 class="section-heading">
+            <span class="num">15.</span> Senior Interview Questions &amp; Architectural Answers
+          </h2>
+          <input
+            type="text"
+            class="qa-search-bar"
+            placeholder="🔍 Search interview questions (e.g., Presigned URL, OAC, Multipart, Durability)..."
+            onkeyup="filterQA(this.value)"
+          />
+
+          <!-- Q1 -->
+          <div class="qa-box open">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="q-num">Q01</span> What is Amazon S3 and how is it fundamentally
+                different from a traditional filesystem?
+              </div>
+              <div class="qa-icon">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>English Answer:</strong> Amazon S3 is an object store, not a hierarchical
+                file system. Standard filesystems use directory trees, inode locks, and POSIX file
+                handles. S3 is a flat key-value store where the "folder path" is simply an arbitrary
+                UTF-8 string prefix. It scales infinitely to petabytes and is accessed exclusively
+                via HTTP REST APIs.
+              </p>
+              <div class="marathi-card">
+                <div class="marathi-card-title">🌐 हिंदी स्पष्टीकरण</div>
+                <p class="marathi-text">
+                  S3 हे कॉम्प्युटरवरील नेहमीच्या फोल्डर सिस्टीमसारखे नसते. यात खरे फोल्डर्स नसून
+                  प्रत्येक फाईल एका युनिक की (Key) ने ओळखली जाते. हे स्टोरेज कधीही संपत नाही आणि
+                  इंटरनेटवरून थेट REST API द्वारे ॲक्सेस केले जाते.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="qa-box">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="q-num">Q02</span> Why should multi-megabyte file uploads never pass
+                through Fastify or Node.js?
+              </div>
+              <div class="qa-icon">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>English Answer:</strong> Node.js operates on a single-threaded event loop.
+                Proxying large 500 MB video streams saturates network sockets, consumes heap memory
+                buffers, and blocks event loop tick cycles. By generating an S3 Presigned URL,
+                Fastify only handles authentication (35ms), and the client streams raw payload bytes
+                directly into Amazon S3.
+              </p>
+              <div class="marathi-card">
+                <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+                <p class="marathi-text">
+                  मोठ्या फाइल्स सर्व्हरवरून पाठवल्यास Node.js ची रॅम आणि बँडविड्थ संपून सर्व्हर स्लो
+                  होतो. Presigned URL वापरल्याने युझर थेट S3 वर फाईल अपलोड करतो, ज्यामुळे API मोकळा
+                  राहतो आणि सेकंदात हजारो युझर्सना सेवा देऊ शकतो.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="qa-box">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="q-num">Q03</span> How does S3 achieve 99.999999999% (11 9s) durability?
+              </div>
+              <div class="qa-icon">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>English Answer:</strong> S3 Standard is designed for 99.999999999%
+                durability through redundant storage across multiple Availability Zones. Durability
+                differs from availability and backup; use versioning, replication, and recovery
+                controls for deletion or application-level corruption.
+              </p>
+              <div class="marathi-card">
+                <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+                <p class="marathi-text">
+                  S3 Standard कई Availability Zones में redundant storage के साथ उच्च durability के
+                  लिए बनाया गया है। इसे fixed replica count, availability या backup guarantee न
+                  कहें; accidental deletion और application corruption के लिए अलग recovery controls
+                  रखें।
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="qa-box">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="q-num">Q04</span> Explain the S3 Multipart Upload workflow and why it
+                is critical for fault tolerance.
+              </div>
+              <div class="qa-icon">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>English Answer:</strong> Multipart upload sends parts independently and
+                supports parallel transfer. Current documented part sizes are 5 MiB–5 GiB, with up
+                to 10,000 parts and no minimum for the final part. Failed parts can be retried;
+                configure lifecycle cleanup for abandoned uploads.
+              </p>
+              <div class="marathi-card">
+                <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+                <p class="marathi-text">
+                  ५ GB ची फाईल १००-१०० MB चे तुकडे करून पाठवली जाते. इंटरनेट बंद पडल्यास फक्त फेल
+                  झालेला तुकडाच पुन्हा पाठवला जातो, संपूर्ण ५ GB फाईल पुन्हा पाठवावी लागत नाही.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="qa-box">
+            <div class="qa-header" onclick="toggleQA(this)">
+              <div class="qa-title">
+                <span class="q-num">Q05</span> What is Origin Access Control (OAC) in Amazon
+                CloudFront?
+              </div>
+              <div class="qa-icon">&#9660;</div>
+            </div>
+            <div class="qa-body">
+              <p>
+                <strong>English Answer:</strong> OAC is AWS's modern SigV4 security mechanism
+                replacing legacy OAI. It ensures the S3 bucket remains 100% private with Block
+                Public Access enabled. CloudFront edge servers cryptographically sign origin
+                requests, and the S3 bucket policy denies all traffic except requests originating
+                from your specific CloudFront distribution ARN.
+              </p>
+              <div class="marathi-card">
+                <div class="marathi-card-title">🌐 मराठी स्पष्टीकरण</div>
+                <p class="marathi-text">
+                  OAC मुळे तुमचा S3 बकेट पूर्णपणे प्रायव्हेट राहतो. कोणीही थेट S3 लिंकवरून फाईल
+                  डाऊनलोड करू शकत नाही; फक्त तुमच्या अधिकृत CloudFront CDN द्वारेच फाईल पाहिली जाऊ
+                  शकते.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="hindi-interview-perspective">
+          <h2 class="section-heading">हिंदी Interview Perspective</h2>
+          <ul>
+            <li>
+              <strong>Durability बनाम availability:</strong> S3 durability को backup न कहें;
+              accidental deletion और application corruption के लिए versioning तथा recovery plan
+              समझाएँ।
+            </li>
+            <li>
+              <strong>Presigned URL:</strong> इसे expiry और signing principal की permissions वाला
+              bearer credential मानें। Target-key overwrite, file validation और multipart cleanup का
+              ज़िक्र करें।
+            </li>
+            <li>
+              <strong>Object keys:</strong> ये opaque strings हैं, filesystem paths नहीं। Generated
+              keys collision और unauthorized overwrite घटाते हैं।
+            </li>
+            <li>
+              <strong>Performance:</strong> baseline request-rate guidance को hard limit न बताएं;
+              gradual scaling और `503 Slow Down` handling जोड़ें।
+            </li>
+            <li>
+              <strong>CloudFront costs:</strong> S3 transfer, S3 requests और CloudFront delivery
+              charges को अलग-अलग समझाएँ।
+            </li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      // Theme Toggle
+      function toggleTheme() {
+        document.body.classList.toggle('light-theme');
+        localStorage.setItem(
+          's3_theme',
+          document.body.classList.contains('light-theme') ? 'light' : 'dark'
+        );
+      }
+      if (localStorage.getItem('s3_theme') === 'light') {
+        document.body.classList.add('light-theme');
+      }
+
+      // QA Accordion Toggle
+      function toggleQA(headerEl) {
+        const box = headerEl.parentElement;
+        box.classList.toggle('open');
+      }
+
+      function toggleAllQA() {
+        const boxes = document.querySelectorAll('.qa-box');
+        const shouldOpen = !boxes[0].classList.contains('open');
+        boxes.forEach((b) => {
+          if (shouldOpen) b.classList.add('open');
+          else b.classList.remove('open');
+        });
+      }
+
+      // Filter Interview Questions
+      function filterQA(query) {
+        const lower = query.toLowerCase();
+        document.querySelectorAll('.qa-box').forEach((box) => {
+          const text = box.innerText.toLowerCase();
+          box.style.display = text.includes(lower) ? 'block' : 'none';
+        });
+      }
+
+      // Copy Code Button
+      function copyCode(btn) {
+        const pre = btn.parentElement.nextElementSibling;
+        navigator.clipboard.writeText(pre.innerText).then(() => {
+          const old = btn.innerText;
+          btn.innerText = 'Copied! ✓';
+          setTimeout(() => {
+            btn.innerText = old;
+          }, 2000);
+        });
+      }
+
+      // Active Sidebar ScrollSpy
+      const sections = document.querySelectorAll('main section');
+      const navLinks = document.querySelectorAll('aside .nav-list a');
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach((sec) => {
+          const top = sec.offsetTop - 120;
+          if (window.scrollY >= top) current = sec.getAttribute('id');
+        });
+        navLinks.forEach((link) => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,290 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 820" width="100%" height="100%">
+  <defs>
+    <style>
+      .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 26px; font-weight: 800; fill: #ffffff; letter-spacing: 1.2px; }
+      .main-subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .box-header { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; }
+      .step-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #ffffff; }
+      .badge { font-family: 'Segoe UI', system-ui, monospace; font-size: 12px; font-weight: 700; }
+      .comment-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; }
+      .comment-body { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #cbd5e1; line-height: 1.4; }
+      .marathi-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #fbbf24; }
+      .marathi-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; fill: #fef3c7; }
+    </style>
+
+    <!-- Filters -->
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow-danger" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ef4444" flood-opacity="0.65" />
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-yellow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f59e0b" />
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#ef4444" />
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#94a3b8" />
+    </marker>
+    <marker id="arr-ret" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 8 0 L 0 4 L 8 8 Z" fill="#f43f5e" />
+    </marker>
+
+    <!-- Background Gradients -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="srv-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1250" height="820" rx="16" fill="url(#bg)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- ================= TOP HEADER & DEFINITION BANNER ================= -->
+  <g transform="translate(40, 25)">
+    <text x="585" y="24" text-anchor="middle" class="main-title">SYNCHRONOUS SYSTEM ARCHITECTURE (BEFORE KAFKA)</text>
+    <text x="585" y="46" text-anchor="middle" class="main-subtitle">Case Study: Amazon Order Processing • Tight Coupling &amp; Cascading Bottlenecks</text>
+
+    <!-- Definition Card -->
+    <rect x="60" y="60" width="1050" height="42" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="80" y="86" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#38bdf8">📌 DEFINITION:</text>
+    <text x="175" y="86" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e2e8f0">
+      A <tspan font-weight="700" fill="#ffffff">Synchronous System</tspan> executes tasks sequentially in a single thread. The client request is <tspan fill="#f87171" font-weight="700">BLOCKED</tspan> and must wait until every single downstream service finishes before receiving a response.
+    </text>
+  </g>
+
+  <!-- ================= LEFT COLUMN: CLIENT USER ================= -->
+  <g transform="translate(35, 160)">
+    <!-- User Card -->
+    <g filter="url(#card-shadow)">
+      <rect width="130" height="150" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+      <circle cx="65" cy="50" r="20" fill="#38bdf8" />
+      <path d="M 38 95 C 38 75 50 70 65 70 C 80 70 92 75 92 95" fill="#38bdf8" />
+      <text x="65" y="122" text-anchor="middle" class="box-header">👤 User Client</text>
+      <text x="65" y="138" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">(Browser / Mobile App)</text>
+    </g>
+
+    <!-- Side Note: User Experience -->
+    <g transform="translate(0, 175)">
+      <rect width="130" height="150" rx="10" fill="#0f172a" stroke="#f43f5e" stroke-width="1.2" />
+      <text x="65" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#fb7185">⚠️ User Experience</text>
+      <text x="12" y="50" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">
+        • Screen is frozen
+      </text>
+      <text x="12" y="70" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">
+        • Spinner keeps rotating
+      </text>
+      <text x="12" y="90" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">
+        • High risk of drop-off
+      </text>
+      <text x="12" y="115" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#ef4444">
+        Wait: ~1.2 Seconds!
+      </text>
+      <text x="12" y="132" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">
+        (E-com standard: &lt;100ms)
+      </text>
+    </g>
+  </g>
+
+  <!-- Request Arrow (User -> Order Service) -->
+  <path d="M 165 210 L 265 210" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-blue)" />
+  <rect x="175" y="185" width="80" height="20" rx="4" fill="#0369a1" />
+  <text x="215" y="199" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#ffffff">HTTP POST</text>
+  <text x="215" y="226" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8">/placeOrder</text>
+
+  <!-- Delayed Return Arrow (Order Service -> User) -->
+  <path d="M 270 660 L 100 660 L 100 315" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="6,4" fill="none" marker-start="url(#arr-ret)" />
+  <rect x="120" y="635" width="135" height="22" rx="4" fill="#881337" stroke="#e11d48" stroke-width="1" />
+  <text x="187" y="650" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#ffffff">HTTP 200 OK (Delayed)</text>
+  <text x="187" y="675" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#fca5a5">Total Time: ~1,200 ms</text>
+
+  <!-- ================= MIDDLE COLUMN: ORDER SERVICE (SERVER THREAD) ================= -->
+  <g transform="translate(270, 150)" filter="url(#card-shadow)">
+    <!-- Main Box -->
+    <rect width="460" height="530" rx="14" fill="url(#srv-grad)" stroke="#38bdf8" stroke-width="1.8" />
+
+    <!-- Window Bar -->
+    <rect width="460" height="42" rx="14" fill="#0f172a" />
+    <rect y="30" width="460" height="12" fill="#0f172a" />
+    <circle cx="22" cy="21" r="5" fill="#ef4444" />
+    <circle cx="37" cy="21" r="5" fill="#f59e0b" />
+    <circle cx="52" cy="21" r="5" fill="#10b981" />
+    <text x="230" y="26" text-anchor="middle" class="box-header" fill="#38bdf8">ORDER SERVICE (Single Worker Thread)</text>
+
+    <!-- Bottleneck Highlight Area (Steps 3-4) -->
+    <rect x="70" y="172" width="375" height="128" rx="8" fill="#ef4444" fill-opacity="0.08" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,4" />
+    <text x="435" y="190" text-anchor="end" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#ef4444">⚠️ Critical Bottleneck Zone</text>
+
+    <!-- Step 1: DB Save -->
+    <g transform="translate(80, 56)">
+      <rect width="350" height="46" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+      <text x="15" y="28" class="step-text">1. DB Save (Orders Table)</text>
+      <rect x="265" y="12" width="70" height="22" rx="5" fill="#334155" />
+      <text x="300" y="27" text-anchor="middle" class="badge" fill="#38bdf8">50 ms</text>
+    </g>
+    <line x1="255" y1="102" x2="255" y2="114" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-yellow)" />
+
+    <!-- Step 2: Inventory -->
+    <g transform="translate(80, 116)">
+      <rect width="350" height="46" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+      <text x="15" y="28" class="step-text">2. Update Inventory (API Call)</text>
+      <rect x="265" y="12" width="70" height="22" rx="5" fill="#334155" />
+      <text x="300" y="27" text-anchor="middle" class="badge" fill="#38bdf8">100 ms</text>
+    </g>
+    <line x1="255" y1="162" x2="255" y2="174" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-yellow)" />
+
+    <!-- Step 3: Email Service -->
+    <g transform="translate(80, 176)">
+      <rect width="350" height="46" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="1.6" />
+      <text x="15" y="28" class="step-text">3. Email Confirmation (Network)</text>
+      <rect x="250" y="12" width="85" height="22" rx="5" fill="#dc2626" />
+      <text x="292" y="27" text-anchor="middle" class="badge" fill="#ffffff">⚠️ 300 ms</text>
+    </g>
+    <line x1="255" y1="222" x2="255" y2="234" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-yellow)" />
+
+    <!-- Step 4: SMS Service -->
+    <g transform="translate(80, 236)">
+      <rect width="350" height="46" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="1.6" />
+      <text x="15" y="28" class="step-text">4. SMS Gateway (External Telco)</text>
+      <rect x="250" y="12" width="85" height="22" rx="5" fill="#dc2626" />
+      <text x="292" y="27" text-anchor="middle" class="badge" fill="#ffffff">⚠️ 200 ms</text>
+    </g>
+    <line x1="255" y1="282" x2="255" y2="294" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-yellow)" />
+
+    <!-- Step 5: Warehouse -->
+    <g transform="translate(80, 296)">
+      <rect width="350" height="46" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+      <text x="15" y="28" class="step-text">5. Warehouse Dispatch Alert</text>
+      <rect x="265" y="12" width="70" height="22" rx="5" fill="#334155" />
+      <text x="300" y="27" text-anchor="middle" class="badge" fill="#38bdf8">150 ms</text>
+    </g>
+    <line x1="255" y1="342" x2="255" y2="354" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-yellow)" />
+
+    <!-- Step 6: Invoice -->
+    <g transform="translate(80, 356)">
+      <rect width="350" height="46" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+      <text x="15" y="28" class="step-text">6. Invoice Service (PDF Gen)</text>
+      <rect x="265" y="12" width="70" height="22" rx="5" fill="#334155" />
+      <text x="300" y="27" text-anchor="middle" class="badge" fill="#38bdf8">250 ms</text>
+    </g>
+    <line x1="255" y1="402" x2="255" y2="414" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-yellow)" />
+
+    <!-- Step 7: Analytics -->
+    <g transform="translate(80, 416)">
+      <rect width="350" height="46" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+      <text x="15" y="28" class="step-text">7. Analytics Pipeline Call</text>
+      <rect x="265" y="12" width="70" height="22" rx="5" fill="#334155" />
+      <text x="300" y="27" text-anchor="middle" class="badge" fill="#38bdf8">150 ms</text>
+    </g>
+
+    <!-- Bottom Alert -->
+    <g transform="translate(20, 475)" filter="url(#glow-danger)">
+      <rect width="420" height="38" rx="8" fill="#dc2626" />
+      <text x="210" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#ffffff">
+        ⛔ SUM LATENCY: 50+100+300+200+150+250+150 = 1,200 ms!
+      </text>
+    </g>
+  </g>
+
+  <!-- ================= RIGHT COLUMN: EXPLANATION CARDS & COMMENTS ================= -->
+  <g transform="translate(760, 150)">
+    
+    <!-- Comment 1: Cascading Failure -->
+    <g transform="translate(0, 0)" filter="url(#card-shadow)">
+      <rect width="450" height="110" rx="10" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#ef4444" />
+      <text x="30" y="21" class="comment-title" fill="#ef4444">1. CASCADING FAILURE (Single Point of Failure)</text>
+      <text x="20" y="45" class="comment-body">
+        If a non-critical third-party service like <tspan fill="#fca5a5" font-weight="700">SMS Gateway</tspan> crashes or times out,
+      </text>
+      <text x="20" y="65" class="comment-body">
+        the entire transaction aborts. The user sees <tspan fill="#f87171" font-weight="700">"Order Failed"</tspan>, even though
+      </text>
+      <text x="20" y="85" class="comment-body">
+        the database save and payment were already successful!
+      </text>
+    </g>
+
+    <!-- Comment 2: Tight Coupling -->
+    <g transform="translate(0, 125)" filter="url(#card-shadow)">
+      <rect width="450" height="110" rx="10" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#f59e0b" />
+      <text x="30" y="21" class="comment-title" fill="#f59e0b">2. TIGHT COUPLING (Fragile Architecture)</text>
+      <text x="20" y="45" class="comment-body">
+        Order Service directly holds IP addresses, ports, and retry logic for 7 systems.
+      </text>
+      <text x="20" y="65" class="comment-body">
+        If a new service is needed (e.g., <tspan fill="#fde68a" font-weight="700">Fraud Detection</tspan> or <tspan fill="#fde68a" font-weight="700">Recommendations</tspan>),
+      </text>
+      <text x="20" y="85" class="comment-body">
+        developers must change, recompile, test, and redeploy the main Order Service!
+      </text>
+    </g>
+
+    <!-- Comment 3: Thread Starvation -->
+    <g transform="translate(0, 250)" filter="url(#card-shadow)">
+      <rect width="450" height="110" rx="10" fill="#1e293b" stroke="#a855f7" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#a855f7" />
+      <text x="30" y="21" class="comment-title" fill="#c084fc">3. THREAD STARVATION &amp; SERVER CRASH</text>
+      <text x="20" y="45" class="comment-body">
+        During flash sales (e.g. 10,000 orders/sec), Tomcat/Node worker threads
+      </text>
+      <text x="20" y="65" class="comment-body">
+        remain frozen in memory waiting for slow I/O responses.
+      </text>
+      <text x="20" y="85" class="comment-body">
+        Server thread pools get exhausted ──► <tspan fill="#e879f9" font-weight="700">HTTP 504 Gateway Timeout!</tspan>
+      </text>
+    </g>
+
+    <!-- Comment 4: How Kafka Solves This (Preview) -->
+    <g transform="translate(0, 375)" filter="url(#card-shadow)">
+      <rect width="450" height="145" rx="10" fill="#042f2e" stroke="#14b8a6" stroke-width="1.5" />
+      <rect x="15" y="12" width="8" height="8" rx="4" fill="#14b8a6" />
+      <text x="30" y="21" class="comment-title" fill="#2dd4bf">💡 THE SOLUTION: ASYNCHRONOUS EVENT STREAMING (KAFKA)</text>
+      <text x="20" y="45" class="comment-body" fill="#ccfbf1">
+        • Order Service only saves DB and writes 1 event to <tspan fill="#5eead4" font-weight="700">Kafka Topic</tspan>.
+      </text>
+      <text x="20" y="67" class="comment-body" fill="#ccfbf1">
+        • Returns success to User in <tspan fill="#5eead4" font-weight="700">&lt; 20 milliseconds</tspan>!
+      </text>
+      <text x="20" y="89" class="comment-body" fill="#ccfbf1">
+        • Downstream services read from Kafka at their own pace asynchronously.
+      </text>
+      <text x="20" y="111" class="comment-body" fill="#ccfbf1">
+        • If SMS service crashes, the event stays safe in Kafka until it restarts.
+      </text>
+      <text x="20" y="131" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#2dd4bf">
+        Result: 100% Decoupled, Fault Tolerant, and Sub-second Latency!
+      </text>
+    </g>
+
+  </g>
+
+  <!-- ================= BOTTOM MARATHI SUMMARY CALLOUT ================= -->
+  <g transform="translate(35, 700)" filter="url(#card-shadow)">
+    <rect width="1175" height="95" rx="12" fill="#1c1917" stroke="#d97706" stroke-width="1.5" />
+    <text x="20" y="26" class="marathi-title">🇮🇳 थोडक्यात मराठीत महत्त्वाचे मुद्दे (Quick Marathi Summary for Interview):</text>
+    <text x="20" y="48" class="marathi-text">
+      १. <tspan font-weight="700" fill="#fde68a">विलंब (High Latency)</tspan>: सर्व ७ सर्व्हिसेस एकाच थ्रेडमध्ये ब्लॉक राहतात, त्यामुळे ग्राहकाला १.२ सेकंद थांबावे लागते.
+    </text>
+    <text x="20" y="68" class="marathi-text">
+      २. <tspan font-weight="700" fill="#fde68a">एकामुळे संपूर्ण सिस्टीम फेल (Cascading Failure)</tspan>: केवळ SMS किंवा Email सर्व्हिस बंद पडली, तरी ऑर्डर फेल होते.
+    </text>
+    <text x="20" y="88" class="marathi-text">
+      ३. <tspan font-weight="700" fill="#fde68a">काफ्काचा उपाय (Kafka Solution)</tspan>: काफ्का वापरल्याने ऑर्डर लगेच कन्फर्म होते आणि बाकी सर्व्हिसेस स्वतंत्रपणे (Asynchronously) मेसेज वाचून काम पूर्ण करतात.
+    </text>
+  </g>
+
+</svg>

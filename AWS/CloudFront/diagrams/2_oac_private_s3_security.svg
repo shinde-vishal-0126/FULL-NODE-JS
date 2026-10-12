@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" width="100%" height="100%" style="background:#0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#00f0ff"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="550" y="42" text-anchor="middle" fill="#f8fafc" font-size="22" font-weight="800">CloudFront Origin Access Control (OAC) Security Architecture</text>
+  <text x="550" y="68" text-anchor="middle" fill="#94a3b8" font-size="13">Cryptographic SigV4 Signing &#8226; 100% Private S3 Origin &#8226; SSE-KMS Support &#8226; OAI Deprecation</text>
+
+  <!-- Box 1: Public Internet / Attacker -->
+  <g transform="translate(40, 110)" filter="url(#shadow)">
+    <rect width="210" height="360" rx="12" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+    <rect width="210" height="38" rx="12" fill="#991b1b"/>
+    <text x="105" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Direct Internet / Attacker</text>
+
+    <g transform="translate(15, 55)">
+      <rect width="180" height="85" rx="6" fill="#450a0a" stroke="#ef4444"/>
+      <text x="10" y="22" fill="#fca5a5" font-size="11" font-weight="700">&#10006; Direct S3 Access Attempt</text>
+      <text x="10" y="40" fill="#fecaca" font-size="9">GET https://mybucket.s3.</text>
+      <text x="10" y="54" fill="#fecaca" font-size="9">amazonaws.com/video.mp4</text>
+      <text x="10" y="72" fill="#f87171" font-size="10" font-weight="700">HTTP 403 Forbidden!</text>
+    </g>
+
+    <g transform="translate(15, 150)">
+      <rect width="180" height="90" rx="6" fill="#0f172a" stroke="#334155"/>
+      <text x="10" y="22" fill="#38bdf8" font-size="11" font-weight="700">Legitimate Viewer</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="10">&#8226; Must request via CDN:</text>
+      <text x="10" y="60" fill="#a7f3d0" font-size="10" font-weight="600">cdn.blackbuck.com</text>
+      <text x="10" y="78" fill="#94a3b8" font-size="9">Protected by WAF / Rate Limit</text>
+    </g>
+
+    <g transform="translate(15, 250)">
+      <rect width="180" height="95" rx="6" fill="#0f172a" stroke="#ef4444"/>
+      <text x="10" y="22" fill="#f87171" font-size="11" font-weight="700">Security Guarantee</text>
+      <text x="10" y="42" fill="#94a3b8" font-size="9">&#8226; Zero bucket data leakage</text>
+      <text x="10" y="58" fill="#94a3b8" font-size="9">&#8226; Direct S3 scraping blocked</text>
+      <text x="10" y="74" fill="#4ade80" font-size="9">&#10004; Compliant with SOC2 / HIPAA</text>
+    </g>
+  </g>
+
+  <!-- Denied direct path -->
+  <path d="M 145 470 L 145 500 L 965 500 L 965 470" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrowRed)"/>
+  <text x="550" y="492" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">&#10006; Direct Public HTTP to S3 Origin is Completely Blocked (BlockPublicAccess = ON)</text>
+
+  <!-- Flow 1: Legitimate request to CloudFront -->
+  <path d="M 250 240 L 320 240" stroke="#00f0ff" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
+  <text x="285" y="230" text-anchor="middle" fill="#00f0ff" font-size="9" font-weight="700">GET</text>
+
+  <!-- Box 2: CloudFront with OAC -->
+  <g transform="translate(320, 110)" filter="url(#shadow)">
+    <rect width="450" height="360" rx="12" fill="#1e293b" stroke="#00f0ff" stroke-width="2"/>
+    <rect width="450" height="38" rx="12" fill="#0891b2"/>
+    <text x="225" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Amazon CloudFront with Origin Access Control (OAC)</text>
+
+    <!-- OAC Engine -->
+    <g transform="translate(20, 55)">
+      <rect width="410" height="115" rx="8" fill="#0f172a" stroke="#00f0ff" stroke-width="1.5"/>
+      <text x="15" y="24" fill="#00f0ff" font-size="12" font-weight="700">Cryptographic Signing Engine (AWS SigV4)</text>
+      <text x="15" y="44" fill="#94a3b8" font-size="10">CloudFront signs the origin request on-the-fly before contacting S3:</text>
+      <text x="15" y="64" fill="#fcd34d" font-size="9" font-family="monospace">Authorization: AWS4-HMAC-SHA256 Credential=ASIA.../s3/aws4_request</text>
+      <text x="15" y="80" fill="#fcd34d" font-size="9" font-family="monospace">x-amz-content-sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca49...</text>
+      <text x="15" y="98" fill="#4ade80" font-size="10">&#10004; Uses Service Principal: cloudfront.amazonaws.com</text>
+    </g>
+
+    <!-- OAC vs OAI Comparison Table inside card -->
+    <g transform="translate(20, 180)">
+      <rect width="410" height="165" rx="8" fill="#0f172a" stroke="#334155"/>
+      <text x="15" y="22" fill="#38bdf8" font-size="11" font-weight="700">Architectural Comparison: Legacy OAI vs. Modern OAC</text>
+
+      <text x="15" y="46" fill="#94a3b8" font-size="10">&#8226; Signature Algorithm:</text>
+      <text x="160" y="46" fill="#f87171" font-size="10">Legacy OAI (HMAC)</text>
+      <text x="280" y="46" fill="#4ade80" font-size="10">&#10004; OAC (SigV4)</text>
+
+      <text x="15" y="70" fill="#94a3b8" font-size="10">&#8226; SSE-KMS Encryption:</text>
+      <text x="160" y="70" fill="#f87171" font-size="10">&#10006; NOT supported</text>
+      <text x="280" y="70" fill="#4ade80" font-size="10">&#10004; FULLY supported</text>
+
+      <text x="15" y="94" fill="#94a3b8" font-size="10">&#8226; Global Region Coverage:</text>
+      <text x="160" y="94" fill="#f87171" font-size="10">Partial (Legacy only)</text>
+      <text x="280" y="94" fill="#4ade80" font-size="10">&#10004; 100% all AWS Regions</text>
+
+      <text x="15" y="118" fill="#94a3b8" font-size="10">&#8226; HTTP Methods:</text>
+      <text x="160" y="118" fill="#f87171" font-size="10">GET, HEAD only</text>
+      <text x="280" y="118" fill="#4ade80" font-size="10">&#10004; GET, PUT, POST, DELETE</text>
+
+      <text x="15" y="145" fill="#fcd34d" font-size="10" font-weight="600">&#9888; AWS Recommendation: Always migrate legacy OAI distributions to OAC!</text>
+    </g>
+  </g>
+
+  <!-- Flow 2: CloudFront to S3 with SigV4 -->
+  <path d="M 770 240 L 850 240" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <text x="810" y="225" text-anchor="middle" fill="#10b981" font-size="9" font-weight="700">SigV4</text>
+  <text x="810" y="255" text-anchor="middle" fill="#94a3b8" font-size="9">OAC Verified</text>
+
+  <!-- Box 3: Private S3 Bucket -->
+  <g transform="translate(850, 110)" filter="url(#shadow)">
+    <rect width="210" height="360" rx="12" fill="#1e293b" stroke="#ff9900" stroke-width="2"/>
+    <rect width="210" height="38" rx="12" fill="#d97706"/>
+    <text x="105" y="24" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">Private Amazon S3 Origin</text>
+
+    <g transform="translate(15, 55)">
+      <rect width="180" height="60" rx="6" fill="#450a0a" stroke="#ef4444"/>
+      <text x="10" y="22" fill="#fca5a5" font-size="10" font-weight="700">Block Public Access: ON</text>
+      <text x="10" y="38" fill="#fecaca" font-size="9">All 4 ACL/policy blocks active</text>
+      <text x="10" y="50" fill="#4ade80" font-size="9">Zero direct public access</text>
+    </g>
+
+    <g transform="translate(15, 125)">
+      <rect width="180" height="130" rx="6" fill="#0f172a" stroke="#10b981"/>
+      <text x="10" y="22" fill="#4ade80" font-size="10" font-weight="700">Bucket Policy Verification</text>
+      <text x="10" y="40" fill="#94a3b8" font-size="8">"Principal": { "Service":</text>
+      <text x="15" y="52" fill="#f8fafc" font-size="8"> "cloudfront.amazonaws.com" }</text>
+      <text x="10" y="66" fill="#94a3b8" font-size="8">"Condition": { "StringEquals": {</text>
+      <text x="15" y="80" fill="#fcd34d" font-size="8"> "AWS:SourceArn":</text>
+      <text x="15" y="92" fill="#fcd34d" font-size="8"> "arn:aws:cloudfront::.../E1X"</text>
+      <text x="10" y="106" fill="#94a3b8" font-size="8">}}</text>
+      <text x="10" y="122" fill="#4ade80" font-size="9">&#10004; Matches CloudFront ARN!</text>
+    </g>
+
+    <g transform="translate(15, 265)">
+      <rect width="180" height="80" rx="6" fill="#064e3b" stroke="#10b981"/>
+      <text x="10" y="24" fill="#4ade80" font-size="11" font-weight="700">&#10004; Access Granted</text>
+      <text x="10" y="44" fill="#e2e8f0" font-size="9">&#8226; Object streamed to Edge</text>
+      <text x="10" y="58" fill="#e2e8f0" font-size="9">&#8226; $0.00 AWS Egress Cost</text>
+      <text x="10" y="72" fill="#a7f3d0" font-size="9">&#8226; Edge caches for 1 year</text>
+    </g>
+  </g>
+</svg>

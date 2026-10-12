@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1250 820" width="100%" height="100%">
+  <defs>
+    <style>
+      .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 25px; font-weight: 800; fill: #ffffff; letter-spacing: 1.2px; }
+      .main-subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .box-header { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14.5px; font-weight: 700; fill: #f8fafc; }
+      .step-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12.5px; font-weight: 700; fill: #ffffff; }
+      .badge { font-family: 'Segoe UI', system-ui, monospace; font-size: 11px; font-weight: 700; }
+      .comment-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; }
+      .comment-body { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #cbd5e1; line-height: 1.4; }
+      .marathi-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #fbbf24; }
+      .marathi-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; fill: #fef3c7; }
+    </style>
+
+    <filter id="card-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <marker id="arr-cyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#38bdf8" />
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#10b981" />
+    </marker>
+    <marker id="arr-gold" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#f59e0b" />
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 Z" fill="#c084fc" />
+    </marker>
+
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="prod-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1250" height="820" rx="16" fill="url(#bg)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- ================= TOP HEADER & DEFINITION BANNER ================= -->
+  <g transform="translate(40, 22)">
+    <text x="585" y="24" text-anchor="middle" class="main-title">KAFKA PRODUCER: ARCHITECTURE, RECORD &amp; INTERNALS</text>
+    <text x="585" y="46" text-anchor="middle" class="main-subtitle">Record Structure • Partitioner Hashing • In-Memory Batch Accumulator • Acks &amp; Idempotence</text>
+
+    <!-- Definition Banner -->
+    <rect x="50" y="60" width="1070" height="42" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="70" y="86" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#38bdf8">📌 DEFINITION:</text>
+    <text x="165" y="86" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e2e8f0">
+      A <tspan font-weight="700" fill="#ffffff">Kafka Producer</tspan> is a client application that creates, serializes, batches, and sends events (<tspan fill="#38bdf8" font-weight="700">ProducerRecords</tspan>) to designated topic partitions across the Kafka cluster.
+    </text>
+  </g>
+
+  <!-- ================= LEFT: PRODUCER RECORD & PAYLOAD STRUCTURE ================= -->
+  <g transform="translate(35, 145)">
+    <!-- Record Component Container -->
+    <g filter="url(#card-shadow)">
+      <rect width="320" height="510" rx="12" fill="#0f172a" stroke="#38bdf8" stroke-width="1.6" />
+      <rect width="320" height="38" rx="12" fill="#1e293b" />
+      <rect y="26" width="320" height="12" fill="#1e293b" />
+      <text x="160" y="24" text-anchor="middle" class="box-header" fill="#38bdf8">📦 PRODUCER RECORD (Payload)</text>
+
+      <!-- Key Field -->
+      <g transform="translate(15, 52)">
+        <rect width="290" height="85" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2" />
+        <text x="12" y="22" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#fbbf24">🔑 KEY: "user_101" / "match_id_1"</text>
+        <text x="12" y="42" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#e2e8f0">• Determines target partition!</text>
+        <text x="12" y="60" font-family="'Segoe UI', monospace" font-size="10.5" fill="#fde68a">hash(key) % num_partitions</text>
+        <text x="12" y="76" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Same key = ALWAYS same partition (Ordered!)</text>
+      </g>
+
+      <!-- Value Field -->
+      <g transform="translate(15, 147)">
+        <rect width="290" height="95" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.2" />
+        <text x="12" y="22" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#34d399">📄 VALUE: Actual Business Payload</text>
+        <text x="12" y="40" font-family="'Segoe UI', monospace" font-size="9.5" fill="#a7f3d0">{ "orderId": 101,</text>
+        <text x="12" y="55" font-family="'Segoe UI', monospace" font-size="9.5" fill="#a7f3d0">  "status": "ORDER_CREATED",</text>
+        <text x="12" y="70" font-family="'Segoe UI', monospace" font-size="9.5" fill="#a7f3d0">  "amount": 499.00 }</text>
+        <text x="12" y="88" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">The most important business content.</text>
+      </g>
+
+      <!-- Timestamp Field -->
+      <g transform="translate(15, 252)">
+        <rect width="290" height="65" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+        <text x="12" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#cbd5e1">⏱️ TIMESTAMP: Creation / Log Append Time</text>
+        <text x="12" y="40" font-family="'Segoe UI', monospace" font-size="9.5" fill="#94a3b8">"2026-05-24T10:00:00Z"</text>
+        <text x="12" y="56" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Used for Event-time analytics &amp; log retention.</text>
+      </g>
+
+      <!-- Headers -->
+      <g transform="translate(15, 327)">
+        <rect width="290" height="55" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+        <text x="12" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#cbd5e1">🏷️ HEADERS: Optional Metadata</text>
+        <text x="12" y="42" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Tracing IDs (correlationId, auth token, schemaId)</text>
+      </g>
+
+      <!-- Topic Field -->
+      <g transform="translate(15, 392)">
+        <rect width="290" height="50" rx="6" fill="#0369a1" stroke="#38bdf8" stroke-width="1.2" />
+        <text x="12" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="800" fill="#ffffff">🎯 TOPIC: "order-events"</text>
+        <text x="12" y="40" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#e0f2fe">Destination logical stream in the cluster.</text>
+      </g>
+
+      <!-- Without Key Callout -->
+      <g transform="translate(15, 452)">
+        <rect width="290" height="45" rx="5" fill="#7f1d1d" stroke="#ef4444" stroke-width="1" />
+        <text x="10" y="18" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#ffffff">⚠️ What if NO Key is provided?</text>
+        <text x="10" y="34" font-family="'Segoe UI', sans-serif" font-size="9" fill="#fca5a5">Sticky Partitioner batches to random partition. Ordering lost!</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Arrow: App to Pipeline -->
+  <path d="M 355 240 L 415 240" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arr-cyan)" />
+  <text x="385" y="230" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="700" fill="#38bdf8">send()</text>
+
+  <!-- ================= MIDDLE: PRODUCER INTERNALS PIPELINE ================= -->
+  <g transform="translate(415, 145)" filter="url(#card-shadow)">
+    <rect width="400" height="510" rx="14" fill="url(#prod-grad)" stroke="#38bdf8" stroke-width="1.8" />
+    <rect width="400" height="38" rx="14" fill="#0f172a" />
+    <rect y="26" width="400" height="12" fill="#0f172a" />
+    <text x="200" y="24" text-anchor="middle" class="box-header" fill="#38bdf8">PRODUCER INTERNAL PIPELINE</text>
+
+    <!-- Stage 1: Serializers -->
+    <g transform="translate(20, 52)">
+      <rect width="360" height="52" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="15" y="24" class="step-text">1. Serializer (Key &amp; Value Serializers)</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#94a3b8">Converts Objects (POJO/JSON) ──► Raw Bytes (byte[])</text>
+    </g>
+    <line x1="200" y1="104" x2="200" y2="116" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-gold)" />
+
+    <!-- Stage 2: Partitioner -->
+    <g transform="translate(20, 118)">
+      <rect width="360" height="64" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2" />
+      <text x="15" y="24" class="step-text" fill="#fbbf24">2. Partitioner (Routing Engine)</text>
+      <text x="15" y="42" font-family="'Segoe UI', monospace" font-size="10.5" fill="#fde68a">MurmurHash2(key) % total_partitions</text>
+      <text x="15" y="56" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">Assigns record to Partition 0, 1, or 2</text>
+    </g>
+    <line x1="200" y1="182" x2="200" y2="194" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-gold)" />
+
+    <!-- Stage 3: Record Accumulator (Batching) -->
+    <g transform="translate(20, 196)">
+      <rect width="360" height="112" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+      <text x="15" y="24" class="step-text" fill="#34d399">3. RecordAccumulator (Batch Buffer in RAM)</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">Instead of 1 msg/req, batches 100s of events!</text>
+      
+      <!-- Batch params -->
+      <rect x="15" y="52" width="155" height="24" rx="4" fill="#1e293b" stroke="#334155" />
+      <text x="92" y="68" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="10" fill="#6ee7b7">batch.size: 16KB</text>
+
+      <rect x="185" y="52" width="160" height="24" rx="4" fill="#1e293b" stroke="#334155" />
+      <text x="265" y="68" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="10" fill="#6ee7b7">linger.ms: 20ms</text>
+
+      <text x="15" y="98" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#94a3b8">
+        Sends when: batch is full (16KB) OR time expires (20ms)
+      </text>
+    </g>
+    <line x1="200" y1="308" x2="200" y2="320" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-gold)" />
+
+    <!-- Stage 4: Compression -->
+    <g transform="translate(20, 322)">
+      <rect width="360" height="52" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="15" y="24" class="step-text">4. Compression (Snappy / LZ4 / Gzip / Zstd)</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#94a3b8">Reduces network payload by 60-80% before transmission!</text>
+    </g>
+    <line x1="200" y1="374" x2="200" y2="386" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-gold)" />
+
+    <!-- Stage 5: Sender I/O Thread -->
+    <g transform="translate(20, 388)">
+      <rect width="360" height="55" rx="6" fill="#0369a1" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="15" y="24" class="step-text" fill="#ffffff">5. Sender Thread (Background Network I/O)</text>
+      <text x="15" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#e0f2fe">Pushes batched socket requests to Kafka Brokers asynchronously.</text>
+    </g>
+
+    <!-- Idempotence Card -->
+    <g transform="translate(20, 452)">
+      <rect width="360" height="46" rx="6" fill="#3b0764" stroke="#c084fc" stroke-width="1.2" />
+      <text x="12" y="20" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#d8b4fe">🛡️ Idempotence: PID + Sequence Number</text>
+      <text x="12" y="36" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#e9d5ff">Retries never create duplicate messages in broker!</text>
+    </g>
+  </g>
+
+  <!-- Arrow: Pipeline to Brokers -->
+  <path d="M 815 380 L 865 380" stroke="#f59e0b" stroke-width="3" marker-end="url(#arr-gold)" />
+
+  <!-- ================= RIGHT: ACKS LEVELS & BROKER LEADER/REPLICA ================= -->
+  <g transform="translate(865, 145)">
+    <!-- ACK Levels Box -->
+    <g filter="url(#card-shadow)">
+      <rect width="350" height="510" rx="14" fill="#0f172a" stroke="#f59e0b" stroke-width="1.6" />
+      <rect width="350" height="38" rx="14" fill="#1e293b" />
+      <rect y="26" width="350" height="12" fill="#1e293b" />
+      <text x="175" y="24" text-anchor="middle" class="box-header" fill="#fbbf24">ACKNOWLEDGMENT (ACKS) LEVELS</text>
+
+      <!-- acks = 0 -->
+      <g transform="translate(15, 50)">
+        <rect width="320" height="85" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.2" />
+        <rect x="12" y="10" width="70" height="20" rx="4" fill="#7f1d1d" />
+        <text x="47" y="24" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" font-weight="800" fill="#ffffff">acks = 0</text>
+        <text x="90" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f87171">Fire and Forget (No Wait)</text>
+        <text x="12" y="48" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• Producer sends &amp; does NOT wait for reply.</text>
+        <text x="12" y="66" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ef4444">⚠️ Fastest throughput, but broker crash = DATA LOSS!</text>
+      </g>
+
+      <!-- acks = 1 -->
+      <g transform="translate(15, 145)">
+        <rect width="320" height="95" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2" />
+        <rect x="12" y="10" width="70" height="20" rx="4" fill="#78350f" />
+        <text x="47" y="24" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" font-weight="800" fill="#fef08a">acks = 1</text>
+        <text x="90" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#fde047">Leader Only ACK</text>
+        <text x="12" y="48" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#cbd5e1">• Producer waits for Leader Partition to write.</text>
+        <text x="12" y="66" font-family="'Segoe UI', sans-serif" font-size="10" fill="#fef08a">⚠️ If Leader crashes BEFORE Replicas sync = Data loss!</text>
+        <text x="12" y="84" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Default in Kafka &lt; v3.0.</text>
+      </g>
+
+      <!-- acks = all / -1 -->
+      <g transform="translate(15, 250)">
+        <rect width="320" height="135" rx="8" fill="#042f2e" stroke="#10b981" stroke-width="1.5" />
+        <rect x="12" y="10" width="80" height="20" rx="4" fill="#065f46" />
+        <text x="52" y="24" text-anchor="middle" font-family="'Segoe UI', monospace" font-size="11" font-weight="800" fill="#ffffff">acks = all</text>
+        <text x="100" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#34d399">Leader + All Replicas (Safest!)</text>
+        <text x="12" y="48" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#ccfbf1">• Leader + In-Sync Replicas (min.insync.replicas=2)</text>
+        <text x="12" y="68" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#ccfbf1">• Message saved on multiple disks before ACK.</text>
+        <text x="12" y="90" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#6ee7b7">✔ ZERO DATA LOSS GUARANTEED!</text>
+        <text x="12" y="112" font-family="'Segoe UI', sans-serif" font-size="9" fill="#a7f3d0">Default in Kafka 3.0+ (Strongest Durability).</text>
+      </g>
+
+      <!-- Delivery Guarantees Summary Table Mini -->
+      <g transform="translate(15, 395)">
+        <rect width="320" height="100" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+        <text x="12" y="20" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#cbd5e1">📊 Delivery Guarantees:</text>
+        <text x="12" y="40" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#fca5a5">• At-most-once: acks=0, retries=0 (May lose)</text>
+        <text x="12" y="60" font-family="'Segoe UI', sans-serif" font-size="9.5" fill="#fde68a">• At-least-once: acks=all, retries>0 (May duplicate)</text>
+        <text x="12" y="80" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="700" fill="#6ee7b7">• Exactly-once: acks=all + idempotence=true</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= BOTTOM MARATHI SUMMARY CALLOUT ================= -->
+  <g transform="translate(35, 680)" filter="url(#card-shadow)">
+    <rect width="1180" height="115" rx="12" fill="#1c1917" stroke="#d97706" stroke-width="1.5" />
+    <text x="20" y="26" class="marathi-title">🇮🇳 थोडक्यात मराठीत स्पष्टीकरण (Kafka Producer व Record चे महत्त्वाचे मुद्दे):</text>
+    <text x="20" y="48" class="marathi-text">
+      १. <tspan font-weight="700" fill="#fde68a">Producer चे काम</tspan>: काफ्कामध्ये डेटा/इव्हेंट पाठवणारा घटक म्हणजे Producer (उदा. Zomato मध्ये Order किंवा Rider Location पाठवणे).
+    </text>
+    <text x="20" y="70" class="marathi-text">
+      २. <tspan font-weight="700" fill="#fde68a">Key चे महत्त्व</tspan>: Key मुळे मेसेज कोणत्या Partition मध्ये जाईल ते ठरते (hash(key) % partitions). समान Key चे सर्व मेसेज एकाच partition मध्ये जाऊन क्रमाने (Ordered) राहतात.
+    </text>
+    <text x="20" y="92" class="marathi-text">
+      ३. <tspan font-weight="700" fill="#fde68a">ACKS व Idempotence</tspan>: acks=all मुळे सर्व्हर क्रॅश झाला तरी डेटा नष्ट होत नाही. नेटवर्कमुळे मेसेज पुन्हा पाठवला (Retry) तरी Idempotence मुळे डुप्लिकेट (Duplicate) होत नाही.
+    </text>
+  </g>
+
+</svg>
