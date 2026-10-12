@@ -14032,6 +14032,86 @@ app.listen(8000, () => {
     console.log("Server started on port 8000...");
 });
 </pre>
+
+    <div class="def-box">
+        <b>Line-by-Line Explanation:</b>
+        <ul class="pl">
+            <li><b>1. Import Express:</b> <code>const express = require('express');</code>
+                <ul class="pl">
+                    <li><code>const</code> declares a variable that cannot be reassigned.</li>
+                    <li><code>require('express')</code> loads the Express package from <code>node_modules</code>.</li>
+                    <li><code>express</code> holds the exported function of the package.</li>
+                    <li>Install it first: <code>npm install express</code>.</li>
+                </ul>
+            </li>
+            <li><b>2. Create the app:</b> <code>const app = express();</code>
+                <ul class="pl">
+                    <li>Calling <code>express()</code> returns an <b>application object</b>, stored in <code>app</code>.</li>
+                    <li><code>app</code> is the main object used to configure the backend:
+                        <code>app.get()</code> (GET route), <code>app.post()</code> (POST route),
+                        <code>app.use()</code> (middleware), <code>app.listen()</code> (start server).</li>
+                    <li>This line only creates the app; none of those methods run automatically.</li>
+                </ul>
+            </li>
+            <li><b>3. Define a GET route:</b> <code>app.get("/", (req, res) =&gt; { ... });</code>
+                <ul class="pl">
+                    <li><code>app.get()</code> registers a handler for HTTP <b>GET</b> requests.</li>
+                    <li><code>"/"</code> is the root path, e.g. <code>http://localhost:8000/</code>.</li>
+                    <li><code>(req, res) =&gt; { ... }</code> is an arrow-function callback that Express executes when
+                        a matching request arrives, passing it the request and response objects.</li>
+                    <li><b>req (Request):</b> info about the incoming request — <code>req.method</code>,
+                        <code>req.url</code>, <code>req.params</code>, <code>req.query</code>,
+                        <code>req.headers</code>, <code>req.body</code>.</li>
+                    <li><b>res (Response):</b> methods to reply — <code>res.send()</code>, <code>res.json()</code>,
+                        <code>res.status()</code>, <code>res.end()</code>.</li>
+                    <li><code>res.send("Hello World from Express!")</code> sends the text to the client, sets status
+                        <b>200 OK</b> by default, and ends the response.</li>
+                </ul>
+            </li>
+            <li><b>4. Start the server:</b> <code>app.listen(8000, () =&gt; { ... });</code>
+                <ul class="pl">
+                    <li><code>app.listen()</code> starts an HTTP server for the app.</li>
+                    <li><code>8000</code> is the port number (configurable).</li>
+                    <li>The callback runs once the server is listening; <code>console.log()</code> prints the message
+                        in the <b>terminal</b>, not the browser.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="notes-box">
+        <b>Request-Response Flow:</b>
+        <pre>
+Browser  →  GET http://localhost:8000/
+   ↓
+Node.js HTTP Server (port 8000) receives request
+   ↓
+Express Router matches  GET + "/"
+   ↓
+Route callback runs  →  res.send("Hello World from Express!")
+   ↓
+HTTP Response 200 OK  →  "Hello World from Express!"
+</pre>
+        <b>Run &amp; Test:</b>
+        <ul class="pl">
+            <li>Save the code as <code>app.js</code>, then run <code>node app.js</code> in the project folder.</li>
+            <li>Terminal shows: <code>Server started on port 8000...</code></li>
+            <li>Open <code>http://localhost:8000/</code> — browser shows <code>Hello World from Express!</code></li>
+        </ul>
+        <b>Quick Interview Q&amp;A:</b>
+        <ul class="pl">
+            <li><b>What does <code>express()</code> return?</b> An application object used to configure routes,
+                middleware and settings.</li>
+            <li><b>req vs res?</b> <code>req</code> = incoming request; <code>res</code> = outgoing response.</li>
+            <li><b>What is a route?</b> A definition of how the server responds to a specific HTTP method + URL path.</li>
+            <li><b>Does <code>app.get()</code> start the server?</b> No. It only registers a route;
+                <code>app.listen()</code> starts the server.</li>
+            <li><b>What if you visit <code>/about</code>?</b> No route matches, so Express returns
+                <b>404 Not Found</b> (unless another route/middleware handles it).</li>
+        </ul>
+        <b>Remember:</b> <code>require()</code> loads Express → <code>express()</code> creates the app →
+        <code>app.get()</code> defines a route → <code>app.listen()</code> starts the server.
+    </div>
     <div class="marathi-box">
         <b>मराठी सारांश:</b>
         <ul class="pl" style="margin-bottom: 0;">
@@ -14111,6 +14191,165 @@ app.listen(3000, () => console.log("Running..."));
             <li><b>टीप (Express 5):</b> <code>'*'</code> ऐवजी <code>'/*splat'</code> किंवा शेवटी
                 <code>app.use((req, res) =&gt; res.status(404).send(...))</code> वापरा.</li>
         </ul>
+    </div>
+
+    <div class="def-box">
+        <b>Routing — Step by Step:</b>
+        <ul class="pl">
+            <li><b>Routing</b> is the process of deciding which code should execute when a client sends a request to
+                a particular URL using an HTTP method.</li>
+            <li>Example website:
+                <code>/</code> → Home page, <code>/about</code> → About page, <code>/users</code> → Get all users,
+                <code>/users/10</code> → Get a particular user.</li>
+            <li>Express checks the requested <b>URL + HTTP method</b>, matches them to a defined route, and executes
+                the corresponding route handler.</li>
+        </ul>
+    </div>
+
+    <div class="code-title">Basic Route Syntax</div>
+    <pre>
+app.get("/about", (req, res) => {
+    res.send("This is About Page");
+});
+</pre>
+    <div class="notes-box">
+        <ul class="pl">
+            <li><code>app.get()</code> — defines a route that handles HTTP <b>GET</b> requests.</li>
+            <li><code>"/about"</code> — the route path. The client must request this path for the route to match.</li>
+            <li><code>req</code> — information about the incoming request.</li>
+            <li><code>res</code> — methods to send a response to the client.</li>
+            <li><code>res.send()</code> — sends the response back to the client.</li>
+        </ul>
+    </div>
+
+    <div class="code-title">Complete Example (server.js)</div>
+    <pre>
+const express = require("express");
+
+const app = express();
+
+// Home route
+app.get("/", (req, res) => {
+    res.send("Welcome to Home Page");
+});
+
+// About route
+app.get("/about", (req, res) => {
+    res.send("Welcome to About Page");
+});
+
+// Users route
+app.get("/users", (req, res) => {
+    res.send("Here are all users");
+});
+
+// Start the server
+app.listen(8000, () => {
+    console.log("Server running on port 8000");
+});
+</pre>
+    <div class="notes-box">
+        <ul class="pl">
+            <li>Run: <code>node server.js</code></li>
+            <li>Try in the browser (all GET): <code>localhost:8000/</code>, <code>localhost:8000/about</code>,
+                <code>localhost:8000/users</code>.</li>
+            <li>Each URL matches a different route, so Express sends a different response.</li>
+        </ul>
+    </div>
+
+    <div class="def-box">
+        <b>Types of Express Routes (HTTP Methods):</b>
+        <table>
+            <tr><th>Method</th><th>Purpose</th><th>Example</th></tr>
+            <tr><td>GET</td><td>Retrieve data</td><td><code>GET /users</code></td></tr>
+            <tr><td>POST</td><td>Create new data</td><td><code>POST /users</code></td></tr>
+            <tr><td>PUT</td><td>Replace or update a resource</td><td><code>PUT /users/10</code></td></tr>
+            <tr><td>PATCH</td><td>Partially update a resource</td><td><code>PATCH /users/10</code></td></tr>
+            <tr><td>DELETE</td><td>Delete data</td><td><code>DELETE /users/10</code></td></tr>
+        </table>
+    </div>
+    <pre>
+app.get("/users", (req, res) => {
+    res.send("Get users");
+});
+
+app.post("/users", (req, res) => {
+    res.send("Create user");
+});
+
+app.put("/users/10", (req, res) => {
+    res.send("Update user");
+});
+
+app.delete("/users/10", (req, res) => {
+    res.send("Delete user");
+});
+</pre>
+    <div class="notes-box">
+        <b>Important:</b> <code>GET /users</code> and <code>POST /users</code> are <b>different routes</b> because
+        their HTTP methods differ, even though their paths are the same.
+    </div>
+
+    <div class="notes-box">
+        <b>How Express Routing Works:</b>
+        <pre>
+Client (Browser / Postman / Frontend)
+   ↓
+HTTP Request  →  GET /users
+   ↓
+Express Router  →  matches method + path
+   ↓
+Route Handler  →  executes callback
+   ↓
+HTTP Response  →  200 OK — "Here are all users"
+</pre>
+        If no route matches and no other middleware handles the request, Express responds with
+        <b>404 Not Found</b>.
+    </div>
+
+    <div class="code-title">Route Parameters (req.params)</div>
+    <pre>
+app.get("/users/:id", (req, res) => {
+    const userId = req.params.id;
+
+    res.send(`User ID is ${userId}`);
+});
+
+// Request:  http://localhost:8000/users/25
+// Response: User ID is 25
+</pre>
+    <div class="notes-box">
+        <code>:id</code> is a route parameter and <code>req.params.id</code> reads its value. Route parameters are
+        <b>strings</b> by default.
+    </div>
+
+    <div class="code-title">Query Parameters (req.query)</div>
+    <pre>
+app.get("/products", (req, res) => {
+    const category = req.query.category;
+
+    res.send(`Category: ${category}`);
+});
+
+// Request:  http://localhost:8000/products?category=mobile
+// Response: Category: mobile
+</pre>
+    <div class="notes-box">
+        <b>Remember the difference:</b>
+        <ul class="pl">
+            <li><code>req.params</code> → values defined in the route path, e.g. <code>/users/25</code>.</li>
+            <li><code>req.query</code> → values supplied after <code>?</code>, e.g.
+                <code>/products?category=mobile</code>.</li>
+            <li><code>req.body</code> → data sent in the request body, commonly with POST or PATCH.</li>
+        </ul>
+    </div>
+
+    <div class="def-box">
+        <b>Interview Answer — "What is routing in Express.js?"</b>
+        <p>Routing in Express.js is the mechanism used to define how an application responds to client requests for
+            specific URL paths and HTTP methods. A route consists of a <b>path</b>, an <b>HTTP method</b>, and a
+            <b>route handler</b> function. When an incoming request matches a route, Express executes the associated
+            handler, which can process the request and send a response to the client.</p>
     </div>
 
     <h3 id="chap-15-t3">Q. <code>res.send()</code> vs <code>res.json()</code></h3>
