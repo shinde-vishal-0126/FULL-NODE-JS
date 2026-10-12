@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 840" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.09"/>
+    </filter>
+    <filter id="topShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgCanvas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+
+  <style>
+    .title-main { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 23px; fill: #ffffff; }
+    .title-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .table-hdr { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 13px; fill: #ffffff; }
+    .cell-text { font-family: 'Segoe UI', sans-serif; font-size: 11.5px; fill: #1e293b; }
+    .action-title { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 13px; }
+    .action-desc { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #334155; }
+    .marathi-tag { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #047857; font-weight: 700; }
+    .code-snippet { font-family: 'Consolas', monospace; font-size: 10.5px; fill: #0f172a; font-weight: 700; }
+  </style>
+
+  <!-- Canvas Outer Frame -->
+  <rect x="15" y="15" width="1150" height="810" rx="16" fill="url(#bgCanvas)" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(15, 15)">
+    <path d="M 0 16 C 0 7, 7 0, 16 0 L 1134 0 C 1143 0, 1150 7, 1150 16 L 1150 85 L 0 85 Z" fill="url(#headerGrad)" filter="url(#topShadow)"/>
+    <text x="575" y="40" text-anchor="middle" class="title-main">FOREIGN KEY REFERENTIAL ACTIONS IN MYSQL</text>
+    <text x="575" y="66" text-anchor="middle" class="title-sub">रेफरेंशियल अ‍ॅक्शन्स: CASCADE, SET NULL, आणि RESTRICT (अनाथ रेकॉर्ड्स प्रतिबंध)</text>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- TOP HALF: PARENT & CHILD TABLE INTERACTIVE VISUALIZATION       -->
+  <!-- ============================================================== -->
+  <g transform="translate(45, 120)">
+    <rect width="1090" height="240" rx="12" fill="#ffffff" stroke="#93c5fd" stroke-width="1.8" filter="url(#shadow)"/>
+
+    <!-- PARENT TABLE (DEPARTMENT) -->
+    <g transform="translate(30, 25)">
+      <rect width="360" height="185" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <rect x="0" y="0" width="360" height="34" rx="8" fill="#2563eb"/>
+      <text x="180" y="22" text-anchor="middle" class="table-hdr">🏢 PARENT TABLE: department</text>
+
+      <!-- Columns Header -->
+      <rect x="15" y="44" width="330" height="24" fill="#dbeafe" rx="4"/>
+      <text x="75" y="60" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#1d4ed8">department_id (PK)</text>
+      <text x="240" y="60" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#1d4ed8">department_name</text>
+
+      <!-- Row 1 (The targeted row) -->
+      <rect x="15" y="74" width="330" height="32" fill="#fee2e2" stroke="#ef4444" rx="4"/>
+      <text x="75" y="94" font-weight="800" fill="#dc2626">1  (🔑 Primary Key)</text>
+      <text x="240" y="94" font-weight="700" fill="#dc2626">'HR'  [DELETED / UPDATED]</text>
+
+      <!-- Row 2 -->
+      <rect x="15" y="112" width="330" height="28" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+      <text x="75" y="130" class="cell-text">2</text>
+      <text x="240" y="130" class="cell-text">'Finance'</text>
+
+      <!-- Row 3 -->
+      <rect x="15" y="146" width="330" height="28" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+      <text x="75" y="164" class="cell-text">3</text>
+      <text x="240" y="164" class="cell-text">'IT'</text>
+    </g>
+
+    <!-- RELATIONSHIP CONNECTOR ARROW -->
+    <g transform="translate(400, 95)">
+      <path d="M 0 35 L 70 35" stroke="#2563eb" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowBlue)"/>
+      <rect x="5" y="5" width="60" height="20" rx="4" fill="#dbeafe"/>
+      <text x="35" y="19" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="800" fill="#1d4ed8">1 to Many</text>
+    </g>
+
+    <!-- CHILD TABLE (EMPLOYEE) -->
+    <g transform="translate(480, 25)">
+      <rect width="580" height="185" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+      <rect x="0" y="0" width="580" height="34" rx="8" fill="#334155"/>
+      <text x="290" y="22" text-anchor="middle" class="table-hdr">🧑‍💼 CHILD TABLE: employee (References department_id)</text>
+
+      <!-- Columns Header -->
+      <rect x="15" y="44" width="550" height="24" fill="#e2e8f0" rx="4"/>
+      <text x="60" y="60" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#0f172a">emp_id (PK)</text>
+      <text x="220" y="60" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#0f172a">emp_name</text>
+      <text x="440" y="60" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#1d4ed8">department_id (FK 🔗)</text>
+
+      <!-- Child Row 1 (Pointing to dept 1) -->
+      <rect x="15" y="74" width="550" height="32" fill="#fee2e2" stroke="#ef4444" rx="4"/>
+      <text x="60" y="94" font-weight="700" fill="#dc2626">101</text>
+      <text x="220" y="94" font-weight="700" fill="#dc2626">'Amit'</text>
+      <text x="440" y="94" font-weight="800" fill="#dc2626">1 ➔ Affected by Parent change!</text>
+
+      <!-- Child Row 2 (Pointing to dept 1) -->
+      <rect x="15" y="112" width="550" height="32" fill="#fee2e2" stroke="#ef4444" rx="4"/>
+      <text x="60" y="132" font-weight="700" fill="#dc2626">102</text>
+      <text x="220" y="132" font-weight="700" fill="#dc2626">'Neha'</text>
+      <text x="440" y="132" font-weight="800" fill="#dc2626">1 ➔ Affected by Parent change!</text>
+
+      <!-- Child Row 3 (Pointing to dept 2) -->
+      <rect x="15" y="150" width="550" height="24" fill="#ffffff" stroke="#cbd5e1" rx="4"/>
+      <text x="60" y="166" class="cell-text">103</text>
+      <text x="220" y="166" class="cell-text">'Rahul'</text>
+      <text x="440" y="166" class="cell-text">2 (Unaffected)</text>
+    </g>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- BOTTOM HALF: 4 REFERENTIAL ACTION BEHAVIOR CARDS               -->
+  <!-- ============================================================== -->
+
+  <!-- CARD 1: ON DELETE CASCADE -->
+  <g transform="translate(45, 385)">
+    <rect width="525" height="180" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="12" width="180" height="24" rx="4" fill="#dc2626"/>
+    <text x="105" y="28" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#ffffff">🔥 ON DELETE CASCADE</text>
+    <text x="205" y="28" class="marathi-tag">(आपोआप Child रो नष्ट करणे)</text>
+
+    <text x="15" y="54" class="action-desc"><tspan font-weight="800">Behavior:</tspan> When department 1 is deleted, MySQL automatically deletes employees 101 &amp; 102.</text>
+    <text x="15" y="72" class="action-desc"><tspan font-weight="800">Prevents:</tspan> Orphan records (child rows without parent). Child data has no meaning alone.</text>
+    <text x="15" y="90" class="marathi-tag">मराठी: Parent नष्ट होताच Child मधील संबंधित रेकॉर्ड्स आपोआप डिलीट होतात.</text>
+
+    <rect x="15" y="102" width="495" height="66" rx="6" fill="#ffffff" stroke="#fecaca"/>
+    <text x="25" y="120" class="code-snippet" fill="#b91c1c">CONSTRAINT dept_fk FOREIGN KEY (department_id)</text>
+    <text x="25" y="138" class="code-snippet" fill="#b91c1c">  REFERENCES department(department_id)</text>
+    <text x="25" y="156" class="code-snippet" fill="#dc2626">  ON DELETE CASCADE;</text>
+  </g>
+
+  <!-- CARD 2: ON UPDATE CASCADE -->
+  <g transform="translate(610, 385)">
+    <rect width="525" height="180" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="12" width="180" height="24" rx="4" fill="#2563eb"/>
+    <text x="105" y="28" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#ffffff">🔄 ON UPDATE CASCADE</text>
+    <text x="205" y="28" class="marathi-tag">(आपोआप Child की अपडेट करणे)</text>
+
+    <text x="15" y="54" class="action-desc"><tspan font-weight="800">Behavior:</tspan> If department_id changes from 1 to 101, employees 101 &amp; 102 FK changes to 101.</text>
+    <text x="15" y="72" class="action-desc"><tspan font-weight="800">Synchronization:</tspan> Keeps parent and child keys perfectly aligned without manual edits.</text>
+    <text x="15" y="90" class="marathi-tag">मराठी: Parent चा आयडी बदलल्यास Child चा फॉरेन की आपोआप बदलून सिंक्रोनाईज राहतो.</text>
+
+    <rect x="15" y="102" width="495" height="66" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+    <text x="25" y="120" class="code-snippet" fill="#1d4ed8">CONSTRAINT dept_fk FOREIGN KEY (department_id)</text>
+    <text x="25" y="138" class="code-snippet" fill="#1d4ed8">  REFERENCES department(department_id)</text>
+    <text x="25" y="156" class="code-snippet" fill="#0284c7">  ON UPDATE CASCADE;</text>
+  </g>
+
+  <!-- CARD 3: ON DELETE RESTRICT / NO ACTION (DEFAULT) -->
+  <g transform="translate(45, 585)">
+    <rect width="525" height="180" rx="10" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="12" width="220" height="24" rx="4" fill="#d97706"/>
+    <text x="125" y="28" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">🚫 ON DELETE RESTRICT (DEFAULT)</text>
+    <text x="245" y="28" class="marathi-tag">(हटवण्यास सक्त मज्जाव)</text>
+
+    <text x="15" y="54" class="action-desc"><tspan font-weight="800">Behavior:</tspan> MySQL BLOCKS parent deletion: <tspan font-weight="700" fill="#dc2626">ERROR 1451: Cannot delete parent row</tspan>.</text>
+    <text x="15" y="72" class="action-desc"><tspan font-weight="800">Enforcement:</tspan> You must manually delete child rows first before deleting the parent record.</text>
+    <text x="15" y="90" class="marathi-tag">मराठी: Child डेटा अस्तित्वात असताना Parent डिलीट करू देत नाही (डिफॉल्ट सुरक्षितता).</text>
+
+    <rect x="15" y="102" width="495" height="66" rx="6" fill="#ffffff" stroke="#fef08a"/>
+    <text x="25" y="120" class="code-snippet" fill="#b45309">-- Default behavior if CASCADE is not specified:</text>
+    <text x="25" y="138" class="code-snippet" fill="#b45309">DELETE FROM department WHERE department_id = 1;</text>
+    <text x="25" y="156" class="code-snippet" fill="#dc2626">-- ❌ Fails with ERROR 1451 (foreign key constraint fails)</text>
+  </g>
+
+  <!-- CARD 4: ON DELETE SET NULL -->
+  <g transform="translate(610, 585)">
+    <rect width="525" height="180" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="12" width="180" height="24" rx="4" fill="#16a34a"/>
+    <text x="105" y="28" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#ffffff">⚪ ON DELETE SET NULL</text>
+    <text x="205" y="28" class="marathi-tag">(फॉरेन की NULL करणे)</text>
+
+    <text x="15" y="54" class="action-desc"><tspan font-weight="800">Behavior:</tspan> When parent department 1 is deleted, employee FK values are set to <tspan font-family="monospace">NULL</tspan>.</text>
+    <text x="15" y="72" class="action-desc"><tspan font-weight="800">Use Case:</tspan> Employee still works at company, but temporarily has no assigned department.</text>
+    <text x="15" y="90" class="marathi-tag">मराठी: Parent डिलीट झाला तरी Child रो सुरक्षित राहते; फक्त त्याचा संबंध NULL होतो.</text>
+
+    <rect x="15" y="102" width="495" height="66" rx="6" fill="#ffffff" stroke="#bbf7d0"/>
+    <text x="25" y="120" class="code-snippet" fill="#15803d">CONSTRAINT dept_fk FOREIGN KEY (department_id)</text>
+    <text x="25" y="138" class="code-snippet" fill="#15803d">  REFERENCES department(department_id)</text>
+    <text x="25" y="156" class="code-snippet" fill="#16a34a">  ON DELETE SET NULL;  (Requires department_id to allow NULL)</text>
+  </g>
+
+  <!-- Bottom Callout -->
+  <g transform="translate(45, 780)">
+    <rect width="1090" height="35" rx="6" fill="#1e293b"/>
+    <text x="20" y="22" font-family="'Segoe UI', sans-serif" font-size="11" fill="#f8fafc">💡 <tspan font-weight="800" fill="#38bdf8">InnoDB Rule:</tspan> MySQL InnoDB engine does not support <tspan font-family="monospace">SET DEFAULT</tspan>. By default, MySQL uses <tspan font-weight="700" fill="#fde047">RESTRICT / NO ACTION</tspan>.</text>
+  </g>
+</svg>

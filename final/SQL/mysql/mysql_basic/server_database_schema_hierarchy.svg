@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 620" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0284c7" flood-opacity="0.2"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+
+    <linearGradient id="serverGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+
+    <linearGradient id="schemaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0fdf4"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 22px; fill: #0f172a; }
+    .subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #64748b; }
+    .level-label { font-family: 'Segoe UI', sans-serif; font-weight: 900; font-size: 11px; letter-spacing: 1px; }
+    .node-title { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 13px; }
+    .node-sub { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #64748b; }
+    .obj-item { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #334155; font-weight: 600; }
+  </style>
+
+  <!-- Canvas Frame -->
+  <rect x="15" y="15" width="990" height="590" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Top Title -->
+  <text x="510" y="48" text-anchor="middle" class="title">The Relational Database Hierarchy &amp; Schema Types</text>
+  <text x="510" y="68" text-anchor="middle" class="subtitle">Complete Tree: Server ➔ Database ➔ Schema ➔ Objects (Tables, Views, Indexes)</text>
+
+  <!-- ==================== LEFT AREA: FULL HIERARCHY TREE ==================== -->
+  <g transform="translate(45, 95)">
+    <rect width="520" height="485" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- LEVEL 1: SERVER -->
+    <g transform="translate(170, 20)">
+      <rect width="180" height="46" rx="8" fill="url(#serverGrad)" filter="url(#shadow)"/>
+      <circle cx="16" cy="23" r="3.5" fill="#22c55e"/>
+      <circle cx="28" cy="23" r="3.5" fill="#38bdf8"/>
+      <text x="100" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="14" fill="#ffffff" letter-spacing="1">🖥️ SERVER</text>
+      <text x="100" y="38" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Hosts All Databases 24/7</text>
+    </g>
+
+    <!-- Branch lines from Server to 3 Databases -->
+    <path d="M 260 66 L 260 85 L 85 85 L 85 105" fill="none" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M 260 85 L 260 105" fill="none" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M 260 85 L 435 85 L 435 105" fill="none" stroke="#94a3b8" stroke-width="2"/>
+
+    <!-- LEVEL 2: 3 DATABASES -->
+    <!-- Database 1: Sales DB -->
+    <g transform="translate(20, 105)">
+      <rect width="130" height="50" rx="8" fill="url(#dbGrad)" stroke="#3b82f6" stroke-width="1.5" filter="url(#glow)"/>
+      <text x="65" y="24" text-anchor="middle" class="node-title" fill="#1d4ed8">🗄️ Database 1</text>
+      <text x="65" y="40" text-anchor="middle" class="node-sub">(Sales Database)</text>
+    </g>
+
+    <!-- Database 2: HR DB -->
+    <g transform="translate(195, 105)">
+      <rect width="130" height="50" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+      <text x="65" y="24" text-anchor="middle" class="node-title" fill="#334155">🗄️ Database 2</text>
+      <text x="65" y="40" text-anchor="middle" class="node-sub">(HR Database)</text>
+    </g>
+
+    <!-- Database 3: Inventory DB -->
+    <g transform="translate(370, 105)">
+      <rect width="130" height="50" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+      <text x="65" y="24" text-anchor="middle" class="node-title" fill="#334155">🗄️ Database 3</text>
+      <text x="65" y="40" text-anchor="middle" class="node-sub">(Inventory Database)</text>
+    </g>
+
+    <!-- Branch lines from Database 1 to Schemas -->
+    <path d="M 85 155 L 85 185 L 50 185 L 50 205" fill="none" stroke="#3b82f6" stroke-width="1.8"/>
+    <path d="M 85 185 L 155 185 L 155 205" fill="none" stroke="#3b82f6" stroke-width="1.8"/>
+
+    <!-- LEVEL 3: SCHEMAS INSIDE DATABASE 1 -->
+    <!-- Schema 1: Orders -->
+    <g transform="translate(10, 205)">
+      <rect width="95" height="42" rx="6" fill="url(#schemaGrad)" stroke="#16a34a" stroke-width="1.5"/>
+      <text x="47" y="20" text-anchor="middle" font-weight="800" font-size="11" fill="#15803d">📁 Schema 1</text>
+      <text x="47" y="34" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">(Orders)</text>
+    </g>
+
+    <!-- Schema 2: Customers -->
+    <g transform="translate(115, 205)">
+      <rect width="95" height="42" rx="6" fill="url(#schemaGrad)" stroke="#16a34a" stroke-width="1.5"/>
+      <text x="47" y="20" text-anchor="middle" font-weight="800" font-size="11" fill="#15803d">📁 Schema 2</text>
+      <text x="47" y="34" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">(Customers)</text>
+    </g>
+
+    <!-- Branch line from Schema 1 into Objects Box -->
+    <path d="M 57 247 L 57 275 L 140 275" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- LEVEL 4: OBJECTS INSIDE SCHEMA -->
+    <g transform="translate(140, 265)">
+      <rect width="360" height="200" rx="10" fill="#f8fafc" stroke="#0284c7" stroke-width="1.5" filter="url(#shadow)"/>
+      <rect x="0" y="0" width="360" height="30" rx="10" fill="#0284c7"/>
+      <text x="180" y="20" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#ffffff">📦 OBJECTS INSIDE A SCHEMA</text>
+
+      <!-- Tables Highlight (Most Important) -->
+      <g transform="translate(15, 40)">
+        <rect width="330" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="15" y="21" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#b45309">⭐ Tables</text>
+        <text x="95" y="21" font-family="'Segoe UI', sans-serif" font-size="11" fill="#78350f">(Most Important Object! Stores rows &amp; columns)</text>
+      </g>
+
+      <!-- Remaining Objects List Grid -->
+      <g transform="translate(20, 85)">
+        <!-- Col 1 -->
+        <text x="10" y="20" class="obj-item">👁️ Views <tspan font-weight="400" fill="#64748b">(Virtual saved queries)</tspan></text>
+        <text x="10" y="45" class="obj-item">⚡ Indexes <tspan font-weight="400" fill="#64748b">(Fast search accelerators)</tspan></text>
+        <text x="10" y="70" class="obj-item">📜 Stored Procedures <tspan font-weight="400" fill="#64748b">(Reusable logic)</tspan></text>
+
+        <!-- Col 2 -->
+        <text x="185" y="20" class="obj-item">🔧 Functions <tspan font-weight="400" fill="#64748b">(Calculations)</tspan></text>
+        <text x="185" y="45" class="obj-item">🎯 Triggers <tspan font-weight="400" fill="#64748b">(Auto-fired events)</tspan></text>
+        <text x="185" y="70" class="obj-item">🔢 Sequences <tspan font-weight="400" fill="#64748b">(Auto-increments)</tspan></text>
+
+        <rect x="0" y="85" width="320" height="20" rx="4" fill="#eff6ff"/>
+        <text x="160" y="99" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#1d4ed8">Plus: Constraints (PK, FK, NOT NULL) &amp; Relationships</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== RIGHT AREA: LOGICAL VS PHYSICAL SCHEMA ==================== -->
+  <g transform="translate(585, 95)">
+    <!-- Container Card -->
+    <rect width="390" height="485" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="25" y="30" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="16" fill="#0f172a">📐 2 Types of Schemas</text>
+    <text x="25" y="48" font-family="'Segoe UI', sans-serif" font-size="12" fill="#64748b">Logical Design vs Physical Disk Storage</text>
+
+    <!-- CARD 1: LOGICAL SCHEMA -->
+    <g transform="translate(20, 65)">
+      <rect width="350" height="185" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+      <rect x="0" y="0" width="350" height="32" rx="10" fill="#3b82f6"/>
+      <text x="15" y="21" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="13" fill="#ffffff">1. LOGICAL SCHEMA (The Blueprint)</text>
+
+      <text x="15" y="52" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="12" fill="#1e40af">What is it?</text>
+      <text x="15" y="70" font-family="'Segoe UI', sans-serif" font-size="11" fill="#334155">• Defines the logical design of the database.</text>
+      <text x="15" y="88" font-family="'Segoe UI', sans-serif" font-size="11" fill="#334155">• Describes <tspan font-weight="700">what data is stored</tspan> and <tspan font-weight="700">how tables relate</tspan>.</text>
+      
+      <text x="15" y="112" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#1e40af">Core Elements Defined:</text>
+      <text x="15" y="128" font-family="'Segoe UI', sans-serif" font-size="11" fill="#475569">Tables • Columns • Relationships • Constraints</text>
+
+      <rect x="15" y="142" width="320" height="32" rx="5" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="25" y="158" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10" fill="#1d4ed8">Key Question Answered:</text>
+      <text x="25" y="169" font-family="'Segoe UI', sans-serif" font-size="10" fill="#1e293b">"What data is stored and how is it related?"</text>
+    </g>
+
+    <!-- CARD 2: PHYSICAL SCHEMA -->
+    <g transform="translate(20, 270)">
+      <rect width="350" height="195" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+      <rect x="0" y="0" width="350" height="32" rx="10" fill="#475569"/>
+      <text x="15" y="21" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="13" fill="#ffffff">2. PHYSICAL SCHEMA (The Disk Storage)</text>
+
+      <text x="15" y="52" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="12" fill="#334155">What is it?</text>
+      <text x="15" y="70" font-family="'Segoe UI', sans-serif" font-size="11" fill="#334155">• Defines how data is <tspan font-weight="700">actually stored on disk</tspan>.</text>
+      <text x="15" y="88" font-family="'Segoe UI', sans-serif" font-size="11" fill="#334155">• Managed internally by DBMS; <tspan font-weight="700">hidden from normal users</tspan>.</text>
+      
+      <text x="15" y="112" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#334155">Core Elements Defined:</text>
+      <text x="15" y="128" font-family="'Segoe UI', sans-serif" font-size="11" fill="#475569">File Storage • Partitions • B-Tree Indexes • Storage Engine</text>
+
+      <rect x="15" y="145" width="320" height="35" rx="5" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="25" y="160" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10" fill="#475569">Key Question Answered:</text>
+      <text x="25" y="172" font-family="'Segoe UI', sans-serif" font-size="10" fill="#1e293b">"How is data physically stored inside the hardware?"</text>
+    </g>
+  </g>
+</svg>

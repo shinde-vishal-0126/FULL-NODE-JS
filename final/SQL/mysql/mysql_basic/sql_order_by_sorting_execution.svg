@@ -1,0 +1,266 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 780" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="yellowHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+
+    <marker id="arrowSky" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arrowYellow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1150" height="780" rx="16" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Grid lines -->
+  <g opacity="0.07">
+    <path d="M0,78 L1150,78 M0,156 L1150,156 M0,234 L1150,234 M0,312 L1150,312 M0,390 L1150,390 M0,468 L1150,468 M0,546 L1150,546 M0,624 L1150,624 M0,702 L1150,702" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M115,0 L115,780 M230,0 L230,780 M345,0 L345,780 M460,0 L460,780 M575,0 L575,780 M690,0 L690,780 M805,0 L805,780 M920,0 L920,780 M1035,0 L1035,780" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(575, 38)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#f8fafc">Sorting in SQL: ORDER BY Clause Architecture</text>
+    <text y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Arranges output rows in Ascending (ASC) or Descending (DESC) order — Single &amp; Multiple (Nested) Column Sorting</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT: SQL QUERY CLAUSES BRANCHING + ASC/DESC MECHANICS -->
+  <!-- ========================================================================= -->
+  <g transform="translate(45, 85)" filter="url(#boxShadow)">
+    <rect width="360" height="660" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Heading -->
+    <rect width="360" height="42" rx="12" fill="#1e293b"/>
+    <rect y="30" width="360" height="12" fill="#1e293b"/>
+    <text x="180" y="27" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8" text-anchor="middle">1. Query Clauses &amp; Sort Directions</text>
+
+    <!-- SQL Query Central Box -->
+    <g transform="translate(25, 60)">
+      <rect width="105" height="150" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+      <text x="52" y="70" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="bold" fill="#fbbf24" text-anchor="middle">SQL</text>
+      <text x="52" y="95" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="bold" fill="#f8fafc" text-anchor="middle">Query</text>
+      <circle cx="20" cy="125" r="7" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <line x1="25" y1="130" x2="33" y2="138" stroke="#94a3b8" stroke-width="2.5"/>
+
+      <!-- Arrows to clauses -->
+      <line x1="105" y1="35" x2="155" y2="20" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowSky)"/>
+      <line x1="105" y1="65" x2="155" y2="60" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowSky)"/>
+      <line x1="105" y1="95" x2="155" y2="100" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowSky)"/>
+      <line x1="105" y1="125" x2="155" y2="140" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowYellow)"/>
+
+      <!-- Clauses list -->
+      <rect x="160" y="5" width="160" height="28" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="180" y="24" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#38bdf8">SELECT</text>
+      <text x="290" y="24" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">🔀 Projection</text>
+
+      <rect x="160" y="45" width="160" height="28" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="180" y="64" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#38bdf8">FROM</text>
+      <text x="290" y="64" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">▦ Table</text>
+
+      <rect x="160" y="85" width="160" height="28" rx="5" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="180" y="104" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#38bdf8">WHERE</text>
+      <text x="290" y="104" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">🔻 Filter</text>
+
+      <rect x="160" y="125" width="160" height="30" rx="5" fill="#854d0e" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="175" y="145" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#fef08a">ORDER BY</text>
+      <text x="295" y="145" font-family="'Segoe UI', sans-serif" font-size="12" fill="#fbbf24">⇅ Sort</text>
+    </g>
+
+    <!-- Divider -->
+    <line x1="20" y1="230" x2="340" y2="230" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- ASC vs DESC Direction Boxes -->
+    <g transform="translate(25, 245)">
+      <text x="0" y="20" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">Order By Directions:</text>
+
+      <!-- ASC Box -->
+      <g transform="translate(0, 35)">
+        <rect width="310" height="120" rx="8" fill="#064e3b" fill-opacity="0.3" stroke="#059669" stroke-width="1.5"/>
+        <text x="20" y="32" font-family="'Fira Code', monospace" font-size="18" font-weight="bold" fill="#34d399">ASC (Ascending)</text>
+        <rect x="210" y="16" width="85" height="22" rx="4" fill="#059669"/>
+        <text x="252" y="31" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">DEFAULT</text>
+
+        <text x="20" y="62" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1">• Numbers: 0 ➔ 9 (Lowest to Highest)</text>
+        <text x="20" y="82" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1">• Text: A ➔ Z (Alphabetical)</text>
+        <text x="20" y="102" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1">• Dates: Oldest ➔ Newest</text>
+        <line x1="275" y1="55" x2="275" y2="95" stroke="#34d399" stroke-width="3" marker-end="url(#arrowGreen)"/>
+      </g>
+
+      <!-- DESC Box -->
+      <g transform="translate(0, 170)">
+        <rect width="310" height="120" rx="8" fill="#881337" fill-opacity="0.3" stroke="#e11d48" stroke-width="1.5"/>
+        <text x="20" y="32" font-family="'Fira Code', monospace" font-size="18" font-weight="bold" fill="#fb7185">DESC (Descending)</text>
+
+        <text x="20" y="62" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1">• Numbers: 9 ➔ 0 (Highest to Lowest)</text>
+        <text x="20" y="82" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1">• Text: Z ➔ A (Reverse Alphabetical)</text>
+        <text x="20" y="102" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1">• Dates: Newest ➔ Oldest</text>
+        <line x1="275" y1="95" x2="275" y2="55" stroke="#ef4444" stroke-width="3" marker-end="url(#arrowRed)"/>
+      </g>
+
+      <!-- Best practice callout -->
+      <g transform="translate(0, 305)">
+        <rect width="310" height="70" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="1"/>
+        <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#fbbf24">💡 BEST PRACTICE RULE:</text>
+        <text x="12" y="44" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">Even though ASC is default in SQL,</text>
+        <text x="12" y="62" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#38bdf8">always explicitly write ASC for clarity!</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT TOP: SINGLE COLUMN SORTING (ORDER BY score DESC) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(430, 85)" filter="url(#boxShadow)">
+    <rect width="675" height="315" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+
+    <rect width="675" height="40" rx="12" fill="#1e293b"/>
+    <rect y="28" width="675" height="12" fill="#1e293b"/>
+    <text x="20" y="26" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8">2. Single Column Sorting: Highest Score First (DESC)</text>
+
+    <!-- Query syntax box -->
+    <g transform="translate(20, 52)">
+      <rect width="635" height="42" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+      <text x="15" y="26" font-family="'Fira Code', monospace" font-size="13" fill="#f8fafc">
+        <tspan fill="#38bdf8">SELECT</tspan> * <tspan fill="#fbbf24">FROM</tspan> customers <tspan fill="#f59e0b">ORDER BY</tspan> score <tspan fill="#f43f5e" font-weight="bold">DESC</tspan>;
+      </text>
+    </g>
+
+    <!-- Initial vs Sorted Table Representation -->
+    <!-- Table Left: Database Table (Unsorted) -->
+    <g transform="translate(20, 108)">
+      <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#94a3b8">① Raw Table in DB (id order):</text>
+      <rect y="24" width="280" height="160" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <!-- Table Rows -->
+      <line x1="0" y1="52" x2="280" y2="52" stroke="#334155" stroke-width="1"/>
+      <text x="15" y="44" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#94a3b8">id | name   | country | score</text>
+      <text x="15" y="70" font-family="'Fira Code', monospace" font-size="11" fill="#cbd5e1">1  | Maria  | Germany | 350</text>
+      <text x="15" y="92" font-family="'Fira Code', monospace" font-size="11" fill="#cbd5e1">2  | John   | USA     | 900</text>
+      <text x="15" y="114" font-family="'Fira Code', monospace" font-size="11" fill="#cbd5e1">3  | Georg  | UK      | 750</text>
+      <text x="15" y="136" font-family="'Fira Code', monospace" font-size="11" fill="#cbd5e1">4  | Martin | Germany | 500</text>
+      <text x="15" y="158" font-family="'Fira Code', monospace" font-size="11" fill="#cbd5e1">5  | Peter  | USA     | 0</text>
+    </g>
+
+    <!-- Center Arrow -->
+    <g transform="translate(315, 175)">
+      <path d="M0,0 L35,0" stroke="#f43f5e" stroke-width="3" marker-end="url(#arrowRed)"/>
+      <text x="18" y="-10" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#f43f5e" text-anchor="middle">SORT</text>
+      <text x="18" y="20" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">DESC</text>
+    </g>
+
+    <!-- Table Right: Sorted Result Set -->
+    <g transform="translate(370, 108)">
+      <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#34d399">② Output Result Set (Highest First):</text>
+      <rect y="24" width="285" height="160" rx="6" fill="#0f172a" stroke="#059669" stroke-width="1.5"/>
+      <line x1="0" y1="52" x2="285" y2="52" stroke="#059669" stroke-width="1"/>
+      <text x="15" y="44" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#a7f3d0">id | name   | country | score</text>
+
+      <!-- Row 1: John 900 -->
+      <text x="15" y="70" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#f8fafc">2  | John   | USA     | </text>
+      <rect x="220" y="58" width="50" height="16" rx="8" fill="#e11d48"/>
+      <text x="245" y="70" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">900</text>
+
+      <!-- Row 2: Georg 750 -->
+      <text x="15" y="92" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#f8fafc">3  | Georg  | UK      | </text>
+      <rect x="220" y="80" width="50" height="16" rx="8" fill="#e11d48"/>
+      <text x="245" y="92" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">750</text>
+
+      <!-- Row 3: Martin 500 -->
+      <text x="15" y="114" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#f8fafc">4  | Martin | Germany | </text>
+      <rect x="220" y="102" width="50" height="16" rx="8" fill="#f59e0b"/>
+      <text x="245" y="114" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">500</text>
+
+      <!-- Row 4: Maria 350 -->
+      <text x="15" y="136" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#f8fafc">1  | Maria  | Germany | </text>
+      <rect x="220" y="124" width="50" height="16" rx="8" fill="#059669"/>
+      <text x="245" y="136" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">350</text>
+
+      <!-- Row 5: Peter 0 -->
+      <text x="15" y="158" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#f8fafc">5  | Peter  | USA     | </text>
+      <rect x="220" y="146" width="50" height="16" rx="8" fill="#475569"/>
+      <text x="245" y="158" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">0</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT BOTTOM: MULTIPLE / NESTED SORTING (ORDER BY Country ASC, Score DESC) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(430, 420)" filter="url(#boxShadow)">
+    <rect width="675" height="325" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+
+    <rect width="675" height="40" rx="12" fill="#1e293b"/>
+    <rect y="28" width="675" height="12" fill="#1e293b"/>
+    <text x="20" y="26" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8">3. Multiple Columns Sorting (Nested ORDER BY)</text>
+
+    <!-- Query syntax box -->
+    <g transform="translate(20, 52)">
+      <rect width="635" height="42" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+      <text x="15" y="26" font-family="'Fira Code', monospace" font-size="13" fill="#f8fafc">
+        <tspan fill="#38bdf8">SELECT</tspan> * <tspan fill="#fbbf24">FROM</tspan> customers <tspan fill="#f59e0b">ORDER BY</tspan> country <tspan fill="#34d399" font-weight="bold">ASC</tspan>, score <tspan fill="#f43f5e" font-weight="bold">DESC</tspan>;
+      </text>
+    </g>
+
+    <!-- Two-level sorting explanation -->
+    <g transform="translate(20, 108)">
+      <!-- Left side: Rule description -->
+      <g transform="translate(0, 0)">
+        <rect width="260" height="190" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="15" y="25" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">Sequential Sorting Rule:</text>
+        <text x="15" y="50" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">1. <tspan fill="#34d399" font-weight="bold">Primary Sort (country ASC):</tspan></text>
+        <text x="32" y="70" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Groups by country (A ➔ Z):</text>
+        <text x="32" y="88" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Germany ➔ UK ➔ USA</text>
+
+        <text x="15" y="118" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">2. <tspan fill="#f43f5e" font-weight="bold">Tie-Breaker (score DESC):</tspan></text>
+        <text x="32" y="138" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Within the same country,</text>
+        <text x="32" y="156" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">highest score comes first!</text>
+        <text x="32" y="176" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#38bdf8">Martin (500) before Maria (350)</text>
+      </g>
+
+      <!-- Right side: Sorted Output Grouped Visually -->
+      <g transform="translate(280, 0)">
+        <rect width="355" height="190" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+        <line x1="0" y1="32" x2="355" y2="32" stroke="#38bdf8" stroke-width="1"/>
+        <text x="15" y="22" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#7dd3fc">id | name   | Country (ASC) | Score (DESC)</text>
+
+        <!-- Germany block -->
+        <rect x="5" y="38" width="345" height="46" rx="4" fill="#0284c7" fill-opacity="0.2" stroke="#0284c7" stroke-width="1"/>
+        <text x="15" y="56" font-family="'Fira Code', monospace" font-size="11" fill="#f8fafc">4  | Martin | Germany       | 500  ▲ (Higher)</text>
+        <text x="15" y="76" font-family="'Fira Code', monospace" font-size="11" fill="#f8fafc">1  | Maria  | Germany       | 350  ▼</text>
+
+        <!-- UK block -->
+        <rect x="5" y="90" width="345" height="26" rx="4" fill="#059669" fill-opacity="0.2" stroke="#059669" stroke-width="1"/>
+        <text x="15" y="108" font-family="'Fira Code', monospace" font-size="11" fill="#f8fafc">3  | Georg  | UK            | 750</text>
+
+        <!-- USA block -->
+        <rect x="5" y="122" width="345" height="46" rx="4" fill="#dc2626" fill-opacity="0.2" stroke="#dc2626" stroke-width="1"/>
+        <text x="15" y="140" font-family="'Fira Code', monospace" font-size="11" fill="#f8fafc">2  | John   | USA           | 900  ▲ (Higher)</text>
+        <text x="15" y="160" font-family="'Fira Code', monospace" font-size="11" fill="#f8fafc">5  | Peter  | USA           | 0    ▼</text>
+      </g>
+    </g>
+  </g>
+</svg>

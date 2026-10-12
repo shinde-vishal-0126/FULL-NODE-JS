@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 640" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgCountry" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="yellowHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1150" height="640" rx="16" fill="url(#bgCountry)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Grid lines -->
+  <g opacity="0.08">
+    <path d="M0,64 L1150,64 M0,128 L1150,128 M0,192 L1150,192 M0,256 L1150,256 M0,320 L1150,320 M0,384 L1150,384 M0,448 L1150,448 M0,512 L1150,512 M0,576 L1150,576" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M115,0 L115,640 M230,0 L230,640 M345,0 L345,640 M460,0 L460,640 M575,0 L575,640 M690,0 L690,640 M805,0 L805,640 M920,0 L920,640 M1035,0 L1035,640" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(575, 42)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#f8fafc">Row-by-Row Predicate Filtering: WHERE Country = 'USA'</text>
+    <text y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">The database evaluates the comparison condition on each row: matching rows survive, non-matching rows are discarded</text>
+  </g>
+
+  <!-- TOP FILTER PREDICATE BANNER (Center) -->
+  <g transform="translate(425, 95)" filter="url(#boxShadow)">
+    <rect width="300" height="85" rx="10" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+    <rect width="300" height="32" rx="10" fill="url(#yellowHeader)"/>
+    <rect y="16" width="300" height="16" fill="url(#yellowHeader)"/>
+    <!-- Funnel Icon -->
+    <g transform="translate(20, 8)">
+      <path d="M0 0 L16 0 L10 8 L10 15 L6 13 L6 8 Z" fill="#0f172a"/>
+    </g>
+    <text x="150" y="22" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">WHERE CLAUSE CONDITION</text>
+    <text x="150" y="65" font-family="'Fira Code', monospace" font-size="18" font-weight="bold" fill="#38bdf8" text-anchor="middle">Country = 'USA'</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT: SOURCE TABLE (customers) WITH ROW-LEVEL EVALUATION -->
+  <!-- ========================================================================= -->
+  <g transform="translate(60, 215)">
+    <!-- Header Title -->
+    <text x="0" y="-12" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#94a3b8">Source Table: <tspan fill="#f8fafc">customers</tspan> (All 5 Rows Evaluated)</text>
+
+    <!-- Table Container -->
+    <rect width="530" height="360" rx="8" fill="#0b1120" stroke="#334155" stroke-width="1.5" filter="url(#boxShadow)"/>
+    
+    <!-- Table Header Row -->
+    <rect width="530" height="46" rx="8" fill="#1e293b"/>
+    <line x1="0" y1="46" x2="530" y2="46" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Column Dividers -->
+    <line x1="140" y1="0" x2="140" y2="360" stroke="#334155" stroke-width="1"/>
+    <line x1="260" y1="0" x2="260" y2="360" stroke="#334155" stroke-width="1"/>
+    <line x1="360" y1="0" x2="360" y2="360" stroke="#334155" stroke-width="1"/>
+    <line x1="450" y1="0" x2="450" y2="360" stroke="#334155" stroke-width="1"/>
+
+    <!-- Header Labels -->
+    <text x="70" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">Name</text>
+    <text x="200" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Country</text>
+    <text x="310" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24" text-anchor="middle">Score</text>
+    <text x="405" y="29" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#94a3b8" text-anchor="middle">Condition</text>
+    <text x="490" y="29" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#f8fafc" text-anchor="middle">Result</text>
+
+    <!-- Horizontal Row Dividers -->
+    <line x1="0" y1="108" x2="530" y2="108" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="171" x2="530" y2="171" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="234" x2="530" y2="234" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="297" x2="530" y2="297" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Row 1: Maria | Germany | 350 -> FALSE ❌ -->
+    <g transform="translate(0, 46)">
+      <rect width="530" height="62" fill="#ef4444" fill-opacity="0.08"/>
+      <!-- Diagonal strikethrough pattern -->
+      <line x1="15" y1="12" x2="435" y2="50" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+      <text x="70" y="37" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Maria</text>
+      <text x="200" y="37" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Germany</text>
+      <text x="310" y="37" font-family="'Fira Code', monospace" font-size="14" fill="#94a3b8" text-anchor="middle">350</text>
+      <text x="405" y="37" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444" text-anchor="middle">FALSE</text>
+      <text x="490" y="39" font-size="20" fill="#ef4444" text-anchor="middle">❌</text>
+    </g>
+
+    <!-- Row 2: John | USA | 900 -> TRUE ✔️ (KEPT) -->
+    <g transform="translate(0, 108)">
+      <rect width="530" height="63" fill="#10b981" fill-opacity="0.16"/>
+      <rect x="2" y="2" width="526" height="59" fill="none" stroke="#10b981" stroke-width="2.5" rx="4"/>
+      <text x="70" y="38" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#34d399" text-anchor="middle">John</text>
+      <text x="200" y="38" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8" text-anchor="middle">USA</text>
+      <text x="310" y="38" font-family="'Fira Code', monospace" font-size="15" font-weight="bold" fill="#fbbf24" text-anchor="middle">900</text>
+      <text x="405" y="38" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">TRUE</text>
+      <text x="490" y="40" font-size="20" fill="#34d399" text-anchor="middle">✔️</text>
+    </g>
+
+    <!-- Row 3: Georg | UK | 750 -> FALSE ❌ -->
+    <g transform="translate(0, 171)">
+      <rect width="530" height="63" fill="#ef4444" fill-opacity="0.08"/>
+      <line x1="15" y1="12" x2="435" y2="50" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+      <text x="70" y="38" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Georg</text>
+      <text x="200" y="38" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">UK</text>
+      <text x="310" y="38" font-family="'Fira Code', monospace" font-size="14" fill="#94a3b8" text-anchor="middle">750</text>
+      <text x="405" y="38" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444" text-anchor="middle">FALSE</text>
+      <text x="490" y="40" font-size="20" fill="#ef4444" text-anchor="middle">❌</text>
+    </g>
+
+    <!-- Row 4: Martin | Germany | 500 -> FALSE ❌ -->
+    <g transform="translate(0, 234)">
+      <rect width="530" height="63" fill="#ef4444" fill-opacity="0.08"/>
+      <line x1="15" y1="12" x2="435" y2="50" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+      <text x="70" y="38" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Martin</text>
+      <text x="200" y="38" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Germany</text>
+      <text x="310" y="38" font-family="'Fira Code', monospace" font-size="14" fill="#94a3b8" text-anchor="middle">500</text>
+      <text x="405" y="38" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444" text-anchor="middle">FALSE</text>
+      <text x="490" y="40" font-size="20" fill="#ef4444" text-anchor="middle">❌</text>
+    </g>
+
+    <!-- Row 5: Peter | USA | 0 -> TRUE ✔️ (KEPT) -->
+    <g transform="translate(0, 297)">
+      <rect width="530" height="63" fill="#10b981" fill-opacity="0.16"/>
+      <rect x="2" y="2" width="526" height="59" fill="none" stroke="#10b981" stroke-width="2.5" rx="4"/>
+      <text x="70" y="38" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#34d399" text-anchor="middle">Peter</text>
+      <text x="200" y="38" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8" text-anchor="middle">USA</text>
+      <text x="310" y="38" font-family="'Fira Code', monospace" font-size="15" font-weight="bold" fill="#fbbf24" text-anchor="middle">0</text>
+      <text x="405" y="38" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">TRUE</text>
+      <text x="490" y="40" font-size="20" fill="#34d399" text-anchor="middle">✔️</text>
+    </g>
+  </g>
+
+  <!-- Connective Transfer Paths for Surviving Rows (Green Arrows) -->
+  <!-- John transfer arrow -->
+  <path d="M 590 355 C 640 355, 650 310, 690 310" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrowGreen)"/>
+  <!-- Peter transfer arrow -->
+  <path d="M 590 540 C 640 540, 650 380, 690 380" fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrowGreen)"/>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT: RESULT SET TABLE (SURVIVING MATCHES) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(700, 215)">
+    <!-- Header Title -->
+    <text x="0" y="-12" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399">Output Result Set (Surviving Records)</text>
+
+    <!-- Query Box Callout -->
+    <g transform="translate(0, 0)">
+      <rect width="390" height="44" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+      <text x="15" y="27" font-family="'Fira Code', monospace" font-size="12" fill="#f8fafc">SELECT * FROM customers</text>
+      <text x="215" y="27" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#38bdf8">WHERE Country='USA';</text>
+    </g>
+
+    <!-- Result Table Container -->
+    <g transform="translate(0, 56)">
+      <rect width="390" height="175" rx="8" fill="#0b1120" stroke="#10b981" stroke-width="2" filter="url(#boxShadow)"/>
+      
+      <!-- Table Header -->
+      <rect width="390" height="42" rx="8" fill="#065f46"/>
+      <line x1="0" y1="42" x2="390" y2="42" stroke="#10b981" stroke-width="1.5"/>
+
+      <!-- Column Dividers -->
+      <line x1="140" y1="0" x2="140" y2="175" stroke="#334155" stroke-width="1"/>
+      <line x1="270" y1="0" x2="270" y2="175" stroke="#334155" stroke-width="1"/>
+
+      <!-- Header Labels -->
+      <text x="70" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Name</text>
+      <text x="205" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Country</text>
+      <text x="330" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Score</text>
+
+      <!-- Row 1: John | USA | 900 -->
+      <g transform="translate(0, 42)">
+        <rect width="390" height="66" fill="#10b981" fill-opacity="0.12"/>
+        <line x1="0" y1="66" x2="390" y2="66" stroke="#1e293b" stroke-width="1"/>
+        <text x="70" y="40" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f8fafc" text-anchor="middle">John</text>
+        <text x="205" y="40" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8" text-anchor="middle">USA</text>
+        <text x="330" y="40" font-family="'Fira Code', monospace" font-size="15" font-weight="bold" fill="#fbbf24" text-anchor="middle">900</text>
+      </g>
+
+      <!-- Row 2: Peter | USA | 0 -->
+      <g transform="translate(0, 108)">
+        <rect width="390" height="66" fill="#10b981" fill-opacity="0.12"/>
+        <text x="70" y="40" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f8fafc" text-anchor="middle">Peter</text>
+        <text x="205" y="40" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8" text-anchor="middle">USA</text>
+        <text x="330" y="40" font-family="'Fira Code', monospace" font-size="15" font-weight="bold" fill="#fbbf24" text-anchor="middle">0</text>
+      </g>
+    </g>
+
+    <!-- Explanatory note box below result table -->
+    <g transform="translate(0, 248)">
+      <rect width="390" height="110" rx="8" fill="#111827" stroke="#334155" stroke-width="1"/>
+      <text x="18" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#fbbf24">💡 KEY TAKEAWAY:</text>
+      <text x="18" y="46" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">• Maria, Georg &amp; Martin evaluated to <tspan fill="#ef4444" font-weight="bold">FALSE</tspan></text>
+      <text x="18" y="66" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">• John &amp; Peter evaluated to <tspan fill="#34d399" font-weight="bold">TRUE</tspan></text>
+      <text x="18" y="88" font-family="'Segoe UI', sans-serif" font-size="12" fill="#38bdf8">• Only rows with TRUE boolean state are returned!</text>
+    </g>
+  </g>
+</svg>

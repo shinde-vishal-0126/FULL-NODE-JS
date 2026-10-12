@@ -1,0 +1,262 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 680" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="cellGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#ea580c" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+
+    <linearGradient id="serverGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#ea580c"/>
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 22px; fill: #0f172a; }
+    .subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #64748b; }
+    .h-box { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 13px; fill: #1e293b; }
+    .table-th { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 12px; fill: #1e293b; }
+    .table-td { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #334155; }
+    .pk-text { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 12px; fill: #ea580c; }
+    .type-cat { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 12px; fill: #0284c7; }
+    .type-item { font-family: 'Consolas', monospace; font-size: 11px; fill: #1e293b; font-weight: 600; }
+    .type-val { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #64748b; }
+  </style>
+
+  <!-- Canvas Frame -->
+  <rect x="15" y="15" width="990" height="650" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Top Title -->
+  <text x="510" y="48" text-anchor="middle" class="title">Database Structure, Hierarchy &amp; Table Architecture</text>
+  <text x="510" y="68" text-anchor="middle" class="subtitle">From Server and Schema Hierarchy to Columns, Rows, Primary Keys &amp; Data Types</text>
+
+  <!-- ==================== TOP-RIGHT: HIERARCHY TREE ==================== -->
+  <g transform="translate(480, 95)">
+    <rect width="495" height="260" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="25" y="28" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="14" fill="#0f172a">🌲 Relational Database Hierarchy</text>
+
+    <!-- 1. SERVER Level -->
+    <g transform="translate(180, 45)">
+      <rect width="135" height="34" rx="6" fill="#1e293b" filter="url(#shadow)"/>
+      <circle cx="15" cy="17" r="3" fill="#22c55e"/>
+      <circle cx="25" cy="17" r="3" fill="#38bdf8"/>
+      <text x="75" y="22" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="13" fill="#ffffff" letter-spacing="1">SERVER</text>
+    </g>
+
+    <!-- Branch line from Server to DBs -->
+    <path d="M 247 79 L 247 95 L 90 95 L 90 108" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+    <path d="M 247 95 L 405 95 L 405 108" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- 2. DATABASE Level -->
+    <!-- DB 1 (Sales) -->
+    <g transform="translate(35, 108)">
+      <rect width="110" height="30" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="55" y="20" text-anchor="middle" class="h-box" fill="#1d4ed8">DATABASE 1</text>
+      <text x="55" y="-4" text-anchor="middle" font-size="9" font-weight="700" fill="#64748b">(Sales DB)</text>
+    </g>
+
+    <!-- DB 2 (HR) -->
+    <g transform="translate(350, 108)">
+      <rect width="110" height="30" rx="5" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="55" y="20" text-anchor="middle" class="h-box" fill="#1d4ed8">DATABASE 2</text>
+      <text x="55" y="-4" text-anchor="middle" font-size="9" font-weight="700" fill="#64748b">(HR DB)</text>
+    </g>
+
+    <!-- Branch from DB 1 to Schemas -->
+    <path d="M 90 138 L 90 152 L 45 152 L 45 165" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+    <path d="M 90 152 L 135 152 L 135 165" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- 3. SCHEMA Level -->
+    <!-- Schema Orders -->
+    <g transform="translate(10, 165)">
+      <rect width="70" height="26" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+      <text x="35" y="17" text-anchor="middle" font-size="9" font-weight="800" fill="#15803d">SCHEMA</text>
+      <text x="35" y="-3" text-anchor="middle" font-size="8" font-weight="700" fill="#16a34a">Orders</text>
+    </g>
+
+    <!-- Schema Customers -->
+    <g transform="translate(100, 165)">
+      <rect width="70" height="26" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.2"/>
+      <text x="35" y="17" text-anchor="middle" font-size="9" font-weight="800" fill="#15803d">SCHEMA</text>
+      <text x="35" y="-3" text-anchor="middle" font-size="8" font-weight="700" fill="#16a34a">Customers</text>
+    </g>
+
+    <!-- Branch from Schema Orders to Tables -->
+    <path d="M 45 191 L 45 205 L 25 205 L 25 215" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+    <path d="M 45 205 L 65 205 L 65 215" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- 4. TABLE Level -->
+    <g transform="translate(5, 215)">
+      <rect width="40" height="22" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+      <text x="20" y="15" text-anchor="middle" font-size="8" font-weight="800" fill="#b45309">TABLE</text>
+    </g>
+    <g transform="translate(50, 215)">
+      <rect width="40" height="22" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+      <text x="20" y="15" text-anchor="middle" font-size="8" font-weight="800" fill="#b45309">TABLE</text>
+    </g>
+
+    <!-- Schema Object List Annotation on Right -->
+    <g transform="translate(200, 160)">
+      <rect width="270" height="85" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="12" y="18" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10" fill="#0284c7">Objects inside each Schema:</text>
+      <text x="12" y="34" font-family="'Segoe UI', sans-serif" font-size="10" fill="#475569">• Tables, Views, Indexes</text>
+      <text x="12" y="50" font-family="'Segoe UI', sans-serif" font-size="10" fill="#475569">• Stored Procedures, Functions</text>
+      <text x="12" y="66" font-family="'Segoe UI', sans-serif" font-size="10" fill="#475569">• Triggers, Sequences &amp; Constraints</text>
+    </g>
+  </g>
+
+  <!-- ==================== LEFT: TABLE BREAKDOWN ==================== -->
+  <g transform="translate(45, 95)">
+    <rect width="410" height="540" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <text x="25" y="28" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="14" fill="#0f172a">📊 Anatomy of a Table</text>
+    <text x="25" y="45" font-family="'Segoe UI', sans-serif" font-size="11" fill="#64748b">Rows (Records) × Columns (Attributes) = Cell Values</text>
+
+    <!-- Column Header Label Callout -->
+    <g transform="translate(130, 65)">
+      <text x="75" y="15" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="13" fill="#0284c7">COLUMNS (Attributes)</text>
+      <path d="M 20 22 L 5 32" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <path d="M 60 22 L 60 32" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <path d="M 100 22 L 100 32" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <path d="M 140 22 L 155 32" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)"/>
+    </g>
+
+    <!-- Table Graphic Grid -->
+    <g transform="translate(25, 105)">
+      <!-- Table Header -->
+      <rect width="360" height="35" fill="#e0f2fe" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="35" y="22" text-anchor="middle" class="table-th" fill="#ea580c">Id 🔑</text>
+      <text x="120" y="22" text-anchor="middle" class="table-th">Name</text>
+      <text x="210" y="22" text-anchor="middle" class="table-th">Score</text>
+      <text x="305" y="22" text-anchor="middle" class="table-th">Birthdate</text>
+
+      <!-- Row 1 (Maria) -->
+      <rect y="35" width="360" height="35" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="35" y="58" text-anchor="middle" class="table-td" font-weight="700">1</text>
+      <text x="120" y="58" text-anchor="middle" class="table-td">Maria</text>
+      <text x="210" y="58" text-anchor="middle" class="table-td">350</text>
+      <text x="305" y="58" text-anchor="middle" class="table-td">1988-01-15</text>
+
+      <!-- Row 2 (John - with Highlighted Cell 900) -->
+      <rect y="70" width="360" height="35" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="35" y="93" text-anchor="middle" class="table-td" font-weight="700">2</text>
+      <text x="120" y="93" text-anchor="middle" class="table-td">John</text>
+      
+      <!-- Highlighted Value Cell (Score = 900) -->
+      <rect x="175" y="72" width="70" height="31" rx="4" fill="#ffedd5" stroke="#ea580c" stroke-width="2" filter="url(#cellGlow)"/>
+      <text x="210" y="93" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="13" fill="#c2410c">900</text>
+
+      <text x="305" y="93" text-anchor="middle" class="table-td">2000-02-10</text>
+
+      <!-- Row 3 (Peter) -->
+      <rect y="105" width="360" height="35" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="35" y="128" text-anchor="middle" class="table-td" font-weight="700">3</text>
+      <text x="120" y="128" text-anchor="middle" class="table-td">Peter</text>
+      <text x="210" y="128" text-anchor="middle" class="table-td">0</text>
+      <text x="305" y="128" text-anchor="middle" class="table-td">1990-03-20</text>
+
+      <!-- Grid Vertical Column Dividers -->
+      <line x1="70" y1="0" x2="70" y2="140" stroke="#cbd5e1" stroke-width="1.2"/>
+      <line x1="170" y1="0" x2="170" y2="140" stroke="#cbd5e1" stroke-width="1.2"/>
+      <line x1="250" y1="0" x2="250" y2="140" stroke="#cbd5e1" stroke-width="1.2"/>
+    </g>
+
+    <!-- Rows Label Callout on Right -->
+    <g transform="translate(390, 155)">
+      <path d="M 0 10 C 12 10, 12 25, 20 25 C 12 25, 12 40, 0 40" fill="none" stroke="#64748b" stroke-width="1.5"/>
+      <text x="28" y="29" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#475569">ROWS</text>
+      <text x="28" y="43" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b">(Records)</text>
+    </g>
+
+    <!-- Primary Key Banner (Bottom of table) -->
+    <g transform="translate(25, 260)">
+      <rect width="360" height="52" rx="8" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+      <text x="20" y="24" class="pk-text">🔑 PRIMARY KEY (Column 'Id')</text>
+      <text x="20" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#9a3412">• Unique Fingerprint: No two rows have the same Id • Cannot be NULL</text>
+    </g>
+
+    <!-- Cell / Value Pointer -->
+    <g transform="translate(25, 330)">
+      <rect width="360" height="185" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2"/>
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#0f172a">🎯 What is a Cell (Value)?</text>
+      <text x="15" y="44" font-family="'Segoe UI', sans-serif" font-size="11" fill="#475569">• The intersection of a Row and a Column.</text>
+      <text x="15" y="62" font-family="'Segoe UI', sans-serif" font-size="11" fill="#475569">• Holds a single value (e.g., Score = <tspan font-weight="700" fill="#ea580c">900</tspan>).</text>
+      <text x="15" y="80" font-family="'Segoe UI', sans-serif" font-size="11" fill="#475569">• Every value must strictly match its column's Data Type.</text>
+
+      <!-- Connector line pointing to value -->
+      <line x1="20" y1="100" x2="340" y2="100" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="15" y="122" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="11" fill="#0284c7">Schema Types:</text>
+      <text x="15" y="142" font-family="'Segoe UI', sans-serif" font-size="11" fill="#334155"><tspan font-weight="700" fill="#1e293b">1. Logical Schema:</tspan> Tables, relations, constraints (what is stored).</text>
+      <text x="15" y="162" font-family="'Segoe UI', sans-serif" font-size="11" fill="#334155"><tspan font-weight="700" fill="#1e293b">2. Physical Schema:</tspan> Files, partitions, disks (how it is stored).</text>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM-RIGHT: DATA TYPES ==================== -->
+  <g transform="translate(480, 375)">
+    <rect width="495" height="260" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="25" y="28" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="14" fill="#0f172a">🏷️ Common Column Data Types</text>
+    <text x="25" y="44" font-family="'Segoe UI', sans-serif" font-size="11" fill="#64748b">Defines what kind of values can be stored inside each column</text>
+
+    <!-- 1. Numeric Group -->
+    <g transform="translate(25, 60)">
+      <rect width="140" height="180" rx="8" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1"/>
+      <text x="15" y="24" class="type-cat">🔢 Numeric</text>
+      <line x1="12" y1="34" x2="128" y2="34" stroke="#e0f2fe" stroke-width="1.5"/>
+
+      <text x="15" y="55" class="type-item">INT</text>
+      <text x="15" y="72" class="type-val">Whole numbers</text>
+      <text x="15" y="88" font-family="monospace" font-size="10" fill="#0369a1">Ex: 1, 2, 30</text>
+
+      <text x="15" y="118" class="type-item">DECIMAL / FLOAT</text>
+      <text x="15" y="135" class="type-val">Fractional numbers</text>
+      <text x="15" y="151" font-family="monospace" font-size="10" fill="#0369a1">Ex: 3.14, 100.50</text>
+    </g>
+
+    <!-- 2. Text / String Group -->
+    <g transform="translate(180, 60)">
+      <rect width="140" height="180" rx="8" fill="#fefce8" stroke="#fef08a" stroke-width="1"/>
+      <text x="15" y="24" class="type-cat" fill="#a16207">📝 Text / String</text>
+      <line x1="12" y1="34" x2="128" y2="34" stroke="#fef9c3" stroke-width="1.5"/>
+
+      <text x="15" y="55" class="type-item">CHAR</text>
+      <text x="15" y="72" class="type-val">Fixed-length text</text>
+      <text x="15" y="88" font-family="monospace" font-size="10" fill="#854d0e">Ex: 'E5A6'</text>
+
+      <text x="15" y="118" class="type-item">VARCHAR</text>
+      <text x="15" y="135" class="type-val">Variable text</text>
+      <text x="15" y="151" font-family="monospace" font-size="10" fill="#854d0e">Ex: 'Maria', 'John'</text>
+    </g>
+
+    <!-- 3. Date & Time Group -->
+    <g transform="translate(335, 60)">
+      <rect width="135" height="180" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <text x="15" y="24" class="type-cat" fill="#15803d">📅 Date &amp; Time</text>
+      <line x1="12" y1="34" x2="123" y2="34" stroke="#dcfce7" stroke-width="1.5"/>
+
+      <text x="15" y="55" class="type-item">DATE</text>
+      <text x="15" y="72" class="type-val">Calendar date</text>
+      <text x="15" y="88" font-family="monospace" font-size="10" fill="#166534">'2025-10-30'</text>
+
+      <text x="15" y="118" class="type-item">TIMESTAMP</text>
+      <text x="15" y="135" class="type-val">Date + Exact time</text>
+      <text x="15" y="151" font-family="monospace" font-size="10" fill="#166534">'14:30:00'</text>
+    </g>
+  </g>
+</svg>

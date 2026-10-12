@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 640" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgNot" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="yellowHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1150" height="640" rx="16" fill="url(#bgNot)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Grid lines -->
+  <g opacity="0.08">
+    <path d="M0,64 L1150,64 M0,128 L1150,128 M0,192 L1150,192 M0,256 L1150,256 M0,320 L1150,320 M0,384 L1150,384 M0,448 L1150,448 M0,512 L1150,512 M0,576 L1150,576" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M115,0 L115,640 M230,0 L230,640 M345,0 L345,640 M460,0 L460,640 M575,0 L575,640 M690,0 L690,640 M805,0 L805,640 M920,0 L920,640 M1035,0 L1035,640" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(575, 38)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="25" font-weight="bold" fill="#f8fafc">Logical Operator: NOT (Reverses Condition / Excludes Matches)</text>
+    <text y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Negates a condition — inverts TRUE to FALSE and FALSE to TRUE, returning all non-matching records</text>
+  </g>
+
+  <!-- TOP CONDITION CALLOUT BANNER -->
+  <g transform="translate(370, 85)" filter="url(#boxShadow)">
+    <!-- WHERE Box -->
+    <g transform="translate(140, 0)">
+      <rect width="130" height="34" rx="6" fill="url(#yellowHeader)"/>
+      <path d="M14 8 L26 8 L22 14 L22 22 L18 20 L18 14 Z" fill="#0f172a"/>
+      <text x="75" y="23" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">WHERE</text>
+    </g>
+
+    <!-- NOT Operator Badge with curved arrow -->
+    <g transform="translate(0, 52)">
+      <rect width="85" height="38" rx="6" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+      <text x="42" y="25" font-family="'Fira Code', monospace" font-size="17" font-weight="bold" fill="#f43f5e" text-anchor="middle">NOT</text>
+      <!-- Arrow pointing to condition -->
+      <path d="M 90 19 L 125 19" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+    </g>
+
+    <!-- Condition Box -->
+    <g transform="translate(130, 45)">
+      <rect width="260" height="52" rx="8" fill="#0f172a" stroke="#f43f5e" stroke-width="1.8"/>
+      <text x="15" y="20" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">⚖️ Base Condition</text>
+      <text x="130" y="40" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Country = 'USA'</text>
+    </g>
+
+    <!-- Tagline: "Excludes Matching Rows" -->
+    <text x="260" y="118" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#f43f5e" text-anchor="middle">"Excludes Matching Rows (Reverse Logic)"</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT: TABLE WITH NOT EVALUATION (Width: 610) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(45, 230)">
+    <text x="0" y="-12" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#94a3b8">Source Table: <tspan fill="#f8fafc">customers</tspan> (Inverting Predicate Truth State)</text>
+
+    <!-- Table Container -->
+    <rect width="610" height="360" rx="8" fill="#0b1120" stroke="#334155" stroke-width="1.5" filter="url(#boxShadow)"/>
+    
+    <!-- Table Header Row -->
+    <rect width="610" height="46" rx="8" fill="#1e293b"/>
+    <line x1="0" y1="46" x2="610" y2="46" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Vertical Column Dividers -->
+    <line x1="120" y1="0" x2="120" y2="360" stroke="#334155" stroke-width="1"/>
+    <line x1="220" y1="0" x2="220" y2="360" stroke="#334155" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="360" stroke="#334155" stroke-width="1"/>
+    <line x1="450" y1="0" x2="450" y2="360" stroke="#334155" stroke-width="1"/>
+
+    <!-- Header Labels -->
+    <text x="60" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">Name</text>
+    <text x="170" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Country</text>
+    <text x="260" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24" text-anchor="middle">Score</text>
+    <text x="375" y="22" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#94a3b8" text-anchor="middle">Inner Condition</text>
+    <text x="375" y="38" font-family="'Fira Code', monospace" font-size="10" fill="#cbd5e1" text-anchor="middle">Country = 'USA'</text>
+    <text x="530" y="22" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#f43f5e" text-anchor="middle">NOT (Country='USA')</text>
+    <text x="530" y="38" font-family="'Segoe UI', sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Final Result</text>
+
+    <!-- Horizontal Dividers -->
+    <line x1="0" y1="108" x2="610" y2="108" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="171" x2="610" y2="171" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="234" x2="610" y2="234" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="297" x2="610" y2="297" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Row 1: Maria (Germany, 350) -> Inner: FALSE -> NOT FALSE = TRUE ✔️ (KEPT) -->
+    <g transform="translate(0, 46)">
+      <rect width="610" height="62" fill="#10b981" fill-opacity="0.18"/>
+      <rect x="2" y="2" width="606" height="58" fill="none" stroke="#10b981" stroke-width="2.2" rx="4"/>
+      <text x="60" y="37" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399" text-anchor="middle">Maria</text>
+      <text x="170" y="37" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">Germany</text>
+      <text x="260" y="37" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">350</text>
+      <text x="375" y="37" font-family="'Fira Code', monospace" font-size="12" fill="#ef4444" text-anchor="middle">FALSE ❌</text>
+      <text x="530" y="39" font-size="22" fill="#34d399" text-anchor="middle">✔️</text>
+    </g>
+
+    <!-- Row 2: John (USA, 900) -> Inner: TRUE -> NOT TRUE = FALSE ❌ (DISCARDED) -->
+    <g transform="translate(0, 108)">
+      <rect width="610" height="63" fill="#ef4444" fill-opacity="0.08"/>
+      <line x1="15" y1="12" x2="285" y2="50" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+      <text x="60" y="38" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">John</text>
+      <text x="170" y="38" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">USA</text>
+      <text x="260" y="38" font-family="'Fira Code', monospace" font-size="14" fill="#94a3b8" text-anchor="middle">900</text>
+      <text x="375" y="38" font-family="'Fira Code', monospace" font-size="12" fill="#34d399" text-anchor="middle">TRUE ✔️</text>
+      <text x="530" y="40" font-size="20" fill="#ef4444" text-anchor="middle">❌</text>
+    </g>
+
+    <!-- Row 3: Georg (UK, 750) -> Inner: FALSE -> NOT FALSE = TRUE ✔️ (KEPT) -->
+    <g transform="translate(0, 171)">
+      <rect width="610" height="63" fill="#10b981" fill-opacity="0.18"/>
+      <rect x="2" y="2" width="606" height="59" fill="none" stroke="#10b981" stroke-width="2.2" rx="4"/>
+      <text x="60" y="38" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399" text-anchor="middle">Georg</text>
+      <text x="170" y="38" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">UK</text>
+      <text x="260" y="38" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">750</text>
+      <text x="375" y="38" font-family="'Fira Code', monospace" font-size="12" fill="#ef4444" text-anchor="middle">FALSE ❌</text>
+      <text x="530" y="40" font-size="22" fill="#34d399" text-anchor="middle">✔️</text>
+    </g>
+
+    <!-- Row 4: Martin (Germany, 500) -> Inner: FALSE -> NOT FALSE = TRUE ✔️ (KEPT) -->
+    <g transform="translate(0, 234)">
+      <rect width="610" height="63" fill="#10b981" fill-opacity="0.18"/>
+      <rect x="2" y="2" width="606" height="59" fill="none" stroke="#10b981" stroke-width="2.2" rx="4"/>
+      <text x="60" y="38" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399" text-anchor="middle">Martin</text>
+      <text x="170" y="38" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">Germany</text>
+      <text x="260" y="38" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">500</text>
+      <text x="375" y="38" font-family="'Fira Code', monospace" font-size="12" fill="#ef4444" text-anchor="middle">FALSE ❌</text>
+      <text x="530" y="40" font-size="22" fill="#34d399" text-anchor="middle">✔️</text>
+    </g>
+
+    <!-- Row 5: Peter (USA, 0) -> Inner: TRUE -> NOT TRUE = FALSE ❌ (DISCARDED) -->
+    <g transform="translate(0, 297)">
+      <rect width="610" height="63" fill="#ef4444" fill-opacity="0.08"/>
+      <line x1="15" y1="12" x2="285" y2="50" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+      <text x="60" y="38" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Peter</text>
+      <text x="170" y="38" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">USA</text>
+      <text x="260" y="38" font-family="'Fira Code', monospace" font-size="14" fill="#94a3b8" text-anchor="middle">0</text>
+      <text x="375" y="38" font-family="'Fira Code', monospace" font-size="12" fill="#34d399" text-anchor="middle">TRUE ✔️</text>
+      <text x="530" y="40" font-size="20" fill="#ef4444" text-anchor="middle">❌</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT: RESULT SET TABLE (SURVIVING: MARIA, GEORG, MARTIN) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(750, 230)">
+    <text x="0" y="-12" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399">Surviving Result Set (Non-USA Customers)</text>
+
+    <!-- Query Box Callout -->
+    <rect width="355" height="52" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+    <text x="12" y="22" font-family="'Fira Code', monospace" font-size="11" fill="#f8fafc">SELECT * FROM customers</text>
+    <text x="12" y="40" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#f43f5e">WHERE NOT (Country = 'USA');</text>
+
+    <!-- Result Table Container -->
+    <g transform="translate(0, 65)">
+      <rect width="355" height="175" rx="8" fill="#0b1120" stroke="#10b981" stroke-width="2" filter="url(#boxShadow)"/>
+      
+      <!-- Table Header -->
+      <rect width="355" height="42" rx="8" fill="#065f46"/>
+      <line x1="0" y1="42" x2="355" y2="42" stroke="#10b981" stroke-width="1.5"/>
+
+      <!-- Column Dividers -->
+      <line x1="120" y1="0" x2="120" y2="175" stroke="#334155" stroke-width="1"/>
+      <line x1="240" y1="0" x2="240" y2="175" stroke="#334155" stroke-width="1"/>
+
+      <!-- Header Labels -->
+      <text x="60" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Name</text>
+      <text x="180" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Country</text>
+      <text x="295" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Score</text>
+
+      <!-- Row 1: Maria -->
+      <g transform="translate(0, 42)">
+        <rect width="355" height="44" fill="#10b981" fill-opacity="0.14"/>
+        <line x1="0" y1="44" x2="355" y2="44" stroke="#1e293b" stroke-width="1"/>
+        <text x="60" y="28" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Maria</text>
+        <text x="180" y="28" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">Germany</text>
+        <text x="295" y="28" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">350</text>
+      </g>
+
+      <!-- Row 2: Georg -->
+      <g transform="translate(0, 86)">
+        <rect width="355" height="44" fill="#10b981" fill-opacity="0.14"/>
+        <line x1="0" y1="44" x2="355" y2="44" stroke="#1e293b" stroke-width="1"/>
+        <text x="60" y="28" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Georg</text>
+        <text x="180" y="28" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">UK</text>
+        <text x="295" y="28" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">750</text>
+      </g>
+
+      <!-- Row 3: Martin -->
+      <g transform="translate(0, 130)">
+        <rect width="355" height="45" fill="#10b981" fill-opacity="0.14"/>
+        <text x="60" y="28" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Martin</text>
+        <text x="180" y="28" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">Germany</text>
+        <text x="295" y="28" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">500</text>
+      </g>
+    </g>
+
+    <!-- Explanatory note box -->
+    <g transform="translate(0, 255)">
+      <rect width="355" height="105" rx="8" fill="#111827" stroke="#334155" stroke-width="1"/>
+      <text x="16" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#f43f5e">💡 NOT OPERATOR RULE:</text>
+      <text x="16" y="46" font-family="'Segoe UI', sans-serif" font-size="11.5" fill="#cbd5e1">• John &amp; Peter match USA $\rightarrow$ <tspan fill="#ef4444">Excluded ❌</tspan></text>
+      <text x="16" y="68" font-family="'Segoe UI', sans-serif" font-size="11.5" fill="#cbd5e1">• Maria, Georg &amp; Martin are non-USA $\rightarrow$ <tspan fill="#34d399">Kept ✔️</tspan></text>
+      <text x="16" y="90" font-family="'Segoe UI', sans-serif" font-size="11.5" fill="#cbd5e1">• Equivalent to: <tspan fill="#38bdf8">WHERE Country != 'USA'</tspan></text>
+    </g>
+  </g>
+</svg>

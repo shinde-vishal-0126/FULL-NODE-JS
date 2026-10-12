@@ -1,0 +1,310 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 780" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgSearch" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="yellowHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+
+    <marker id="arrowSky" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f97316"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1150" height="780" rx="16" fill="url(#bgSearch)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Subtle Grid lines -->
+  <g opacity="0.07">
+    <path d="M0,78 L1150,78 M0,156 L1150,156 M0,234 L1150,234 M0,312 L1150,312 M0,390 L1150,390 M0,468 L1150,468 M0,546 L1150,546 M0,624 L1150,624 M0,702 L1150,702" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M115,0 L115,780 M230,0 L230,780 M345,0 L345,780 M460,0 L460,780 M575,0 L575,780 M690,0 L690,780 M805,0 L805,780 M920,0 L920,780 M1035,0 L1035,780" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(575, 42)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#f8fafc">Search Operator: LIKE &amp; SQL Wildcards (Pattern Matching)</text>
+    <text y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Searches for specific string patterns using % (zero or more characters) and _ (exact single character)</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- TOP: WHERE -> SEARCH PATTERN INPUT & WILDCARDS ANATOMY -->
+  <!-- ========================================================================= -->
+  <g transform="translate(140, 95)" filter="url(#boxShadow)">
+    <!-- Container background -->
+    <rect width="870" height="155" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- WHERE Header Box -->
+    <g transform="translate(375, 12)">
+      <rect width="120" height="28" rx="5" fill="url(#yellowHeader)"/>
+      <text x="60" y="19" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">WHERE 🔻</text>
+    </g>
+
+    <!-- Arrow down to Search input -->
+    <line x1="435" y1="40" x2="435" y2="55" stroke="#fbbf24" stroke-width="2.5"/>
+
+    <!-- Left: LIKE label & arrow -->
+    <g transform="translate(180, 75)">
+      <text x="0" y="24" font-family="'Segoe UI', sans-serif" font-size="24" font-weight="bold" fill="#38bdf8">LIKE</text>
+      <!-- curved arrow -->
+      <path d="M60,18 Q85,18 105,18" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowSky)"/>
+    </g>
+
+    <!-- Center: Search Pattern Input Pill -->
+    <g transform="translate(305, 60)">
+      <rect width="260" height="48" rx="24" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+      <text x="75" y="32" font-family="'Segoe UI', sans-serif" font-size="20" font-weight="bold" fill="#1e293b">Pattern</text>
+      <!-- Magnifying Glass Icon -->
+      <circle cx="215" cy="24" r="11" fill="none" stroke="#0f172a" stroke-width="2.8"/>
+      <line x1="223" y1="32" x2="236" y2="44" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Right: Wildcards Branching Bracket -->
+    <g transform="translate(585, 52)">
+      <!-- Branch for % -->
+      <path d="M0,32 Q15,32 25,18" fill="none" stroke="#f97316" stroke-width="2.5"/>
+      <g transform="translate(32, 5)">
+        <text x="0" y="16" font-family="'Fira Code', monospace" font-size="20" font-weight="bold" fill="#38bdf8">%</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Anything</text>
+        <!-- sub-branch: 0, 1, Many -->
+        <path d="M95,12 L110,3 M95,12 L115,12 M95,12 L110,21" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="122" y="6" font-family="'Segoe UI', sans-serif" font-size="12" fill="#34d399">0 chars</text>
+        <text x="122" y="15" font-family="'Segoe UI', sans-serif" font-size="12" fill="#38bdf8">1 char</text>
+        <text x="122" y="24" font-family="'Segoe UI', sans-serif" font-size="12" fill="#fbbf24">Many chars</text>
+      </g>
+
+      <!-- Branch for _ -->
+      <path d="M0,32 Q15,32 25,48" fill="none" stroke="#f97316" stroke-width="2.5"/>
+      <g transform="translate(32, 45)">
+        <line x1="0" y1="12" x2="22" y2="12" stroke="#38bdf8" stroke-width="4"/>
+        <text x="32" y="16" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Exact 1 Character</text>
+        <text x="170" y="16" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">(position sensitive)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- 4 COLUMNS OF PATTERN MATCHING EXAMPLES -->
+  <!-- ========================================================================= -->
+
+  <!-- Column 1: Starts with 'M' -> LIKE 'M%' -->
+  <g transform="translate(70, 275)" filter="url(#boxShadow)">
+    <rect width="235" height="380" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+    <!-- Header card -->
+    <rect width="235" height="75" rx="10" fill="#1e293b"/>
+    <rect y="60" width="235" height="15" fill="#1e293b"/>
+    <line x1="0" y1="75" x2="235" y2="75" stroke="#475569" stroke-width="1.5"/>
+    <text x="117" y="32" font-family="'Fira Code', monospace" font-size="17" font-weight="bold" fill="#38bdf8" text-anchor="middle">LIKE 'M%'</text>
+    <text x="117" y="55" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Starts with "M"</text>
+
+    <!-- Sub-badge -->
+    <g transform="translate(52, 90)">
+      <rect width="60" height="30" rx="5" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="30" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#f43f5e" text-anchor="middle">M</text>
+      <text x="30" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#f43f5e" text-anchor="middle">1st Char</text>
+
+      <rect x="70" y="0" width="60" height="30" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="100" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="middle">%</text>
+      <text x="100" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">Any Chars</text>
+    </g>
+
+    <!-- Sample evaluation items -->
+    <g transform="translate(25, 160)">
+      <g transform="translate(0, 0)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f43f5e">M</text>
+        <text x="40" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#38bdf8">aria</text>
+      </g>
+      <g transform="translate(0, 45)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f43f5e">M</text>
+        <text x="40" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#38bdf8">a</text>
+      </g>
+      <g transform="translate(0, 90)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f43f5e">M</text>
+        <text x="50" y="16" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">(0 chars after)</text>
+      </g>
+      <g transform="translate(0, 135)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#ef4444">❌</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#94a3b8">Emma</text>
+        <text x="80" y="16" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444">(Starts 'E')</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Column 2: Ends with 'in' -> LIKE '%in' -->
+  <g transform="translate(330, 275)" filter="url(#boxShadow)">
+    <rect width="235" height="380" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+    <rect width="235" height="75" rx="10" fill="#1e293b"/>
+    <rect y="60" width="235" height="15" fill="#1e293b"/>
+    <line x1="0" y1="75" x2="235" y2="75" stroke="#475569" stroke-width="1.5"/>
+    <text x="117" y="32" font-family="'Fira Code', monospace" font-size="17" font-weight="bold" fill="#38bdf8" text-anchor="middle">LIKE '%in'</text>
+    <text x="117" y="55" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Ends with "in"</text>
+
+    <!-- Sub-badge -->
+    <g transform="translate(52, 90)">
+      <rect width="60" height="30" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="30" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="middle">%</text>
+      <text x="30" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">Any Chars</text>
+
+      <rect x="70" y="0" width="60" height="30" rx="5" fill="#1e293b" stroke="#f97316" stroke-width="1.5"/>
+      <text x="100" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#f97316" text-anchor="middle">in</text>
+      <text x="100" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#f97316" text-anchor="middle">End Chars</text>
+    </g>
+
+    <!-- Sample evaluation items -->
+    <g transform="translate(25, 160)">
+      <g transform="translate(0, 0)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#38bdf8">Mart</text>
+        <text x="60" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f97316">in</text>
+      </g>
+      <g transform="translate(0, 45)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#38bdf8">V</text>
+        <text x="36" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f97316">in</text>
+      </g>
+      <g transform="translate(0, 90)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f97316">in</text>
+        <text x="50" y="16" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">(0 chars before)</text>
+      </g>
+      <g transform="translate(0, 135)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#ef4444">❌</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#94a3b8">Jasmine</text>
+        <text x="95" y="16" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444">(Ends 'e')</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Column 3: Contains 'r' -> LIKE '%r%' -->
+  <g transform="translate(590, 275)" filter="url(#boxShadow)">
+    <rect width="235" height="380" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+    <rect width="235" height="75" rx="10" fill="#1e293b"/>
+    <rect y="60" width="235" height="15" fill="#1e293b"/>
+    <line x1="0" y1="75" x2="235" y2="75" stroke="#475569" stroke-width="1.5"/>
+    <text x="117" y="32" font-family="'Fira Code', monospace" font-size="17" font-weight="bold" fill="#38bdf8" text-anchor="middle">LIKE '%r%'</text>
+    <text x="117" y="55" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">Contains "r" anywhere</text>
+
+    <!-- Sub-badge -->
+    <g transform="translate(25, 90)">
+      <rect width="55" height="30" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="27" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="middle">%</text>
+
+      <rect x="65" y="0" width="55" height="30" rx="5" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+      <text x="92" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#a855f7" text-anchor="middle">r</text>
+
+      <rect x="130" y="0" width="55" height="30" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="157" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="middle">%</text>
+    </g>
+
+    <!-- Sample evaluation items -->
+    <g transform="translate(25, 160)">
+      <g transform="translate(0, 0)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#cbd5e1">Ma</text>
+        <text x="50" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#a855f7">r</text>
+        <text x="59" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#cbd5e1">ia</text>
+      </g>
+      <g transform="translate(0, 45)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#cbd5e1">Pete</text>
+        <text x="63" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#a855f7">r</text>
+      </g>
+      <g transform="translate(0, 90)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#a855f7">R</text>
+        <text x="38" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#cbd5e1">ayn</text>
+      </g>
+      <g transform="translate(0, 135)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#ef4444">❌</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#94a3b8">Alice</text>
+        <text x="75" y="16" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444">(No 'r')</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Column 4: 3rd letter is 'b' -> LIKE '__b%' -->
+  <g transform="translate(850, 275)" filter="url(#boxShadow)">
+    <rect width="235" height="380" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+    <rect width="235" height="75" rx="10" fill="#1e293b"/>
+    <rect y="60" width="235" height="15" fill="#1e293b"/>
+    <line x1="0" y1="75" x2="235" y2="75" stroke="#475569" stroke-width="1.5"/>
+    <text x="117" y="32" font-family="'Fira Code', monospace" font-size="17" font-weight="bold" fill="#38bdf8" text-anchor="middle">LIKE '__b%'</text>
+    <text x="117" y="55" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">3rd char must be "b"</text>
+
+    <!-- Sub-badge -->
+    <g transform="translate(18, 90)">
+      <rect width="40" height="30" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="20" y="22" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="middle">_</text>
+      <text x="20" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">1st</text>
+
+      <rect x="48" y="0" width="40" height="30" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="68" y="22" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="middle">_</text>
+      <text x="68" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">2nd</text>
+
+      <rect x="96" y="0" width="45" height="30" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="118" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#f59e0b" text-anchor="middle">b</text>
+      <text x="118" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#f59e0b" text-anchor="middle">3rd: b</text>
+
+      <rect x="149" y="0" width="45" height="30" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="171" y="21" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="middle">%</text>
+      <text x="171" y="42" font-family="'Segoe UI', sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">Rest</text>
+    </g>
+
+    <!-- Sample evaluation items -->
+    <g transform="translate(25, 160)">
+      <g transform="translate(0, 0)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#38bdf8">Al</text>
+        <text x="40" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f59e0b">b</text>
+        <text x="50" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#cbd5e1">ert</text>
+      </g>
+      <g transform="translate(0, 45)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#34d399">✔️</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#38bdf8">Ro</text>
+        <text x="46" y="16" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f59e0b">b</text>
+      </g>
+      <g transform="translate(0, 90)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#ef4444">❌</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#94a3b8">Abel</text>
+        <text x="68" y="16" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444">('b' is 2nd!)</text>
+      </g>
+      <g transform="translate(0, 135)">
+        <text x="0" y="16" font-family="'Segoe UI', sans-serif" font-size="16" fill="#ef4444">❌</text>
+        <text x="25" y="16" font-family="'Segoe UI', sans-serif" font-size="15" fill="#94a3b8">An</text>
+        <text x="55" y="16" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444">(Length &lt; 3)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- BOTTOM: NOT LIKE RECAP BAR -->
+  <!-- ========================================================================= -->
+  <g transform="translate(70, 680)" filter="url(#boxShadow)">
+    <rect width="1015" height="75" rx="10" fill="#0b1120" stroke="#f43f5e" stroke-width="1.2"/>
+    <text x="25" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#f43f5e">🚫 NEGATING PATTERNS: NOT LIKE</text>
+    <text x="25" y="55" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Excludes pattern matches:</text>
+    <text x="200" y="55" font-family="'Fira Code', monospace" font-size="12" fill="#38bdf8">WHERE name NOT LIKE 'A%'</text>
+    <text x="430" y="55" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">➔ Returns all customers whose names do</text>
+    <text x="695" y="55" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ef4444">NOT</text>
+    <text x="730" y="55" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">start with 'A' (e.g. Maria, John, Georg, Peter)</text>
+  </g>
+</svg>

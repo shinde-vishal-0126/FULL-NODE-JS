@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 840" width="100%" height="100%">
+  <defs>
+    <!-- Filter Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="topShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgCanvas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <linearGradient id="gradCommit" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+
+    <linearGradient id="gradRollback" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+
+    <linearGradient id="gradSavepoint" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+
+    <linearGradient id="gradIsolation" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#059669"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <style>
+    .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 900; font-size: 22px; fill: #ffffff; }
+    .sub-title { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .panel-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 15px; fill: #ffffff; }
+    .badge { font-family: 'Segoe UI', monospace; font-size: 10px; font-weight: 800; }
+    .code-sql { font-family: 'Consolas', monospace; font-size: 11.5px; font-weight: 700; }
+    .label-tag { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 11px; }
+    .body-desc { font-family: 'Segoe UI', sans-serif; font-size: 11.5px; fill: #334155; line-height: 1.4; }
+    .tbl-hdr { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 11px; fill: #ffffff; }
+    .tbl-cell { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #0f172a; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgCanvas)" rx="16"/>
+  <rect width="100%" height="100%" fill="none" stroke="#cbd5e1" stroke-width="2" rx="16"/>
+
+  <!-- Top Banner -->
+  <g filter="url(#topShadow)">
+    <rect x="25" y="20" width="1150" height="74" rx="12" fill="url(#headerGrad)"/>
+    <text x="45" y="50" class="main-title">TCL: TRANSACTION CONTROL LANGUAGE &amp; ISOLATION LEVELS</text>
+    <text x="45" y="74" class="sub-title">Managing Database Transactions (COMMIT, ROLLBACK, SAVEPOINT) &amp; ACID Concurrency Isolation</text>
+  </g>
+
+  <!-- ================= LEFT PANEL: TRANSACTION LIFECYCLE (X = 30, Width = 560) ================= -->
+  <g filter="url(#shadow)">
+    <rect x="30" y="112" width="560" height="690" rx="12" fill="#ffffff" stroke="#bfdbfe" stroke-width="2"/>
+    <!-- Header -->
+    <path d="M 30 124 Q 30 112 42 112 L 578 112 Q 590 112 590 124 L 590 155 L 30 155 Z" fill="url(#headerGrad)"/>
+    <text x="48" y="139" class="panel-title">TRANSACTION LIFECYCLE &amp; ATOMICITY</text>
+    <rect x="440" y="122" width="135" height="24" rx="6" fill="#ffffff" fill-opacity="0.25"/>
+    <text x="450" y="138" class="badge" fill="#ffffff">ALL-OR-NOTHING</text>
+
+    <!-- Step 1: START TRANSACTION -->
+    <rect x="50" y="172" width="520" height="58" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="65" y="190" class="label-tag" fill="#1d4ed8">1. INITIATION:</text>
+    <text x="65" y="210" class="code-sql" fill="#1e40af">START TRANSACTION;  -- Begins a new logical unit of work</text>
+
+    <!-- Step 2: Operations & Savepoint -->
+    <rect x="50" y="240" width="520" height="135" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="65" y="258" class="label-tag" fill="#475569">2. DML WORKFLOW &amp; INTERMEDIATE CHECKPOINT:</text>
+    <text x="65" y="280" class="code-sql" fill="#334155">UPDATE accounts SET balance = balance - 1000 WHERE acc_id = 101;</text>
+    <rect x="65" y="292" width="490" height="26" rx="4" fill="#fef3c7" stroke="#fde68a"/>
+    <text x="75" y="309" class="code-sql" fill="#b45309">SAVEPOINT sp1;  -- Marks a rollback checkpoint</text>
+    <text x="65" y="335" class="code-sql" fill="#334155">UPDATE accounts SET balance = balance + 1000 WHERE acc_id = 102;</text>
+    <text x="65" y="355" class="body-desc" font-size="10.5px" fill="#64748b">Changes are staged in memory &amp; Undo/Redo logs (NOT yet permanently committed).</text>
+
+    <!-- Step 3: Decision Pathways -->
+    <text x="50" y="398" class="label-tag" fill="#0f172a">3. THREE RESOLUTION PATHWAYS:</text>
+
+    <!-- Pathway A: COMMIT -->
+    <rect x="50" y="412" width="520" height="75" rx="8" fill="#f0fdf4" stroke="#a7f3d0"/>
+    <rect x="60" y="422" width="100" height="22" rx="4" fill="url(#gradCommit)"/>
+    <text x="70" y="437" class="badge" fill="#ffffff">A. COMMIT</text>
+    <text x="175" y="437" class="code-sql" fill="#065f46">COMMIT;  -- Permanent disk write</text>
+    <text x="65" y="460" class="body-desc" fill="#166534">• Saves all changes permanently to database storage engine (InnoDB).</text>
+    <text x="65" y="476" class="body-desc" fill="#166534">• Ends transaction. Cannot be undone with ROLLBACK afterwards!</text>
+
+    <!-- Pathway B: ROLLBACK -->
+    <rect x="50" y="497" width="520" height="75" rx="8" fill="#fef2f2" stroke="#fecaca"/>
+    <rect x="60" y="507" width="110" height="22" rx="4" fill="url(#gradRollback)"/>
+    <text x="68" y="522" class="badge" fill="#ffffff">B. ROLLBACK</text>
+    <text x="185" y="522" class="code-sql" fill="#991b1b">ROLLBACK;  -- Total wipe</text>
+    <text x="65" y="545" class="body-desc" fill="#991b1b">• Discards ALL uncommitted DML modifications made in this transaction.</text>
+    <text x="65" y="561" class="body-desc" fill="#991b1b">• Restores table rows back to exact initial state before START TRANSACTION.</text>
+
+    <!-- Pathway C: ROLLBACK TO SAVEPOINT -->
+    <rect x="50" y="582" width="520" height="75" rx="8" fill="#fffbeb" stroke="#fde68a"/>
+    <rect x="60" y="592" width="160" height="22" rx="4" fill="url(#gradSavepoint)"/>
+    <text x="68" y="607" class="badge" fill="#ffffff">C. ROLLBACK TO sp1</text>
+    <text x="235" y="607" class="code-sql" fill="#92400e">ROLLBACK TO sp1;</text>
+    <text x="65" y="630" class="body-desc" fill="#78350f">• Undoes ONLY modifications made after the savepoint was created.</text>
+    <text x="65" y="646" class="body-desc" fill="#78350f">• Earlier modifications (Account 101 deduction) remain staged and active!</text>
+
+    <!-- TCL Core Golden Rule -->
+    <rect x="50" y="668" width="520" height="60" rx="6" fill="#f1f5f9" stroke="#cbd5e1"/>
+    <text x="62" y="686" class="label-tag" fill="#334155">⚡ CRITICAL ENGINE RULE:</text>
+    <text x="62" y="704" class="body-desc">• Works ONLY with DML commands (INSERT, UPDATE, DELETE).</text>
+    <text x="62" y="720" class="body-desc">• DDL statements (CREATE, ALTER, TRUNCATE, DROP) trigger an <tspan font-weight="700" fill="#dc2626">IMPLICIT COMMIT</tspan>!</text>
+  </g>
+
+  <!-- ================= RIGHT PANEL: ISOLATION LEVELS (X = 610, Width = 560) ================= -->
+  <g filter="url(#shadow)">
+    <rect x="610" y="112" width="560" height="690" rx="12" fill="#ffffff" stroke="#c7d2fe" stroke-width="2"/>
+    <!-- Header -->
+    <path d="M 610 124 Q 610 112 622 112 L 1158 112 Q 1170 112 1170 124 L 1170 155 L 610 155 Z" fill="url(#gradIsolation)"/>
+    <text x="628" y="139" class="panel-title">TRANSACTION ISOLATION LEVELS &amp; PHENOMENA</text>
+    <rect x="1030" y="122" width="125" height="24" rx="6" fill="#ffffff" fill-opacity="0.25"/>
+    <text x="1038" y="138" class="badge" fill="#ffffff">ANSI SQL-92</text>
+
+    <!-- 3 Concurrency Problems Explained -->
+    <rect x="625" y="172" width="530" height="135" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="640" y="192" class="label-tag" fill="#4f46e5">THE 3 CONCURRENCY ANOMALIES / PHENOMENA:</text>
+    <text x="640" y="215" class="body-desc"><tspan font-weight="700" fill="#dc2626">1. Dirty Read:</tspan> Transaction reads data modified by an uncommitted transaction.</text>
+    <text x="640" y="245" class="body-desc"><tspan font-weight="700" fill="#d97706">2. Non-Repeatable Read:</tspan> Re-reading the same row returns different values because another transaction committed an UPDATE or DELETE.</text>
+    <text x="640" y="285" class="body-desc"><tspan font-weight="700" fill="#7c3aed">3. Phantom Read:</tspan> Re-running a range query returns new matching rows because another transaction committed an INSERT.</text>
+
+    <!-- Isolation Levels Table -->
+    <text x="625" y="328" class="label-tag" fill="#0f172a">ISOLATION LEVELS MATRIX (SAFETY vs. PERFORMANCE):</text>
+
+    <rect x="625" y="340" width="530" height="235" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <!-- Table Header -->
+    <rect x="625" y="340" width="530" height="32" rx="8" fill="#1e293b"/>
+    <text x="635" y="361" class="tbl-hdr">ISOLATION LEVEL</text>
+    <text x="795" y="361" class="tbl-hdr">DIRTY READ</text>
+    <text x="895" y="361" class="tbl-hdr">NON-REPEAT</text>
+    <text x="1000" y="361" class="tbl-hdr">PHANTOM READ</text>
+
+    <!-- Row 1: READ UNCOMMITTED -->
+    <rect x="625" y="372" width="530" height="42" fill="#fef2f2"/>
+    <text x="635" y="390" class="tbl-cell" font-weight="700">READ UNCOMMITTED</text>
+    <text x="635" y="405" class="badge" fill="#b91c1c">Lowest Isolation</text>
+    <text x="805" y="398" class="tbl-cell" fill="#dc2626" font-weight="700">❌ Allowed</text>
+    <text x="905" y="398" class="tbl-cell" fill="#dc2626" font-weight="700">❌ Allowed</text>
+    <text x="1010" y="398" class="tbl-cell" fill="#dc2626" font-weight="700">❌ Allowed</text>
+
+    <!-- Row 2: READ COMMITTED -->
+    <rect x="625" y="414" width="530" height="42" fill="#ffffff"/>
+    <text x="635" y="432" class="tbl-cell" font-weight="700">READ COMMITTED</text>
+    <text x="635" y="447" class="badge" fill="#64748b">Oracle / PG Default</text>
+    <text x="805" y="440" class="tbl-cell" fill="#16a34a" font-weight="700">✓ Prevented</text>
+    <text x="905" y="440" class="tbl-cell" fill="#dc2626" font-weight="700">❌ Allowed</text>
+    <text x="1010" y="440" class="tbl-cell" fill="#dc2626" font-weight="700">❌ Allowed</text>
+
+    <!-- Row 3: REPEATABLE READ (MySQL Default) -->
+    <rect x="625" y="456" width="530" height="46" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="635" y="474" class="tbl-cell" font-weight="800" fill="#1e40af">REPEATABLE READ</text>
+    <rect x="635" y="480" width="130" height="18" rx="4" fill="#2563eb"/>
+    <text x="640" y="493" class="badge" fill="#ffffff">MYSQL INNODB DEFAULT</text>
+    <text x="805" y="482" class="tbl-cell" fill="#16a34a" font-weight="700">✓ Prevented</text>
+    <text x="905" y="482" class="tbl-cell" fill="#16a34a" font-weight="700">✓ Prevented</text>
+    <text x="1010" y="482" class="tbl-cell" fill="#d97706" font-weight="700">✓ Blocked* (MVCC)</text>
+
+    <!-- Row 4: SERIALIZABLE -->
+    <rect x="625" y="502" width="530" height="42" fill="#ffffff"/>
+    <text x="635" y="520" class="tbl-cell" font-weight="700">SERIALIZABLE</text>
+    <text x="635" y="535" class="badge" fill="#0f172a">Strict Locking</text>
+    <text x="805" y="528" class="tbl-cell" fill="#16a34a" font-weight="700">✓ Prevented</text>
+    <text x="905" y="528" class="tbl-cell" fill="#16a34a" font-weight="700">✓ Prevented</text>
+    <text x="1010" y="528" class="tbl-cell" fill="#16a34a" font-weight="700">✓ Prevented</text>
+
+    <!-- Setting Isolation Level Box -->
+    <rect x="625" y="588" width="530" height="140" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="640" y="608" class="label-tag" fill="#4f46e5">SETTING TRANSACTION ISOLATION LEVEL:</text>
+    <text x="640" y="630" class="code-sql" fill="#312e81">SET TRANSACTION ISOLATION LEVEL READ COMMITTED;</text>
+    <text x="640" y="650" class="code-sql" fill="#312e81">SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;</text>
+    <text x="640" y="675" class="body-desc" font-size="10.5px" fill="#475569">• Higher isolation = Stronger consistency, but more lock contention &amp; lower concurrency.</text>
+    <text x="640" y="695" class="body-desc" font-size="10.5px" fill="#475569">• *MySQL InnoDB utilizes Next-Key Locking to eliminate Phantoms in REPEATABLE READ!</text>
+  </g>
+
+  <!-- Bottom Summary Bar -->
+  <rect x="30" y="792" width="1140" height="30" rx="6" fill="#e2e8f0"/>
+  <text x="45" y="812" class="body-desc" font-weight="700" fill="#334155">💡 CORE SUMMARY: TCL manages logical units of work. COMMIT permanently hardens changes to disk; ROLLBACK restores pre-transaction state.</text>
+</svg>

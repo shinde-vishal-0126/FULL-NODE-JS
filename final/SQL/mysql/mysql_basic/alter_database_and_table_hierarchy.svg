@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 760" width="100%" height="100%">
+  <defs>
+    <!-- Drop Shadow Filters -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="badgeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgCanvas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="dbCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+
+    <linearGradient id="tblCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .main-title { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 24px; fill: #ffffff; }
+    .sub-title { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .section-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 16px; }
+    .cmd-pill { font-family: 'Consolas', 'Courier New', monospace; font-weight: 700; font-size: 13px; }
+    .tree-node-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #1e293b; }
+    .syntax-badge { font-family: 'Consolas', monospace; font-size: 11px; fill: #475569; }
+    .note-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; fill: #0f172a; }
+  </style>
+
+  <!-- Canvas Outer Background -->
+  <rect x="10" y="10" width="1080" height="740" rx="16" fill="url(#bgCanvas)" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(10, 10)">
+    <path d="M 0 16 C 0 7, 7 0, 16 0 L 1064 0 C 1073 0, 1080 7, 1080 16 L 1080 85 L 0 85 Z" fill="url(#headerGrad)"/>
+    <text x="540" y="42" text-anchor="middle" class="main-title">SQL ALTER COMMAND: ARCHITECTURE &amp; SCOPE</text>
+    <text x="540" y="66" text-anchor="middle" class="sub-title">Complete Hierarchy of Database Level and Table Level Structural Modifications</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- LEFT COLUMN: DATABASE LEVEL (ALTER DATABASE) -->
+  <!-- ========================================== -->
+  <g transform="translate(35, 115)">
+    <!-- Container Box -->
+    <rect width="400" height="520" rx="14" fill="url(#dbCardGrad)" stroke="#93c5fd" stroke-width="1.8" filter="url(#cardShadow)"/>
+
+    <!-- Header with DB Icon -->
+    <g transform="translate(20, 24)">
+      <!-- Database Cylinder Icon -->
+      <g transform="translate(0, 0)">
+        <ellipse cx="18" cy="8" rx="16" ry="6" fill="#3b82f6"/>
+        <path d="M 2 8 L 2 28 C 2 34, 34 34, 34 28 L 34 8 Z" fill="#2563eb"/>
+        <ellipse cx="18" cy="8" rx="16" ry="6" fill="#60a5fa"/>
+        <ellipse cx="18" cy="18" rx="14" ry="4" fill="none" stroke="#93c5fd" stroke-width="1.5"/>
+        <ellipse cx="18" cy="28" rx="14" ry="4" fill="none" stroke="#93c5fd" stroke-width="1.5"/>
+      </g>
+      <text x="46" y="16" class="section-title" fill="#1e3a8a">DATABASE LEVEL</text>
+      <text x="46" y="32" font-family="'Segoe UI', sans-serif" font-size="12" fill="#3b82f6" font-weight="700">ALTER DATABASE db_name</text>
+    </g>
+
+    <line x1="20" y1="75" x2="380" y2="75" stroke="#bfdbfe" stroke-width="1.5"/>
+
+    <!-- Explanatory note -->
+    <rect x="20" y="90" width="360" height="55" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="32" y="112" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="700" fill="#1e40af">🎯 Scope of Database Level:</text>
+    <text x="32" y="130" font-family="'Segoe UI', sans-serif" font-size="11" fill="#475569">Affects global settings, encoding &amp; collation for the entire DB.</text>
+
+    <!-- Branch Lines -->
+    <!-- Main stem -->
+    <line x1="45" y1="165" x2="45" y2="350" stroke="#3b82f6" stroke-width="2.5"/>
+
+    <!-- Branch 1: CHARACTER SET -->
+    <path d="M 45 220 L 75 220" stroke="#3b82f6" stroke-width="2.5" fill="none"/>
+    <g transform="translate(75, 185)">
+      <rect width="295" height="75" rx="10" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" filter="url(#badgeShadow)"/>
+      <rect x="12" y="12" width="160" height="22" rx="5" fill="#dbeafe"/>
+      <text x="18" y="27" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#1d4ed8">1. CHARACTER SET</text>
+      <text x="12" y="48" class="tree-node-text">Change default charset</text>
+      <text x="12" y="64" class="syntax-badge" fill="#2563eb">e.g., utf8mb4 (supports emojis &amp; multilingual)</text>
+    </g>
+
+    <!-- Branch 2: COLLATION -->
+    <path d="M 45 330 L 75 330" stroke="#3b82f6" stroke-width="2.5" fill="none"/>
+    <g transform="translate(75, 295)">
+      <rect width="295" height="75" rx="10" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5" filter="url(#badgeShadow)"/>
+      <rect x="12" y="12" width="130" height="22" rx="5" fill="#dbeafe"/>
+      <text x="18" y="27" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#1d4ed8">2. COLLATION</text>
+      <text x="12" y="48" class="tree-node-text">Change sorting &amp; comparison rules</text>
+      <text x="12" y="64" class="syntax-badge" fill="#2563eb">e.g., utf8mb4_unicode_ci (case insensitive)</text>
+    </g>
+
+    <!-- Database Level Syntax Card -->
+    <g transform="translate(20, 400)">
+      <rect width="360" height="100" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <text x="16" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#38bdf8">💻 Complete SQL Command Example:</text>
+      <text x="16" y="48" font-family="'Consolas', monospace" font-size="12" fill="#f8fafc">ALTER DATABASE company_db</text>
+      <text x="16" y="68" font-family="'Consolas', monospace" font-size="12" fill="#a7f3d0">  CHARACTER SET utf8mb4</text>
+      <text x="16" y="88" font-family="'Consolas', monospace" font-size="12" fill="#fde047">  COLLATE utf8mb4_unicode_ci;</text>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- RIGHT COLUMN: TABLE LEVEL (ALTER TABLE)    -->
+  <!-- ========================================== -->
+  <g transform="translate(460, 115)">
+    <!-- Container Box -->
+    <rect width="605" height="520" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.8" filter="url(#cardShadow)"/>
+
+    <!-- Header with Table Icon -->
+    <g transform="translate(25, 24)">
+      <!-- Table Icon -->
+      <g transform="translate(0, 0)">
+        <rect width="32" height="26" rx="4" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+        <rect width="32" height="8" rx="2" fill="#0f172a"/>
+        <line x1="16" y1="8" x2="16" y2="26" stroke="#cbd5e1" stroke-width="1.2"/>
+        <line x1="0" y1="17" x2="32" y2="17" stroke="#cbd5e1" stroke-width="1.2"/>
+      </g>
+      <text x="44" y="16" class="section-title" fill="#0f172a">TABLE LEVEL</text>
+      <text x="44" y="32" font-family="'Segoe UI', sans-serif" font-size="12" fill="#64748b" font-weight="700">ALTER TABLE table_name</text>
+    </g>
+
+    <line x1="25" y1="75" x2="580" y2="75" stroke="#e2e8f0" stroke-width="1.5"/>
+
+    <!-- Explanatory note -->
+    <rect x="25" y="86" width="555" height="34" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="38" y="107" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#047857">🎯 Scope of Table Level: <tspan font-weight="500" fill="#475569">Directly changes column definitions, constraints, indices, or table names.</tspan></text>
+
+    <!-- Main Tree Stem Line -->
+    <line x1="50" y1="135" x2="50" y2="495" stroke="#94a3b8" stroke-width="2"/>
+
+    <!-- 1. ADD COLUMN -->
+    <g transform="translate(50, 130)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+      <rect x="33" y="6" width="50" height="22" rx="4" fill="#16a34a"/>
+      <text x="58" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">ADD</text>
+      <text x="92" y="21" class="tree-node-text"><tspan font-weight="700">column</tspan> (default at end, <tspan font-family="monospace" fill="#15803d">FIRST</tspan>, or <tspan font-family="monospace" fill="#15803d">AFTER col_name</tspan>)</text>
+    </g>
+
+    <!-- 2. MODIFY COLUMN -->
+    <g transform="translate(50, 170)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+      <rect x="33" y="6" width="62" height="22" rx="4" fill="#0284c7"/>
+      <text x="64" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="800" fill="#ffffff">MODIFY</text>
+      <text x="104" y="21" class="tree-node-text"><tspan font-weight="700">column</tspan> (change datatype, size, nullability, default value)</text>
+    </g>
+
+    <!-- 3. CHANGE COLUMN -->
+    <g transform="translate(50, 210)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.2"/>
+      <rect x="33" y="6" width="65" height="22" rx="4" fill="#7c3aed"/>
+      <text x="65" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="800" fill="#ffffff">CHANGE</text>
+      <text x="107" y="21" class="tree-node-text"><tspan font-weight="700">column</tspan> (rename column name + change datatype together)</text>
+    </g>
+
+    <!-- 4. RENAME COLUMN -->
+    <g transform="translate(50, 250)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#fdf4ff" stroke="#f0abfc" stroke-width="1.2"/>
+      <rect x="33" y="6" width="65" height="22" rx="4" fill="#c026d3"/>
+      <text x="65" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="800" fill="#ffffff">RENAME</text>
+      <text x="107" y="21" class="tree-node-text"><tspan font-weight="700">column</tspan> (rename only, without repeating datatype - MySQL 8.0+)</text>
+    </g>
+
+    <!-- 5. DROP COLUMN -->
+    <g transform="translate(50, 290)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+      <rect x="33" y="6" width="50" height="22" rx="4" fill="#dc2626"/>
+      <text x="58" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">DROP</text>
+      <text x="92" y="21" class="tree-node-text"><tspan font-weight="700" fill="#b91c1c">column</tspan> (permanently removes column and its cell values)</text>
+    </g>
+
+    <!-- 6. ADD CONSTRAINT -->
+    <g transform="translate(50, 330)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="1.2"/>
+      <rect x="33" y="6" width="112" height="22" rx="4" fill="#d97706"/>
+      <text x="89" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="800" fill="#ffffff">ADD CONSTRAINT</text>
+      <text x="154" y="21" class="tree-node-text">Add rule (<tspan font-family="monospace" fill="#b45309">PRIMARY KEY</tspan>, <tspan font-family="monospace" fill="#b45309">UNIQUE</tspan>, <tspan font-family="monospace" fill="#b45309">FOREIGN KEY</tspan>, <tspan font-family="monospace" fill="#b45309">CHECK</tspan>)</text>
+    </g>
+
+    <!-- 7. DROP CONSTRAINT -->
+    <g transform="translate(50, 370)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#fff1f2" stroke="#fecdd3" stroke-width="1.2"/>
+      <rect x="33" y="6" width="120" height="22" rx="4" fill="#e11d48"/>
+      <text x="93" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="800" fill="#ffffff">DROP CONSTRAINT</text>
+      <text x="162" y="21" class="tree-node-text">Remove constraint rule by name or type</text>
+    </g>
+
+    <!-- 8. ADD / DROP INDEX -->
+    <g transform="translate(50, 410)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.2"/>
+      <rect x="33" y="6" width="125" height="22" rx="4" fill="#0d9488"/>
+      <text x="95" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="800" fill="#ffffff">ADD / DROP INDEX</text>
+      <text x="167" y="21" class="tree-node-text">Create or delete lookup indexes to optimize speed</text>
+    </g>
+
+    <!-- 9. RENAME TABLE -->
+    <g transform="translate(50, 450)">
+      <path d="M 0 15 L 25 15" stroke="#94a3b8" stroke-width="2" fill="none"/>
+      <rect x="25" y="0" width="500" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+      <rect x="33" y="6" width="105" height="22" rx="4" fill="#475569"/>
+      <text x="85" y="21" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="800" fill="#ffffff">RENAME TABLE</text>
+      <text x="147" y="21" class="tree-node-text">Rename the table entity (<tspan font-family="monospace">RENAME TO new_table_name</tspan>)</text>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- BOTTOM SUMMARY CALLOUT BANNER              -->
+  <!-- ========================================== -->
+  <g transform="translate(35, 655)">
+    <rect width="1030" height="75" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+    <text x="24" y="28" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#38bdf8">💡 KEY TAKEAWAY FOR ALTER COMMANDS:</text>
+    <text x="24" y="48" font-family="'Segoe UI', sans-serif" font-size="11.5" fill="#e2e8f0">1. <tspan font-weight="700" fill="#ffffff">ALTER modifies metadata/blueprint:</tspan> Existing data in unchanged columns is preserved safe and intact.</text>
+    <text x="24" y="66" font-family="'Segoe UI', sans-serif" font-size="11.5" fill="#fca5a5">2. <tspan font-weight="700" fill="#f87171">Implicit Commit in MySQL:</tspan> Executing ALTER cannot be rolled back with ROLLBACK statement!</text>
+  </g>
+</svg>

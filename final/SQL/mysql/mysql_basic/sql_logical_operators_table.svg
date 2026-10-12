@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgLog" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="yellowHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1050" height="560" rx="16" fill="url(#bgLog)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Subtle Blueprint Grid -->
+  <g opacity="0.08">
+    <path d="M0,70 L1050,70 M0,140 L1050,140 M0,210 L1050,210 M0,280 L1050,280 M0,350 L1050,350 M0,420 L1050,420 M0,490 L1050,490" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M105,0 L105,560 M210,0 L210,560 M315,0 L315,560 M420,0 L420,560 M525,0 L525,560 M630,0 L630,560 M735,0 L735,560 M840,0 L840,560 M945,0 L945,560" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- TOP HEADER CARD (Matching Screenshot) -->
+  <g transform="translate(385, 30)" filter="url(#cardShadow)">
+    <rect width="280" height="60" rx="10" fill="#0f172a" stroke="#fbbf24" stroke-width="2.5"/>
+    <rect width="280" height="24" rx="10" fill="url(#yellowHeader)"/>
+    <rect y="14" width="280" height="10" fill="url(#yellowHeader)"/>
+    <text x="140" y="17" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">WHERE CLAUSE OPERATORS</text>
+    <text x="140" y="47" font-family="'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#fbbf24" text-anchor="middle">Logical Operators</text>
+  </g>
+
+  <!-- Title Subtext -->
+  <text x="525" y="118" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Evaluates and combines multiple boolean predicates to determine row-level filtering</text>
+
+  <!-- ========================================================================= -->
+  <!-- 3 MAIN LOGICAL OPERATOR CARDS (MATCHING USER SCREENSHOT) -->
+  <!-- ========================================================================= -->
+
+  <!-- CARD 1: AND -->
+  <g transform="translate(100, 145)" filter="url(#cardShadow)">
+    <!-- Container -->
+    <rect width="850" height="85" rx="10" fill="#0f172a" stroke="#34d399" stroke-width="1.8"/>
+    <rect x="0" y="0" width="8" height="85" rx="4" fill="#34d399"/>
+    
+    <!-- Button Badge: AND -->
+    <g transform="translate(30, 18)">
+      <rect width="140" height="48" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+      <text x="70" y="32" font-family="'Fira Code', monospace" font-size="22" font-weight="bold" fill="#34d399" text-anchor="middle">AND</text>
+    </g>
+
+    <!-- Core Rule (Large, from screenshot) -->
+    <text x="210" y="36" font-family="'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="bold" fill="#f8fafc">All conditions must be TRUE</text>
+    <text x="210" y="58" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Combines two or more conditions. The row is returned only if <tspan fill="#34d399" font-weight="bold">all</tspan> conditions are true.</text>
+
+    <!-- Right Side Pill -->
+    <g transform="translate(670, 24)">
+      <rect width="150" height="36" rx="6" fill="#111827" stroke="#334155" stroke-width="1"/>
+      <text x="75" y="23" font-family="'Fira Code', monospace" font-size="11.5" fill="#34d399" text-anchor="middle">TRUE AND TRUE = TRUE</text>
+    </g>
+  </g>
+
+  <!-- CARD 2: OR -->
+  <g transform="translate(100, 250)" filter="url(#cardShadow)">
+    <!-- Container -->
+    <rect width="850" height="85" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8"/>
+    <rect x="0" y="0" width="8" height="85" rx="4" fill="#38bdf8"/>
+    
+    <!-- Button Badge: OR -->
+    <g transform="translate(30, 18)">
+      <rect width="140" height="48" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="70" y="32" font-family="'Fira Code', monospace" font-size="22" font-weight="bold" fill="#38bdf8" text-anchor="middle">OR</text>
+    </g>
+
+    <!-- Core Rule (Large, from screenshot) -->
+    <text x="210" y="36" font-family="'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="bold" fill="#f8fafc">At least one condition must be TRUE</text>
+    <text x="210" y="58" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Combines conditions. The row is returned if <tspan fill="#38bdf8" font-weight="bold">at least one</tspan> condition is true.</text>
+
+    <!-- Right Side Pill -->
+    <g transform="translate(670, 24)">
+      <rect width="150" height="36" rx="6" fill="#111827" stroke="#334155" stroke-width="1"/>
+      <text x="75" y="23" font-family="'Fira Code', monospace" font-size="11.5" fill="#38bdf8" text-anchor="middle">TRUE OR FALSE = TRUE</text>
+    </g>
+  </g>
+
+  <!-- CARD 3: NOT -->
+  <g transform="translate(100, 355)" filter="url(#cardShadow)">
+    <!-- Container -->
+    <rect width="850" height="85" rx="10" fill="#0f172a" stroke="#f43f5e" stroke-width="1.8"/>
+    <rect x="0" y="0" width="8" height="85" rx="4" fill="#f43f5e"/>
+    
+    <!-- Button Badge: NOT -->
+    <g transform="translate(30, 18)">
+      <rect width="140" height="48" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="70" y="32" font-family="'Fira Code', monospace" font-size="22" font-weight="bold" fill="#f43f5e" text-anchor="middle">NOT</text>
+    </g>
+
+    <!-- Core Rule (Large, from screenshot) -->
+    <text x="210" y="36" font-family="'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="bold" fill="#f8fafc">(Reverse) Excludes matching values</text>
+    <text x="210" y="58" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Negates a condition. Returns rows where the condition is <tspan fill="#f43f5e" font-weight="bold">false</tspan> (inverts truth state).</text>
+
+    <!-- Right Side Pill -->
+    <g transform="translate(670, 24)">
+      <rect width="150" height="36" rx="6" fill="#111827" stroke="#334155" stroke-width="1"/>
+      <text x="75" y="23" font-family="'Fira Code', monospace" font-size="11.5" fill="#f43f5e" text-anchor="middle">NOT (TRUE) = FALSE</text>
+    </g>
+  </g>
+
+  <!-- BOTTOM RECAP BAR (From User Notes) -->
+  <g transform="translate(100, 465)">
+    <rect width="850" height="60" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+    <text x="30" y="36" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">📌 QUICK RECAP:</text>
+    <text x="175" y="36" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1"><tspan fill="#34d399" font-weight="bold">AND :</tspan> All conditions must be true</text>
+    <text x="440" y="36" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1"><tspan fill="#38bdf8" font-weight="bold">OR :</tspan> At least one condition true</text>
+    <text x="690" y="36" font-family="'Segoe UI', sans-serif" font-size="13" fill="#cbd5e1"><tspan fill="#f43f5e" font-weight="bold">NOT :</tspan> Reverse the condition</text>
+  </g>
+</svg>

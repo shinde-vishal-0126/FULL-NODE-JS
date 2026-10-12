@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>debouncing</h1>
+    <label for="input"> enter username </label>
+    <input type="text" id="input" placeholder="enter name" />
+    <script>
+      let inputValue = document.getElementById("input");
+
+      function getInputValue(event) {
+        console.log("input:", event.target.value);
+      }
+
+      // Debouncing function: takes a callback function and a delay time in milliseconds
+      function debouncingFunction(fun, delay) {
+        // Declare a timer variable to track ongoing timeout
+        let timerId;
+
+        // Return a new function that will be executed on every event trigger
+        // The spread operator captures any arguments passed to the original callback
+        return function (...args) {
+          // If a timer is already running, clear it (reset the clock)
+          // This prevents the callback from running if events keep firing
+          clearTimeout(timerId);
+
+          // Set a new timeout to execute the callback after the specified delay
+          // If no new events come in during the delay, the function will be executed
+          timerId = setTimeout(() => {
+            fun(...args); // Call the original function with the latest arguments
+          }, delay);
+        };
+      }
+
+      const newFun = debouncingFunction(getInputValue, 1000);
+      inputValue.addEventListener("input", newFun);
+    </script>
+  </body>
+</html>

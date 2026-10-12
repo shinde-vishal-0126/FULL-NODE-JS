@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 640" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="cardGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0284c7" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+
+    <linearGradient id="nosqlCloudGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fefce8"/>
+      <stop offset="100%" stop-color="#fef9c3"/>
+    </linearGradient>
+
+    <linearGradient id="sqlCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#d97706"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <style>
+    .main-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 22px; fill: #0f172a; }
+    .main-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #64748b; }
+    .group-label { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 900; font-size: 24px; letter-spacing: 1.5px; }
+    .type-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 14px; fill: #1e293b; }
+    .type-desc { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; fill: #64748b; }
+    .example-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 700; font-size: 11px; fill: #0284c7; }
+    .example-item { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; font-weight: 600; fill: #334155; }
+  </style>
+
+  <!-- Canvas Frame -->
+  <rect x="15" y="15" width="990" height="610" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Top Title Bar -->
+  <text x="510" y="48" text-anchor="middle" class="main-title">Main 2 Types of Databases: SQL vs NO-SQL</text>
+  <text x="510" y="68" text-anchor="middle" class="main-sub">Structured Relational Tables vs Flexible Non-Relational Storage Models</text>
+
+  <!-- ==================== LEFT AREA: NO-SQL CLOUD ==================== -->
+  <!-- Outer NoSQL Enclosure -->
+  <rect x="35" y="85" width="630" height="520" rx="24" fill="url(#nosqlCloudGrad)" stroke="#facc15" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="75" y="120" class="group-label" fill="#b45309">NO-SQL</text>
+  <text x="180" y="120" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="13" fill="#a16207">(Non-Relational Models)</text>
+
+  <!-- Center DB Icon in NoSQL -->
+  <g transform="translate(325, 295)">
+    <ellipse cx="25" cy="10" rx="22" ry="7" fill="#60a5fa" stroke="#1d4ed8" stroke-width="1.2"/>
+    <path d="M 3 10 L 3 35 C 3 42, 47 42, 47 35 L 47 10 Z" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.2"/>
+    <ellipse cx="25" cy="10" rx="18" ry="5" fill="#93c5fd"/>
+    <text x="25" y="27" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="7" fill="#1e40af">DATABASE</text>
+  </g>
+
+  <!-- 1. Document Based (Top) -->
+  <g transform="translate(205, 125)">
+    <rect width="290" height="110" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <!-- Document Icon -->
+    <g transform="translate(15, 20)">
+      <rect width="32" height="42" rx="3" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+      <line x1="6" y1="12" x2="26" y2="12" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="6" y1="20" x2="26" y2="20" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="6" y1="28" x2="20" y2="28" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="8" y="2" width="32" height="42" rx="3" fill="#ffffff" stroke="#0284c7" stroke-width="1.2" opacity="0.5"/>
+    </g>
+    <text x="65" y="32" class="type-title">1. Document-Based</text>
+    <text x="65" y="50" class="type-desc">• Entire data stored in one page/document</text>
+    <text x="65" y="66" class="type-desc">• Structure is flexible, not rigid</text>
+
+    <!-- Example Box -->
+    <g transform="translate(65, 76)">
+      <rect width="90" height="22" rx="4" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+      <text x="45" y="15" text-anchor="middle" font-weight="700" font-size="11" fill="#15803d">✔ MongoDB</text>
+    </g>
+    <!-- Arrow from Center -->
+    <path d="M 145 110 L 145 155" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3 3"/>
+  </g>
+
+  <!-- 2. Graph Database (Left) -->
+  <g transform="translate(50, 245)">
+    <rect width="240" height="135" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <!-- Graph Nodes Mock -->
+    <g transform="translate(20, 20)">
+      <circle cx="12" cy="12" r="8" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+      <circle cx="45" cy="10" r="7" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5"/>
+      <circle cx="28" cy="38" r="9" fill="#bfdbfe" stroke="#2563eb" stroke-width="1.5"/>
+      <!-- Edges -->
+      <line x1="18" y1="12" x2="38" y2="10" stroke="#94a3b8" stroke-width="1.5"/>
+      <line x1="16" y1="18" x2="24" y2="30" stroke="#94a3b8" stroke-width="1.5"/>
+      <line x1="40" y1="16" x2="33" y2="30" stroke="#94a3b8" stroke-width="1.5"/>
+    </g>
+    <text x="75" y="32" class="type-title">2. Graph Database</text>
+    <text x="75" y="50" class="type-desc">• Focus: Relationships between objects</text>
+    <text x="75" y="66" class="type-desc">• How to connect data points</text>
+
+    <!-- Example Box -->
+    <g transform="translate(75, 82)">
+      <rect width="80" height="22" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+      <text x="40" y="15" text-anchor="middle" font-weight="700" font-size="11" fill="#1d4ed8">✔ Neo4j</text>
+    </g>
+  </g>
+
+  <!-- 3. Column-Based Database (Bottom Center) -->
+  <g transform="translate(195, 420)">
+    <rect width="280" height="155" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <!-- Column Mock -->
+    <g transform="translate(15, 20)">
+      <rect x="0" y="0" width="14" height="42" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+      <rect x="18" y="0" width="14" height="42" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+      <rect x="36" y="0" width="14" height="42" rx="2" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+    </g>
+    <text x="75" y="32" class="type-title">3. Column-Based</text>
+    <text x="75" y="50" class="type-desc">• Groups data by columns, not rows</text>
+    <text x="75" y="66" class="type-desc">• Purpose: Fast search in huge big data</text>
+
+    <!-- Examples -->
+    <g transform="translate(75, 80)">
+      <rect width="135" height="20" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+      <text x="67" y="14" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">✔ Apache Cassandra</text>
+      <rect y="26" width="135" height="20" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+      <text x="67" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">✔ Amazon Redshift</text>
+    </g>
+  </g>
+
+  <!-- 4. Key-Value Pair Database (Right of NoSQL) -->
+  <g transform="translate(425, 245)">
+    <rect width="225" height="150" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <!-- Key-Value mock -->
+    <g transform="translate(15, 18)">
+      <rect width="25" height="12" rx="2" fill="#f1f5f9" stroke="#64748b" stroke-width="1"/>
+      <text x="12" y="9" text-anchor="middle" font-size="7" font-weight="700" fill="#475569">key</text>
+      <text x="32" y="9" font-size="8" fill="#f59e0b">→</text>
+      <rect x="40" y="0" width="30" height="12" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+      <text x="55" y="9" text-anchor="middle" font-size="6" font-weight="700" fill="#b45309">val</text>
+
+      <rect y="16" width="25" height="12" rx="2" fill="#f1f5f9" stroke="#64748b" stroke-width="1"/>
+      <text x="12" y="25" text-anchor="middle" font-size="7" font-weight="700" fill="#475569">key</text>
+      <text x="32" y="25" font-size="8" fill="#f59e0b">→</text>
+      <rect x="40" y="16" width="30" height="12" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+      <text x="55" y="25" text-anchor="middle" font-size="6" font-weight="700" fill="#b45309">val</text>
+    </g>
+    <text x="15" y="60" class="type-title">4. Key-Value Pair</text>
+    <text x="15" y="76" class="type-desc">• Like a big dictionary</text>
+    <text x="15" y="90" class="type-desc">• Key = Word, Value = Definition</text>
+
+    <!-- Examples -->
+    <g transform="translate(15, 100)">
+      <rect width="80" height="20" rx="4" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
+      <text x="40" y="14" text-anchor="middle" font-size="10" font-weight="700" fill="#b91c1c">✔ Redis</text>
+      <rect x="88" y="0" width="105" height="20" rx="4" fill="#fef3c7" stroke="#fde68a" stroke-width="1"/>
+      <text x="140" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#b45309">✔ DynamoDB</text>
+    </g>
+  </g>
+
+
+  <!-- ==================== RIGHT AREA: SQL (RELATIONAL) ==================== -->
+  <g transform="translate(690, 85)">
+    <!-- SQL Card -->
+    <rect width="295" height="520" rx="24" fill="url(#sqlCardGrad)" stroke="#3b82f6" stroke-width="2" filter="url(#shadow)"/>
+    
+    <text x="30" y="45" class="group-label" fill="#1d4ed8">SQL</text>
+    <text x="100" y="45" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="14" fill="#2563eb">(Relational Database)</text>
+
+    <!-- Relational Table Card inside SQL -->
+    <g transform="translate(20, 75)">
+      <rect width="255" height="415" rx="12" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.5" filter="url(#shadow)"/>
+
+      <text x="20" y="32" class="type-title" fill="#1d4ed8">Relational Model</text>
+      <text x="20" y="52" class="type-desc">• Simple like spreadsheets (Tables)</text>
+      <text x="20" y="68" class="type-desc">• Data stored in rows &amp; columns (tabular)</text>
+      <text x="20" y="84" class="type-desc">• Relationships describe how tables link</text>
+
+      <!-- Tables Graphic Mock -->
+      <g transform="translate(20, 100)">
+        <!-- Table A -->
+        <rect width="90" height="60" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+        <rect width="90" height="15" rx="3" fill="#3b82f6"/>
+        <text x="45" y="11" text-anchor="middle" font-size="9" font-weight="800" fill="#ffffff">Users Table</text>
+        <line x1="30" y1="15" x2="30" y2="60" stroke="#bfdbfe" stroke-width="1"/>
+        <line x1="60" y1="15" x2="60" y2="60" stroke="#bfdbfe" stroke-width="1"/>
+        <line x1="0" y1="35" x2="90" y2="35" stroke="#bfdbfe" stroke-width="1"/>
+
+        <!-- Table B -->
+        <g transform="translate(120, 25)">
+          <rect width="95" height="60" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+          <rect width="95" height="15" rx="3" fill="#10b981"/>
+          <text x="47" y="11" text-anchor="middle" font-size="9" font-weight="800" fill="#ffffff">Orders Table</text>
+          <line x1="32" y1="15" x2="32" y2="60" stroke="#a7f3d0" stroke-width="1"/>
+          <line x1="64" y1="15" x2="64" y2="60" stroke="#a7f3d0" stroke-width="1"/>
+          <line x1="0" y1="35" x2="95" y2="35" stroke="#a7f3d0" stroke-width="1"/>
+        </g>
+
+        <!-- Red Relationship Connection Line -->
+        <path d="M 90 40 L 120 48" fill="none" stroke="#dc2626" stroke-width="2"/>
+        <circle cx="90" cy="40" r="3" fill="#dc2626"/>
+        <circle cx="120" cy="48" r="3" fill="#dc2626"/>
+      </g>
+
+      <!-- Divider -->
+      <line x1="20" y1="205" x2="235" y2="205" stroke="#f1f5f9" stroke-width="2"/>
+
+      <text x="20" y="230" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="13" fill="#0f172a">Popular Examples:</text>
+
+      <!-- Examples List -->
+      <g transform="translate(20, 245)">
+        <!-- MySQL -->
+        <rect width="215" height="36" rx="6" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1"/>
+        <text x="15" y="23" class="example-item">✔ MySQL</text>
+
+        <!-- PostgreSQL -->
+        <rect y="46" width="215" height="36" rx="6" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1"/>
+        <text x="15" y="69" class="example-item">✔ PostgreSQL</text>
+
+        <!-- Microsoft SQL Server -->
+        <rect y="92" width="215" height="36" rx="6" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1"/>
+        <text x="15" y="115" class="example-item">✔ Microsoft SQL Server</text>
+      </g>
+
+      <!-- Bottom Tag -->
+      <rect x="20" y="380" width="215" height="22" rx="4" fill="#eff6ff"/>
+      <text x="127" y="395" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10" fill="#1e40af">Rigid Schema • Rows &amp; Columns</text>
+    </g>
+  </g>
+</svg>

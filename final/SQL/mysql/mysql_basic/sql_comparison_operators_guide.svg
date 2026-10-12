@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgComp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="goldPill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <linearGradient id="cyanPill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="780" rx="16" fill="url(#bgComp)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Blueprint Grid -->
+  <g opacity="0.08">
+    <path d="M0,65 L1200,65 M0,130 L1200,130 M0,195 L1200,195 M0,260 L1200,260 M0,325 L1200,325 M0,390 L1200,390 M0,455 L1200,455 M0,520 L1200,520 M0,585 L1200,585 M0,650 L1200,650 M0,715 L1200,715" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M100,0 L100,780 M200,0 L200,780 M300,0 L300,780 M400,0 L400,780 M500,0 L500,780 M600,0 L600,780 M700,0 L700,780 M800,0 L800,780 M900,0 L900,780 M1000,0 L1000,780 M1100,0 L1100,780" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title Banner -->
+  <g transform="translate(600, 42)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#f8fafc">Comparison Operators: Compare Two Things!</text>
+    <text y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Used in WHERE conditions to compare two expressions and evaluate to TRUE, FALSE, or UNKNOWN</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT PANEL: CONDITION ANATOMY & 5 WAYS TO COMPARE (Width: 540) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(45, 95)">
+    <!-- Container -->
+    <rect width="530" height="645" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5" filter="url(#cardShadow)"/>
+    
+    <!-- Section Header -->
+    <rect width="530" height="42" rx="12" fill="#1e293b"/>
+    <rect x="0" y="22" width="530" height="20" fill="#1e293b"/>
+    <!-- Gavel / Scale Icon -->
+    <text x="22" y="27" font-size="18">⚖️</text>
+    <text x="50" y="27" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#fbbf24">Condition Anatomy: Expression [Operator] Expression</text>
+
+    <!-- Formula Visual Box -->
+    <g transform="translate(25, 60)">
+      <rect width="480" height="70" rx="8" fill="#111827" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="240" y="-8" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#38bdf8" text-anchor="middle">GENERAL PREDICATE STRUCTURE</text>
+      
+      <!-- Box 1: Left Expression -->
+      <g transform="translate(25, 16)">
+        <rect width="125" height="38" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1.2"/>
+        <text x="62" y="24" font-family="'Fira Code', monospace" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">Expression</text>
+      </g>
+
+      <!-- Box 2: Operator -->
+      <g transform="translate(180, 16)">
+        <rect width="115" height="38" rx="6" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="57" y="24" font-family="'Fira Code', monospace" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Operator</text>
+      </g>
+
+      <!-- Box 3: Right Expression -->
+      <g transform="translate(325, 16)">
+        <rect width="125" height="38" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1.2"/>
+        <text x="62" y="24" font-family="'Fira Code', monospace" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">Expression</text>
+      </g>
+    </g>
+
+    <!-- 5 Practical Comparison Patterns Title -->
+    <text x="25" y="165" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#38bdf8">5 Ways to Compare Two Things in SQL:</text>
+
+    <!-- 5 Pattern Cards -->
+    <!-- Pattern 1: Column = Column -->
+    <g transform="translate(25, 180)">
+      <rect width="480" height="78" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <rect x="0" y="0" width="6" height="78" rx="3" fill="#38bdf8"/>
+      <text x="20" y="24" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">1. Column1 = Column2</text>
+      <text x="460" y="24" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">Compare two attributes</text>
+      <g transform="translate(20, 36)">
+        <rect width="440" height="32" rx="4" fill="#0f172a"/>
+        <text x="15" y="21" font-family="'Fira Code', monospace" font-size="12" fill="#e2e8f0">WHERE <tspan fill="#38bdf8">first_name</tspan> = <tspan fill="#38bdf8">last_name</tspan></text>
+      </g>
+    </g>
+
+    <!-- Pattern 2: Column = Value -->
+    <g transform="translate(25, 270)">
+      <rect width="480" height="78" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <rect x="0" y="0" width="6" height="78" rx="3" fill="#34d399"/>
+      <text x="20" y="24" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#34d399">2. Column1 = Value (Literal)</text>
+      <text x="460" y="24" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">Filter specific constant</text>
+      <g transform="translate(20, 36)">
+        <rect width="440" height="32" rx="4" fill="#0f172a"/>
+        <text x="15" y="21" font-family="'Fira Code', monospace" font-size="12" fill="#e2e8f0">WHERE <tspan fill="#38bdf8">first_name</tspan> = <tspan fill="#fbbf24">'John'</tspan></text>
+      </g>
+    </g>
+
+    <!-- Pattern 3: Function = Value -->
+    <g transform="translate(25, 360)">
+      <rect width="480" height="78" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <rect x="0" y="0" width="6" height="78" rx="3" fill="#fbbf24"/>
+      <text x="20" y="24" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">3. Function(Column) = Value</text>
+      <text x="460" y="24" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">Transform before check</text>
+      <g transform="translate(20, 36)">
+        <rect width="440" height="32" rx="4" fill="#0f172a"/>
+        <text x="15" y="21" font-family="'Fira Code', monospace" font-size="12" fill="#e2e8f0">WHERE <tspan fill="#a78bfa">UPPER</tspan>(<tspan fill="#38bdf8">first_name</tspan>) = <tspan fill="#fbbf24">'JOHN'</tspan></text>
+      </g>
+    </g>
+
+    <!-- Pattern 4: Expression = Value -->
+    <g transform="translate(25, 450)">
+      <rect width="480" height="78" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <rect x="0" y="0" width="6" height="78" rx="3" fill="#f43f5e"/>
+      <text x="20" y="24" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#f43f5e">4. Math Expression = Value</text>
+      <text x="460" y="24" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">Calculated column logic</text>
+      <g transform="translate(20, 36)">
+        <rect width="440" height="32" rx="4" fill="#0f172a"/>
+        <text x="15" y="21" font-family="'Fira Code', monospace" font-size="12" fill="#e2e8f0">WHERE <tspan fill="#38bdf8">price</tspan> * <tspan fill="#38bdf8">quantity</tspan> = <tspan fill="#34d399">1000</tspan></text>
+      </g>
+    </g>
+
+    <!-- Pattern 5: Subquery = Value (Advanced) -->
+    <g transform="translate(25, 540)">
+      <rect width="480" height="88" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <rect x="0" y="0" width="6" height="88" rx="3" fill="#c084fc"/>
+      <text x="20" y="22" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#c084fc">5. Subquery = Value <tspan fill="#fbbf24" font-size="11">(Advanced)</tspan></text>
+      <text x="460" y="22" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">Compare scalar query</text>
+      <g transform="translate(20, 34)">
+        <rect width="440" height="42" rx="4" fill="#0f172a"/>
+        <text x="15" y="25" font-family="'Fira Code', monospace" font-size="11.5" fill="#e2e8f0">WHERE (<tspan fill="#38bdf8">SELECT AVG</tspan>(sales) <tspan fill="#38bdf8">FROM</tspan> orders) = <tspan fill="#34d399">1000</tspan></text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT PANEL: MASTER COMPARISON OPERATORS (Width: 550) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(605, 95)">
+    <!-- Container -->
+    <rect width="550" height="645" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5" filter="url(#cardShadow)"/>
+    
+    <!-- Section Header -->
+    <rect width="550" height="42" rx="12" fill="#1e293b"/>
+    <rect x="0" y="22" width="550" height="20" fill="#1e293b"/>
+    <text x="25" y="27" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8">Comparison Operators Master Reference</text>
+    <text x="525" y="27" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8" text-anchor="end">Returns TRUE / FALSE</text>
+
+    <!-- 6 Operators Cards -->
+
+    <!-- Card 1: = (Equal to) -->
+    <g transform="translate(20, 56)">
+      <rect width="510" height="84" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+      <rect x="15" y="14" width="72" height="56" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="51" y="50" font-family="'Fira Code', monospace" font-size="28" font-weight="bold" fill="#38bdf8" text-anchor="middle">=</text>
+      <text x="105" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Equal to</text>
+      <text x="105" y="50" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Checks if two values are equal</text>
+      <text x="105" y="68" font-family="'Fira Code', monospace" font-size="11" fill="#34d399">country = 'USA' | score = 900</text>
+    </g>
+
+    <!-- Card 2: != and <> (Not equal to) -->
+    <g transform="translate(20, 150)">
+      <rect width="510" height="84" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+      <rect x="15" y="14" width="72" height="56" rx="6" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="51" y="38" font-family="'Fira Code', monospace" font-size="15" font-weight="bold" fill="#fbbf24" text-anchor="middle">&lt;&gt;</text>
+      <text x="51" y="58" font-family="'Fira Code', monospace" font-size="15" font-weight="bold" fill="#fbbf24" text-anchor="middle">!=</text>
+      <text x="105" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Not equal to</text>
+      <text x="105" y="50" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Checks if two values are not equal <tspan fill="#fbbf24">(&lt;&gt; is ANSI standard)</tspan></text>
+      <text x="105" y="68" font-family="'Fira Code', monospace" font-size="11" fill="#34d399">score != 0 | score &lt;&gt; 0</text>
+    </g>
+
+    <!-- Card 3: > (Greater than) -->
+    <g transform="translate(20, 244)">
+      <rect width="510" height="84" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+      <rect x="15" y="14" width="72" height="56" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="51" y="50" font-family="'Fira Code', monospace" font-size="28" font-weight="bold" fill="#38bdf8" text-anchor="middle">&gt;</text>
+      <text x="105" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Greater than</text>
+      <text x="105" y="50" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Checks if a value is strictly greater than another value</text>
+      <text x="105" y="68" font-family="'Fira Code', monospace" font-size="11" fill="#34d399">score &gt; 500 (excludes 500)</text>
+    </g>
+
+    <!-- Card 4: >= (Greater than or equal to) -->
+    <g transform="translate(20, 338)">
+      <rect width="510" height="84" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+      <rect x="15" y="14" width="72" height="56" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="51" y="48" font-family="'Fira Code', monospace" font-size="24" font-weight="bold" fill="#38bdf8" text-anchor="middle">&gt;=</text>
+      <text x="105" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Greater than or equal to</text>
+      <text x="105" y="50" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Checks if a value is greater than or equal to another value</text>
+      <text x="105" y="68" font-family="'Fira Code', monospace" font-size="11" fill="#34d399">score &gt;= 500 (includes 500)</text>
+    </g>
+
+    <!-- Card 5: < (Less than) -->
+    <g transform="translate(20, 432)">
+      <rect width="510" height="84" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+      <rect x="15" y="14" width="72" height="56" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="51" y="50" font-family="'Fira Code', monospace" font-size="28" font-weight="bold" fill="#38bdf8" text-anchor="middle">&lt;</text>
+      <text x="105" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Less than</text>
+      <text x="105" y="50" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Checks if a value is strictly less than another value</text>
+      <text x="105" y="68" font-family="'Fira Code', monospace" font-size="11" fill="#34d399">score &lt; 500 (excludes 500)</text>
+    </g>
+
+    <!-- Card 6: <= (Less than or equal to) -->
+    <g transform="translate(20, 526)">
+      <rect width="510" height="84" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+      <rect x="15" y="14" width="72" height="56" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="51" y="48" font-family="'Fira Code', monospace" font-size="24" font-weight="bold" fill="#38bdf8" text-anchor="middle">&lt;=</text>
+      <text x="105" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Less than or equal to</text>
+      <text x="105" y="50" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">Checks if a value is less than or equal to another value</text>
+      <text x="105" y="68" font-family="'Fira Code', monospace" font-size="11" fill="#34d399">score &lt;= 500 (includes 500)</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,297 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 800" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.09"/>
+    </filter>
+    <filter id="topShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Canvas Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+
+    <!-- Top Banner Gradient -->
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <!-- Column Gradients -->
+    <!-- DELETE Card (DML - Blue) -->
+    <linearGradient id="delGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <!-- TRUNCATE Card (DDL - Amber/Orange) -->
+    <linearGradient id="truncGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+    <!-- DROP Card (DDL - Red) -->
+    <linearGradient id="dropGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef2f2"/>
+      <stop offset="100%" stop-color="#fee2e2"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .title-main { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 24px; fill: #ffffff; }
+    .title-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13.5px; fill: #94a3b8; }
+    .card-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 900; font-size: 18px; }
+    .badge-pill { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 11px; }
+    .feature-lbl { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 11px; fill: #475569; }
+    .feature-val { font-family: 'Segoe UI', sans-serif; font-weight: 700; font-size: 11.5px; }
+    .code-box { font-family: 'Consolas', monospace; font-size: 11px; font-weight: 700; }
+    .marathi-note { font-family: 'Segoe UI', sans-serif; font-size: 11px; font-weight: 600; line-height: 1.35; }
+  </style>
+
+  <!-- Canvas Outer Background -->
+  <rect x="15" y="15" width="1150" height="770" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(15, 15)">
+    <path d="M 0 16 C 0 7, 7 0, 16 0 L 1134 0 C 1143 0, 1150 7, 1150 16 L 1150 85 L 0 85 Z" fill="url(#headerGrad)" filter="url(#topShadow)"/>
+    <text x="575" y="40" text-anchor="middle" class="title-main">SQL COMPARISON: DELETE vs TRUNCATE vs DROP</text>
+    <text x="575" y="66" text-anchor="middle" class="title-sub">डेटा आणि टेबल हटवण्याच्या ३ मुख्य पद्धतींमधील तांत्रिक व व्यावहारिक फरक</text>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- 3 COMPARISON CARDS (WIDTH 350 EACH, GAP 25)                   -->
+  <!-- ============================================================== -->
+
+  <!-- ==================== 1. DELETE CARD (BLUE) ==================== -->
+  <g transform="translate(45, 120)">
+    <rect width="350" height="585" rx="12" fill="url(#delGrad)" stroke="#93c5fd" stroke-width="1.8" filter="url(#cardShadow)"/>
+
+    <!-- Header Banner -->
+    <rect x="15" y="15" width="320" height="42" rx="8" fill="#2563eb"/>
+    <text x="175" y="42" text-anchor="middle" class="card-title" fill="#ffffff">🗑️ DELETE</text>
+
+    <!-- Sub-Badges -->
+    <g transform="translate(15, 68)">
+      <rect x="0" y="0" width="85" height="22" rx="4" fill="#1d4ed8"/>
+      <text x="42" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">DML Command</text>
+
+      <rect x="95" y="0" width="115" height="22" rx="4" fill="#0284c7"/>
+      <text x="152" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">WHERE Allowed ✅</text>
+
+      <rect x="220" y="0" width="100" height="22" rx="4" fill="#16a34a"/>
+      <text x="270" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">Rollback: YES ✅</text>
+    </g>
+
+    <!-- Visual Representation Box -->
+    <g transform="translate(15, 100)">
+      <rect width="320" height="85" rx="6" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="15" y="20" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#1e40af">📊 Table State Graphic:</text>
+      <!-- Mini Table -->
+      <g transform="translate(15, 28)">
+        <rect width="290" height="16" rx="2" fill="#3b82f6"/>
+        <text x="145" y="12" text-anchor="middle" font-size="9" font-weight="800" fill="#ffffff">Table Header (Structure INTACT)</text>
+        <rect x="0" y="18" width="290" height="14" fill="#f8fafc" stroke="#e2e8f0"/>
+        <text x="145" y="29" text-anchor="middle" font-size="8.5" fill="#64748b">Row 1: Kept</text>
+        <rect x="0" y="34" width="290" height="14" fill="#fee2e2" stroke="#fca5a5"/>
+        <text x="145" y="45" text-anchor="middle" font-size="8.5" font-weight="800" fill="#dc2626">❌ Row 2: DELETED by WHERE clause</text>
+      </g>
+    </g>
+
+    <!-- Key Parameters List -->
+    <g transform="translate(15, 198)">
+      <rect width="320" height="235" rx="6" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+      <g transform="translate(12, 18)">
+        <text x="0" y="0" class="feature-lbl">1. Scope:</text>
+        <text x="0" y="16" class="feature-val" fill="#1e3a8a">Deletes specific rows or all rows.</text>
+
+        <text x="0" y="40" class="feature-lbl">2. Execution Speed:</text>
+        <text x="0" y="56" class="feature-val" fill="#0284c7">Slower (Row-by-row logging &amp; locks).</text>
+
+        <text x="0" y="80" class="feature-lbl">3. Space Deallocation:</text>
+        <text x="0" y="96" class="feature-val" fill="#475569">Does NOT free disk pages immediately.</text>
+
+        <text x="0" y="120" class="feature-lbl">4. AUTO_INCREMENT:</text>
+        <text x="0" y="136" class="feature-val" fill="#b45309">Preserves counter (does NOT reset).</text>
+
+        <text x="0" y="160" class="feature-lbl">5. Triggers:</text>
+        <text x="0" y="176" class="feature-val" fill="#15803d">Fires ON DELETE triggers per row.</text>
+
+        <text x="0" y="200" class="feature-lbl">6. Table Structure:</text>
+        <text x="0" y="216" class="feature-val" fill="#15803d">Remains 100% intact &amp; available.</text>
+      </g>
+    </g>
+
+    <!-- Syntax & Example Box -->
+    <g transform="translate(15, 442)">
+      <rect width="320" height="60" rx="6" fill="#0f172a"/>
+      <text x="12" y="20" class="code-box" fill="#38bdf8">DELETE FROM employees</text>
+      <text x="12" y="36" class="code-box" fill="#fde047">  WHERE id = 5;</text>
+      <text x="12" y="52" font-family="'Consolas', monospace" font-size="9.5" fill="#94a3b8">-- or DELETE FROM employees; (All rows)</text>
+    </g>
+
+    <!-- Marathi Summary Line -->
+    <g transform="translate(15, 510)">
+      <rect width="320" height="62" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+      <text x="10" y="20" class="marathi-note" fill="#1e3a8a"><tspan font-weight="800">मराठी:</tspan> ठराविक रेकॉर्ड्स काढण्यासाठी वापर. रोलबॅक करता येतो, पण हळू काम करतो.</text>
+      <text x="10" y="44" class="marathi-note" fill="#0369a1">यामुळे ऑटो-इंक्रीमेंट काउंटर रिसेट होत नाही.</text>
+    </g>
+  </g>
+
+
+  <!-- ==================== 2. TRUNCATE CARD (AMBER) ==================== -->
+  <g transform="translate(415, 120)">
+    <rect width="350" height="585" rx="12" fill="url(#truncGrad)" stroke="#fde68a" stroke-width="1.8" filter="url(#cardShadow)"/>
+
+    <!-- Header Banner -->
+    <rect x="15" y="15" width="320" height="42" rx="8" fill="#d97706"/>
+    <text x="175" y="42" text-anchor="middle" class="card-title" fill="#ffffff">⚡ TRUNCATE</text>
+
+    <!-- Sub-Badges -->
+    <g transform="translate(15, 68)">
+      <rect x="0" y="0" width="85" height="22" rx="4" fill="#b45309"/>
+      <text x="42" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">DDL Command</text>
+
+      <rect x="95" y="0" width="115" height="22" rx="4" fill="#dc2626"/>
+      <text x="152" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">WHERE NOT Allowed ❌</text>
+
+      <rect x="220" y="0" width="100" height="22" rx="4" fill="#dc2626"/>
+      <text x="270" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">Rollback: NO ❌</text>
+    </g>
+
+    <!-- Visual Representation Box -->
+    <g transform="translate(15, 100)">
+      <rect width="320" height="85" rx="6" fill="#ffffff" stroke="#fde68a" stroke-width="1"/>
+      <text x="15" y="20" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#b45309">🧹 Table State Graphic:</text>
+      <!-- Mini Table -->
+      <g transform="translate(15, 28)">
+        <rect width="290" height="16" rx="2" fill="#d97706"/>
+        <text x="145" y="12" text-anchor="middle" font-size="9" font-weight="800" fill="#ffffff">Table Header (Structure INTACT)</text>
+        <rect x="0" y="18" width="290" height="30" fill="#fffbeb" stroke="#fde68a"/>
+        <text x="145" y="36" text-anchor="middle" font-size="9" font-weight="800" fill="#d97706">✨ All Rows Wiped! (Empty Table)</text>
+      </g>
+    </g>
+
+    <!-- Key Parameters List -->
+    <g transform="translate(15, 198)">
+      <rect width="320" height="235" rx="6" fill="#ffffff" stroke="#fde68a" stroke-width="1"/>
+      <g transform="translate(12, 18)">
+        <text x="0" y="0" class="feature-lbl">1. Scope:</text>
+        <text x="0" y="16" class="feature-val" fill="#92400e">Wipes ALL rows in table simultaneously.</text>
+
+        <text x="0" y="40" class="feature-lbl">2. Execution Speed:</text>
+        <text x="0" y="56" class="feature-val" fill="#15803d">Very Fast (Deallocates entire data pages).</text>
+
+        <text x="0" y="80" class="feature-lbl">3. Space Deallocation:</text>
+        <text x="0" y="96" class="feature-val" fill="#15803d">Frees data pages back to disk storage.</text>
+
+        <text x="0" y="120" class="feature-lbl">4. AUTO_INCREMENT:</text>
+        <text x="0" y="136" class="feature-val" fill="#dc2626">Resets counter back to 1.</text>
+
+        <text x="0" y="160" class="feature-lbl">5. Triggers:</text>
+        <text x="0" y="176" class="feature-val" fill="#dc2626">Does NOT fire row-level triggers.</text>
+
+        <text x="0" y="200" class="feature-lbl">6. Table Structure:</text>
+        <text x="0" y="216" class="feature-val" fill="#15803d">Preserved 100% intact for future data.</text>
+      </g>
+    </g>
+
+    <!-- Syntax & Example Box -->
+    <g transform="translate(15, 442)">
+      <rect width="320" height="60" rx="6" fill="#0f172a"/>
+      <text x="12" y="24" class="code-box" fill="#fde047">TRUNCATE TABLE employees;</text>
+      <text x="12" y="46" font-family="'Consolas', monospace" font-size="9.5" fill="#a7f3d0">-- Fast page-level deallocation</text>
+    </g>
+
+    <!-- Marathi Summary Line -->
+    <g transform="translate(15, 510)">
+      <rect width="320" height="62" rx="6" fill="#fffbeb" stroke="#fde68a"/>
+      <text x="10" y="20" class="marathi-note" fill="#92400e"><tspan font-weight="800">मराठी:</tspan> टेबलचा आराखडा कायम ठेवून सर्व डेटा एका झटक्यात साफ करणे व आयडी १ वर रिसेट करणे.</text>
+      <text x="10" y="44" class="marathi-note" fill="#b45309">यात व्हेअर क्लॉज किंवा रोलबॅक चालत नाही.</text>
+    </g>
+  </g>
+
+
+  <!-- ==================== 3. DROP CARD (RED) ==================== -->
+  <g transform="translate(785, 120)">
+    <rect width="350" height="585" rx="12" fill="url(#dropGrad)" stroke="#fca5a5" stroke-width="1.8" filter="url(#cardShadow)"/>
+
+    <!-- Header Banner -->
+    <rect x="15" y="15" width="320" height="42" rx="8" fill="#dc2626"/>
+    <text x="175" y="42" text-anchor="middle" class="card-title" fill="#ffffff">💥 DROP</text>
+
+    <!-- Sub-Badges -->
+    <g transform="translate(15, 68)">
+      <rect x="0" y="0" width="85" height="22" rx="4" fill="#991b1b"/>
+      <text x="42" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">DDL Command</text>
+
+      <rect x="95" y="0" width="115" height="22" rx="4" fill="#dc2626"/>
+      <text x="152" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">WHERE NOT Allowed ❌</text>
+
+      <rect x="220" y="0" width="100" height="22" rx="4" fill="#dc2626"/>
+      <text x="270" y="15" text-anchor="middle" class="badge-pill" fill="#ffffff">Rollback: NO ❌</text>
+    </g>
+
+    <!-- Visual Representation Box -->
+    <g transform="translate(15, 100)">
+      <rect width="320" height="85" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+      <text x="15" y="20" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#991b1b">💣 Table State Graphic:</text>
+      <!-- Mini Table (Destroyed) -->
+      <g transform="translate(15, 28)">
+        <rect width="290" height="48" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-dasharray="4,3"/>
+        <line x1="20" y1="10" x2="270" y2="38" stroke="#dc2626" stroke-width="2.5"/>
+        <line x1="270" y1="10" x2="20" y2="38" stroke="#dc2626" stroke-width="2.5"/>
+        <text x="145" y="28" text-anchor="middle" font-size="10" font-weight="900" fill="#b91c1c">💥 TABLE COMPLETELY DESTROYED</text>
+      </g>
+    </g>
+
+    <!-- Key Parameters List -->
+    <g transform="translate(15, 198)">
+      <rect width="320" height="235" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+      <g transform="translate(12, 18)">
+        <text x="0" y="0" class="feature-lbl">1. Scope:</text>
+        <text x="0" y="16" class="feature-val" fill="#991b1b">Destroys table, schema &amp; all data.</text>
+
+        <text x="0" y="40" class="feature-lbl">2. Execution Speed:</text>
+        <text x="0" y="56" class="feature-val" fill="#15803d">Fastest (Removes object from catalog).</text>
+
+        <text x="0" y="80" class="feature-lbl">3. Space Deallocation:</text>
+        <text x="0" y="96" class="feature-val" fill="#15803d">Releases 100% of memory and disk space.</text>
+
+        <text x="0" y="120" class="feature-lbl">4. AUTO_INCREMENT:</text>
+        <text x="0" y="136" class="feature-val" fill="#b91c1c">Table does not exist anymore!</text>
+
+        <text x="0" y="160" class="feature-lbl">5. Triggers:</text>
+        <text x="0" y="176" class="feature-val" fill="#b91c1c">Triggers attached to table are dropped.</text>
+
+        <text x="0" y="200" class="feature-lbl">6. Table Structure:</text>
+        <text x="0" y="216" class="feature-val" fill="#b91c1c">Deleted completely (Cannot query table).</text>
+      </g>
+    </g>
+
+    <!-- Syntax & Example Box -->
+    <g transform="translate(15, 442)">
+      <rect width="320" height="60" rx="6" fill="#0f172a"/>
+      <text x="12" y="24" class="code-box" fill="#f87171">DROP TABLE employees;</text>
+      <text x="12" y="46" font-family="'Consolas', monospace" font-size="9.5" fill="#fca5a5">-- Object and records removed permanently</text>
+    </g>
+
+    <!-- Marathi Summary Line -->
+    <g transform="translate(15, 510)">
+      <rect width="320" height="62" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+      <text x="10" y="20" class="marathi-note" fill="#991b1b"><tspan font-weight="800">मराठी:</tspan> संपूर्ण टेबल आणि त्याचा आराखडा कायमस्वरूपी नष्ट करणे. यानंतर टेबल अस्तित्वात राहत नाही.</text>
+      <text x="10" y="44" class="marathi-note" fill="#b91c1c">याचा रोलबॅक करता येत नाही.</text>
+    </g>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- BOTTOM TAKEAWAY BANNER                                         -->
+  <!-- ============================================================== -->
+  <g transform="translate(45, 718)">
+    <rect width="1090" height="52" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+    <text x="20" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="800" fill="#38bdf8">💡 QUICK DECISION RULE (केव्हा काय वापरावे):</text>
+    <text x="20" y="40" font-family="'Segoe UI', sans-serif" font-size="11" fill="#f8fafc">१. ठराविक रो हटवण्यासाठी: <tspan font-weight="700" fill="#60a5fa">DELETE ... WHERE</tspan> | २. संपूर्ण डेटा पटकन पुसून आयडी १ करायचा असल्यास: <tspan font-weight="700" fill="#fde047">TRUNCATE</tspan> | ३. टेबलच नष्ट करायचे असल्यास: <tspan font-weight="700" fill="#f87171">DROP</tspan></text>
+  </g>
+</svg>

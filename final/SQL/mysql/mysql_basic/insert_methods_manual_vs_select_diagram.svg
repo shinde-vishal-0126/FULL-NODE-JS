@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" width="100%" height="100%">
+  <defs>
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="noteShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.12"/>
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrowDark" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#1e293b"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <style>
+    .code-top { font-family: 'Consolas', 'Courier New', monospace; font-size: 14.5px; fill: #ffffff; font-weight: 700; }
+    .method-badge { font-family: 'Segoe UI', cursive, sans-serif; font-weight: 800; font-size: 15px; fill: #0f172a; }
+    .hand-title { font-family: 'Segoe UI', cursive, sans-serif; font-weight: 800; font-size: 16px; fill: #1e293b; }
+    .table-hdr-text { font-family: 'Segoe UI', sans-serif; font-size: 10px; font-weight: 800; }
+    .note-text { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 12px; }
+  </style>
+
+  <!-- Outer Canvas Frame -->
+  <rect x="10" y="10" width="1080" height="620" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- ==================== TOP CODE BANNER (From Screenshot) ==================== -->
+  <g transform="translate(25, 22)">
+    <rect width="1050" height="42" rx="6" fill="#1e293b"/>
+    <text x="25" y="27" class="code-top">INSERT INTO Students (id, name, age) VALUES (1, 'Vishal', 21);</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- TOP HALF: ① MANUAL ENTRY (VALUES)                                    -->
+  <!-- ==================================================================== -->
+  <g transform="translate(25, 75)">
+    <!-- Yellow Method Pill -->
+    <g transform="translate(380, 10)">
+      <rect width="250" height="30" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.8"/>
+      <text x="125" y="21" text-anchor="middle" class="method-badge">① Manual Entry (Values)</text>
+    </g>
+
+    <!-- LEFT: Target Table (Students) -->
+    <g transform="translate(45, 45)">
+      <text x="80" y="0" text-anchor="middle" class="hand-title">Target Table</text>
+      <!-- Table graphic -->
+      <g transform="translate(0, 10)">
+        <rect width="180" height="115" rx="5" fill="#ffffff" stroke="#1e293b" stroke-width="2" filter="url(#shadow)"/>
+        <!-- Headers -->
+        <rect x="0" y="0" width="60" height="28" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
+        <rect x="60" y="0" width="60" height="28" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
+        <rect x="120" y="0" width="60" height="28" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
+        <text x="30" y="18" text-anchor="middle" class="table-hdr-text" fill="#0369a1">id</text>
+        <text x="90" y="18" text-anchor="middle" class="table-hdr-text" fill="#0369a1">name</text>
+        <text x="150" y="18" text-anchor="middle" class="table-hdr-text" fill="#0369a1">age</text>
+        <!-- Rows -->
+        <line x1="0" y1="56" x2="180" y2="56" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="0" y1="84" x2="180" y2="84" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="60" y1="28" x2="60" y2="115" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="120" y1="28" x2="120" y2="115" stroke="#94a3b8" stroke-width="1"/>
+        <!-- Values -->
+        <text x="30" y="47" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#0f172a">1</text>
+        <text x="90" y="47" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#0f172a">'Vishal'</text>
+        <text x="150" y="47" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#0f172a">21</text>
+        <text x="30" y="74" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">~</text>
+        <text x="90" y="74" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">~</text>
+        <text x="150" y="74" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">~</text>
+        <text x="30" y="102" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">~</text>
+        <text x="90" y="102" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">~</text>
+        <text x="150" y="102" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" fill="#94a3b8">~</text>
+      </g>
+    </g>
+
+    <!-- MIDDLE: Values & Sticky Note -->
+    <g transform="translate(360, 60)">
+      <!-- Values Tag -->
+      <g transform="translate(0, 0)">
+        <text x="30" y="-8" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#64748b">Values</text>
+        <rect width="80" height="24" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1.2"/>
+        <text x="40" y="16" text-anchor="middle" font-family="monospace" font-size="9" fill="#0f172a">[1, 'Vishal', 21]</text>
+      </g>
+
+      <!-- Sticky Note -->
+      <g transform="translate(180, -10)">
+        <rect width="95" height="90" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8" filter="url(#noteShadow)"/>
+        <text x="47" y="38" text-anchor="middle" class="note-text" fill="#1d4ed8">INSERT</text>
+        <text x="47" y="58" text-anchor="middle" class="note-text" fill="#1d4ed8">VALUES</text>
+      </g>
+
+      <!-- Flow Arrows -->
+      <path d="M 180 35 C 130 30, 20 45, -125 55" stroke="#1e293b" stroke-width="2.2" fill="none" marker-end="url(#arrowDark)"/>
+      <path d="M 360 40 L 285 40" stroke="#1e293b" stroke-width="2" fill="none" marker-end="url(#arrowDark)"/>
+    </g>
+
+    <!-- RIGHT: User Typing at Laptop -->
+    <g transform="translate(770, 25)">
+      <!-- Developer Illustration -->
+      <g transform="translate(45, 0)">
+        <!-- Head -->
+        <circle cx="45" cy="28" r="22" fill="#ffedd5" stroke="#1e293b" stroke-width="2"/>
+        <!-- Glasses -->
+        <rect x="30" y="24" width="12" height="8" rx="2" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+        <rect x="48" y="24" width="12" height="8" rx="2" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+        <line x1="42" y1="28" x2="48" y2="28" stroke="#1e293b" stroke-width="1.8"/>
+        <!-- Hair -->
+        <path d="M 24 24 C 24 10, 66 10, 66 24 Z" fill="#475569"/>
+        <!-- Body / Shoulders -->
+        <path d="M 15 70 C 15 52, 75 52, 75 70 Z" fill="#93c5fd" stroke="#1e293b" stroke-width="2"/>
+      </g>
+      <!-- Laptop -->
+      <g transform="translate(0, 65)">
+        <rect x="15" y="0" width="140" height="75" rx="5" fill="#f8fafc" stroke="#1e293b" stroke-width="2.2"/>
+        <rect x="25" y="8" width="120" height="58" rx="3" fill="#e0f2fe" stroke="#38bdf8" stroke-width="1.2"/>
+        <path d="M 5 75 L 165 75 L 155 82 L 15 82 Z" fill="#cbd5e1" stroke="#1e293b" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== DASHED DIVIDER ==================== -->
+  <line x1="25" y1="330" x2="1075" y2="330" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="8,6"/>
+
+  <!-- ==================================================================== -->
+  <!-- BOTTOM HALF: ② INSERT USING SELECT                                    -->
+  <!-- ==================================================================== -->
+  <g transform="translate(25, 345)">
+    <!-- Yellow Method Pill -->
+    <g transform="translate(380, 5)">
+      <rect width="250" height="30" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.8"/>
+      <text x="125" y="21" text-anchor="middle" class="method-badge">② INSERT Using SELECT</text>
+    </g>
+
+    <!-- LEFT: Target Table (customers2) -->
+    <g transform="translate(45, 55)">
+      <text x="80" y="0" text-anchor="middle" class="hand-title">Target Table</text>
+      <!-- Table graphic -->
+      <g transform="translate(0, 10)">
+        <rect width="180" height="115" rx="5" fill="#ffffff" stroke="#1e293b" stroke-width="2" filter="url(#shadow)"/>
+        <!-- Headers -->
+        <rect x="0" y="0" width="60" height="28" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
+        <rect x="60" y="0" width="60" height="28" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
+        <rect x="120" y="0" width="60" height="28" fill="#bae6fd" stroke="#1e293b" stroke-width="1.5"/>
+        <text x="30" y="18" text-anchor="middle" class="table-hdr-text" fill="#0369a1">id</text>
+        <text x="90" y="18" text-anchor="middle" class="table-hdr-text" fill="#0369a1">name</text>
+        <text x="150" y="18" text-anchor="middle" class="table-hdr-text" fill="#0369a1">score</text>
+        <!-- Rows filled -->
+        <line x1="0" y1="56" x2="180" y2="56" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="0" y1="84" x2="180" y2="84" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="60" y1="28" x2="60" y2="115" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="120" y1="28" x2="120" y2="115" stroke="#94a3b8" stroke-width="1"/>
+        <!-- Squiggly data lines -->
+        <text x="30" y="47" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+        <text x="90" y="47" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+        <text x="150" y="47" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+        <text x="30" y="74" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+        <text x="90" y="74" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+        <text x="150" y="74" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+        <text x="30" y="102" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+        <text x="90" y="102" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+        <text x="150" y="102" text-anchor="middle" font-size="12" fill="#2563eb">~</text>
+      </g>
+    </g>
+
+    <!-- MIDDLE: Query Note & Result Grid -->
+    <g transform="translate(430, 45)">
+      <!-- Query Sticky Note -->
+      <g transform="translate(20, 0)">
+        <text x="0" y="-6" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#64748b">Query</text>
+        <rect width="90" height="75" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8" filter="url(#noteShadow)"/>
+        <text x="45" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="800" fill="#2563eb">SELECT</text>
+        <text x="45" y="42" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="800" fill="#2563eb">FROM</text>
+        <text x="45" y="60" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="800" fill="#2563eb">WHERE</text>
+      </g>
+
+      <!-- Result Set Table -->
+      <g transform="translate(10, 105)">
+        <text x="55" y="-6" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="800" fill="#64748b">Result</text>
+        <rect width="110" height="60" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+        <line x1="0" y1="20" x2="110" y2="20" stroke="#d97706" stroke-width="1"/>
+        <line x1="0" y1="40" x2="110" y2="40" stroke="#d97706" stroke-width="1"/>
+        <line x1="36" y1="0" x2="36" y2="60" stroke="#d97706" stroke-width="1"/>
+        <line x1="72" y1="0" x2="72" y2="60" stroke="#d97706" stroke-width="1"/>
+        <text x="18" y="15" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+        <text x="54" y="15" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+        <text x="90" y="15" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+        <text x="18" y="35" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+        <text x="54" y="35" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+        <text x="90" y="35" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+        <text x="18" y="55" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+        <text x="54" y="55" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+        <text x="90" y="55" text-anchor="middle" font-size="10" fill="#92400e">~</text>
+      </g>
+
+      <!-- Flow Arrow ① (Source to Query & Result) -->
+      <path d="M 280 40 C 230 15, 170 15, 120 25" stroke="#1e293b" stroke-width="2" fill="none" marker-end="url(#arrowDark)"/>
+      <path d="M 280 80 C 220 90, 180 110, 130 120" stroke="#1e293b" stroke-width="2" fill="none" marker-end="url(#arrowDark)"/>
+
+      <!-- Flow Arrow ② (Result to Target Table) with INSERT Label -->
+      <g transform="translate(-180, 60)">
+        <text x="80" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="900" fill="#2563eb">INSERT</text>
+        <circle cx="80" cy="45" r="9" fill="#fde047" stroke="#ca8a04" stroke-width="1.2"/>
+        <text x="80" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#0f172a">②</text>
+        <path d="M 170 70 C 80 50, 40 50, -20 65" stroke="#1e293b" stroke-width="2.5" fill="none" marker-end="url(#arrowDark)"/>
+      </g>
+    </g>
+
+    <!-- RIGHT: Source Table (customers) -->
+    <g transform="translate(740, 55)">
+      <text x="80" y="0" text-anchor="middle" class="hand-title">Source Table</text>
+      <!-- Table graphic with yellow headers -->
+      <g transform="translate(0, 10)">
+        <rect width="180" height="115" rx="5" fill="#ffffff" stroke="#1e293b" stroke-width="2" filter="url(#shadow)"/>
+        <!-- Headers -->
+        <rect x="0" y="0" width="60" height="28" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
+        <rect x="60" y="0" width="60" height="28" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
+        <rect x="120" y="0" width="60" height="28" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
+        <text x="30" y="18" text-anchor="middle" class="table-hdr-text" fill="#854d0e">col 1</text>
+        <text x="90" y="18" text-anchor="middle" class="table-hdr-text" fill="#854d0e">col 2</text>
+        <text x="150" y="18" text-anchor="middle" class="table-hdr-text" fill="#854d0e">col 3</text>
+        <!-- Rows -->
+        <line x1="0" y1="56" x2="180" y2="56" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="0" y1="84" x2="180" y2="84" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="60" y1="28" x2="60" y2="115" stroke="#94a3b8" stroke-width="1"/>
+        <line x1="120" y1="28" x2="120" y2="115" stroke="#94a3b8" stroke-width="1"/>
+        <text x="30" y="47" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+        <text x="90" y="47" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+        <text x="150" y="47" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+        <text x="30" y="74" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+        <text x="90" y="74" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+        <text x="150" y="74" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+        <text x="30" y="102" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+        <text x="90" y="102" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+        <text x="150" y="102" text-anchor="middle" font-size="12" fill="#64748b">~</text>
+      </g>
+    </g>
+  </g>
+</svg>

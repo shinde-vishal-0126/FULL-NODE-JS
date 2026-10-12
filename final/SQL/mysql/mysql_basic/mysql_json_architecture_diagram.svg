@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 740" width="100%" height="100%">
+  <defs>
+    <!-- Background & Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+
+    <linearGradient id="titleGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="cyanCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Filters for Glow and Shadow -->
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38bdf8" flood-opacity="0.5"/>
+    </filter>
+    <filter id="purpleGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#a855f7" flood-opacity="0.5"/>
+    </filter>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1280" height="740" rx="16" fill="url(#bgGrad)"/>
+  <rect x="2" y="2" width="1276" height="736" rx="14" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Main Banner Header -->
+  <g transform="translate(60, 25)">
+    <text x="580" y="32" fill="url(#titleGlow)" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" text-anchor="middle" letter-spacing="1">MASTERING MYSQL JSON DATA TYPE</text>
+    <text x="580" y="52" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" text-anchor="middle">Structured Document Storage, $ Path Traversal, Shortcut Operators &amp; Built-In Functions</text>
+  </g>
+
+  <!-- ==================== TOP ROW: STRUCTURE & PATH TRAVERSAL ==================== -->
+
+  <!-- Top-Left Card: Understanding Document Structure -->
+  <g transform="translate(40, 90)">
+    <rect width="580" height="240" rx="12" fill="url(#cyanCard)" stroke="#0284c7" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <text x="20" y="28" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800">UNDERSTANDING JSON DOCUMENT STRUCTURE</text>
+    <text x="20" y="45" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="11">Data is stored as key-value pairs, nested objects, and arrays</text>
+
+    <!-- Raw JSON Sample Snippet -->
+    <rect x="20" y="58" width="220" height="165" rx="8" fill="#030712" stroke="#334155"/>
+    <text x="30" y="78" fill="#e2e8f0" font-family="monospace" font-size="11">{</text>
+    <text x="40" y="95" fill="#38bdf8" font-family="monospace" font-size="10.5">"id": <tspan fill="#f59e0b">101</tspan>,</text>
+    <text x="40" y="112" fill="#38bdf8" font-family="monospace" font-size="10.5">"name": <tspan fill="#34d399">"Alice"</tspan>,</text>
+    <text x="40" y="129" fill="#38bdf8" font-family="monospace" font-size="10.5">"age": <tspan fill="#f59e0b">30</tspan>,</text>
+    <text x="40" y="146" fill="#38bdf8" font-family="monospace" font-size="10.5">"address": <tspan fill="#c084fc">{"city": "Pune"}</tspan>,</text>
+    <text x="40" y="163" fill="#38bdf8" font-family="monospace" font-size="10.5">"skills": <tspan fill="#fb7185">["SQL", "Python"]</tspan>,</text>
+    <text x="40" y="180" fill="#38bdf8" font-family="monospace" font-size="10.5">"active": <tspan fill="#60a5fa">true</tspan></text>
+    <text x="30" y="198" fill="#e2e8f0" font-family="monospace" font-size="11">}</text>
+
+    <!-- Visual Decomposition Diagram -->
+    <g transform="translate(255, 60)">
+      <!-- Root Node -->
+      <rect x="80" y="5" width="80" height="28" rx="6" fill="#1e3a8a" stroke="#38bdf8"/>
+      <text x="120" y="24" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">JSON ROOT</text>
+
+      <!-- Connecting Lines -->
+      <path d="M 120 33 L 40 70" stroke="#38bdf8" stroke-width="1.5"/>
+      <path d="M 120 33 L 120 70" stroke="#06b6d4" stroke-width="1.5"/>
+      <path d="M 120 33 L 200 70" stroke="#a855f7" stroke-width="1.5"/>
+
+      <!-- Node: Keys -->
+      <rect x="5" y="70" width="70" height="26" rx="6" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="40" y="87" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="600" text-anchor="middle">KEYS</text>
+      <text x="40" y="115" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">id, name, age</text>
+
+      <!-- Node: Nested Objects -->
+      <rect x="80" y="70" width="85" height="26" rx="6" fill="#0f172a" stroke="#06b6d4"/>
+      <text x="122" y="87" fill="#06b6d4" font-family="system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">NESTED OBJ</text>
+      <text x="122" y="115" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">address.city</text>
+
+      <!-- Node: Arrays -->
+      <rect x="170" y="70" width="65" height="26" rx="6" fill="#0f172a" stroke="#a855f7"/>
+      <text x="202" y="87" fill="#c084fc" font-family="system-ui, sans-serif" font-size="11" font-weight="600" text-anchor="middle">ARRAYS</text>
+      <text x="202" y="115" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">skills[0]</text>
+
+      <!-- Bottom Engine Tip -->
+      <rect x="0" y="132" width="295" height="32" rx="6" fill="#1e293b" stroke="#475569"/>
+      <text x="147" y="152" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600" text-anchor="middle">⚡ Stored in BINARY format for O(1) indexed key access</text>
+    </g>
+  </g>
+
+  <!-- Top-Right Card: JSON Path Traversal -->
+  <g transform="translate(640, 90)">
+    <rect width="600" height="240" rx="12" fill="url(#cyanCard)" stroke="#8b5cf6" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <text x="20" y="28" fill="#c084fc" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800">JSON PATH TRAVERSAL SYNTAX ($)</text>
+    <text x="20" y="45" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="11">The $ symbol represents the starting document root</text>
+
+    <!-- Path Tree Visual -->
+    <g transform="translate(20, 60)">
+      <!-- Root Circle -->
+      <circle cx="35" cy="80" r="28" fill="#4c1d95" stroke="#a855f7" stroke-width="2" filter="url(#purpleGlow)"/>
+      <text x="35" y="89" fill="#ffffff" font-family="system-ui, sans-serif" font-size="24" font-weight="900" text-anchor="middle">$</text>
+      <text x="35" y="125" fill="#a855f7" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">ROOT DOC</text>
+
+      <!-- Connecting Branch Lines -->
+      <path d="M 65 65 Q 110 30 160 30" stroke="#38bdf8" stroke-width="2" fill="none"/>
+      <path d="M 65 80 L 160 80" stroke="#06b6d4" stroke-width="2" fill="none"/>
+      <path d="M 65 95 Q 110 130 160 130" stroke="#a855f7" stroke-width="2" fill="none"/>
+
+      <!-- Branch 1: $.age -->
+      <rect x="160" y="15" width="105" height="30" rx="6" fill="#0f172a" stroke="#38bdf8"/>
+      <text x="212" y="35" fill="#38bdf8" font-family="monospace" font-size="13" font-weight="700" text-anchor="middle">$.age</text>
+      <text x="280" y="35" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">➔ Returns: <tspan fill="#f59e0b" font-weight="700">30</tspan></text>
+
+      <!-- Branch 2: $.address.city -->
+      <rect x="160" y="65" width="135" height="30" rx="6" fill="#0f172a" stroke="#06b6d4"/>
+      <text x="227" y="85" fill="#06b6d4" font-family="monospace" font-size="12.5" font-weight="700" text-anchor="middle">$.address.city</text>
+      <text x="310" y="85" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">➔ Returns: <tspan fill="#34d399" font-weight="700">"Pune"</tspan></text>
+
+      <!-- Branch 3: $.skills[0] -->
+      <rect x="160" y="115" width="120" height="30" rx="6" fill="#0f172a" stroke="#a855f7"/>
+      <text x="220" y="135" fill="#c084fc" font-family="monospace" font-size="12.5" font-weight="700" text-anchor="middle">$.skills[0]</text>
+      <text x="295" y="135" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">➔ Returns: <tspan fill="#fb7185" font-weight="700">"SQL"</tspan></text>
+    </g>
+  </g>
+
+  <!-- ==================== MIDDLE ROW: SHORTCUT OPERATORS (-> vs ->>) ==================== -->
+  <g transform="translate(40, 350)">
+    <rect width="1200" height="155" rx="12" fill="url(#cyanCard)" stroke="#334155" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <text x="25" y="26" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800">MYSQL SHORTCUT EXTRACTION OPERATORS</text>
+
+    <!-- Arrow Operator (->) Quoted -->
+    <g transform="translate(25, 42)">
+      <rect width="560" height="98" rx="8" fill="#1e293b" stroke="#6366f1"/>
+      <rect x="15" y="15" width="65" height="35" rx="6" fill="#312e81" stroke="#818cf8"/>
+      <text x="47" y="39" fill="#ffffff" font-family="monospace" font-size="18" font-weight="900" text-anchor="middle">-&gt;</text>
+      
+      <text x="95" y="28" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="13" font-weight="700">QUOTED JSON VALUE (JSON_EXTRACT Equivalent)</text>
+      <text x="95" y="46" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11.5">Preserves data typing and wrapping double quotes for JSON chaining.</text>
+      
+      <!-- Flow Example -->
+      <rect x="95" y="58" width="450" height="28" rx="4" fill="#030712"/>
+      <text x="105" y="77" fill="#e2e8f0" font-family="monospace" font-size="11">details-&gt;'$.name'  ➔  <tspan fill="#f59e0b" font-weight="700">"Alice"</tspan>  <tspan fill="#64748b">(Quoted JSON string)</tspan></text>
+    </g>
+
+    <!-- Inline Unquote Operator (->>) Plain Text -->
+    <g transform="translate(615, 42)">
+      <rect width="560" height="98" rx="8" fill="#1e293b" stroke="#10b981"/>
+      <rect x="15" y="15" width="75" height="35" rx="6" fill="#064e3b" stroke="#34d399"/>
+      <text x="52" y="39" fill="#ffffff" font-family="monospace" font-size="18" font-weight="900" text-anchor="middle">-&gt;&gt;</text>
+      
+      <text x="105" y="28" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="13" font-weight="700">UNQUOTED PLAIN TEXT (JSON_UNQUOTE Equivalent)</text>
+      <text x="105" y="46" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11.5">Strips outer double quotes; best for WHERE filters, ORDER BY, UI display.</text>
+      
+      <!-- Flow Example -->
+      <rect x="105" y="58" width="440" height="28" rx="4" fill="#030712"/>
+      <text x="115" y="77" fill="#e2e8f0" font-family="monospace" font-size="11">details-&gt;&gt;'$.name' ➔  <tspan fill="#34d399" font-weight="700">Alice</tspan>    <tspan fill="#64748b">(Clean plain text)</tspan></text>
+    </g>
+  </g>
+
+  <!-- ==================== BOTTOM ROW: ESSENTIAL METHODS ==================== -->
+  <g transform="translate(40, 520)">
+    <rect width="1200" height="195" rx="12" fill="url(#cyanCard)" stroke="#10b981" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <text x="25" y="26" fill="#34d399" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800">ESSENTIAL MYSQL JSON BUILT-IN METHODS</text>
+
+    <!-- Method 1: JSON_EXTRACT -->
+    <g transform="translate(25, 42)">
+      <rect width="275" height="135" rx="8" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="15" y="24" fill="#38bdf8" font-family="monospace" font-size="13" font-weight="700">JSON_EXTRACT()</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Extracts values at specified paths.</text>
+      <rect x="10" y="52" width="255" height="42" rx="4" fill="#030712"/>
+      <text x="18" y="70" fill="#e2e8f0" font-family="monospace" font-size="10">SELECT JSON_EXTRACT(details,</text>
+      <text x="18" y="85" fill="#f59e0b" font-family="monospace" font-size="10">       '$.address.city');</text>
+      <text x="15" y="115" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="10.5">➔ Reads specific sub-property</text>
+    </g>
+
+    <!-- Method 2: JSON_SET -->
+    <g transform="translate(320, 42)">
+      <rect width="275" height="135" rx="8" fill="#1e293b" stroke="#f43f5e"/>
+      <text x="15" y="24" fill="#fb7185" font-family="monospace" font-size="13" font-weight="700">JSON_SET()</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Inserts or updates keys in-place.</text>
+      <rect x="10" y="52" width="255" height="42" rx="4" fill="#030712"/>
+      <text x="18" y="70" fill="#e2e8f0" font-family="monospace" font-size="10">UPDATE users SET details =</text>
+      <text x="18" y="85" fill="#34d399" font-family="monospace" font-size="10">  JSON_SET(details, '$.ph', '123');</text>
+      <text x="15" y="115" fill="#f43f5e" font-family="system-ui, sans-serif" font-size="10.5">➔ Adds or modifies key-value</text>
+    </g>
+
+    <!-- Method 3: JSON_ARRAY -->
+    <g transform="translate(615, 42)">
+      <rect width="275" height="135" rx="8" fill="#1e293b" stroke="#fbbf24"/>
+      <text x="15" y="24" fill="#fbbf24" font-family="monospace" font-size="13" font-weight="700">JSON_ARRAY()</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Creates dynamic JSON arrays.</text>
+      <rect x="10" y="52" width="255" height="42" rx="4" fill="#030712"/>
+      <text x="18" y="70" fill="#e2e8f0" font-family="monospace" font-size="10">SELECT JSON_ARRAY(</text>
+      <text x="18" y="85" fill="#38bdf8" font-family="monospace" font-size="10">  'SQL', 'Python', 'Node.js');</text>
+      <text x="15" y="115" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="10.5">➔ Constructs ["SQL","Python",...]</text>
+    </g>
+
+    <!-- Method 4: JSON_OBJECT -->
+    <g transform="translate(910, 42)">
+      <rect width="265" height="135" rx="8" fill="#1e293b" stroke="#c084fc"/>
+      <text x="15" y="24" fill="#c084fc" font-family="monospace" font-size="13" font-weight="700">JSON_OBJECT()</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Builds nested JSON objects.</text>
+      <rect x="10" y="52" width="245" height="42" rx="4" fill="#030712"/>
+      <text x="18" y="70" fill="#e2e8f0" font-family="monospace" font-size="10">SELECT JSON_OBJECT(</text>
+      <text x="18" y="85" fill="#fb7185" font-family="monospace" font-size="10">  'name', 'Vishal', 'age', 25);</text>
+      <text x="15" y="115" fill="#a855f7" font-family="system-ui, sans-serif" font-size="10.5">➔ Constructs {"name":"Vishal",...}</text>
+    </g>
+  </g>
+</svg>

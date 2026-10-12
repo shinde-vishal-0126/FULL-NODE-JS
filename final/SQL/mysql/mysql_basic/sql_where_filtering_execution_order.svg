@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="100%" height="100%">
+  <defs>
+    <linearGradient id="whereBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="funnelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <marker id="arrowYellow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#fbbf24"/>
+    </marker>
+    <marker id="arrowCyan" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="750" rx="14" fill="url(#whereBg)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Top Title & Execution Pipeline -->
+  <g transform="translate(600, 42)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#f8fafc">WHERE Clause: Data Filtering &amp; Internal Query Execution Order</text>
+    <text y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" fill="#94a3b8">Written Syntax: SELECT ... FROM ... WHERE | Physical Engine Order: (1) FROM → (2) WHERE → (3) SELECT</text>
+  </g>
+
+  <!-- Top Pipeline Flow Bar -->
+  <g transform="translate(250, 95)">
+    <rect width="700" height="42" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <g transform="translate(40, 27)" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold">
+      <text fill="#fbbf24">① FROM Table</text>
+      <text x="140" fill="#64748b">→</text>
+      <text x="180" fill="#38bdf8">② WHERE Condition</text>
+      <text x="375" fill="#64748b">→</text>
+      <text x="415" fill="#34d399">③ SELECT Columns</text>
+      <text x="590" fill="#64748b">→</text>
+      <text x="610" fill="#f8fafc">📊 Result</text>
+    </g>
+  </g>
+
+  <!-- ================================================================================== -->
+  <!-- LEFT: Source Database Table with Row-Level Condition Evaluation -->
+  <!-- ================================================================================== -->
+  <g transform="translate(60, 190)">
+    <!-- Label -->
+    <text x="0" y="-15" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#94a3b8">Source: Table `customers`</text>
+
+    <!-- Table Container -->
+    <rect width="400" height="230" rx="8" fill="#0f172a" stroke="#cbd5e1" stroke-width="2"/>
+    <rect width="400" height="35" rx="8" fill="#1e293b"/>
+    <line x1="0" y1="35" x2="400" y2="35" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <!-- Grid lines -->
+    <line x1="0" y1="74" x2="400" y2="74" stroke="#334155" stroke-width="1"/>
+    <line x1="0" y1="113" x2="400" y2="113" stroke="#334155" stroke-width="1"/>
+    <line x1="0" y1="152" x2="400" y2="152" stroke="#334155" stroke-width="1"/>
+    <line x1="0" y1="191" x2="400" y2="191" stroke="#334155" stroke-width="1"/>
+
+    <line x1="45" y1="0" x2="45" y2="230" stroke="#334155" stroke-width="1"/>
+    <line x1="160" y1="0" x2="160" y2="230" stroke="#334155" stroke-width="1"/>
+    <line x1="270" y1="0" x2="270" y2="230" stroke="#334155" stroke-width="1"/>
+    <line x1="345" y1="0" x2="345" y2="230" stroke="#334155" stroke-width="1"/>
+
+    <!-- Headers -->
+    <text x="22" y="24" font-family="monospace" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">id</text>
+    <text x="102" y="24" font-family="monospace" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">name</text>
+    <text x="215" y="24" font-family="monospace" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">Country</text>
+    <text x="307" y="24" font-family="monospace" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Score</text>
+    <text x="372" y="24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">Eval</text>
+
+    <!-- Row 1: Maria (350) - DISCARDED -->
+    <rect x="0" y="36" width="400" height="38" fill="#ef4444" fill-opacity="0.12"/>
+    <line x1="10" y1="55" x2="335" y2="55" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="22" y="59" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">1</text>
+    <text x="102" y="59" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">Maria</text>
+    <text x="215" y="59" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">Germany</text>
+    <text x="307" y="59" font-family="monospace" font-size="12" fill="#ef4444" text-anchor="middle">350</text>
+    <text x="372" y="59" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">❌</text>
+
+    <!-- Row 2: John (900) - KEPT -->
+    <rect x="0" y="75" width="400" height="38" fill="#10b981" fill-opacity="0.15"/>
+    <text x="22" y="98" font-family="monospace" font-size="12" fill="#f8fafc" text-anchor="middle">2</text>
+    <text x="102" y="98" font-family="monospace" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">John</text>
+    <text x="215" y="98" font-family="monospace" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">USA</text>
+    <text x="307" y="98" font-family="monospace" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">900</text>
+    <text x="372" y="98" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399" text-anchor="middle">✔️</text>
+
+    <!-- Row 3: Georg (750) - KEPT -->
+    <rect x="0" y="114" width="400" height="38" fill="#10b981" fill-opacity="0.15"/>
+    <text x="22" y="137" font-family="monospace" font-size="12" fill="#f8fafc" text-anchor="middle">3</text>
+    <text x="102" y="137" font-family="monospace" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">Georg</text>
+    <text x="215" y="137" font-family="monospace" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">UK</text>
+    <text x="307" y="137" font-family="monospace" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">750</text>
+    <text x="372" y="137" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399" text-anchor="middle">✔️</text>
+
+    <!-- Row 4: Martin (500) - DISCARDED -->
+    <rect x="0" y="153" width="400" height="38" fill="#ef4444" fill-opacity="0.12"/>
+    <line x1="10" y1="172" x2="335" y2="172" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="22" y="176" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">4</text>
+    <text x="102" y="176" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">Martin</text>
+    <text x="215" y="176" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">Germany</text>
+    <text x="307" y="176" font-family="monospace" font-size="12" fill="#ef4444" text-anchor="middle">500</text>
+    <text x="372" y="176" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">❌</text>
+
+    <!-- Row 5: Peter (0) - DISCARDED -->
+    <rect x="0" y="192" width="400" height="38" fill="#ef4444" fill-opacity="0.12"/>
+    <line x1="10" y1="211" x2="335" y2="211" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="22" y="215" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">5</text>
+    <text x="102" y="215" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">Peter</text>
+    <text x="215" y="215" font-family="monospace" font-size="12" fill="#94a3b8" text-anchor="middle">USA</text>
+    <text x="307" y="215" font-family="monospace" font-size="12" fill="#ef4444" text-anchor="middle">0</text>
+    <text x="372" y="215" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">❌</text>
+  </g>
+
+  <!-- ================================================================================== -->
+  <!-- MIDDLE: FILTER FUNNEL & EXECUTION STEPS -->
+  <!-- ================================================================================== -->
+  <g transform="translate(530, 200)">
+    <!-- Funnel Graphic -->
+    <g transform="translate(15, 60)">
+      <path d="M 0 0 L 100 0 L 62 45 L 62 85 L 38 85 L 38 45 Z" fill="url(#funnelGrad)" stroke="#38bdf8" stroke-width="2"/>
+      <line x1="12" y1="12" x2="88" y2="12" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <!-- Water/Data droplets -->
+      <circle cx="50" cy="100" r="4" fill="#34d399"/>
+      <circle cx="50" cy="118" r="3.5" fill="#34d399"/>
+    </g>
+
+    <text x="65" y="45" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="middle">WHERE Filter</text>
+    <text x="65" y="175" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">Score &gt; 500</text>
+    <text x="65" y="195" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">(Filters out ≤ 500)</text>
+  </g>
+
+  <!-- ================================================================================== -->
+  <!-- RIGHT: Step-by-Step SQL Code & Final Result -->
+  <!-- ================================================================================== -->
+  <g transform="translate(730, 180)">
+    <!-- Query Breakdown Box -->
+    <rect width="410" height="240" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <rect width="410" height="35" rx="8" fill="#0284c7"/>
+    <text x="205" y="23" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">SQL Syntax vs Execution Order</text>
+
+    <!-- SQL Steps with Badges -->
+    <g transform="translate(25, 60)">
+      <!-- Step 3: SELECT (Written 1st, Executed 3rd) -->
+      <circle cx="16" cy="16" r="14" fill="#059669"/>
+      <text x="16" y="21" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+      <text x="40" y="21" font-family="'Fira Code', monospace" font-size="17" font-weight="bold" fill="#34d399">SELECT name, Country</text>
+      <text x="40" y="38" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">Projects only required columns</text>
+
+      <!-- Step 1: FROM (Written 2nd, Executed 1st) -->
+      <g transform="translate(0, 58)">
+        <circle cx="16" cy="16" r="14" fill="#0284c7"/>
+        <text x="16" y="21" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+        <text x="40" y="21" font-family="'Fira Code', monospace" font-size="17" font-weight="bold" fill="#38bdf8">FROM customers</text>
+        <text x="40" y="38" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">Locates and loads source table</text>
+      </g>
+
+      <!-- Step 2: WHERE (Written 3rd, Executed 2nd) -->
+      <g transform="translate(0, 116)">
+        <circle cx="16" cy="16" r="14" fill="#d97706"/>
+        <text x="16" y="21" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+        <text x="40" y="21" font-family="'Fira Code', monospace" font-size="17" font-weight="bold" fill="#fbbf24">WHERE Score &gt; 500;</text>
+        <text x="40" y="38" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">Evaluates predicate row-by-row</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================================================================================== -->
+  <!-- BOTTOM RIGHT: FINAL FILTERED RESULT SET -->
+  <!-- ================================================================================== -->
+  <g transform="translate(730, 460)">
+    <text x="0" y="-12" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399">🎯 Final Output Result Set (2 rows returned):</text>
+    
+    <rect width="410" height="130" rx="8" fill="#0f172a" stroke="#34d399" stroke-width="2"/>
+    <rect width="410" height="32" rx="6" fill="#1e293b"/>
+    <line x1="0" y1="32" x2="410" y2="32" stroke="#34d399" stroke-width="1.5"/>
+    <line x1="0" y1="80" x2="410" y2="80" stroke="#334155" stroke-width="1"/>
+    <line x1="205" y1="0" x2="205" y2="130" stroke="#334155" stroke-width="1"/>
+
+    <!-- Headers -->
+    <text x="102" y="22" font-family="'Fira Code', monospace" font-size="13" font-weight="bold" fill="#34d399" text-anchor="middle">name</text>
+    <text x="307" y="22" font-family="'Fira Code', monospace" font-size="13" font-weight="bold" fill="#34d399" text-anchor="middle">Country</text>
+
+    <!-- Row 1 -->
+    <text x="102" y="62" font-family="'Fira Code', monospace" font-size="14" fill="#f8fafc" text-anchor="middle">John</text>
+    <text x="307" y="62" font-family="'Fira Code', monospace" font-size="14" fill="#38bdf8" text-anchor="middle">USA</text>
+
+    <!-- Row 2 -->
+    <text x="102" y="110" font-family="'Fira Code', monospace" font-size="14" fill="#f8fafc" text-anchor="middle">Georg</text>
+    <text x="307" y="110" font-family="'Fira Code', monospace" font-size="14" fill="#38bdf8" text-anchor="middle">UK</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M 460 300 C 500 300, 510 300, 540 300" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowCyan)"/>
+  <path d="M 660 300 C 690 300, 700 300, 725 300" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrowYellow)"/>
+  <path d="M 935 420 L 935 450" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Footer explanation badge -->
+  <g transform="translate(600, 715)" text-anchor="middle">
+    <rect x="-420" y="-18" width="840" height="34" rx="17" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text y="5" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#cbd5e1">
+      💡 <tspan font-weight="bold" fill="#fbbf24">Definition:</tspan> Filtering = Applying conditions to select only the rows you need instead of fetching everything!
+    </text>
+  </g>
+</svg>

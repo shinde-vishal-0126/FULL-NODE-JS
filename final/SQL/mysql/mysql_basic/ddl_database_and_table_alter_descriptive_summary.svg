@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 940" width="100%" height="100%">
+  <defs>
+    <!-- Soft Shadows -->
+    <filter id="boxShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="topShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+
+    <!-- Canvas Background Gradient -->
+    <linearGradient id="canvasGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+
+    <!-- Top Banner Gradient -->
+    <linearGradient id="topBannerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Column Gradients -->
+    <linearGradient id="dbColGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="tblColGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .title-main { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 24px; fill: #ffffff; }
+    .title-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13.5px; fill: #94a3b8; }
+    .col-header { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 17px; }
+    .col-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 12px; font-weight: 600; }
+    .item-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 13px; }
+    .desc-text { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #334155; line-height: 1.4; }
+    .marathi-desc { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #047857; font-weight: 600; }
+    .code-snippet { font-family: 'Consolas', monospace; font-size: 11px; fill: #0f172a; font-weight: 700; }
+  </style>
+
+  <!-- Canvas Outer Background -->
+  <rect x="15" y="15" width="1170" height="910" rx="16" fill="url(#canvasGrad)" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Top Banner -->
+  <g transform="translate(15, 15)">
+    <path d="M 0 16 C 0 7, 7 0, 16 0 L 1154 0 C 1163 0, 1170 7, 1170 16 L 1170 85 L 0 85 Z" fill="url(#topBannerGrad)" filter="url(#topShadow)"/>
+    <text x="585" y="40" text-anchor="middle" class="title-main">DESCRIPTIVE SUMMARY: DATABASE LEVEL &amp; TABLE LEVEL ALTER OPERATIONS</text>
+    <text x="585" y="66" text-anchor="middle" class="title-sub">डेटाबेस व टेबल पातळीवरील सर्व DDL ALTER ऑपरेशन्सचे सविस्तर सचित्र स्पष्टीकरण</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- LEFT PANEL: 1. DATABASE LEVEL ALTER OPERATIONS (Width 400)          -->
+  <!-- ==================================================================== -->
+  <g transform="translate(40, 120)">
+    <rect width="390" height="715" rx="12" fill="url(#dbColGrad)" stroke="#93c5fd" stroke-width="1.8" filter="url(#boxShadow)"/>
+
+    <!-- Header -->
+    <g transform="translate(20, 20)">
+      <!-- DB Icon -->
+      <ellipse cx="18" cy="8" rx="16" ry="6" fill="#3b82f6"/>
+      <path d="M 2 8 L 2 28 C 2 34, 34 34, 34 28 L 34 8 Z" fill="#2563eb"/>
+      <ellipse cx="18" cy="8" rx="16" ry="6" fill="#60a5fa"/>
+      <ellipse cx="18" cy="18" rx="14" ry="4" fill="none" stroke="#93c5fd" stroke-width="1.5"/>
+      <ellipse cx="18" cy="28" rx="14" ry="4" fill="none" stroke="#93c5fd" stroke-width="1.5"/>
+
+      <text x="45" y="16" class="col-header" fill="#1e3a8a">1. DATABASE LEVEL</text>
+      <text x="45" y="32" class="col-sub" fill="#2563eb">ALTER DATABASE db_name [options];</text>
+    </g>
+
+    <line x1="20" y1="68" x2="370" y2="68" stroke="#bfdbfe" stroke-width="1.5"/>
+
+    <!-- Target Scope Explanation -->
+    <rect x="20" y="80" width="350" height="50" rx="6" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="30" y="99" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#1e40af">🎯 कार्यक्षेत्र (Scope):</text>
+    <text x="30" y="117" font-family="'Segoe UI', sans-serif" font-size="10.5" fill="#475569">संपूर्ण डेटाबेसचे ग्लोबल गुणधर्म, एनकोडिंग आणि सॉर्टिंग नियम बदलणे.</text>
+
+    <!-- ITEM A: CHARACTER SET -->
+    <g transform="translate(20, 145)">
+      <rect width="350" height="155" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+      <rect x="12" y="12" width="165" height="24" rx="4" fill="#dbeafe"/>
+      <text x="18" y="28" class="item-title" fill="#1d4ed8">🌐 A. CHARACTER SET</text>
+      <text x="12" y="52" class="desc-text"><tspan font-weight="700">Description:</tspan> Defines how text characters, letters, emojis, and symbols are digitally encoded and stored on disk.</text>
+      <text x="12" y="88" class="marathi-desc">मराठी: अक्षरे व इमोजी साठवण्याची ग्लोबल एनकोडिंग पद्धत बदलते (उदा. utf8mb4).</text>
+      <!-- Code box -->
+      <rect x="12" y="105" width="326" height="38" rx="4" fill="#0f172a"/>
+      <text x="20" y="122" font-family="'Consolas', monospace" font-size="10" fill="#93c5fd">ALTER DATABASE company_db</text>
+      <text x="20" y="136" font-family="'Consolas', monospace" font-size="10" fill="#38bdf8">  CHARACTER SET utf8mb4;</text>
+    </g>
+
+    <!-- ITEM B: COLLATION -->
+    <g transform="translate(20, 315)">
+      <rect width="350" height="155" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+      <rect x="12" y="12" width="135" height="24" rx="4" fill="#dbeafe"/>
+      <text x="18" y="28" class="item-title" fill="#1d4ed8">🔡 B. COLLATION</text>
+      <text x="12" y="52" class="desc-text"><tspan font-weight="700">Description:</tspan> Specifies rules for comparing and sorting characters (case-sensitivity, accent rules, Unicode standards).</text>
+      <text x="12" y="88" class="marathi-desc">मराठी: अक्षरांची तुलना व क्रमवारी (Sorting) ठरवणारे नियम (उदा. utf8mb4_unicode_ci).</text>
+      <!-- Code box -->
+      <rect x="12" y="105" width="326" height="38" rx="4" fill="#0f172a"/>
+      <text x="20" y="122" font-family="'Consolas', monospace" font-size="10" fill="#93c5fd">ALTER DATABASE company_db</text>
+      <text x="20" y="136" font-family="'Consolas', monospace" font-size="10" fill="#fde047">  COLLATE utf8mb4_unicode_ci;</text>
+    </g>
+
+    <!-- ITEM C: RENAME DATABASE GUARD -->
+    <g transform="translate(20, 485)">
+      <rect width="350" height="135" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.2"/>
+      <rect x="12" y="12" width="185" height="24" rx="4" fill="#ffedd5"/>
+      <text x="18" y="28" class="item-title" fill="#c2410c">⚠️ C. RENAME DATABASE?</text>
+      <text x="12" y="52" class="desc-text"><tspan font-weight="700">Crucial Rule:</tspan> MySQL does NOT support a direct RENAME DATABASE command to prevent data corruption.</text>
+      <text x="12" y="85" class="marathi-desc">मराठी: डेटा गमावण्यापासून रोखण्यासाठी MySQL मध्ये RENAME DATABASE कमांड नसते. नवीन DB बनवून टेबल्स हलवावे लागतात.</text>
+      <rect x="12" y="102" width="326" height="24" rx="4" fill="#fef2f2"/>
+      <text x="20" y="118" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#dc2626">❌ RENAME DATABASE db1 TO db2; (Not Allowed)</text>
+    </g>
+
+    <!-- Combined Command box -->
+    <g transform="translate(20, 632)">
+      <rect width="350" height="68" rx="6" fill="#1e293b"/>
+      <text x="15" y="20" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="700" fill="#38bdf8">💡 Single Combined Statement:</text>
+      <text x="15" y="38" font-family="'Consolas', monospace" font-size="10.5" fill="#f8fafc">ALTER DATABASE company_db</text>
+      <text x="15" y="54" font-family="'Consolas', monospace" font-size="10.5" fill="#a7f3d0">  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</text>
+    </g>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- RIGHT PANEL: 2. TABLE LEVEL ALTER OPERATIONS (Width 710)            -->
+  <!-- ==================================================================== -->
+  <g transform="translate(450, 120)">
+    <rect width="710" height="715" rx="12" fill="url(#tblColGrad)" stroke="#cbd5e1" stroke-width="1.8" filter="url(#boxShadow)"/>
+
+    <!-- Header -->
+    <g transform="translate(20, 20)">
+      <!-- Table Icon -->
+      <rect width="32" height="26" rx="4" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+      <rect width="32" height="8" rx="2" fill="#0f172a"/>
+      <line x1="16" y1="8" x2="16" y2="26" stroke="#cbd5e1" stroke-width="1.2"/>
+      <line x1="0" y1="17" x2="32" y2="17" stroke="#cbd5e1" stroke-width="1.2"/>
+
+      <text x="45" y="16" class="col-header" fill="#0f172a">2. TABLE LEVEL</text>
+      <text x="45" y="32" class="col-sub" fill="#475569">ALTER TABLE table_name [action];</text>
+    </g>
+
+    <line x1="20" y1="68" x2="690" y2="68" stroke="#e2e8f0" stroke-width="1.5"/>
+
+    <!-- Target Scope Explanation -->
+    <rect x="20" y="80" width="670" height="42" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="30" y="98" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#047857">🎯 कार्यक्षेत्र (Scope): <tspan font-weight="500" fill="#475569">टेबलचा मूळ डेटा सुरक्षित ठेवून नवीन कॉलम, डेटा टाईप, नियम (Constraints), किंवा टेबलचे नाव बदलणे.</tspan></text>
+
+    <!-- 6 CARDS IN 2x3 GRID -->
+    <!-- ROW 1, COL 1: ADD COLUMN -->
+    <g transform="translate(20, 132)">
+      <rect width="325" height="120" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+      <rect x="10" y="10" width="105" height="20" rx="4" fill="#16a34a"/>
+      <text x="62" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">➕ ADD COLUMN</text>
+      <text x="10" y="44" class="desc-text">Adds new column (at end, FIRST, or AFTER col).</text>
+      <text x="10" y="60" class="marathi-desc">नवीन कॉलम जोडणे (शेवटी किंवा विशिष्ट जागी).</text>
+      <rect x="10" y="70" width="305" height="40" rx="4" fill="#ffffff" stroke="#bbf7d0"/>
+      <text x="16" y="87" class="code-snippet" fill="#15803d">ALTER TABLE emp ADD COLUMN</text>
+      <text x="16" y="102" class="code-snippet" fill="#15803d">  address VARCHAR(255) AFTER name;</text>
+    </g>
+
+    <!-- ROW 1, COL 2: MODIFY COLUMN -->
+    <g transform="translate(365, 132)">
+      <rect width="325" height="120" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.2"/>
+      <rect x="10" y="10" width="125" height="20" rx="4" fill="#0284c7"/>
+      <text x="72" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">✏️ MODIFY COLUMN</text>
+      <text x="10" y="44" class="desc-text">Changes datatype, size, nullability, or default.</text>
+      <text x="10" y="60" class="marathi-desc">कॉलमचे नाव न बदलता टाईप/साईज बदलणे.</text>
+      <rect x="10" y="70" width="305" height="40" rx="4" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="16" y="87" class="code-snippet" fill="#0369a1">ALTER TABLE emp MODIFY COLUMN</text>
+      <text x="16" y="102" class="code-snippet" fill="#0369a1">  salary DECIMAL(12,2) NOT NULL;</text>
+    </g>
+
+    <!-- ROW 2, COL 1: CHANGE COLUMN -->
+    <g transform="translate(20, 262)">
+      <rect width="325" height="120" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.2"/>
+      <rect x="10" y="10" width="125" height="20" rx="4" fill="#7c3aed"/>
+      <text x="72" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">🔄 CHANGE COLUMN</text>
+      <text x="10" y="44" class="desc-text">Renames column AND changes datatype in 1 step.</text>
+      <text x="10" y="60" class="marathi-desc">कॉलमचे नाव आणि डेटा टाईप दोन्ही एकदम बदलणे.</text>
+      <rect x="10" y="70" width="305" height="40" rx="4" fill="#ffffff" stroke="#ddd6fe"/>
+      <text x="16" y="87" class="code-snippet" fill="#6d28d9">ALTER TABLE emp CHANGE COLUMN</text>
+      <text x="16" y="102" class="code-snippet" fill="#6d28d9">  phone mobile_no VARCHAR(20);</text>
+    </g>
+
+    <!-- ROW 2, COL 2: RENAME COLUMN -->
+    <g transform="translate(365, 262)">
+      <rect width="325" height="120" rx="8" fill="#fdf4ff" stroke="#f0abfc" stroke-width="1.2"/>
+      <rect x="10" y="10" width="130" height="20" rx="4" fill="#c026d3"/>
+      <text x="75" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">🏷️ RENAME COLUMN</text>
+      <text x="10" y="44" class="desc-text">Renames only (MySQL 8.0+; no datatype retype).</text>
+      <text x="10" y="60" class="marathi-desc">फक्त कॉलमचे नाव बदलणे (टाईप पुन्हा देण्याची गरज नाही).</text>
+      <rect x="10" y="70" width="305" height="40" rx="4" fill="#ffffff" stroke="#f5d0fe"/>
+      <text x="16" y="87" class="code-snippet" fill="#a21caf">ALTER TABLE emp RENAME COLUMN</text>
+      <text x="16" y="102" class="code-snippet" fill="#a21caf">  salary TO monthly_salary;</text>
+    </g>
+
+    <!-- ROW 3, COL 1: DROP COLUMN -->
+    <g transform="translate(20, 392)">
+      <rect width="325" height="120" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+      <rect x="10" y="10" width="115" height="20" rx="4" fill="#dc2626"/>
+      <text x="67" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">🗑️ DROP COLUMN</text>
+      <text x="10" y="44" class="desc-text">Permanently deletes column and its data.</text>
+      <text x="10" y="60" class="marathi-desc">कॉलम कायमचा नष्ट करणे (कदापि परत आणता येत नाही).</text>
+      <rect x="10" y="70" width="305" height="40" rx="4" fill="#ffffff" stroke="#fecaca"/>
+      <text x="16" y="87" class="code-snippet" fill="#b91c1c">ALTER TABLE emp</text>
+      <text x="16" y="102" class="code-snippet" fill="#b91c1c">  DROP COLUMN temp_notes;</text>
+    </g>
+
+    <!-- ROW 3, COL 2: RENAME TABLE -->
+    <g transform="translate(365, 392)">
+      <rect width="325" height="120" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+      <rect x="10" y="10" width="115" height="20" rx="4" fill="#475569"/>
+      <text x="67" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10.5" font-weight="800" fill="#ffffff">🏢 RENAME TABLE</text>
+      <text x="10" y="44" class="desc-text">Renames table entity; row records remain intact.</text>
+      <text x="10" y="60" class="marathi-desc">टेबलचे नाव बदलणे (आतील रेकॉर्ड्स जसेच्या तसेच राहतात).</text>
+      <rect x="10" y="70" width="305" height="40" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="16" y="87" class="code-snippet" fill="#334155">ALTER TABLE employees</text>
+      <text x="16" y="102" class="code-snippet" fill="#334155">  RENAME TO staff_members;</text>
+    </g>
+
+    <!-- ROW 4: CONSTRAINTS & AUTO_INCREMENT FULL-WIDTH BANNERS -->
+    <g transform="translate(20, 522)">
+      <rect width="670" height="85" rx="8" fill="#fffbeb" stroke="#fde68a" stroke-width="1.2"/>
+      <rect x="12" y="10" width="160" height="20" rx="4" fill="#d97706"/>
+      <text x="92" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="800" fill="#ffffff">🛡️ CONSTRAINTS (PK, UK, FK, CHK)</text>
+      <text x="180" y="24" class="marathi-desc">नियम जोडणे व हटवणे (ADD / DROP CONSTRAINT)</text>
+      <rect x="12" y="36" width="646" height="40" rx="4" fill="#ffffff" stroke="#fef08a"/>
+      <text x="20" y="52" class="code-snippet" fill="#b45309">ADD:  ALTER TABLE emp ADD CONSTRAINT chk_age CHECK (age &gt;= 18);</text>
+      <text x="20" y="68" class="code-snippet" fill="#b45309">DROP: ALTER TABLE emp DROP CHECK chk_age;  (Unique: DROP INDEX name;)</text>
+    </g>
+
+    <g transform="translate(20, 617)">
+      <rect width="670" height="85" rx="8" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.2"/>
+      <rect x="12" y="10" width="185" height="20" rx="4" fill="#0d9488"/>
+      <text x="104" y="24" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="800" fill="#ffffff">⚙️ DEFAULT &amp; AUTO_INCREMENT</text>
+      <text x="205" y="24" class="marathi-desc">डीफॉल्ट व्हॅल्यू व काउंटर बदलणे</text>
+      <rect x="12" y="36" width="646" height="40" rx="4" fill="#ffffff" stroke="#ccfbf1"/>
+      <text x="20" y="52" class="code-snippet" fill="#0f766e">DEFAULT: ALTER TABLE emp ALTER salary SET DEFAULT 5000; (or DROP DEFAULT)</text>
+      <text x="20" y="68" class="code-snippet" fill="#0f766e">AUTO_INC: ALTER TABLE emp AUTO_INCREMENT = 1000;</text>
+    </g>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- BOTTOM CALLOUT BANNER: CORE TAKEAWAYS                               -->
+  <!-- ==================================================================== -->
+  <g transform="translate(40, 848)">
+    <rect width="1120" height="52" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+    <text x="20" y="22" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="800" fill="#38bdf8">💡 DDL ALTER महत्त्वाचे नियम (Summary):</text>
+    <text x="20" y="40" font-family="'Segoe UI', sans-serif" font-size="11" fill="#f8fafc">1. <tspan font-weight="700" fill="#fca5a5">Implicit Commit:</tspan> MySQL मध्ये DDL तात्काळ Commit होते (ROLLBACK करता येत नाही).  2. <tspan font-weight="700" fill="#a7f3d0">डेटा सुरक्षितता:</tspan> ALTER फक्त ब्लूप्रिंट/मेटाडेटा बदलते; इतर कॉलममधील मूळ डेटा नष्ट होत नाही.</text>
+  </g>
+</svg>

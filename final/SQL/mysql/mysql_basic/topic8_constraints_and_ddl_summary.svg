@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 820" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="headerShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+
+    <linearGradient id="topBannerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <!-- Constraint Badge Gradients -->
+    <linearGradient id="pkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef2f2"/>
+      <stop offset="100%" stop-color="#fee2e2"/>
+    </linearGradient>
+    <linearGradient id="ukGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0fdf4"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="fkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="chkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="nnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#faf5ff"/>
+      <stop offset="100%" stop-color="#f3e8ff"/>
+    </linearGradient>
+    <linearGradient id="defGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0fdfa"/>
+      <stop offset="100%" stop-color="#ccfbf1"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .title-main { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 23px; fill: #ffffff; }
+    .title-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 15px; }
+    .rule-tag { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #475569; font-weight: 600; }
+    .marathi-tag { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #047857; font-weight: 700; }
+    .code-label { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 10.5px; font-weight: 800; }
+    .code-text { font-family: 'Consolas', monospace; font-size: 11px; fill: #0f172a; }
+  </style>
+
+  <!-- Canvas Outer Background -->
+  <rect x="15" y="15" width="1120" height="790" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Top Banner -->
+  <g transform="translate(15, 15)">
+    <path d="M 0 16 C 0 7, 7 0, 16 0 L 1104 0 C 1113 0, 1120 7, 1120 16 L 1120 85 L 0 85 Z" fill="url(#topBannerGrad)" filter="url(#headerShadow)"/>
+    <text x="560" y="40" text-anchor="middle" class="title-main">SQL CONSTRAINTS &amp; DDL ALTER COMPLETE SUMMARY</text>
+    <text x="560" y="66" text-anchor="middle" class="title-sub">डेटाबेस नियम (Constraints) व्यवस्थापन: ADD आणि DROP कमांड्सचा संपूर्ण सारांश</text>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- 6 CONSTRAINT CARDS (2 COLUMNS x 3 ROWS)                        -->
+  <!-- ============================================================== -->
+
+  <!-- CARD 1: PRIMARY KEY -->
+  <g transform="translate(40, 120)">
+    <rect width="520" height="195" rx="12" fill="url(#pkGrad)" stroke="#fca5a5" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="165" height="26" rx="6" fill="#dc2626"/>
+    <text x="97" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">🔑 1. PRIMARY KEY</text>
+    <text x="190" y="32" class="marathi-tag">(प्राथमिक की - युनिक ओळख)</text>
+    <text x="15" y="58" class="rule-tag">📌 नियम: युनिक व्हॅल्यू आवश्यक, NULL चालत नाही, टेबलमध्ये एकच असू शकते.</text>
+
+    <!-- ADD Box -->
+    <rect x="15" y="70" width="490" height="52" rx="6" fill="#ffffff" stroke="#fecaca" stroke-width="1"/>
+    <text x="25" y="88" class="code-label" fill="#16a34a">🟢 HOW TO ADD:</text>
+    <text x="25" y="108" class="code-text">ALTER TABLE employees ADD PRIMARY KEY (id);</text>
+
+    <!-- DROP Box -->
+    <rect x="15" y="130" width="490" height="52" rx="6" fill="#ffffff" stroke="#fecaca" stroke-width="1"/>
+    <text x="25" y="148" class="code-label" fill="#dc2626">🔴 HOW TO DROP:</text>
+    <text x="25" y="168" class="code-text">ALTER TABLE employees DROP PRIMARY KEY;</text>
+  </g>
+
+  <!-- CARD 2: UNIQUE KEY -->
+  <g transform="translate(590, 120)">
+    <rect width="520" height="195" rx="12" fill="url(#ukGrad)" stroke="#86efac" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="145" height="26" rx="6" fill="#16a34a"/>
+    <text x="87" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">⭐ 2. UNIQUE</text>
+    <text x="170" y="32" class="marathi-tag">(अद्वितीय मूल्य नियम)</text>
+    <text x="15" y="58" class="rule-tag">📌 नियम: सर्व व्हॅल्यू वेगवेगळ्या असाव्यात; यात NULL व्हॅल्यूज चालतात.</text>
+
+    <!-- ADD Box -->
+    <rect x="15" y="70" width="490" height="52" rx="6" fill="#ffffff" stroke="#bbf7d0" stroke-width="1"/>
+    <text x="25" y="88" class="code-label" fill="#16a34a">🟢 HOW TO ADD:</text>
+    <text x="25" y="108" class="code-text">ALTER TABLE employees ADD CONSTRAINT unique_email UNIQUE (email);</text>
+
+    <!-- DROP Box -->
+    <rect x="15" y="130" width="490" height="52" rx="6" fill="#ffffff" stroke="#bbf7d0" stroke-width="1"/>
+    <text x="25" y="148" class="code-label" fill="#dc2626">🔴 HOW TO DROP (MySQL मध्ये DROP INDEX वापरावे):</text>
+    <text x="25" y="168" class="code-text">ALTER TABLE employees DROP INDEX unique_email;</text>
+  </g>
+
+  <!-- CARD 3: FOREIGN KEY -->
+  <g transform="translate(40, 330)">
+    <rect width="520" height="195" rx="12" fill="url(#fkGrad)" stroke="#93c5fd" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="175" height="26" rx="6" fill="#2563eb"/>
+    <text x="102" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">🔗 3. FOREIGN KEY</text>
+    <text x="200" y="32" class="marathi-tag">(परकीय की - दोन टेबल्सची जोडणी)</text>
+    <text x="15" y="58" class="rule-tag">📌 नियम: Child टेबलमधील डेटा Parent टेबलच्या Primary Key शी जुळणारा हवा.</text>
+
+    <!-- ADD Box -->
+    <rect x="15" y="70" width="490" height="52" rx="6" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="25" y="88" class="code-label" fill="#16a34a">🟢 HOW TO ADD:</text>
+    <text x="25" y="108" class="code-text">ALTER TABLE orders ADD CONSTRAINT fk_cust FOREIGN KEY (cust_id) REFERENCES customers(id);</text>
+
+    <!-- DROP Box -->
+    <rect x="15" y="130" width="490" height="52" rx="6" fill="#ffffff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="25" y="148" class="code-label" fill="#dc2626">🔴 HOW TO DROP:</text>
+    <text x="25" y="168" class="code-text">ALTER TABLE orders DROP FOREIGN KEY fk_cust;</text>
+  </g>
+
+  <!-- CARD 4: CHECK CONSTRAINT -->
+  <g transform="translate(590, 330)">
+    <rect width="520" height="195" rx="12" fill="url(#chkGrad)" stroke="#fde68a" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="135" height="26" rx="6" fill="#d97706"/>
+    <text x="82" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">🛡️ 4. CHECK</text>
+    <text x="160" y="32" class="marathi-tag">(अट / कंडिशन तपासणी)</text>
+    <text x="15" y="58" class="rule-tag">📌 नियम: कॉलममधील डेटा दिलेल्या अटीनुसार वैध (उदा. वय &gt;= १८) असणे बंधनकारक.</text>
+
+    <!-- ADD Box -->
+    <rect x="15" y="70" width="490" height="52" rx="6" fill="#ffffff" stroke="#fef08a" stroke-width="1"/>
+    <text x="25" y="88" class="code-label" fill="#16a34a">🟢 HOW TO ADD:</text>
+    <text x="25" y="108" class="code-text">ALTER TABLE employees ADD CONSTRAINT chk_age CHECK (age &gt;= 18);</text>
+
+    <!-- DROP Box -->
+    <rect x="15" y="130" width="490" height="52" rx="6" fill="#ffffff" stroke="#fef08a" stroke-width="1"/>
+    <text x="25" y="148" class="code-label" fill="#dc2626">🔴 HOW TO DROP:</text>
+    <text x="25" y="168" class="code-text">ALTER TABLE employees DROP CHECK chk_age;</text>
+  </g>
+
+  <!-- CARD 5: NOT NULL -->
+  <g transform="translate(40, 540)">
+    <rect width="520" height="195" rx="12" fill="url(#nnGrad)" stroke="#d8b4fe" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="140" height="26" rx="6" fill="#7c3aed"/>
+    <text x="85" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">🚫 5. NOT NULL</text>
+    <text x="165" y="32" class="marathi-tag">(अनिवार्य डेटा नियम)</text>
+    <text x="15" y="58" class="rule-tag">📌 नियम: कॉलम रिकामा ठेवता येत नाही; यात व्हॅल्यू भरणे सक्तीचे असते.</text>
+
+    <!-- ADD Box -->
+    <rect x="15" y="70" width="490" height="52" rx="6" fill="#ffffff" stroke="#e9d5ff" stroke-width="1"/>
+    <text x="25" y="88" class="code-label" fill="#16a34a">🟢 HOW TO ADD (MODIFY द्वारे जोडणे):</text>
+    <text x="25" y="108" class="code-text">ALTER TABLE STUDENT MODIFY EDUCATION VARCHAR(255) NOT NULL;</text>
+
+    <!-- DROP Box -->
+    <rect x="15" y="130" width="490" height="52" rx="6" fill="#ffffff" stroke="#e9d5ff" stroke-width="1"/>
+    <text x="25" y="148" class="code-label" fill="#dc2626">🔴 HOW TO DROP (कॉलम NULL करून हटवणे):</text>
+    <text x="25" y="168" class="code-text">ALTER TABLE STUDENT MODIFY EDUCATION VARCHAR(255) NULL;</text>
+  </g>
+
+  <!-- CARD 6: DEFAULT -->
+  <g transform="translate(590, 540)">
+    <rect width="520" height="195" rx="12" fill="url(#defGrad)" stroke="#5eead4" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="135" height="26" rx="6" fill="#0d9488"/>
+    <text x="82" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">⚙️ 6. DEFAULT</text>
+    <text x="160" y="32" class="marathi-tag">(डीफॉल्ट पूर्व-निर्धारित मूल्य)</text>
+    <text x="15" y="58" class="rule-tag">📌 नियम: मूल्य दिले नाही तर आपोआप सेट केलेले मूल्य भरले जाते.</text>
+
+    <!-- ADD Box -->
+    <rect x="15" y="70" width="490" height="52" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+    <text x="25" y="88" class="code-label" fill="#16a34a">🟢 HOW TO ADD / SET:</text>
+    <text x="25" y="108" class="code-text">ALTER TABLE employees ALTER salary SET DEFAULT 5000;</text>
+
+    <!-- DROP Box -->
+    <rect x="15" y="130" width="490" height="52" rx="6" fill="#ffffff" stroke="#99f6e4" stroke-width="1"/>
+    <text x="25" y="148" class="code-label" fill="#dc2626">🔴 HOW TO DROP:</text>
+    <text x="25" y="168" class="code-text">ALTER TABLE employees ALTER salary DROP DEFAULT;</text>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- BOTTOM FOOTER CALLOUT BANNER                                   -->
+  <!-- ============================================================== -->
+  <g transform="translate(40, 745)">
+    <rect width="1070" height="48" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+    <text x="20" y="29" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#38bdf8">⚡ DDL व नियम सारांश:</text>
+    <text x="165" y="29" font-family="'Segoe UI', sans-serif" font-size="11.5" fill="#f8fafc">१. DDL कमांड्समध्ये <tspan font-weight="700" fill="#fca5a5">Implicit Commit</tspan> होते (ROLLBACK चालत नाही). २. ALTER मुळे मूळ डेटा सुरक्षित राहून केवळ नियमांचा आराखडा बदलतो.</text>
+  </g>
+</svg>

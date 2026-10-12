@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 680" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgNull" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="yellowHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1150" height="680" rx="16" fill="url(#bgNull)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Grid lines -->
+  <g opacity="0.07">
+    <path d="M0,68 L1150,68 M0,136 L1150,136 M0,204 L1150,204 M0,272 L1150,272 M0,340 L1150,340 M0,408 L1150,408 M0,476 L1150,476 M0,544 L1150,544 M0,612 L1150,612" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M115,0 L115,680 M230,0 L230,680 M345,0 L345,680 M460,0 L460,680 M575,0 L575,680 M690,0 L690,680 M805,0 L805,680 M920,0 L920,680 M1035,0 L1035,680" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(575, 42)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#f8fafc">NULL Check Operators: IS NULL &amp; IS NOT NULL</text>
+    <text y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Testing for missing or unknown database values using Three-Valued Logic (3VL)</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- TOP: 3-BOX COMPARISON: NULL vs ZERO vs EMPTY STRING -->
+  <!-- ========================================================================= -->
+  <g transform="translate(85, 95)" filter="url(#boxShadow)">
+    <!-- Box 1: NULL -->
+    <g transform="translate(0, 0)">
+      <rect width="300" height="150" rx="10" fill="#0b1120" stroke="#f43f5e" stroke-width="2"/>
+      <rect width="300" height="38" rx="10" fill="#881337"/>
+      <rect y="26" width="300" height="12" fill="#881337"/>
+      <text x="150" y="25" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#ffe4e6" text-anchor="middle">NULL</text>
+      <text x="150" y="65" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#fda4af" text-anchor="middle">Missing / Unknown Value</text>
+      <text x="25" y="95" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">• Absence of data</text>
+      <text x="25" y="115" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">• Has NO data type or memory value</text>
+      <text x="25" y="135" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#ef4444">❌ Cannot use = or !=</text>
+    </g>
+
+    <!-- Box 2: ZERO (0) -->
+    <g transform="translate(340, 0)">
+      <rect width="300" height="150" rx="10" fill="#0b1120" stroke="#3b82f6" stroke-width="1.5"/>
+      <rect width="300" height="38" rx="10" fill="#1e3a8a"/>
+      <rect y="26" width="300" height="12" fill="#1e3a8a"/>
+      <text x="150" y="25" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#dbeafe" text-anchor="middle">0 (Zero)</text>
+      <text x="150" y="65" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#93c5fd" text-anchor="middle">Defined Numeric Value</text>
+      <text x="25" y="95" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">• Concrete integer/number</text>
+      <text x="25" y="115" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">• E.g., Score = 0 (participated, 0 pts)</text>
+      <text x="25" y="135" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#38bdf8">✔️ Evaluates with = 0 or != 0</text>
+    </g>
+
+    <!-- Box 3: EMPTY STRING ('') -->
+    <g transform="translate(680, 0)">
+      <rect width="300" height="150" rx="10" fill="#0b1120" stroke="#10b981" stroke-width="1.5"/>
+      <rect width="300" height="38" rx="10" fill="#064e3b"/>
+      <rect y="26" width="300" height="12" fill="#064e3b"/>
+      <text x="150" y="25" font-family="'Fira Code', monospace" font-size="16" font-weight="bold" fill="#d1fae5" text-anchor="middle">'' (Empty String)</text>
+      <text x="150" y="65" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#6ee7b7" text-anchor="middle">Defined String of Length 0</text>
+      <text x="25" y="95" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">• Concrete text object with length 0</text>
+      <text x="25" y="115" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">• E.g., user entered blank text</text>
+      <text x="25" y="135" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#34d399">✔️ Evaluates with = '' or != ''</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- MIDDLE: EVALUATION TABLE (IS NULL vs IS NOT NULL) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(85, 275)" filter="url(#boxShadow)">
+    <rect width="980" height="270" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Table Header -->
+    <rect width="980" height="46" rx="12" fill="#1e293b"/>
+    <rect y="34" width="980" height="12" fill="#1e293b"/>
+    <line x1="0" y1="46" x2="980" y2="46" stroke="#475569" stroke-width="1.5"/>
+
+    <line x1="220" y1="0" x2="220" y2="270" stroke="#334155" stroke-width="1"/>
+    <line x1="420" y1="0" x2="420" y2="270" stroke="#334155" stroke-width="1"/>
+    <line x1="620" y1="0" x2="620" y2="270" stroke="#334155" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="270" stroke="#475569" stroke-width="2" stroke-dasharray="4 4"/>
+
+    <text x="110" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Customer Name</text>
+    <text x="320" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#cbd5e1" text-anchor="middle">phone_number</text>
+    <text x="520" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#cbd5e1" text-anchor="middle">email</text>
+    <text x="710" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">WHERE phone IS NULL</text>
+    <text x="890" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399" text-anchor="middle">WHERE email IS NOT NULL</text>
+
+    <!-- Row 1: Maria -->
+    <g transform="translate(0, 46)">
+      <rect width="980" height="54" fill="#0b1120" fill-opacity="0.4"/>
+      <line x1="0" y1="54" x2="980" y2="54" stroke="#1e293b" stroke-width="1"/>
+      <text x="110" y="33" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Maria</text>
+      <text x="320" y="33" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">+49 151 2345</text>
+      <text x="520" y="33" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">maria@gmail.com</text>
+      <text x="710" y="34" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded</text>
+      <text x="890" y="34" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept</text>
+    </g>
+
+    <!-- Row 2: John (Missing Phone -> NULL) -->
+    <g transform="translate(0, 100)">
+      <rect width="980" height="54" fill="#1e293b" fill-opacity="0.2"/>
+      <line x1="0" y1="54" x2="980" y2="54" stroke="#1e293b" stroke-width="1"/>
+      <text x="110" y="33" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">John</text>
+      <!-- NULL badge -->
+      <rect x="270" y="14" width="100" height="26" rx="5" fill="#881337" stroke="#f43f5e" stroke-width="1"/>
+      <text x="320" y="32" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#ffe4e6" text-anchor="middle">NULL</text>
+      <text x="520" y="33" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">john@corp.com</text>
+      <text x="710" y="34" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept (Match!)</text>
+      <text x="890" y="34" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept</text>
+    </g>
+
+    <!-- Row 3: Peter (Missing Email -> NULL) -->
+    <g transform="translate(0, 154)">
+      <rect width="980" height="54" fill="#0b1120" fill-opacity="0.4"/>
+      <line x1="0" y1="54" x2="980" y2="54" stroke="#1e293b" stroke-width="1"/>
+      <text x="110" y="33" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Peter</text>
+      <text x="320" y="33" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">+1 415 8899</text>
+      <rect x="470" y="14" width="100" height="26" rx="5" fill="#881337" stroke="#f43f5e" stroke-width="1"/>
+      <text x="520" y="32" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#ffe4e6" text-anchor="middle">NULL</text>
+      <text x="710" y="34" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded</text>
+      <text x="890" y="34" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded (is NULL)</text>
+    </g>
+
+    <!-- Row 4: Georg (Has both) -->
+    <g transform="translate(0, 208)">
+      <rect width="980" height="62" rx="12" fill="#1e293b" fill-opacity="0.2"/>
+      <rect width="980" height="20" fill="#1e293b" fill-opacity="0.2"/>
+      <text x="110" y="38" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Georg</text>
+      <text x="320" y="38" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">+44 20 7946</text>
+      <text x="520" y="38" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">georg@uk.co</text>
+      <text x="710" y="39" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded</text>
+      <text x="890" y="39" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- BOTTOM: CRITICAL INTERVIEW PITFALL WARNING -->
+  <!-- ========================================================================= -->
+  <g transform="translate(85, 570)" filter="url(#boxShadow)">
+    <rect width="980" height="75" rx="10" fill="#0b1120" stroke="#fbbf24" stroke-width="1.3"/>
+    <text x="25" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">⚠️ THE NUMBER #1 SQL INTERVIEW TRAP:</text>
+    <text x="25" y="55" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Writing</text>
+    <text x="80" y="55" font-family="'Fira Code', monospace" font-size="12" fill="#ef4444">WHERE phone = NULL</text>
+    <text x="245" y="55" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">evaluates to</text>
+    <text x="325" y="55" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">UNKNOWN</text>
+    <text x="395" y="55" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">and silently returns 0 rows! Always use</text>
+    <text x="680" y="55" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#34d399">IS NULL</text>
+    <text x="745" y="55" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">or</text>
+    <text x="765" y="55" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#34d399">IS NOT NULL</text>
+  </g>
+</svg>

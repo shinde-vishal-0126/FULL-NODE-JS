@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Debounce Polyfill Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    .counter {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .count-box {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Debounce Polyfill Example</h2>
+  <button class="increment_button">Click Me</button>
+
+  <div class="counter">
+    <div class="count-box">Total Button Clicks: <span class="pressed_button">0</span></div>
+    <div class="count-box">Debounced Trigger Count: <span class="increment_count">0</span></div>
+  </div>
+
+  <script>
+    //! Polyfill of Debouncing
+
+    const button = document.querySelector(".increment_button");
+    const pressButton = document.querySelector(".pressed_button");
+    const trigged = document.querySelector(".increment_count");
+
+    let button_count = 0;
+    let triggered_count = 0;
+
+    // Debounce polyfill
+    const my_debounce = (callback, timeDelay) => {
+      let timer;
+      return function (...args) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          callback(...args);
+        }, timeDelay);
+      };
+    };
+
+    const debounce = my_debounce(() => {
+      trigged.innerHTML = ++triggered_count;
+    }, 800);
+
+    button.addEventListener("click", () => {
+      pressButton.innerHTML = ++button_count;
+      debounce();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 600" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0284c7" flood-opacity="0.2"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#ea580c"/>
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 22px; fill: #0f172a; }
+    .subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #64748b; }
+    .group-head { font-family: 'Segoe UI', sans-serif; font-weight: 900; font-size: 14px; }
+    .cmd-name { font-family: 'Consolas', monospace; font-weight: 800; font-size: 14px; letter-spacing: 1px; }
+    .cmd-desc { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #475569; }
+  </style>
+
+  <!-- Canvas Frame -->
+  <rect x="15" y="15" width="990" height="570" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Top Title -->
+  <text x="510" y="48" text-anchor="middle" class="title">SQL Commands Classification: DDL, DML &amp; DQL</text>
+  <text x="510" y="68" text-anchor="middle" class="subtitle">How Different Categories of SQL Commands Interact with Database Architecture</text>
+
+  <!-- ==================== CENTRAL DATABASE CYLINDER ==================== -->
+  <g transform="translate(390, 150)">
+    <ellipse cx="120" cy="30" rx="110" ry="24" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+    <path d="M 10 30 L 10 240 C 10 270, 230 270, 230 240 L 230 30 Z" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+    <ellipse cx="120" cy="30" rx="98" ry="18" fill="#60a5fa"/>
+    <text x="120" y="35" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="14" fill="#ffffff" letter-spacing="1">DATABASE</text>
+
+    <!-- Table Graphic Inside DB -->
+    <g transform="translate(45, 80)">
+      <rect width="150" height="110" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" filter="url(#shadow)"/>
+      <rect width="150" height="25" rx="3" fill="#3b82f6"/>
+      <text x="75" y="17" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="11" fill="#ffffff">TABLE</text>
+      <!-- Grid -->
+      <line x1="50" y1="25" x2="50" y2="110" stroke="#bfdbfe" stroke-width="1"/>
+      <line x1="100" y1="25" x2="100" y2="110" stroke="#bfdbfe" stroke-width="1"/>
+      <line x1="0" y1="53" x2="150" y2="53" stroke="#bfdbfe" stroke-width="1"/>
+      <line x1="0" y1="81" x2="150" y2="81" stroke="#bfdbfe" stroke-width="1"/>
+    </g>
+  </g>
+
+  <!-- ==================== 1. DDL: DATA DEFINITION LANGUAGE (LEFT) ==================== -->
+  <g transform="translate(45, 120)">
+    <!-- DDL Box -->
+    <rect width="280" height="340" rx="12" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Title Tag -->
+    <rect width="280" height="42" rx="12" fill="#eff6ff"/>
+    <text x="20" y="26" class="group-head" fill="#1d4ed8">📐 DDL (Data Definition Language)</text>
+
+    <!-- Developer Icon -->
+    <g transform="translate(20, 60)">
+      <circle cx="20" cy="20" r="14" fill="#fed7aa" stroke="#ea580c" stroke-width="1.2"/>
+      <rect x="6" y="38" width="28" height="15" rx="3" fill="#0284c7"/>
+      <text x="45" y="24" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="12" fill="#0f172a">Developer / DBA</text>
+      <text x="45" y="40" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b">Defines structure &amp; blueprint</text>
+    </g>
+
+    <!-- Commands List -->
+    <g transform="translate(20, 130)">
+      <rect width="240" height="185" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+      
+      <text x="15" y="28" class="cmd-name" fill="#1d4ed8">CREATE</text>
+      <text x="85" y="28" class="cmd-desc">Creates DB, table, index</text>
+
+      <text x="15" y="58" class="cmd-name" fill="#1d4ed8">ALTER</text>
+      <text x="85" y="58" class="cmd-desc">Modifies structure</text>
+
+      <text x="15" y="88" class="cmd-name" fill="#1d4ed8">DROP</text>
+      <text x="85" y="88" class="cmd-desc">Deletes object &amp; data</text>
+
+      <text x="15" y="118" class="cmd-name" fill="#1d4ed8">TRUNCATE</text>
+      <text x="85" y="118" class="cmd-desc">Wipes data, keeps table</text>
+
+      <text x="15" y="148" class="cmd-name" fill="#1d4ed8">RENAME</text>
+      <text x="85" y="148" class="cmd-desc">Changes object name</text>
+
+      <text x="15" y="172" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="700" fill="#dc2626">⚡ Implicit Commit in MySQL</text>
+    </g>
+  </g>
+
+  <!-- Arrow DDL -> DB -->
+  <path d="M 325 290 L 385 290" stroke="#0284c7" stroke-width="2.5" fill="none" marker-end="url(#arrowBlue)"/>
+  <text x="355" y="280" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#0284c7">Creates Structure</text>
+
+
+  <!-- ==================== 2. DQL: DATA QUERY LANGUAGE (TOP-RIGHT) ==================== -->
+  <g transform="translate(695, 110)">
+    <rect width="280" height="195" rx="12" fill="#ffffff" stroke="#16a34a" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="280" height="42" rx="12" fill="#f0fdf4"/>
+    <text x="20" y="26" class="group-head" fill="#15803d">🔍 DQL (Data Query Language)</text>
+
+    <!-- Query Command Box -->
+    <g transform="translate(20, 58)">
+      <rect width="240" height="75" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <text x="15" y="26" class="cmd-name" fill="#15803d">SELECT</text>
+      <text x="75" y="26" class="cmd-desc">Retrieves &amp; queries data</text>
+      <text x="15" y="52" font-family="'Segoe UI', sans-serif" font-size="10" fill="#166534">Used by Analysts &amp; Power BI to fetch filtered reports</text>
+    </g>
+
+    <!-- Arrow from DB to DQL -->
+    <text x="140" y="165" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#15803d">Outputs Formatted Results</text>
+  </g>
+
+  <!-- Curve Arrow DB -> DQL -->
+  <path d="M 620 220 C 655 220, 665 190, 690 190" stroke="#16a34a" stroke-width="2.5" fill="none" marker-end="url(#arrowGreen)"/>
+
+
+  <!-- ==================== 3. DML: DATA MANIPULATION LANGUAGE (BOTTOM-RIGHT) ==================== -->
+  <g transform="translate(695, 335)">
+    <rect width="280" height="215" rx="12" fill="#ffffff" stroke="#ea580c" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect width="280" height="42" rx="12" fill="#fff7ed"/>
+    <text x="20" y="26" class="group-head" fill="#c2410c">✍️ DML (Data Manipulation)</text>
+
+    <!-- Commands List -->
+    <g transform="translate(20, 58)">
+      <rect width="240" height="135" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+      <text x="15" y="28" class="cmd-name" fill="#c2410c">INSERT</text>
+      <text x="80" y="28" class="cmd-desc">Adds new rows</text>
+
+      <text x="15" y="60" class="cmd-name" fill="#c2410c">UPDATE</text>
+      <text x="80" y="60" class="cmd-desc">Modifies existing data</text>
+
+      <text x="15" y="92" class="cmd-name" fill="#c2410c">DELETE</text>
+      <text x="80" y="92" class="cmd-desc">Removes specific rows</text>
+
+      <text x="15" y="120" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="700" fill="#047857">✔ Can be Rolled Back (ACID)</text>
+    </g>
+  </g>
+
+  <!-- Curve Arrow DML -> DB -->
+  <path d="M 695 440 C 645 440, 630 380, 615 340" stroke="#ea580c" stroke-width="2.5" fill="none" marker-end="url(#arrowOrange)"/>
+  <text x="660" y="380" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="700" fill="#ea580c">Writes Rows</text>
+</svg>

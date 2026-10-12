@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 780" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </linearGradient>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1150" height="780" rx="16" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Subtle Grid lines -->
+  <g opacity="0.07">
+    <path d="M0,78 L1150,78 M0,156 L1150,156 M0,234 L1150,234 M0,312 L1150,312 M0,390 L1150,390 M0,468 L1150,468 M0,546 L1150,546 M0,624 L1150,624 M0,702 L1150,702" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M115,0 L115,780 M230,0 L230,780 M345,0 L345,780 M460,0 L460,780 M575,0 L575,780 M690,0 L690,780 M805,0 L805,780 M920,0 L920,780 M1035,0 L1035,780" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(575, 38)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#f8fafc">GROUP BY Rules, WITH ROLLUP &amp; GROUP_CONCAT()</text>
+    <text y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">The Golden Rule of Column Projection, Hierarchical Subtotals, and Group Value Concatenation</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT: THE GOLDEN RULE OF PROJECTION IN GROUP BY -->
+  <!-- ========================================================================= -->
+  <g transform="translate(45, 85)" filter="url(#boxShadow)">
+    <rect width="520" height="660" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+
+    <rect width="520" height="42" rx="12" fill="#1e293b"/>
+    <rect y="30" width="520" height="12" fill="#1e293b"/>
+    <text x="260" y="27" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8" text-anchor="middle">1. The Golden Rule of GROUP BY Projection</text>
+
+    <!-- Rule statement box -->
+    <g transform="translate(20, 55)">
+      <rect width="480" height="65" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="15" y="25" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">THE CARDINAL RULE (ONLY_FULL_GROUP_BY):</text>
+      <text x="15" y="48" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e2e8f0">Every column in the <tspan fill="#38bdf8" font-weight="bold">SELECT</tspan> list must be either:</text>
+      <text x="250" y="48" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#34d399">① In GROUP BY, OR ② Aggregated!</text>
+    </g>
+
+    <!-- Wrong Query 1 -->
+    <g transform="translate(20, 135)">
+      <rect width="480" height="135" rx="8" fill="#881337" fill-opacity="0.25" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ef4444">❌ WRONG QUERY (Throws MySQL Error 1055):</text>
+      <rect x="15" y="34" width="450" height="38" rx="5" fill="#0f172a" stroke="#7f1d1d" stroke-width="1"/>
+      <text x="25" y="58" font-family="'Fira Code', monospace" font-size="11" fill="#f87171">
+        SELECT <tspan fill="#ffffff" text-decoration="underline" font-weight="bold">first_name</tspan>, country, SUM(score) FROM customers GROUP BY <tspan fill="#38bdf8">country</tspan>;
+      </text>
+      <text x="15" y="92" font-family="'Segoe UI', sans-serif" font-size="11" fill="#fca5a5">⚠️ Problem: 'first_name' has multiple different values per country!</text>
+      <text x="15" y="110" font-family="'Segoe UI', sans-serif" font-size="11" fill="#cbd5e1">The engine does not know which name to pick for the collapsed country row.</text>
+    </g>
+
+    <!-- Correct Query 1 -->
+    <g transform="translate(20, 285)">
+      <rect width="480" height="130" rx="8" fill="#064e3b" fill-opacity="0.25" stroke="#10b981" stroke-width="1.5"/>
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#34d399">✔️ SOLUTION 1: Include in GROUP BY (Multi-Column Grouping):</text>
+      <rect x="15" y="34" width="450" height="38" rx="5" fill="#0f172a" stroke="#065f46" stroke-width="1"/>
+      <text x="25" y="58" font-family="'Fira Code', monospace" font-size="11" fill="#a7f3d0">
+        SELECT first_name, country, SUM(score) FROM customers GROUP BY <tspan fill="#34d399" font-weight="bold">country, first_name</tspan>;
+      </text>
+      <text x="15" y="92" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6ee7b7">✔️ Validated: Every selected non-aggregate column is in GROUP BY.</text>
+      <text x="15" y="110" font-family="'Segoe UI', sans-serif" font-size="11" fill="#cbd5e1">Engine creates distinct groups for each (Country, First Name) pair.</text>
+    </g>
+
+    <!-- Correct Query 2 -->
+    <g transform="translate(20, 430)">
+      <rect width="480" height="130" rx="8" fill="#064e3b" fill-opacity="0.25" stroke="#10b981" stroke-width="1.5"/>
+      <text x="15" y="24" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#34d399">✔️ SOLUTION 2: Remove unaggregated column from SELECT:</text>
+      <rect x="15" y="34" width="450" height="38" rx="5" fill="#0f172a" stroke="#065f46" stroke-width="1"/>
+      <text x="25" y="58" font-family="'Fira Code', monospace" font-size="11" fill="#a7f3d0">
+        SELECT country, SUM(score) AS total_score FROM customers GROUP BY <tspan fill="#34d399" font-weight="bold">country</tspan>;
+      </text>
+      <text x="15" y="92" font-family="'Segoe UI', sans-serif" font-size="11" fill="#6ee7b7">✔️ Clean, standard, and highly optimized for summary reports.</text>
+      <text x="15" y="110" font-family="'Segoe UI', sans-serif" font-size="11" fill="#cbd5e1">Only groups and mathematical summaries are projected.</text>
+    </g>
+
+    <!-- Bottom note on ONLY_FULL_GROUP_BY -->
+    <g transform="translate(20, 575)">
+      <rect width="480" height="65" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+      <text x="12" y="22" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">⚠️ SQL MODE CAUTION:</text>
+      <text x="12" y="38" font-family="'Segoe UI', sans-serif" font-size="11" fill="#cbd5e1">Disabling ONLY_FULL_GROUP_BY allows MySQL to silently return random values</text>
+      <text x="12" y="54" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ef4444">from the group — highly discouraged in production!</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT TOP: WITH ROLLUP & GRAND TOTALS -->
+  <!-- ========================================================================= -->
+  <g transform="translate(590, 85)" filter="url(#boxShadow)">
+    <rect width="515" height="330" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+
+    <rect width="515" height="40" rx="12" fill="#1e293b"/>
+    <rect y="28" width="515" height="12" fill="#1e293b"/>
+    <text x="20" y="26" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8">2. GROUP BY WITH ROLLUP (Subtotals &amp; Grand Total)</text>
+
+    <!-- Query syntax box -->
+    <g transform="translate(20, 50)">
+      <rect width="475" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+      <text x="15" y="22" font-family="'Fira Code', monospace" font-size="10.5" fill="#f8fafc">
+        <tspan fill="#38bdf8">SELECT</tspan> IFNULL(country, <tspan fill="#fbbf24">'TOTAL'</tspan>) AS country,
+      </text>
+      <text x="15" y="38" font-family="'Fira Code', monospace" font-size="10.5" fill="#f8fafc">
+        <tspan dx="45">SUM(score) AS total_score</tspan> <tspan fill="#fbbf24">FROM</tspan> customers <tspan fill="#38bdf8">GROUP BY</tspan> country <tspan fill="#f59e0b" font-weight="bold">WITH ROLLUP</tspan>;
+      </text>
+    </g>
+
+    <!-- Table with Grand Total Highlight -->
+    <g transform="translate(20, 115)">
+      <rect width="475" height="195" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <!-- Header -->
+      <line x1="0" y1="34" x2="475" y2="34" stroke="#475569" stroke-width="1"/>
+      <text x="20" y="23" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#94a3b8">country (IFNULL) | total_score | Note</text>
+
+      <!-- Row 1: Germany -->
+      <text x="20" y="58" font-family="'Fira Code', monospace" font-size="12" fill="#f8fafc">Germany          | 850         | Subtotal (Maria + Martin)</text>
+      <line x1="0" y1="70" x2="475" y2="70" stroke="#334155" stroke-width="1"/>
+
+      <!-- Row 2: UK -->
+      <text x="20" y="94" font-family="'Fira Code', monospace" font-size="12" fill="#f8fafc">UK               | 750         | Subtotal (Georg)</text>
+      <line x1="0" y1="106" x2="475" y2="106" stroke="#334155" stroke-width="1"/>
+
+      <!-- Row 3: USA -->
+      <text x="20" y="130" font-family="'Fira Code', monospace" font-size="12" fill="#f8fafc">USA              | 900         | Subtotal (John + Peter)</text>
+      <line x1="0" y1="142" x2="475" y2="142" stroke="#475569" stroke-width="1.5"/>
+
+      <!-- Grand Total Row: Highlighted -->
+      <rect x="2" y="145" width="471" height="46" rx="4" fill="#854d0e" fill-opacity="0.35" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="20" y="174" font-family="'Fira Code', monospace" font-size="13" font-weight="bold" fill="#fef08a">TOTAL (All)      | 2500        | ★ GRAND TOTAL ★</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT BOTTOM: GROUP_CONCAT() STRING AGGREGATION -->
+  <!-- ========================================================================= -->
+  <g transform="translate(590, 435)" filter="url(#boxShadow)">
+    <rect width="515" height="310" rx="12" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+
+    <rect width="515" height="40" rx="12" fill="#1e293b"/>
+    <rect y="28" width="515" height="12" fill="#1e293b"/>
+    <text x="20" y="26" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8">3. GROUP_CONCAT(): Aggregate Values into Text</text>
+
+    <!-- Query syntax box -->
+    <g transform="translate(20, 52)">
+      <rect width="475" height="42" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+      <text x="15" y="26" font-family="'Fira Code', monospace" font-size="11.5" fill="#f8fafc">
+        <tspan fill="#38bdf8">SELECT</tspan> country, <tspan fill="#f59e0b" font-weight="bold">GROUP_CONCAT(name)</tspan> AS members
+        <tspan fill="#38bdf8">FROM</tspan> customers <tspan fill="#38bdf8">GROUP BY</tspan> country;
+      </text>
+    </g>
+
+    <!-- Output preview -->
+    <g transform="translate(20, 108)">
+      <rect width="475" height="180" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <line x1="0" y1="34" x2="475" y2="34" stroke="#475569" stroke-width="1"/>
+      <text x="20" y="23" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#a7f3d0">country | members (Concatenated Strings)</text>
+
+      <!-- Row 1: Germany -->
+      <text x="20" y="60" font-family="'Fira Code', monospace" font-size="12" fill="#38bdf8">Germany</text>
+      <text x="120" y="60" font-family="'Fira Code', monospace" font-size="12" fill="#f8fafc">| Maria,Martin</text>
+      <text x="320" y="60" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">(comma separated)</text>
+      <line x1="0" y1="75" x2="475" y2="75" stroke="#334155" stroke-width="1"/>
+
+      <!-- Row 2: UK -->
+      <text x="20" y="100" font-family="'Fira Code', monospace" font-size="12" fill="#34d399">UK</text>
+      <text x="120" y="100" font-family="'Fira Code', monospace" font-size="12" fill="#f8fafc">| Georg</text>
+      <text x="320" y="100" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">(single member)</text>
+      <line x1="0" y1="115" x2="475" y2="115" stroke="#334155" stroke-width="1"/>
+
+      <!-- Row 3: USA -->
+      <text x="20" y="140" font-family="'Fira Code', monospace" font-size="12" fill="#f87171">USA</text>
+      <text x="120" y="140" font-family="'Fira Code', monospace" font-size="12" fill="#f8fafc">| John,Peter</text>
+      <text x="320" y="140" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">(comma separated)</text>
+
+      <text x="20" y="168" font-family="'Segoe UI', sans-serif" font-size="11" fill="#fbbf24">💡 Solves the detail vs. summary dilemma without losing customer names!</text>
+    </g>
+  </g>
+</svg>

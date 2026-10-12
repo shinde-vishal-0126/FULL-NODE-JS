@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <marker id="arrowCyan" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#fbbf24"/>
+    </marker>
+    <marker id="arrowEmerald" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1100" height="620" rx="16" fill="url(#bgGrad)" stroke="#334155" stroke-width="2"/>
+  
+  <!-- Grid Dots pattern -->
+  <g opacity="0.15">
+    <circle cx="50" cy="50" r="1.5" fill="#94a3b8"/><circle cx="150" cy="50" r="1.5" fill="#94a3b8"/><circle cx="250" cy="50" r="1.5" fill="#94a3b8"/><circle cx="350" cy="50" r="1.5" fill="#94a3b8"/><circle cx="450" cy="50" r="1.5" fill="#94a3b8"/><circle cx="550" cy="50" r="1.5" fill="#94a3b8"/><circle cx="650" cy="50" r="1.5" fill="#94a3b8"/><circle cx="750" cy="50" r="1.5" fill="#94a3b8"/><circle cx="850" cy="50" r="1.5" fill="#94a3b8"/><circle cx="950" cy="50" r="1.5" fill="#94a3b8"/><circle cx="1050" cy="50" r="1.5" fill="#94a3b8"/>
+    <circle cx="50" cy="150" r="1.5" fill="#94a3b8"/><circle cx="150" cy="150" r="1.5" fill="#94a3b8"/><circle cx="250" cy="150" r="1.5" fill="#94a3b8"/><circle cx="350" cy="150" r="1.5" fill="#94a3b8"/><circle cx="450" cy="150" r="1.5" fill="#94a3b8"/><circle cx="550" cy="150" r="1.5" fill="#94a3b8"/><circle cx="650" cy="150" r="1.5" fill="#94a3b8"/><circle cx="750" cy="150" r="1.5" fill="#94a3b8"/><circle cx="850" cy="150" r="1.5" fill="#94a3b8"/><circle cx="950" cy="150" r="1.5" fill="#94a3b8"/><circle cx="1050" cy="150" r="1.5" fill="#94a3b8"/>
+    <circle cx="50" cy="250" r="1.5" fill="#94a3b8"/><circle cx="150" cy="250" r="1.5" fill="#94a3b8"/><circle cx="250" cy="250" r="1.5" fill="#94a3b8"/><circle cx="350" cy="250" r="1.5" fill="#94a3b8"/><circle cx="450" cy="250" r="1.5" fill="#94a3b8"/><circle cx="550" cy="250" r="1.5" fill="#94a3b8"/><circle cx="650" cy="250" r="1.5" fill="#94a3b8"/><circle cx="750" cy="250" r="1.5" fill="#94a3b8"/><circle cx="850" cy="250" r="1.5" fill="#94a3b8"/><circle cx="950" cy="250" r="1.5" fill="#94a3b8"/><circle cx="1050" cy="250" r="1.5" fill="#94a3b8"/>
+    <circle cx="50" cy="350" r="1.5" fill="#94a3b8"/><circle cx="150" cy="350" r="1.5" fill="#94a3b8"/><circle cx="250" cy="350" r="1.5" fill="#94a3b8"/><circle cx="350" cy="350" r="1.5" fill="#94a3b8"/><circle cx="450" cy="350" r="1.5" fill="#94a3b8"/><circle cx="550" cy="350" r="1.5" fill="#94a3b8"/><circle cx="650" cy="350" r="1.5" fill="#94a3b8"/><circle cx="750" cy="350" r="1.5" fill="#94a3b8"/><circle cx="850" cy="350" r="1.5" fill="#94a3b8"/><circle cx="950" cy="350" r="1.5" fill="#94a3b8"/><circle cx="1050" cy="350" r="1.5" fill="#94a3b8"/>
+  </g>
+
+  <!-- Title Section -->
+  <g transform="translate(550, 48)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#38bdf8" filter="url(#glow)">ASK Your Data — The SQL Query Mental Model</text>
+    <text y="28" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" fill="#94a3b8">How a User asks business questions to a Database using SQL and gets structured answers</text>
+  </g>
+
+  <!-- LEFT: Database Storage Container -->
+  <g transform="translate(70, 150)">
+    <rect width="250" height="380" rx="14" fill="#0f172a" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="6,4"/>
+    <rect width="250" height="42" rx="14" fill="#0369a1"/>
+    <text x="125" y="27" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">🗄️ DATABASE (my_db)</text>
+
+    <!-- Table representation -->
+    <g transform="translate(25, 75)">
+      <rect width="200" height="260" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
+      <!-- Header row -->
+      <rect width="200" height="35" rx="6" fill="#0284c7"/>
+      <text x="100" y="23" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">TABLE: Customer</text>
+      
+      <!-- Grid rows -->
+      <line x1="0" y1="75" x2="200" y2="75" stroke="#334155" stroke-width="1.2"/>
+      <line x1="0" y1="115" x2="200" y2="115" stroke="#334155" stroke-width="1.2"/>
+      <line x1="0" y1="155" x2="200" y2="155" stroke="#334155" stroke-width="1.2"/>
+      <line x1="0" y1="195" x2="200" y2="195" stroke="#334155" stroke-width="1.2"/>
+      <line x1="0" y1="235" x2="200" y2="235" stroke="#334155" stroke-width="1.2"/>
+      <!-- Columns lines -->
+      <line x1="50" y1="35" x2="50" y2="260" stroke="#334155" stroke-width="1.2"/>
+      <line x1="125" y1="35" x2="125" y2="260" stroke="#334155" stroke-width="1.2"/>
+
+      <!-- Sample row text -->
+      <text x="25" y="58" font-family="monospace" font-size="11" fill="#94a3b8" text-anchor="middle">id</text>
+      <text x="87" y="58" font-family="monospace" font-size="11" fill="#94a3b8" text-anchor="middle">name</text>
+      <text x="162" y="58" font-family="monospace" font-size="11" fill="#94a3b8" text-anchor="middle">country</text>
+
+      <text x="25" y="98" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle">1</text>
+      <text x="87" y="98" font-family="monospace" font-size="11" fill="#f8fafc" text-anchor="middle">Maria</text>
+      <text x="162" y="98" font-family="monospace" font-size="11" fill="#cbd5e1" text-anchor="middle">Germany</text>
+
+      <text x="25" y="138" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle">2</text>
+      <text x="87" y="138" font-family="monospace" font-size="11" fill="#f8fafc" text-anchor="middle">John</text>
+      <text x="162" y="138" font-family="monospace" font-size="11" fill="#cbd5e1" text-anchor="middle">USA</text>
+
+      <text x="25" y="178" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle">3</text>
+      <text x="87" y="178" font-family="monospace" font-size="11" fill="#f8fafc" text-anchor="middle">Georg</text>
+      <text x="162" y="178" font-family="monospace" font-size="11" fill="#cbd5e1" text-anchor="middle">UK</text>
+
+      <text x="25" y="218" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle">4</text>
+      <text x="87" y="218" font-family="monospace" font-size="11" fill="#f8fafc" text-anchor="middle">Martin</text>
+      <text x="162" y="218" font-family="monospace" font-size="11" fill="#cbd5e1" text-anchor="middle">Germany</text>
+    </g>
+  </g>
+
+  <!-- MIDDLE-TOP: SQL Query Card -->
+  <g transform="translate(430, 130)">
+    <rect width="250" height="175" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    <rect width="250" height="32" rx="8" fill="#0284c7"/>
+    <text x="125" y="22" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">📜 SQL QUERY (Question)</text>
+    <g transform="translate(20, 55)" font-family="'Fira Code', Consolas, monospace" font-size="15" font-weight="bold">
+      <text fill="#38bdf8">SELECT <tspan fill="#f8fafc">name, country</tspan></text>
+      <text y="32" fill="#38bdf8">FROM <tspan fill="#f8fafc">customers</tspan></text>
+      <text y="64" fill="#38bdf8">WHERE <tspan fill="#fbbf24">country = 'Germany';</tspan></text>
+      <text y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="normal" fill="#94a3b8">Translates user question to SQL</text>
+    </g>
+  </g>
+
+  <!-- MIDDLE-BOTTOM: Result Table Card -->
+  <g transform="translate(430, 365)">
+    <rect width="250" height="170" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+    <rect width="250" height="32" rx="8" fill="#059669"/>
+    <text x="125" y="22" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">📊 RESULT (Answer)</text>
+    <!-- mini table -->
+    <g transform="translate(25, 48)">
+      <rect width="200" height="100" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <rect width="200" height="26" fill="#1e293b"/>
+      <line x1="100" y1="0" x2="100" y2="100" stroke="#334155" stroke-width="1"/>
+      <line x1="0" y1="26" x2="200" y2="26" stroke="#334155" stroke-width="1"/>
+      <line x1="0" y1="62" x2="200" y2="62" stroke="#334155" stroke-width="1"/>
+      <text x="50" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">name</text>
+      <text x="150" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">country</text>
+      <text x="50" y="48" font-family="monospace" font-size="11" fill="#f8fafc" text-anchor="middle">Maria</text>
+      <text x="150" y="48" font-family="monospace" font-size="11" fill="#34d399" text-anchor="middle">Germany</text>
+      <text x="50" y="84" font-family="monospace" font-size="11" fill="#f8fafc" text-anchor="middle">Martin</text>
+      <text x="150" y="84" font-family="monospace" font-size="11" fill="#34d399" text-anchor="middle">Germany</text>
+    </g>
+  </g>
+
+  <!-- RIGHT: User with Laptop & Thought Bubble -->
+  <g transform="translate(800, 200)">
+    <!-- Thought Bubble -->
+    <g transform="translate(10, -60)">
+      <path d="M 20 20 Q 0 20 0 45 Q 0 70 30 70 L 60 70 L 40 90 L 65 70 Q 180 70 180 45 Q 180 20 120 20 Z" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+      <text x="90" y="48" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#fbbf24" text-anchor="middle">"Who are our customers</text>
+      <text x="90" y="64" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#fbbf24" text-anchor="middle">from Germany?"</text>
+    </g>
+
+    <!-- User icon / avatar -->
+    <g transform="translate(70, 70)">
+      <circle cx="45" cy="30" r="26" fill="#334155" stroke="#38bdf8" stroke-width="2"/>
+      <circle cx="38" cy="28" r="4" fill="#38bdf8"/>
+      <circle cx="52" cy="28" r="4" fill="#38bdf8"/>
+      <path d="M 38 40 Q 45 46 52 40" stroke="#f8fafc" stroke-width="2" fill="none"/>
+      <!-- Body -->
+      <path d="M 15 85 C 15 62, 75 62, 75 85 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+    </g>
+
+    <!-- Laptop -->
+    <g transform="translate(45, 160)">
+      <!-- Screen -->
+      <rect x="10" y="0" width="120" height="75" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+      <rect x="16" y="6" width="108" height="63" rx="3" fill="#1e293b"/>
+      <!-- Mini query on screen -->
+      <line x1="24" y1="20" x2="80" y2="20" stroke="#38bdf8" stroke-width="3"/>
+      <line x1="24" y1="32" x2="60" y2="32" stroke="#fbbf24" stroke-width="3"/>
+      <line x1="24" y1="44" x2="95" y2="44" stroke="#34d399" stroke-width="3"/>
+      <!-- Keyboard base -->
+      <path d="M 0 75 L 140 75 L 130 90 L 10 90 Z" fill="#334155" stroke="#64748b" stroke-width="1.5"/>
+      <rect x="55" y="77" width="30" height="5" rx="2" fill="#64748b"/>
+    </g>
+  </g>
+
+  <!-- FLOW ARROWS & ANNOTATIONS -->
+  <!-- 1. User to Query -->
+  <path d="M 800 280 C 740 250, 710 230, 685 220" fill="none" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrowCyan)"/>
+  <text x="755" y="235" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">1. Types Query</text>
+
+  <!-- 2. Query to Database -->
+  <path d="M 430 200 C 370 190, 350 200, 325 210" fill="none" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arrowAmber)"/>
+  <text x="375" y="185" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#fbbf24">2. Ask Question ???</text>
+
+  <!-- 3. Database to Result -->
+  <path d="M 325 430 C 360 450, 380 450, 425 450" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrowEmerald)"/>
+  <text x="375" y="480" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#34d399">3. Get Answer</text>
+
+  <!-- 4. Result to User -->
+  <path d="M 685 460 C 740 460, 770 420, 805 380" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrowEmerald)"/>
+  <text x="760" y="465" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#34d399">4. Displays Result</text>
+
+  <!-- Footer explanation badge -->
+  <g transform="translate(550, 585)" text-anchor="middle">
+    <rect x="-360" y="-18" width="720" height="34" rx="17" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text y="5" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#cbd5e1">
+      💡 <tspan font-weight="bold" fill="#38bdf8">Mental Model:</tspan> The Database holds the data, SQL asks the question, and the Result Set answers it!
+    </text>
+  </g>
+</svg>

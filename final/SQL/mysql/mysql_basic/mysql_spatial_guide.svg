@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 740" width="100%" height="100%">
+  <defs>
+    <!-- Background & Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#08101e"/>
+      <stop offset="50%" stop-color="#0b172a"/>
+      <stop offset="100%" stop-color="#060c18"/>
+    </linearGradient>
+
+    <linearGradient id="titleGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Filters for Glow and Shadow -->
+    <filter id="emeraldGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#10b981" flood-opacity="0.5"/>
+    </filter>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="740" rx="16" fill="url(#bgGrad)"/>
+  <rect x="2" y="2" width="1276" height="736" rx="14" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Main Banner Header -->
+  <g transform="translate(60, 22)">
+    <text x="580" y="32" fill="url(#titleGlow)" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" text-anchor="middle" letter-spacing="1">UNDERSTANDING MYSQL SPATIAL DATA TYPES &amp; GIS GEOMETRY</text>
+    <text x="580" y="52" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" text-anchor="middle">OpenGIS Standard Model: 2D Coordinates, Spatial Types, WKT Representation &amp; Spatial Functions</text>
+  </g>
+
+  <!-- ==================== SECTION 1: 8 OPENGIS GEOMETRY TYPES ==================== -->
+  <g transform="translate(30, 85)">
+    <!-- Section Header Badge -->
+    <rect x="470" y="0" width="300" height="28" rx="14" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="620" y="19" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">8 OPENGIS GEOMETRY TYPES</text>
+
+    <!-- Cards Row -->
+    <g transform="translate(0, 40)">
+      <!-- 1. POINT -->
+      <g transform="translate(0, 0)">
+        <rect width="168" height="260" rx="10" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <rect x="10" y="10" width="24" height="24" rx="6" fill="#064e3b"/>
+        <text x="22" y="27" fill="#34d399" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">1</text>
+        
+        <!-- Pin Icon -->
+        <circle cx="84" cy="70" r="16" fill="#ef4444" stroke="#fca5a5" stroke-width="2" filter="url(#emeraldGlow)"/>
+        <circle cx="84" cy="70" r="5" fill="#ffffff"/>
+        <polygon points="84,94 74,78 94,78" fill="#ef4444"/>
+
+        <text x="84" y="125" fill="#e2e8f0" font-family="monospace" font-size="10.5" text-anchor="middle">(12.34, 56.78)</text>
+        <text x="84" y="152" fill="#34d399" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">POINT</text>
+        <text x="84" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Single (x, y) coords</text>
+        <text x="84" y="193" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">GPS user location</text>
+        <rect x="12" y="215" width="144" height="32" rx="4" fill="#030712"/>
+        <text x="84" y="235" fill="#6ee7b7" font-family="monospace" font-size="9" text-anchor="middle">POINT(77.59 12.97)</text>
+      </g>
+
+      <!-- 2. LINESTRING -->
+      <g transform="translate(176, 0)">
+        <rect width="168" height="260" rx="10" fill="url(#cardGrad)" stroke="#0284c7" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <rect x="10" y="10" width="24" height="24" rx="6" fill="#0c4a6e"/>
+        <text x="22" y="27" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">2</text>
+        
+        <!-- Line Path Icon -->
+        <path d="M 40 85 Q 60 45 84 75 T 128 55" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="40" cy="85" r="4.5" fill="#38bdf8"/>
+        <circle cx="84" cy="75" r="4" fill="#38bdf8"/>
+        <circle cx="128" cy="55" r="4.5" fill="#38bdf8"/>
+
+        <text x="84" y="125" fill="#e2e8f0" font-family="monospace" font-size="10.5" text-anchor="middle">(x1 y1, x2 y2)</text>
+        <text x="84" y="152" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">LINESTRING</text>
+        <text x="84" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Connected path</text>
+        <text x="84" y="193" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Roads, routes, rivers</text>
+        <rect x="12" y="215" width="144" height="32" rx="4" fill="#030712"/>
+        <text x="84" y="235" fill="#38bdf8" font-family="monospace" font-size="8.5" text-anchor="middle">LINESTRING(x1 y1,..)</text>
+      </g>
+
+      <!-- 3. POLYGON -->
+      <g transform="translate(352, 0)">
+        <rect width="168" height="260" rx="10" fill="url(#cardGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <rect x="10" y="10" width="24" height="24" rx="6" fill="#064e3b"/>
+        <text x="22" y="27" fill="#34d399" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">3</text>
+        
+        <!-- Polygon Shape Icon -->
+        <polygon points="84,45 125,65 110,95 55,95 45,65" fill="rgba(16,185,129,0.3)" stroke="#10b981" stroke-width="2.5"/>
+        <circle cx="84" cy="45" r="3" fill="#34d399"/>
+        <circle cx="125" cy="65" r="3" fill="#34d399"/>
+        <circle cx="110" cy="95" r="3" fill="#34d399"/>
+        <circle cx="55" cy="95" r="3" fill="#34d399"/>
+        <circle cx="45" cy="65" r="3" fill="#34d399"/>
+
+        <text x="84" y="125" fill="#e2e8f0" font-family="monospace" font-size="10.5" text-anchor="middle">Closed Boundary</text>
+        <text x="84" y="152" fill="#34d399" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">POLYGON</text>
+        <text x="84" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Enclosed 2D area</text>
+        <text x="84" y="193" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">City zone, geofence</text>
+        <rect x="12" y="215" width="144" height="32" rx="4" fill="#030712"/>
+        <text x="84" y="235" fill="#6ee7b7" font-family="monospace" font-size="8.5" text-anchor="middle">POLYGON((x1 y1,..))</text>
+      </g>
+
+      <!-- 4. MULTIPOINT -->
+      <g transform="translate(528, 0)">
+        <rect width="168" height="260" rx="10" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <rect x="10" y="10" width="24" height="24" rx="6" fill="#78350f"/>
+        <text x="22" y="27" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">4</text>
+        
+        <!-- MultiPoint Cluster -->
+        <circle cx="60" cy="60" r="5" fill="#fbbf24"/>
+        <circle cx="95" cy="50" r="5" fill="#fbbf24"/>
+        <circle cx="110" cy="75" r="5" fill="#fbbf24"/>
+        <circle cx="75" cy="85" r="5" fill="#fbbf24"/>
+        <circle cx="50" cy="95" r="5" fill="#fbbf24"/>
+
+        <text x="84" y="125" fill="#e2e8f0" font-family="monospace" font-size="10.5" text-anchor="middle">Set of Points</text>
+        <text x="84" y="152" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="14" font-weight="800" text-anchor="middle">MULTIPOINT</text>
+        <text x="84" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Multiple locations</text>
+        <text x="84" y="193" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Branch chain, stops</text>
+        <rect x="12" y="215" width="144" height="32" rx="4" fill="#030712"/>
+        <text x="84" y="235" fill="#fde68a" font-family="monospace" font-size="8.5" text-anchor="middle">MULTIPOINT((..),(..))</text>
+      </g>
+
+      <!-- 5. MULTILINESTRING -->
+      <g transform="translate(704, 0)">
+        <rect width="168" height="260" rx="10" fill="url(#cardGrad)" stroke="#a855f7" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <rect x="10" y="10" width="24" height="24" rx="6" fill="#4c1d95"/>
+        <text x="22" y="27" fill="#c084fc" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">5</text>
+        
+        <!-- MultiLine Network -->
+        <path d="M 40 55 L 85 80 L 125 50" fill="none" stroke="#c084fc" stroke-width="2.5"/>
+        <path d="M 45 90 L 95 65 L 125 95" fill="none" stroke="#a855f7" stroke-width="2"/>
+
+        <text x="84" y="125" fill="#e2e8f0" font-family="monospace" font-size="10.5" text-anchor="middle">Set of Paths</text>
+        <text x="84" y="152" fill="#c084fc" font-family="system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">MULTILINESTRING</text>
+        <text x="84" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Grouped lines</text>
+        <text x="84" y="193" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Highway networks</text>
+        <rect x="12" y="215" width="144" height="32" rx="4" fill="#030712"/>
+        <text x="84" y="235" fill="#e9d5ff" font-family="monospace" font-size="8.5" text-anchor="middle">MULTILINESTRING(..)</text>
+      </g>
+
+      <!-- 6. MULTIPOLYGON -->
+      <g transform="translate(880, 0)">
+        <rect width="168" height="260" rx="10" fill="url(#cardGrad)" stroke="#ec4899" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <rect x="10" y="10" width="24" height="24" rx="6" fill="#831843"/>
+        <text x="22" y="27" fill="#f472b6" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">6</text>
+        
+        <!-- MultiPolygon Shapes -->
+        <polygon points="50,45 80,55 70,80 40,75" fill="rgba(236,72,153,0.3)" stroke="#ec4899" stroke-width="2"/>
+        <polygon points="95,65 125,60 120,95 90,90" fill="rgba(236,72,153,0.3)" stroke="#ec4899" stroke-width="2"/>
+
+        <text x="84" y="125" fill="#e2e8f0" font-family="monospace" font-size="10.5" text-anchor="middle">Set of Polygons</text>
+        <text x="84" y="152" fill="#f472b6" font-family="system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">MULTIPOLYGON</text>
+        <text x="84" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Separate regions</text>
+        <text x="84" y="193" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Islands, territories</text>
+        <rect x="12" y="215" width="144" height="32" rx="4" fill="#030712"/>
+        <text x="84" y="235" fill="#fbcfe8" font-family="monospace" font-size="8.5" text-anchor="middle">MULTIPOLYGON(..)</text>
+      </g>
+
+      <!-- 7 & 8. GEOMETRYCOLLECTION & GEOMETRY -->
+      <g transform="translate(1056, 0)">
+        <rect width="164" height="260" rx="10" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <rect x="10" y="10" width="24" height="24" rx="6" fill="#0369a1"/>
+        <text x="22" y="27" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">7/8</text>
+        
+        <!-- Mixed Shapes -->
+        <circle cx="55" cy="55" r="5" fill="#ef4444"/>
+        <line x1="75" y1="50" x2="115" y2="70" stroke="#38bdf8" stroke-width="2"/>
+        <polygon points="60,75 85,70 80,95 55,90" fill="rgba(16,185,129,0.3)" stroke="#10b981" stroke-width="1.5"/>
+
+        <text x="82" y="125" fill="#e2e8f0" font-family="monospace" font-size="10.5" text-anchor="middle">Heterogeneous Mix</text>
+        <text x="82" y="152" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11.5" font-weight="800" text-anchor="middle">COLLECTION</text>
+        <text x="82" y="175" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Point+Line+Polygon</text>
+        <text x="82" y="193" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Whole city blueprint</text>
+        <rect x="8" y="215" width="148" height="32" rx="4" fill="#030712"/>
+        <text x="82" y="235" fill="#bae6fd" font-family="monospace" font-size="7.5" text-anchor="middle">GEOMETRYCOLLECTION</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== SECTION 2: SPATIAL ANALYSIS METHODS ==================== -->
+  <g transform="translate(30, 415)">
+    <!-- Section Header Badge -->
+    <rect x="470" y="0" width="300" height="28" rx="14" fill="#0c4a6e" stroke="#0284c7" stroke-width="1.5"/>
+    <text x="620" y="19" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">SPATIAL ANALYSIS METHODS</text>
+
+    <!-- Methods Row -->
+    <g transform="translate(0, 40)">
+      <!-- 1. ST_GeomFromText -->
+      <g transform="translate(0, 0)">
+        <rect width="232" height="235" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <text x="116" y="28" fill="#38bdf8" font-family="monospace" font-size="14" font-weight="800" text-anchor="middle">ST_GeomFromText()</text>
+        <text x="116" y="48" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Converts WKT to internal geometry</text>
+        
+        <!-- Visual Diagram -->
+        <rect x="15" y="60" width="60" height="28" rx="4" fill="#0f172a" stroke="#475569"/>
+        <text x="45" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">WKT</text>
+        <text x="90" y="78" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="700">➔</text>
+        <rect x="110" y="60" width="105" height="28" rx="4" fill="#1e3a8a" stroke="#3b82f6"/>
+        <text x="162" y="78" fill="#93c5fd" font-family="monospace" font-size="10" text-anchor="middle">BINARY GEOM</text>
+
+        <!-- Code Block -->
+        <rect x="12" y="105" width="208" height="60" rx="6" fill="#030712"/>
+        <text x="20" y="125" fill="#e2e8f0" font-family="monospace" font-size="10">INSERT INTO t VALUES (</text>
+        <text x="20" y="142" fill="#34d399" font-family="monospace" font-size="10">  ST_GeomFromText(</text>
+        <text x="20" y="157" fill="#f59e0b" font-family="monospace" font-size="9.5">    'POINT(72.8 19.0)'));</text>
+
+        <text x="116" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Enables coordinate insertion</text>
+        <text x="116" y="215" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Supports all 8 spatial types</text>
+      </g>
+
+      <!-- 2. ST_AsText -->
+      <g transform="translate(247, 0)">
+        <rect width="232" height="235" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <text x="116" y="28" fill="#34d399" font-family="monospace" font-size="14" font-weight="800" text-anchor="middle">ST_AsText()</text>
+        <text x="116" y="48" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Converts geometry back to WKT</text>
+
+        <!-- Visual Diagram -->
+        <rect x="15" y="60" width="105" height="28" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="67" y="78" fill="#6ee7b7" font-family="monospace" font-size="10" text-anchor="middle">BINARY GEOM</text>
+        <text x="135" y="78" fill="#34d399" font-family="system-ui, sans-serif" font-size="14" font-weight="700">➔</text>
+        <rect x="155" y="60" width="62" height="28" rx="4" fill="#0f172a" stroke="#475569"/>
+        <text x="186" y="78" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">WKT</text>
+
+        <!-- Code Block -->
+        <rect x="12" y="105" width="208" height="60" rx="6" fill="#030712"/>
+        <text x="20" y="125" fill="#e2e8f0" font-family="monospace" font-size="10">SELECT</text>
+        <text x="20" y="142" fill="#34d399" font-family="monospace" font-size="10">  ST_AsText(location)</text>
+        <text x="20" y="157" fill="#38bdf8" font-family="monospace" font-size="9.5">FROM user_location;</text>
+
+        <text x="116" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Outputs human-readable text</text>
+        <text x="116" y="215" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Used for API/UI displays</text>
+      </g>
+
+      <!-- 3. ST_Distance -->
+      <g transform="translate(494, 0)">
+        <rect width="232" height="235" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <text x="116" y="28" fill="#fbbf24" font-family="monospace" font-size="14" font-weight="800" text-anchor="middle">ST_Distance(a, b)</text>
+        <text x="116" y="48" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Measures planar distance</text>
+
+        <!-- Visual Diagram -->
+        <circle cx="45" cy="74" r="8" fill="#38bdf8"/>
+        <text x="45" y="78" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">A</text>
+        <line x1="55" y1="74" x2="165" y2="74" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="4,3"/>
+        <text x="110" y="68" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">d</text>
+        <circle cx="175" cy="74" r="8" fill="#f43f5e"/>
+        <text x="175" y="78" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">B</text>
+
+        <!-- Code Block -->
+        <rect x="12" y="105" width="208" height="60" rx="6" fill="#030712"/>
+        <text x="20" y="125" fill="#e2e8f0" font-family="monospace" font-size="10">SELECT ST_Distance(</text>
+        <text x="20" y="142" fill="#fbbf24" font-family="monospace" font-size="10">  @point1, @point2)</text>
+        <text x="20" y="157" fill="#38bdf8" font-family="monospace" font-size="9.5">AS distance;</text>
+
+        <text x="116" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Euclidean planar distance</text>
+        <text x="116" y="215" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Proximity &amp; nearest search</text>
+      </g>
+
+      <!-- 4. ST_Within -->
+      <g transform="translate(741, 0)">
+        <rect width="232" height="235" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <text x="116" y="28" fill="#a78bfa" font-family="monospace" font-size="14" font-weight="800" text-anchor="middle">ST_Within(a, b)</text>
+        <text x="116" y="48" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Checks if A is inside B</text>
+
+        <!-- Visual Diagram: Point inside Polygon -->
+        <polygon points="116,55 180,68 165,95 70,95 55,68" fill="rgba(168,85,247,0.25)" stroke="#a855f7" stroke-width="2"/>
+        <circle cx="116" cy="78" r="5" fill="#34d399"/>
+        <text x="116" y="70" fill="#34d399" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">Point</text>
+
+        <!-- Code Block -->
+        <rect x="12" y="105" width="208" height="60" rx="6" fill="#030712"/>
+        <text x="20" y="125" fill="#e2e8f0" font-family="monospace" font-size="10">SELECT ST_Within(</text>
+        <text x="20" y="142" fill="#a78bfa" font-family="monospace" font-size="10">  @point, @polygon)</text>
+        <text x="20" y="157" fill="#34d399" font-family="monospace" font-size="9.5">AS is_within;  -- 1 or 0</text>
+
+        <text x="116" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Returns 1 (True) or 0 (False)</text>
+        <text x="116" y="215" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Geofencing &amp; service areas</text>
+      </g>
+
+      <!-- 5. ST_Contains -->
+      <g transform="translate(988, 0)">
+        <rect width="232" height="235" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" filter="url(#cardShadow)"/>
+        <text x="116" y="28" fill="#f43f5e" font-family="monospace" font-size="14" font-weight="800" text-anchor="middle">ST_Contains(a, b)</text>
+        <text x="116" y="48" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Checks if A encloses B</text>
+
+        <!-- Visual Diagram: Polygon enclosing Point -->
+        <polygon points="116,55 180,68 165,95 70,95 55,68" fill="rgba(244,63,94,0.25)" stroke="#f43f5e" stroke-width="2"/>
+        <circle cx="116" cy="78" r="5" fill="#fbbf24"/>
+        <text x="116" y="70" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="9" font-weight="800" text-anchor="middle">Point</text>
+
+        <!-- Code Block -->
+        <rect x="12" y="105" width="208" height="60" rx="6" fill="#030712"/>
+        <text x="20" y="125" fill="#e2e8f0" font-family="monospace" font-size="10">SELECT ST_Contains(</text>
+        <text x="20" y="142" fill="#f43f5e" font-family="monospace" font-size="10">  @polygon, @point)</text>
+        <text x="20" y="157" fill="#34d399" font-family="monospace" font-size="9.5">AS contains;   -- 1 or 0</text>
+
+        <text x="116" y="195" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Returns 1 (True) or 0 (False)</text>
+        <text x="116" y="215" fill="#64748b" font-family="system-ui, sans-serif" font-size="10.5" text-anchor="middle">Boundary territory coverage</text>
+      </g>
+    </g>
+  </g>
+</svg>

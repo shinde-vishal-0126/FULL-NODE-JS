@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 720" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="yellowHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <linearGradient id="blueCard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="clipboardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1150" height="720" rx="16" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Subtle Grid lines -->
+  <g opacity="0.07">
+    <path d="M0,72 L1150,72 M0,144 L1150,144 M0,216 L1150,216 M0,288 L1150,288 M0,360 L1150,360 M0,432 L1150,432 M0,504 L1150,504 M0,576 L1150,576 M0,648 L1150,648" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M115,0 L115,720 M230,0 L230,720 M345,0 L345,720 M460,0 L460,720 M575,0 L575,720 M690,0 L690,720 M805,0 L805,720 M920,0 L920,720 M1035,0 L1035,720" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(575, 42)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="bold" fill="#f8fafc">Membership Operators: IN &amp; NOT IN Evaluation</text>
+    <text y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Filters records by testing whether a column value is an active member of a specified target list</text>
+  </g>
+
+  <!-- TOP HEADER / CLIPBOARD CONTAINER -->
+  <g transform="translate(385, 95)" filter="url(#boxShadow)">
+    <!-- WHERE Filter Tag -->
+    <rect x="135" y="0" width="110" height="28" rx="6" fill="url(#yellowHeader)"/>
+    <text x="190" y="19" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">WHERE 🔻</text>
+
+    <!-- Down arrow to clipboard -->
+    <line x1="190" y1="28" x2="190" y2="44" stroke="#fbbf24" stroke-width="3" marker-end="url(#arrowBlue)"/>
+
+    <!-- Clipboard Board -->
+    <rect x="75" y="46" width="230" height="110" rx="10" fill="#475569" stroke="#334155" stroke-width="2"/>
+    <!-- Clip -->
+    <rect x="150" y="38" width="80" height="18" rx="5" fill="#94a3b8" stroke="#1e293b" stroke-width="1.5"/>
+    <circle cx="190" cy="47" r="4" fill="#334155"/>
+
+    <!-- Paper Sheet -->
+    <rect x="85" y="58" width="210" height="90" rx="6" fill="url(#clipboardGrad)"/>
+    <text x="100" y="82" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#64748b">TARGET LIST:</text>
+    <text x="105" y="108" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#166534">● 'Germany'</text>
+    <text x="105" y="132" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#166534">● 'USA'</text>
+
+    <!-- IN Pointer (Left) -->
+    <path d="M45,100 L70,100" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowBlue)"/>
+    <text x="10" y="106" font-family="'Segoe UI', sans-serif" font-size="20" font-weight="bold" fill="#38bdf8">IN</text>
+
+    <!-- NOT IN Pointer (Right) -->
+    <path d="M335,100 L310,100" stroke="#f43f5e" stroke-width="3"/>
+    <text x="345" y="106" font-family="'Segoe UI', sans-serif" font-size="20" font-weight="bold" fill="#f43f5e">NOT IN</text>
+  </g>
+
+  <!-- TABLE COMPARISON (Customers Table with IN and NOT IN columns) -->
+  <g transform="translate(85, 290)" filter="url(#boxShadow)">
+    <rect width="980" height="310" rx="12" fill="url(#blueCard)" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Table Header Row -->
+    <rect x="0" y="0" width="980" height="46" rx="12" fill="#1e293b"/>
+    <rect x="0" y="34" width="980" height="12" fill="#1e293b"/> <!-- square bottom corners -->
+    <line x1="0" y1="46" x2="980" y2="46" stroke="#475569" stroke-width="1.5"/>
+
+    <!-- Column Dividers -->
+    <line x1="200" y1="0" x2="200" y2="310" stroke="#334155" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="310" stroke="#334155" stroke-width="1"/>
+    <line x1="560" y1="0" x2="560" y2="310" stroke="#334155" stroke-width="1"/>
+    <line x1="770" y1="0" x2="770" y2="310" stroke="#475569" stroke-width="2" stroke-dasharray="4 4"/>
+
+    <!-- Header Text -->
+    <text x="100" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Customer Name</text>
+    <text x="300" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Country</text>
+    <text x="480" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Score</text>
+    <text x="665" y="30" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#38bdf8" text-anchor="middle">IN ('Germany', 'USA')</text>
+    <text x="875" y="30" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#f43f5e" text-anchor="middle">NOT IN ('Germany', 'USA')</text>
+
+    <!-- Row 1: Maria -->
+    <g transform="translate(0, 46)">
+      <rect width="980" height="52" fill="#0f172a" fill-opacity="0.6"/>
+      <line x1="0" y1="52" x2="980" y2="52" stroke="#1e293b" stroke-width="1"/>
+      <text x="100" y="32" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Maria</text>
+      <!-- Country tag -->
+      <rect x="235" y="12" width="130" height="28" rx="6" fill="#065f46" stroke="#34d399" stroke-width="1"/>
+      <text x="300" y="31" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#a7f3d0" text-anchor="middle">Germany</text>
+      <text x="480" y="32" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">350</text>
+      <!-- IN result -->
+      <text x="665" y="33" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept (Match)</text>
+      <!-- NOT IN result -->
+      <text x="875" y="33" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded</text>
+    </g>
+
+    <!-- Row 2: John -->
+    <g transform="translate(0, 98)">
+      <rect width="980" height="52" fill="#1e293b" fill-opacity="0.3"/>
+      <line x1="0" y1="52" x2="980" y2="52" stroke="#1e293b" stroke-width="1"/>
+      <text x="100" y="32" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">John</text>
+      <!-- Country tag -->
+      <rect x="235" y="12" width="130" height="28" rx="6" fill="#065f46" stroke="#34d399" stroke-width="1"/>
+      <text x="300" y="31" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#a7f3d0" text-anchor="middle">USA</text>
+      <text x="480" y="32" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">900</text>
+      <!-- IN result -->
+      <text x="665" y="33" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept (Match)</text>
+      <!-- NOT IN result -->
+      <text x="875" y="33" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded</text>
+    </g>
+
+    <!-- Row 3: Georg (Excluded in IN, Kept in NOT IN) -->
+    <g transform="translate(0, 150)">
+      <rect width="980" height="52" fill="#881337" fill-opacity="0.25"/>
+      <line x1="0" y1="52" x2="980" y2="52" stroke="#1e293b" stroke-width="1"/>
+      <text x="100" y="32" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#fda4af" text-anchor="middle">Georg</text>
+      <!-- Country tag -->
+      <rect x="235" y="12" width="130" height="28" rx="6" fill="#9f1239" stroke="#fb7185" stroke-width="1"/>
+      <text x="300" y="31" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffe4e6" text-anchor="middle">UK</text>
+      <text x="480" y="32" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">750</text>
+      <!-- IN result -->
+      <text x="665" y="33" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded (No Match)</text>
+      <!-- NOT IN result -->
+      <text x="875" y="33" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept (Excluded)</text>
+    </g>
+
+    <!-- Row 4: Martin -->
+    <g transform="translate(0, 202)">
+      <rect width="980" height="52" fill="#0f172a" fill-opacity="0.6"/>
+      <line x1="0" y1="52" x2="980" y2="52" stroke="#1e293b" stroke-width="1"/>
+      <text x="100" y="32" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Martin</text>
+      <!-- Country tag -->
+      <rect x="235" y="12" width="130" height="28" rx="6" fill="#065f46" stroke="#34d399" stroke-width="1"/>
+      <text x="300" y="31" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#a7f3d0" text-anchor="middle">Germany</text>
+      <text x="480" y="32" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">500</text>
+      <!-- IN result -->
+      <text x="665" y="33" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept (Match)</text>
+      <!-- NOT IN result -->
+      <text x="875" y="33" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded</text>
+    </g>
+
+    <!-- Row 5: Peter -->
+    <g transform="translate(0, 254)">
+      <rect width="980" height="56" rx="12" fill="#1e293b" fill-opacity="0.3"/>
+      <rect x="0" y="0" width="980" height="20" fill="#1e293b" fill-opacity="0.3"/> <!-- square top corners -->
+      <text x="100" y="34" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Peter</text>
+      <!-- Country tag -->
+      <rect x="235" y="14" width="130" height="28" rx="6" fill="#065f46" stroke="#34d399" stroke-width="1"/>
+      <text x="300" y="33" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#a7f3d0" text-anchor="middle">USA</text>
+      <text x="480" y="34" font-family="'Fira Code', monospace" font-size="13" fill="#cbd5e1" text-anchor="middle">0</text>
+      <!-- IN result -->
+      <text x="665" y="35" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="bold" fill="#34d399" text-anchor="middle">✔️ Kept (Match)</text>
+      <!-- NOT IN result -->
+      <text x="875" y="35" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#ef4444" text-anchor="middle">❌ Discarded</text>
+    </g>
+  </g>
+
+  <!-- BOTTOM COMPARISON FOOTER: OR vs IN -->
+  <g transform="translate(85, 620)" filter="url(#boxShadow)">
+    <rect width="980" height="75" rx="10" fill="#0b1120" stroke="#38bdf8" stroke-width="1.2"/>
+    <text x="25" y="30" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">💡 BEST PRACTICE / SHORTCUT:</text>
+    <text x="25" y="55" font-family="'Segoe UI', sans-serif" font-size="13" fill="#94a3b8">Instead of verbose multiple ORs:</text>
+    <text x="250" y="55" font-family="'Fira Code', monospace" font-size="12" fill="#ef4444">WHERE country = 'Germany' OR country = 'USA'</text>
+    <text x="625" y="55" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399">➔ USE IN:</text>
+    <text x="710" y="55" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#38bdf8">WHERE country IN ('Germany', 'USA')</text>
+  </g>
+</svg>

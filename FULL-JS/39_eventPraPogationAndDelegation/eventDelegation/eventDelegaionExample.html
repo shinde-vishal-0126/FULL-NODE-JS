@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Event Delegation</h2>
+
+    <!-- e.currentTarget 
+    in following example ul is the element to which event Listener is attached 
+     this element currently handling the event regardless where the event are or originated  
+    -->
+
+    <ul id="item">
+      <!-- following list of element are e.target refer to the element that occurred the event  or triggered the event   -->
+
+      <li>item 1</li>
+      <li>item 2</li>
+      <li>item 3</li>
+      <li>item 4</li>
+      <li>item 5</li>
+      <li>item 6</li>
+    </ul>
+
+    <!-- 
+# using following option get the content of the value.    
+e.target.closest('span')
+event.target.tagName
+event.target.textContent 
+-->
+
+    <div>
+      <div class="product">
+        <!-- following list of element are e.target refer to the element that occurred the event  or triggered the event   -->
+        <span class="mobile">Mobile</span>
+        <span class="Headphone">HeadPhone</span>
+        <span class="laptop">Laptop</span>
+        <span class="speaker">Speaker</span>
+        <span class="useClock">useClock</span>
+        <span class="tripod">Tripod</span>
+      </div>
+    </div>
+
+    <script>
+      let eventDelegation = document.getElementById("item");
+      eventDelegation.addEventListener("click", (event) => {
+        if (event.target.tagName === "LI") {
+          console.log(event.target.textContent);
+        }
+      });
+      console.log(window.location.href);
+
+      // # product
+      document.querySelector(".product").addEventListener("click", (event) => {
+        if (event.target.tagName === "SPAN") {
+          console.log(event.target.textContent);
+          // in event .target you have to used following content
+          // 1. event.target.tagName
+          // 2. event.target.value
+          // 3. event.target.innerText
+          // 4. event.target.textContent
+        }
+      });
+    </script>
+  </body>
+</html>
+
+
+ <!-- We have an unordered list (<ul>) containing list items (<li>). -->
+<!-- Instead of attaching a separate click event listener to each list item, we attach a single event listener to the <ul> element with the id "myList." --> 
+<!-- When a click event occurs within the <ul>,  the event bubbles up from the clicked <li> element to the <ul>. 
+    The event listener checks if event.target is an <li> element by examining the tagName property.
+    If the event.target is an <li>, it prints a message indicating which list item was clicked. 
+    - This approach is more efficient and scalable because you only need one event listener, regardless of how many list items there are.
+
+    - It simplifies the code and reduces memory usage compared to attaching individual listeners to each element. Event delegation is particularly useful in scenarios with a large number of elements or when elements are dynamically added or removed from the DOM. -->
+
+    
+<!-- In above example  in this file having two example first one is list and second one is div -->
+<!-- Mobile -> headphone -> laptop→ speaker→ usb —> tripod -->
+<!-- Then if you perform some event  all of this product perform and event are you not add individual event listener to each produce (because you apply individual burden so complete page so may event listener imagine this unlimited list of this produce then are page will also have unlimited event listener running at the same time ) -->
+<!-- So here delegation come into picture -->
+<!-- Definition :  -->
+<!-- So event delegation is were we add event listener to parent element instead of adding then to the descendant element so just add event listener to your parent 
+So you have defined the event listener in your product element then you click on mobile  it goes to the mobile page or route to the mobile page click on headphone then route to the headphone -->

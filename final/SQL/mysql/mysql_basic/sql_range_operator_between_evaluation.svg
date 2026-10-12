@@ -1,0 +1,251 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 660" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgBetween" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <linearGradient id="yellowHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <linearGradient id="rangeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+
+    <marker id="arrowAxis" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1150" height="660" rx="16" fill="url(#bgBetween)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Grid lines -->
+  <g opacity="0.08">
+    <path d="M0,66 L1150,66 M0,132 L1150,132 M0,198 L1150,198 M0,264 L1150,264 M0,330 L1150,330 M0,396 L1150,396 M0,462 L1150,462 M0,528 L1150,528 M0,594 L1150,594" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M115,0 L115,660 M230,0 L230,660 M345,0 L345,660 M460,0 L460,660 M575,0 L575,660 M690,0 L690,660 M805,0 L805,660 M920,0 L920,660 M1035,0 L1035,660" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Title -->
+  <g transform="translate(575, 36)" text-anchor="middle">
+    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="25" font-weight="bold" fill="#f8fafc">Range Operator: BETWEEN … AND … (Inclusive Boundaries)</text>
+    <text y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#94a3b8">Checks if a value falls within a specified range — both lower and upper boundary values are fully INCLUSIVE</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- TOP: NUMBER LINE RANGE VISUALIZATION (Width: 960) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(95, 80)" filter="url(#boxShadow)">
+    <rect width="960" height="130" rx="10" fill="#0b1120" stroke="#334155" stroke-width="1.5"/>
+    
+    <!-- WHERE Header Box -->
+    <g transform="translate(415, 12)">
+      <rect width="130" height="28" rx="5" fill="url(#yellowHeader)"/>
+      <path d="M12 6 L22 6 L18 12 L18 18 L15 16 L15 12 Z" fill="#0f172a"/>
+      <text x="75" y="19" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">WHERE</text>
+    </g>
+
+    <!-- Number Line Axis -->
+    <g transform="translate(100, 75)">
+      <!-- Base Axis Line with arrows -->
+      <line x1="30" y1="0" x2="730" y2="0" stroke="#64748b" stroke-width="3" marker-start="url(#arrowAxis)" marker-end="url(#arrowAxis)"/>
+
+      <!-- Out-of-bounds left: 0 (Peter) -->
+      <circle cx="80" cy="0" r="5" fill="#ef4444"/>
+      <text x="80" y="24" font-family="'Fira Code', monospace" font-size="12" fill="#ef4444" text-anchor="middle">0</text>
+      <text x="80" y="-12" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ef4444" text-anchor="middle">Peter ❌</text>
+
+      <!-- Highlighted INCLUSIVE Range Segment: 100 to 500 -->
+      <rect x="200" y="-8" width="360" height="16" rx="8" fill="url(#rangeGrad)" opacity="0.35"/>
+      <line x1="200" y1="0" x2="560" y2="0" stroke="#38bdf8" stroke-width="5"/>
+
+      <!-- Lower Boundary: 100 -->
+      <line x1="200" y1="-18" x2="200" y2="18" stroke="#38bdf8" stroke-width="3.5"/>
+      <circle cx="200" cy="0" r="7" fill="#38bdf8" stroke="#ffffff" stroke-width="2"/>
+      <text x="200" y="32" font-family="'Fira Code', monospace" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">100</text>
+      <text x="200" y="-24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">Lower Bound</text>
+
+      <!-- Center In-Between: 350 (Maria) -->
+      <circle cx="380" cy="0" r="6" fill="#34d399"/>
+      <text x="380" y="24" font-family="'Fira Code', monospace" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">350</text>
+      <text x="380" y="-14" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">Maria (350) ✔️</text>
+
+      <!-- Upper Boundary: 500 (Martin) -->
+      <line x1="560" y1="-18" x2="560" y2="18" stroke="#34d399" stroke-width="3.5"/>
+      <circle cx="560" cy="0" r="7" fill="#34d399" stroke="#ffffff" stroke-width="2"/>
+      <text x="560" y="32" font-family="'Fira Code', monospace" font-size="13" font-weight="bold" fill="#34d399" text-anchor="middle">500</text>
+      <text x="560" y="-24" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">Upper Bound (Martin ✔️)</text>
+
+      <!-- Out-of-bounds right: 750 (Georg), 900 (John) -->
+      <circle cx="640" cy="0" r="5" fill="#ef4444"/>
+      <text x="640" y="24" font-family="'Fira Code', monospace" font-size="12" fill="#ef4444" text-anchor="middle">750</text>
+      <text x="640" y="-12" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ef4444" text-anchor="middle">Georg ❌</text>
+
+      <circle cx="700" cy="0" r="5" fill="#ef4444"/>
+      <text x="700" y="24" font-family="'Fira Code', monospace" font-size="12" fill="#ef4444" text-anchor="middle">900</text>
+      <text x="700" y="-12" font-family="'Segoe UI', sans-serif" font-size="10" fill="#ef4444" text-anchor="middle">John ❌</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT: TABLE WITH RANGE EVALUATION (Width: 610) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(45, 235)">
+    <text x="0" y="-12" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#94a3b8">Source Table: <tspan fill="#f8fafc">customers</tspan> (Evaluating Range [100, 500])</text>
+
+    <!-- Table Container -->
+    <rect width="610" height="385" rx="8" fill="#0b1120" stroke="#334155" stroke-width="1.5" filter="url(#boxShadow)"/>
+    
+    <!-- Table Header Row -->
+    <rect width="610" height="46" rx="8" fill="#1e293b"/>
+    <line x1="0" y1="46" x2="610" y2="46" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Vertical Column Dividers -->
+    <line x1="120" y1="0" x2="120" y2="385" stroke="#334155" stroke-width="1"/>
+    <line x1="220" y1="0" x2="220" y2="385" stroke="#334155" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="385" stroke="#334155" stroke-width="1"/>
+    <line x1="470" y1="0" x2="470" y2="385" stroke="#334155" stroke-width="1"/>
+
+    <!-- Header Labels -->
+    <text x="60" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">Name</text>
+    <text x="170" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Country</text>
+    <text x="260" y="29" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#fbbf24" text-anchor="middle">Score</text>
+    <text x="385" y="22" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#38bdf8" text-anchor="middle">Condition Test</text>
+    <text x="385" y="38" font-family="'Fira Code', monospace" font-size="10" fill="#94a3b8" text-anchor="middle">score BETWEEN 100 AND 500</text>
+    <text x="540" y="29" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">Result</text>
+
+    <!-- Horizontal Dividers -->
+    <line x1="0" y1="113" x2="610" y2="113" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="181" x2="610" y2="181" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="249" x2="610" y2="249" stroke="#1e293b" stroke-width="1"/>
+    <line x1="0" y1="317" x2="610" y2="317" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Row 1: Maria (350) -> TRUE ✔️ (KEPT) -->
+    <g transform="translate(0, 46)">
+      <rect width="610" height="67" fill="#10b981" fill-opacity="0.18"/>
+      <rect x="2" y="2" width="606" height="63" fill="none" stroke="#10b981" stroke-width="2.2" rx="4"/>
+      <text x="60" y="40" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#34d399" text-anchor="middle">Maria</text>
+      <text x="170" y="40" font-family="'Segoe UI', sans-serif" font-size="14" fill="#38bdf8" text-anchor="middle">Germany</text>
+      <text x="260" y="40" font-family="'Fira Code', monospace" font-size="15" font-weight="bold" fill="#fbbf24" text-anchor="middle">350</text>
+      <text x="385" y="40" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1" text-anchor="middle">100 &lt;= 350 &lt;= 500 (In Range)</text>
+      <text x="540" y="42" font-size="22" fill="#34d399" text-anchor="middle">✔️</text>
+    </g>
+
+    <!-- Row 2: John (900) -> FALSE ❌ (DISCARDED) -->
+    <g transform="translate(0, 113)">
+      <rect width="610" height="68" fill="#ef4444" fill-opacity="0.08"/>
+      <line x1="15" y1="12" x2="285" y2="50" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+      <text x="60" y="40" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">John</text>
+      <text x="170" y="40" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">USA</text>
+      <text x="260" y="40" font-family="'Fira Code', monospace" font-size="14" fill="#94a3b8" text-anchor="middle">900</text>
+      <text x="385" y="40" font-family="'Segoe UI', sans-serif" font-size="12" fill="#ef4444" text-anchor="middle">900 &gt; 500 (Above Upper Bound)</text>
+      <text x="540" y="42" font-size="20" fill="#ef4444" text-anchor="middle">❌</text>
+    </g>
+
+    <!-- Row 3: Georg (750) -> FALSE ❌ (DISCARDED) -->
+    <g transform="translate(0, 181)">
+      <rect width="610" height="68" fill="#ef4444" fill-opacity="0.08"/>
+      <line x1="15" y1="12" x2="285" y2="50" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+      <text x="60" y="40" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Georg</text>
+      <text x="170" y="40" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">UK</text>
+      <text x="260" y="40" font-family="'Fira Code', monospace" font-size="14" fill="#94a3b8" text-anchor="middle">750</text>
+      <text x="385" y="40" font-family="'Segoe UI', sans-serif" font-size="12" fill="#ef4444" text-anchor="middle">750 &gt; 500 (Above Upper Bound)</text>
+      <text x="540" y="42" font-size="20" fill="#ef4444" text-anchor="middle">❌</text>
+    </g>
+
+    <!-- Row 4: Martin (500) -> TRUE ✔️ (KEPT - INCLUSIVE BOUNDARY) -->
+    <g transform="translate(0, 249)">
+      <rect width="610" height="68" fill="#10b981" fill-opacity="0.18"/>
+      <rect x="2" y="2" width="606" height="64" fill="none" stroke="#10b981" stroke-width="2.2" rx="4"/>
+      <text x="60" y="40" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="bold" fill="#34d399" text-anchor="middle">Martin</text>
+      <text x="170" y="40" font-family="'Segoe UI', sans-serif" font-size="14" fill="#38bdf8" text-anchor="middle">Germany</text>
+      <text x="260" y="40" font-family="'Fira Code', monospace" font-size="15" font-weight="bold" fill="#fbbf24" text-anchor="middle">500</text>
+      <text x="385" y="40" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#34d399" text-anchor="middle">500 == 500 (Exact Upper Boundary!)</text>
+      <text x="540" y="42" font-size="22" fill="#34d399" text-anchor="middle">✔️</text>
+    </g>
+
+    <!-- Row 5: Peter (0) -> FALSE ❌ (DISCARDED) -->
+    <g transform="translate(0, 317)">
+      <rect width="610" height="68" fill="#ef4444" fill-opacity="0.08"/>
+      <line x1="15" y1="12" x2="285" y2="50" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+      <text x="60" y="40" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">Peter</text>
+      <text x="170" y="40" font-family="'Segoe UI', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">USA</text>
+      <text x="260" y="40" font-family="'Fira Code', monospace" font-size="14" fill="#94a3b8" text-anchor="middle">0</text>
+      <text x="385" y="40" font-family="'Segoe UI', sans-serif" font-size="12" fill="#ef4444" text-anchor="middle">0 &lt; 100 (Below Lower Bound)</text>
+      <text x="540" y="42" font-size="20" fill="#ef4444" text-anchor="middle">❌</text>
+    </g>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT: RESULT SET TABLE & EQUIVALENCE FORMULA (Width: 355) -->
+  <!-- ========================================================================= -->
+  <g transform="translate(750, 235)">
+    <text x="0" y="-12" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#34d399">Surviving Result Set (2 Rows Kept)</text>
+
+    <!-- Query Box Callout -->
+    <rect width="355" height="52" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+    <text x="12" y="22" font-family="'Fira Code', monospace" font-size="11" fill="#f8fafc">SELECT * FROM customers</text>
+    <text x="12" y="40" font-family="'Fira Code', monospace" font-size="11" font-weight="bold" fill="#fbbf24">WHERE Score BETWEEN 100 AND 500;</text>
+
+    <!-- Result Table Container -->
+    <g transform="translate(0, 65)">
+      <rect width="355" height="135" rx="8" fill="#0b1120" stroke="#10b981" stroke-width="2" filter="url(#boxShadow)"/>
+      
+      <!-- Table Header -->
+      <rect width="355" height="42" rx="8" fill="#065f46"/>
+      <line x1="0" y1="42" x2="355" y2="42" stroke="#10b981" stroke-width="1.5"/>
+
+      <!-- Column Dividers -->
+      <line x1="120" y1="0" x2="120" y2="135" stroke="#334155" stroke-width="1"/>
+      <line x1="240" y1="0" x2="240" y2="135" stroke="#334155" stroke-width="1"/>
+
+      <!-- Header Labels -->
+      <text x="60" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Name</text>
+      <text x="180" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Country</text>
+      <text x="295" y="26" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Score</text>
+
+      <!-- Row 1: Maria -->
+      <g transform="translate(0, 42)">
+        <rect width="355" height="46" fill="#10b981" fill-opacity="0.14"/>
+        <line x1="0" y1="46" x2="355" y2="46" stroke="#1e293b" stroke-width="1"/>
+        <text x="60" y="30" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Maria</text>
+        <text x="180" y="30" font-family="'Segoe UI', sans-serif" font-size="14" fill="#38bdf8" text-anchor="middle">Germany</text>
+        <text x="295" y="30" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">350</text>
+      </g>
+
+      <!-- Row 2: Martin -->
+      <g transform="translate(0, 88)">
+        <rect width="355" height="47" fill="#10b981" fill-opacity="0.14"/>
+        <text x="60" y="31" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="middle">Martin</text>
+        <text x="180" y="31" font-family="'Segoe UI', sans-serif" font-size="14" fill="#38bdf8" text-anchor="middle">Germany</text>
+        <text x="295" y="31" font-family="'Fira Code', monospace" font-size="14" font-weight="bold" fill="#fbbf24" text-anchor="middle">500</text>
+      </g>
+    </g>
+
+    <!-- Equivalence Box -->
+    <g transform="translate(0, 215)">
+      <rect width="355" height="170" rx="8" fill="#111827" stroke="#334155" stroke-width="1"/>
+      <text x="16" y="24" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="bold" fill="#fbbf24">⚡ EQUIVALENCE WITH &gt;= AND &lt;=</text>
+      <text x="16" y="46" font-family="'Segoe UI', sans-serif" font-size="11.5" fill="#cbd5e1">To achieve BETWEEN using comparison operators:</text>
+      <g transform="translate(14, 56)">
+        <rect width="327" height="48" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+        <text x="10" y="20" font-family="'Fira Code', monospace" font-size="10.5" fill="#f8fafc">WHERE score &gt;= 100</text>
+        <text x="10" y="36" font-family="'Fira Code', monospace" font-size="10.5" font-weight="bold" fill="#34d399">  AND score &lt;= 500;</text>
+      </g>
+      <text x="16" y="128" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">• Both ends are <tspan fill="#34d399" font-weight="bold">INCLUSIVE</tspan> (Martin 500 is kept!)</text>
+      <text x="16" y="148" font-family="'Segoe UI', sans-serif" font-size="11" fill="#94a3b8">• Works with numbers, dates, and text.</text>
+    </g>
+  </g>
+</svg>

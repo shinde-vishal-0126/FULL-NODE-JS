@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 580" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="glowBlue" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0284c7" flood-opacity="0.25"/>
+    </filter>
+    <filter id="glowOrange" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#ea580c" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+
+    <linearGradient id="sqlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+
+    <linearGradient id="mysqlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 22px; fill: #0f172a; }
+    .subtitle { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #64748b; }
+    .card-head { font-family: 'Segoe UI', sans-serif; font-weight: 900; font-size: 20px; fill: #ffffff; letter-spacing: 1px; }
+    .type-badge { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 12px; }
+    .point-title { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 13px; fill: #1e293b; }
+    .point-desc { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #475569; }
+    .analogy-title { font-family: 'Segoe UI', sans-serif; font-weight: 800; font-size: 12px; }
+    .analogy-text { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #334155; }
+  </style>
+
+  <!-- Main Canvas Frame -->
+  <rect x="15" y="15" width="990" height="550" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Header -->
+  <text x="510" y="48" text-anchor="middle" class="title">SQL vs MySQL: Key Differences Explained</text>
+  <text x="510" y="68" text-anchor="middle" class="subtitle">The Core Difference: A Standard Query Language vs a Relational Database Management System (RDBMS)</text>
+
+  <!-- ==================== LEFT CARD: SQL ==================== -->
+  <g transform="translate(45, 95)">
+    <rect width="425" height="390" rx="12" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Header Banner -->
+    <rect width="425" height="52" rx="12" fill="url(#sqlGrad)"/>
+    <text x="212" y="34" text-anchor="middle" class="card-head">🗣️ SQL</text>
+
+    <!-- Subtitle Badge -->
+    <g transform="translate(25, 68)">
+      <rect width="185" height="24" rx="12" fill="#e0f2fe"/>
+      <text x="92" y="16" text-anchor="middle" class="type-badge" fill="#0369a1">STRUCTURED QUERY LANGUAGE</text>
+    </g>
+
+    <!-- Bullet Points -->
+    <g transform="translate(25, 110)">
+      <!-- Point 1 -->
+      <circle cx="6" cy="6" r="3" fill="#0284c7"/>
+      <text x="18" y="9" class="point-title">What is it?</text>
+      <text x="18" y="27" class="point-desc">• A <tspan font-weight="700">Query Language</tspan> used to talk to databases.</text>
+      <text x="18" y="45" class="point-desc">• Useful to manage, query, and operate relational databases.</text>
+
+      <!-- Point 2 -->
+      <circle cx="6" cy="68" r="3" fill="#0284c7"/>
+      <text x="18" y="71" class="point-title">Core Purpose:</text>
+      <text x="18" y="89" class="point-desc">• Provides commands to retrieve, insert, update, and delete data.</text>
+      <text x="18" y="107" class="point-desc">• Examples: <tspan font-family="monospace" font-weight="700">SELECT, INSERT, UPDATE, DELETE</tspan>.</text>
+
+      <!-- Point 3 -->
+      <circle cx="6" cy="130" r="3" fill="#0284c7"/>
+      <text x="18" y="133" class="point-title">Storage Ability:</text>
+      <text x="18" y="151" class="point-desc">• SQL <tspan font-weight="700" fill="#dc2626">does not store data itself</tspan>.</text>
+      <text x="18" y="169" class="point-desc">• It is simply the syntax/language used to interact with storage.</text>
+    </g>
+
+    <!-- Analogy Box (Bottom of Left Card) -->
+    <g transform="translate(25, 305)">
+      <rect width="375" height="60" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="15" y="24" class="analogy-title" fill="#1d4ed8">💡 Simple Analogy:</text>
+      <text x="15" y="44" class="analogy-text">SQL is like the <tspan font-weight="700">English Language</tspan> — a tool used to communicate.</text>
+    </g>
+  </g>
+
+  <!-- Central VS Badge -->
+  <g transform="translate(485, 260)">
+    <circle cx="25" cy="25" r="22" fill="#1e293b" filter="url(#shadow)"/>
+    <text x="25" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="14" fill="#ffffff">VS</text>
+  </g>
+
+  <!-- ==================== RIGHT CARD: MYSQL ==================== -->
+  <g transform="translate(550, 95)">
+    <rect width="425" height="390" rx="12" fill="#ffffff" stroke="#fed7aa" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Header Banner -->
+    <rect width="425" height="52" rx="12" fill="url(#mysqlGrad)"/>
+    <text x="212" y="34" text-anchor="middle" class="card-head">🐬 MySQL</text>
+
+    <!-- Subtitle Badge -->
+    <g transform="translate(25, 68)">
+      <rect width="185" height="24" rx="12" fill="#ffedd5"/>
+      <text x="92" y="16" text-anchor="middle" class="type-badge" fill="#c2410c">RELATIONAL DBMS (RDBMS)</text>
+    </g>
+
+    <!-- Bullet Points -->
+    <g transform="translate(25, 110)">
+      <!-- Point 1 -->
+      <circle cx="6" cy="6" r="3" fill="#ea580c"/>
+      <text x="18" y="9" class="point-title">What is it?</text>
+      <text x="18" y="27" class="point-desc">• An actual <tspan font-weight="700">RDBMS software</tspan> program.</text>
+      <text x="18" y="45" class="point-desc">• Uses SQL to retrieve, modify, and administrate databases.</text>
+
+      <!-- Point 2 -->
+      <circle cx="6" cy="68" r="3" fill="#ea580c"/>
+      <text x="18" y="71" class="point-title">Core Purpose:</text>
+      <text x="18" y="89" class="point-desc">• Handles data storage, modification, and deletion in <tspan font-weight="700">tabular format</tspan>.</text>
+      <text x="18" y="107" class="point-desc">• Manages tables, rows, columns, memory caches, and users.</text>
+
+      <!-- Point 3 -->
+      <circle cx="6" cy="130" r="3" fill="#ea580c"/>
+      <text x="18" y="133" class="point-title">Storage Ability:</text>
+      <text x="18" y="151" class="point-desc">• <tspan font-weight="700" fill="#16a34a">Actually persists and manages data on disk</tspan>.</text>
+      <text x="18" y="169" class="point-desc">• Runs as a background service listening for SQL commands.</text>
+    </g>
+
+    <!-- Analogy Box (Bottom of Right Card) -->
+    <g transform="translate(25, 305)">
+      <rect width="375" height="60" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+      <text x="15" y="24" class="analogy-title" fill="#c2410c">💡 Simple Analogy:</text>
+      <text x="15" y="44" class="analogy-text">MySQL is like a <tspan font-weight="700">Person or Robot</tspan> who understands and speaks English.</text>
+    </g>
+  </g>
+
+  <!-- Bottom Integration Banner -->
+  <g transform="translate(45, 500)">
+    <rect width="930" height="45" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+    <text x="465" y="27" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="12" fill="#0f172a">
+      📌 <tspan fill="#0284c7" font-weight="800">Conclusion:</tspan> SQL is the <tspan fill="#0284c7">Language</tspan>, while MySQL is the <tspan fill="#ea580c">Software / Engine</tspan> that executes that language!
+    </text>
+  </g>
+</svg>

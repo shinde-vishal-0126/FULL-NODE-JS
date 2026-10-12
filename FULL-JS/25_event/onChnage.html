@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Event Example</title>
+</head>
+<body>
+    <label for="myInput">Enter text:</label>
+    <input id="myInput" name="myInputField" type="text" onchange="handleInput(event)" placeholder="Type something..." />
+    
+    <div>
+        <p>Value: <span class="inputValue"></span></p>
+        <p>Name: <span class="inputName"></span></p>
+        <p>Event Type: <span class="eventType"></span></p>
+    </div>
+
+    <script>
+        function handleInput(e) {
+            document.querySelector('.inputValue').textContent = e.target.value;
+            document.querySelector('.inputName').textContent = e.target.name;
+            document.querySelector('.eventType').textContent = e.type;
+        }
+    </script>
+</body>
+</html>
+
+
+ <!-- //* The onChange event occurs when the value of an element has been changed
+//* For radioButtons and checkboxes, the onchange event occurs when the checked status has been changed.
+//* Using onchange Attribute in HTML
+//* This method adds the onchange handler inline directly to the HTML element. -->

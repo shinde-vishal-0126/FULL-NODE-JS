@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 780" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="topShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000000" flood-opacity="0.18"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+
+    <linearGradient id="bannerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+
+    <!-- Command Gradients -->
+    <linearGradient id="insGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0fdf4"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="updGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="delGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef2f2"/>
+      <stop offset="100%" stop-color="#fee2e2"/>
+    </linearGradient>
+    <linearGradient id="repGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#faf5ff"/>
+      <stop offset="100%" stop-color="#f3e8ff"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .title-main { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 24px; fill: #ffffff; }
+    .title-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13.5px; fill: #94a3b8; }
+    .card-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 16px; }
+    .card-desc { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #334155; line-height: 1.4; }
+    .marathi-desc { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11.5px; fill: #047857; font-weight: 700; }
+    .code-text { font-family: 'Consolas', monospace; font-size: 11px; fill: #0f172a; font-weight: 700; }
+  </style>
+
+  <!-- Canvas Outer Background -->
+  <rect x="15" y="15" width="1120" height="750" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Top Banner -->
+  <g transform="translate(15, 15)">
+    <path d="M 0 16 C 0 7, 7 0, 16 0 L 1104 0 C 1113 0, 1120 7, 1120 16 L 1120 85 L 0 85 Z" fill="url(#bannerGrad)" filter="url(#topShadow)"/>
+    <text x="560" y="40" text-anchor="middle" class="title-main">DML (DATA MANIPULATION LANGUAGE) ARCHITECTURE</text>
+    <text x="560" y="66" text-anchor="middle" class="title-sub">डेटा व्यवस्थापन: रो (Records) पातळीवरील सर्व DML कमांड्स आणि ट्रान्झॅक्शन नियंत्रण</text>
+  </g>
+
+  <!-- Core DML Concept Callout Banner -->
+  <g transform="translate(45, 115)">
+    <rect width="1060" height="60" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <text x="25" y="26" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#1d4ed8">🎯 Core DML Principle (महत्त्वाचे तत्त्व):</text>
+    <text x="25" y="46" font-family="'Segoe UI', sans-serif" font-size="11.5" fill="#334155">DML commands work directly on <tspan font-weight="700" fill="#0f172a">TABLE ROWS (Records)</tspan>, not on table structure. Operations can be controlled using <tspan font-weight="700" fill="#16a34a">COMMIT</tspan> and <tspan font-weight="700" fill="#dc2626">ROLLBACK</tspan>.</text>
+  </g>
+
+  <!-- 4 CARDS: INSERT, UPDATE, DELETE, REPLACE (2x2 GRID) -->
+
+  <!-- CARD 1: INSERT -->
+  <g transform="translate(45, 195)">
+    <rect width="515" height="225" rx="12" fill="url(#insGrad)" stroke="#86efac" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="120" height="26" rx="6" fill="#16a34a"/>
+    <text x="75" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">➕ INSERT</text>
+    <text x="145" y="32" class="marathi-desc">(नवीन डेटा/रेकॉर्ड जोडणे)</text>
+
+    <text x="15" y="62" class="card-desc">Adds brand new data rows into a table. Can insert single rows, multi-rows, or copy directly from another table using <tspan font-family="monospace" font-weight="700">INSERT INTO ... SELECT</tspan>.</text>
+    <text x="15" y="96" class="marathi-desc">नियम: कॉलम संख्या आणि व्हॅल्यूजचा क्रम (Order) आणि डेटा टाईप जुळणे आवश्यक आहे.</text>
+
+    <!-- Code box -->
+    <rect x="15" y="112" width="485" height="98" rx="6" fill="#ffffff" stroke="#bbf7d0"/>
+    <text x="25" y="132" class="code-text" fill="#15803d">-- Single/Multi Row Insert:</text>
+    <text x="25" y="150" class="code-text" fill="#0f172a">INSERT INTO Students (id, name, age) VALUES (1, 'Vishal', 21);</text>
+    <text x="25" y="172" class="code-text" fill="#15803d">-- Insert From Another Table (Source to Target):</text>
+    <text x="25" y="190" class="code-text" fill="#0f172a">INSERT INTO customers2 SELECT * FROM customers;</text>
+  </g>
+
+  <!-- CARD 2: UPDATE -->
+  <g transform="translate(590, 195)">
+    <rect width="515" height="225" rx="12" fill="url(#updGrad)" stroke="#93c5fd" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="125" height="26" rx="6" fill="#0284c7"/>
+    <text x="77" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">✏️ UPDATE</text>
+    <text x="150" y="32" class="marathi-desc">(अस्तित्वात असलेला डेटा बदलणे)</text>
+
+    <text x="15" y="62" class="card-desc">Modifies the cell values of already existing rows. Can update single or multiple columns. <tspan font-weight="800" fill="#dc2626">Always use WHERE clause</tspan> to avoid updating all rows unintentionally!</text>
+    <text x="15" y="96" class="marathi-desc">खबरदारी: WHERE न वापरल्यास टेबलमधील सर्वच्या सर्व रेकॉर्ड्स बदलले जातात!</text>
+
+    <!-- Code box -->
+    <rect x="15" y="112" width="485" height="98" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+    <text x="25" y="132" class="code-text" fill="#0369a1">-- Target specific row using WHERE:</text>
+    <text x="25" y="150" class="code-text" fill="#0f172a">UPDATE customers SET score = 600 WHERE customer_id = 4;</text>
+    <text x="25" y="172" class="code-text" fill="#0369a1">-- Update multiple columns at once:</text>
+    <text x="25" y="190" class="code-text" fill="#0f172a">UPDATE employees SET salary = 75000, dept = 'IT' WHERE id = 10;</text>
+  </g>
+
+  <!-- CARD 3: DELETE -->
+  <g transform="translate(45, 435)">
+    <rect width="515" height="225" rx="12" fill="url(#delGrad)" stroke="#fca5a5" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="120" height="26" rx="6" fill="#dc2626"/>
+    <text x="75" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">🗑️ DELETE</text>
+    <text x="145" y="32" class="marathi-desc">(टेबलमधील रेकॉर्ड्स हटवणे)</text>
+
+    <text x="15" y="62" class="card-desc">Removes specific rows based on condition. Table structure and auto-increment remain intact. Protected by MySQL Safe Updates mode (<tspan font-family="monospace">SQL_SAFE_UPDATES</tspan>).</text>
+    <text x="15" y="96" class="marathi-desc">नियम: हार्ड डिलीट (Hard Delete) मध्ये डेटा कायमचा जातो, तर सॉफ्ट डिलीटमध्ये फ्लॅग बदलतो.</text>
+
+    <!-- Code box -->
+    <rect x="15" y="112" width="485" height="98" rx="6" fill="#ffffff" stroke="#fecaca"/>
+    <text x="25" y="132" class="code-text" fill="#b91c1c">-- Conditional deletion with WHERE:</text>
+    <text x="25" y="150" class="code-text" fill="#0f172a">DELETE FROM customers WHERE score = 999;</text>
+    <text x="25" y="172" class="code-text" fill="#b91c1c">-- Safe Updates override (Session only):</text>
+    <text x="25" y="190" class="code-text" fill="#0f172a">SET SQL_SAFE_UPDATES = 0; DELETE ...; SET SQL_SAFE_UPDATES = 1;</text>
+  </g>
+
+  <!-- CARD 4: REPLACE -->
+  <g transform="translate(590, 435)">
+    <rect width="515" height="225" rx="12" fill="url(#repGrad)" stroke="#d8b4fe" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <!-- Header -->
+    <rect x="15" y="15" width="135" height="26" rx="6" fill="#7c3aed"/>
+    <text x="82" y="32" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="800" fill="#ffffff">🔄 REPLACE</text>
+    <text x="160" y="32" class="marathi-desc">(DELETE + INSERT सायकल)</text>
+
+    <text x="15" y="62" class="card-desc">MySQL-specific command: If primary/unique key matches, it <tspan font-weight="800" fill="#7c3aed">DELETES old row</tspan> and <tspan font-weight="800" fill="#16a34a">INSERTS new row</tspan>. If no conflict, it acts like normal INSERT.</text>
+    <text x="15" y="96" class="marathi-desc">महत्त्व: किल्ली (Key) आधीच असल्यास जुनी रो नष्ट करून नवी तयार करतो.</text>
+
+    <!-- Code box -->
+    <rect x="15" y="112" width="485" height="98" rx="6" fill="#ffffff" stroke="#e9d5ff"/>
+    <text x="25" y="132" class="code-text" fill="#6d28d9">-- If id=6 exists, delete old and insert new:</text>
+    <text x="25" y="150" class="code-text" fill="#0f172a">REPLACE INTO customers (id, name, score) VALUES (6, 'Ram', 888);</text>
+    <text x="25" y="172" class="code-text" fill="#6d28d9">-- Compare with INSERT ... ON DUPLICATE KEY UPDATE (in-place update):</text>
+    <text x="25" y="190" class="code-text" fill="#0f172a">INSERT INTO users VALUES (1,'Alicia') ON DUPLICATE KEY UPDATE name='Alicia';</text>
+  </g>
+
+  <!-- Bottom Callout -->
+  <g transform="translate(45, 680)">
+    <rect width="1060" height="55" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.2"/>
+    <text x="20" y="24" font-family="'Segoe UI', sans-serif" font-size="11.5" font-weight="800" fill="#38bdf8">💡 DML TRANSACTION SAFETY:</text>
+    <text x="20" y="42" font-family="'Segoe UI', sans-serif" font-size="11" fill="#f8fafc">Unlike DDL, DML statements do NOT automatically commit in transactions. You can inspect changes and execute <tspan font-weight="700" fill="#fca5a5">ROLLBACK</tspan> to undo, or <tspan font-weight="700" fill="#86efac">COMMIT</tspan> to permanently save!</text>
+  </g>
+</svg>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Propagation</title>
+  </head>
+  <body>
+    <h1>Event Propagation</h1>
+    <div id="outerDiv">
+      <span>Div</span>
+      <form id="myForm" action="">
+        <span>Form</span>
+        <div>
+          <span><button id="myButton">button</button></span>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      let div = document.getElementById("outerDiv");
+      let form = document.getElementById("myForm");
+      let button = document.getElementById("myButton");
+
+      div.addEventListener("click", function (e) {
+        console.table([
+          {
+            description: "i am outer div",
+            target: e.target.tagName,
+            CurrentTarget: e.currentTarget.tagName,
+            thisName: this.name,
+          },
+        ]);
+      });
+
+      form.addEventListener("click", function (e) {
+        console.table([
+          {
+            description: "i am form",
+            target: e.target.tagName,
+            CurrentTarget: e.currentTarget.tagName,
+            thisName: this.name,
+          },
+        ]);
+      });
+
+      button.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.table([
+          {
+            description: "i am button",
+            target: e.target.tagName,
+            CurrentTarget: e.currentTarget.tagName,
+            thisName: this.name,
+          },
+        ]);
+      });
+      /*
+      # note:
+      # To achieve event capturing, you used the third parameter of the addEventListener method which specifies whether the event should be captured during the capturing phase
+      setting it to true will activate the captured phase (like give third parameter in in addEventListener as capture:true)
+      To achieve the event capturing so you need to pass the third parameter in addEventlistener is the capture : true as an Object
+       By setting { capture: true } in the addEventListener() method, you switch the event listener to the capturing phase.
+      */
+      // # below are the example of capture phase
+      const outer = document.getElementById("outer").addEventListener(
+        "click",
+        (e) => {
+          console.table([
+            {
+              description: "i am outer one",
+              target: e.target,
+              CurrentTarget: e.currentTarget,
+            },
+          ]);
+        },
+        { capture: true } // in addEventListener you have to third parameter capture: true as an object
+      );
+
+      const middle = document.getElementById("middle").addEventListener(
+        "click",
+        (e) => {
+          console.table([
+            {
+              description: "i am middle one",
+              target: e.target,
+              CurrentTarget: e.currentTarget,
+            },
+          ]);
+        },
+        { capture: true } // in addEventListener you have to third parameter capture: true as an object
+      );
+
+      const inner = document.getElementById("inner").addEventListener(
+        "click",
+        (e) => {
+          e.stopPropagation();
+          console.table([
+            {
+              description: "i am inner one",
+              target: e.target,
+              CurrentTarget: e.currentTarget,
+            },
+          ]);
+        },
+        {
+          capture: true, // ine addEventListener you have to third parameter capture: true as an object
+        }
+      );
+    </script>
+  </body>
+</html>

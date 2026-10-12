@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 620" width="100%" height="100%">
+  <defs>
+    <!-- Shadows & Filters -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="5" flood-color="#0284c7" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+
+    <linearGradient id="sqlBannerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+
+    <linearGradient id="bubbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+
+    <linearGradient id="codeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+
+    <linearGradient id="chainGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="50%" stop-color="#f0fdf4"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <style>
+    .header-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 22px; fill: #0f172a; }
+    .header-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; fill: #64748b; }
+    .sql-logo { font-family: 'Segoe UI', sans-serif; font-weight: 900; font-size: 24px; fill: #ffffff; letter-spacing: 2px; }
+    .card-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 15px; fill: #1e293b; }
+    .card-desc { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; fill: #64748b; }
+    .bubble-txt { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 700; font-size: 13px; fill: #0369a1; }
+    .code-txt { font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; fill: #f8fafc; }
+    .chain-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 13px; }
+    .chain-desc { font-family: 'Segoe UI', system-ui, sans-serif; font-size: 11px; fill: #475569; }
+  </style>
+
+  <!-- Main Frame -->
+  <rect x="15" y="15" width="990" height="590" rx="16" fill="url(#bgGrad)" stroke="#cbd5e1" stroke-width="2" filter="url(#shadow)"/>
+
+  <!-- Top Title Bar -->
+  <text x="510" y="50" text-anchor="middle" class="header-title">What is SQL? (Structured Query Language)</text>
+  <text x="510" y="70" text-anchor="middle" class="header-sub">The universal language used to talk to, query, and manipulate the database brain</text>
+
+  <!-- ==================== LEFT PANEL: HUMAN QUESTION TO SQL ==================== -->
+  <g transform="translate(45, 100)">
+    <rect width="440" height="340" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <!-- Header of Left Card -->
+    <rect x="0" y="0" width="440" height="40" rx="12" fill="#f8fafc"/>
+    <text x="20" y="26" class="card-title">🗣️ Speaking to the Database Brain</text>
+
+    <!-- User Asking Question -->
+    <g transform="translate(25, 60)">
+      <circle cx="25" cy="25" r="18" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+      <circle cx="25" cy="21" r="5" fill="#ea580c"/>
+      <path d="M 16 34 Q 25 28 34 34" fill="none" stroke="#ea580c" stroke-width="1.5"/>
+      <path d="M 10 52 L 10 44 Q 10 38 25 38 Q 40 38 40 44 L 40 52 Z" fill="#0284c7"/>
+      
+      <!-- Speech Bubble (Human Language) -->
+      <path d="M 65 15 L 340 15 Q 355 15 355 30 L 355 65 Q 355 80 340 80 L 85 80 L 65 95 L 72 80 L 65 80 Q 50 80 50 65 L 50 30 Q 50 15 65 15 Z" fill="url(#bubbleGrad)" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="75" y="42" class="bubble-txt">"Hey, show me all the customers who</text>
+      <text x="75" y="62" class="bubble-txt">bought items since last month!"</text>
+    </g>
+
+    <!-- Translation Arrow Down -->
+    <g transform="translate(220, 175)">
+      <path d="M 0 0 L 0 25" stroke="#0284c7" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+      <text x="15" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#0284c7">Translates into SQL</text>
+    </g>
+
+    <!-- SQL Code Box (The Query) -->
+    <g transform="translate(25, 215)">
+      <rect width="390" height="105" rx="8" fill="url(#codeGrad)" stroke="#334155" stroke-width="1.5"/>
+      
+      <!-- Window Dots -->
+      <circle cx="16" cy="14" r="3" fill="#ef4444"/>
+      <circle cx="26" cy="14" r="3" fill="#f59e0b"/>
+      <circle cx="36" cy="14" r="3" fill="#10b981"/>
+      <text x="60" y="17" font-family="monospace" font-size="9" fill="#94a3b8">query.sql</text>
+
+      <!-- Code lines -->
+      <text x="20" y="42" class="code-txt"><tspan fill="#38bdf8" font-weight="700">SELECT</tspan> *</text>
+      <text x="20" y="62" class="code-txt"><tspan fill="#38bdf8" font-weight="700">FROM</tspan> customers</text>
+      <text x="20" y="82" class="code-txt"><tspan fill="#38bdf8" font-weight="700">WHERE</tspan> purchase_date &gt;= <tspan fill="#4ade80">CURRENT_DATE - INTERVAL '1 month'</tspan>;</text>
+    </g>
+  </g>
+
+  <!-- Big Central SQL Arrow -->
+  <g transform="translate(500, 245)">
+    <circle cx="20" cy="20" r="28" fill="url(#sqlBannerGrad)" filter="url(#glow)"/>
+    <text x="20" y="28" text-anchor="middle" class="sql-logo" font-size="16">SQL</text>
+    <!-- Connecting lines -->
+    <path d="M -15 20 L -3 20" stroke="#0284c7" stroke-width="2.5" fill="none"/>
+    <path d="M 43 20 L 55 20" stroke="#0284c7" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- ==================== RIGHT PANEL: POWERS & USE CASES ==================== -->
+  <g transform="translate(565, 100)">
+    <rect width="410" height="340" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <rect x="0" y="0" width="410" height="40" rx="12" fill="#f8fafc"/>
+    <text x="20" y="26" class="card-title">⚡ What Can SQL Do? (Capabilities)</text>
+
+    <!-- Grid of 6 Use Cases -->
+    <!-- 1. CRUD Operations -->
+    <g transform="translate(20, 55)">
+      <rect width="175" height="55" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#166534">CRUD Operations</text>
+      <text x="12" y="42" class="card-desc">Create, Read, Update, Delete</text>
+    </g>
+
+    <!-- 2. Analytics & Big Data -->
+    <g transform="translate(210, 55)">
+      <rect width="180" height="55" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#1e40af">Analytics &amp; Big Data</text>
+      <text x="12" y="42" class="card-desc">Aggregates, trends, KPIs</text>
+    </g>
+
+    <!-- 3. Security & Permissions -->
+    <g transform="translate(20, 125)">
+      <rect width="175" height="55" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#991b1b">User Permissions</text>
+      <text x="12" y="42" class="card-desc">GRANT &amp; REVOKE access</text>
+    </g>
+
+    <!-- 4. Indexing & Optimization -->
+    <g transform="translate(210, 125)">
+      <rect width="180" height="55" rx="8" fill="#fefce8" stroke="#fef08a" stroke-width="1"/>
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#854d0e">Creating Indexes</text>
+      <text x="12" y="42" class="card-desc">Sub-second query speed</text>
+    </g>
+
+    <!-- 5. Backup & Recovery -->
+    <g transform="translate(20, 195)">
+      <rect width="175" height="55" rx="8" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/>
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#5b21b6">Backup &amp; Recovery</text>
+      <text x="12" y="42" class="card-desc">Data protection &amp; restore</text>
+    </g>
+
+    <!-- 6. Real-Time Apps & Workflow -->
+    <g transform="translate(210, 195)">
+      <rect width="180" height="55" rx="8" fill="#ecfeff" stroke="#a5f3fc" stroke-width="1"/>
+      <text x="12" y="24" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="12" fill="#155e75">Real-Time Apps</text>
+      <text x="12" y="42" class="card-desc">Powering live web/mobile apps</text>
+    </g>
+
+    <!-- Data Integration note -->
+    <rect x="20" y="265" width="370" height="55" rx="8" fill="#f1f5f9"/>
+    <text x="35" y="286" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#334155">🔗 Data Integration &amp; Automation:</text>
+    <text x="35" y="304" font-family="'Segoe UI', sans-serif" font-size="11" fill="#64748b">Joins multiple tables, automates stored procedures &amp; reports.</text>
+  </g>
+
+  <!-- ==================== BOTTOM PANEL: THE 4 CORE PILLARS CHAIN ==================== -->
+  <g transform="translate(45, 465)">
+    <!-- Container Card -->
+    <rect width="930" height="115" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    
+    <text x="30" y="28" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="14" fill="#0f172a" letter-spacing="1">📌 IN SHORT: THE 4 PILLARS FORMULA</text>
+
+    <!-- Block 1: Database -->
+    <g transform="translate(30, 42)">
+      <rect width="185" height="58" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+      <text x="15" y="24" class="chain-title" fill="#1d4ed8">🗄️ Database</text>
+      <text x="15" y="44" class="chain-desc">Container to store data</text>
+    </g>
+
+    <!-- Arrow 1 -->
+    <text x="232" y="78" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="18" fill="#0284c7">→</text>
+
+    <!-- Block 2: SQL -->
+    <g transform="translate(260, 42)">
+      <rect width="185" height="58" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.2"/>
+      <text x="15" y="24" class="chain-title" fill="#166534">🗣️ SQL</text>
+      <text x="15" y="44" class="chain-desc">Speak to the database</text>
+    </g>
+
+    <!-- Arrow 2 -->
+    <text x="462" y="78" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="18" fill="#0284c7">→</text>
+
+    <!-- Block 3: DBMS -->
+    <g transform="translate(490, 42)">
+      <rect width="185" height="58" rx="8" fill="#fef3c7" stroke="#fde68a" stroke-width="1.2"/>
+      <text x="15" y="24" class="chain-title" fill="#b45309">⚙️ DBMS</text>
+      <text x="15" y="44" class="chain-desc">Software / Manager to manage</text>
+    </g>
+
+    <!-- Arrow 3 -->
+    <text x="692" y="78" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="18" fill="#0284c7">→</text>
+
+    <!-- Block 4: Server -->
+    <g transform="translate(720, 42)">
+      <rect width="185" height="58" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+      <text x="15" y="24" class="chain-title" fill="#334155">🖥️ Server</text>
+      <text x="15" y="44" class="chain-desc">Machine where database lives</text>
+    </g>
+  </g>
+</svg>

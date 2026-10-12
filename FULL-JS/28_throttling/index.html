@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      section {
+        /* make page scrollable */
+        height: 3000px;
+        background-color: aqua;
+        padding: 20px;
+      }
+      .counter {
+        position: fixed;
+        top: 10px;
+        right: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Throttling in js</h2>
+    <h1>scroll Event throttling</h1>
+
+    <div class="counter">
+      <p id="normalCount">Normal Count: 0</p>
+      <p id="throttleCount">Throttle Count: 0</p>
+    </div>
+    <section>
+      <p>scroll done see counter are increment</p>
+      <script>
+        let n_count = document.getElementById("normalCount");
+        let T_count = document.getElementById("throttleCount");
+
+        let normalCount = 0;
+        let throttleCount = 0;
+
+        function handleNormalCount() {
+          normalCount++;
+          n_count.textContent = `normal count ${normalCount}`;
+        }
+
+        function handleThrottleCount() {
+          throttleCount++;
+          T_count.textContent = throttleCount;
+        }
+
+        // throttleFunction takes a function `fun` and a delay in milliseconds
+        const throttleFunction = (fun, delay) => {
+          // Initialize the timestamp of the last time the function was called
+          let lastCall = 0;
+
+          // Return a new function that will act as the throttled version
+          return function (...args) {
+            // Get the current time in milliseconds
+            let now = new Date().getTime();
+
+            // Check if the time elapsed since the last call is less than the specified delay
+            // If true, exit the function early (do not execute the original function)
+            if (now - lastCall < delay) return;
+
+            // Update the lastCall timestamp to the current time
+            lastCall = now;
+
+            // Call the original function `fun` with all provided arguments
+            fun(...args);
+          };
+        };
+
+        //  # also used this approach
+        // throttleFunction is a higher-order function that creates a throttled version of the given function
+        // const throttleFunction = (fun, delay) => {
+
+        //   // Flag to control whether the function can be called
+        //   // Initially true so the function can run the first time
+        //   let canCall = true;
+
+        //   // Return a new function that will be used as the throttled version
+        //   return function (...args) {
+
+        //     // If canCall is false, it means we're still within the throttle delay period
+        //     // So we simply return and skip the function call
+        //     if (!canCall) return;
+
+        //     // If allowed, execute the original function with all arguments
+        //     fun(...args);
+
+        //     // Immediately set canCall to false to block further calls
+        //     canCall = false;
+
+        //     // After the specified delay, allow function calls again by resetting canCall to true
+        //     setTimeout(() => {
+        //       canCall = true;
+        //     }, delay);
+        //   };
+        // };
+
+        // const myThrottle = (callback, delay) => {
+        //   let lastExecutionTime = 0; // Store the last execution time
+        //   //explanation :
+        //   // here we have initially is zero and 2nd event is happen in 200 ms then it check 200ms - 0 is return 200 so it is less then delay then it return and then next event is happen in 700 ms then again it check if the 700ms-0 is 700 it still the less then the  delay again it return  and next event happen in  900ms  then it check 900 - 0 it is grater the delay then currentTime assign to the last  and execute the callback function.
+        //   // then again next event happen in 1200 ms  then it check 900-1200 it return 300ms not it also less then the delay it again return i.e if the event is happen Grater then delay the it execute the callback function and assign current time to the last so continue this cycle and make api call
+
+        //   // Return a new function that will be triggered on events (like scroll, resize, etc.)
+        //   return (...args) => {
+        //     // Get the current time in milliseconds
+        //     const currentTime = Date.now();
+        //     // Check if enough time has passed since the last function execution
+        //     if (currentTime - lastExecutionTime >= delay) {
+        //       // If enough time has passed, update the last execution time to the current time
+        //       lastExecutionTime = currentTime;
+        //       // Execute the callback function with the provided arguments
+        //       callback(...args);
+        //     }
+        //   };
+        // };
+
+        const throttledHandler = throttleFunction(handleThrottleCount, 200);
+
+        window.addEventListener("scroll", handleNormalCount);
+        window.addEventListener("scroll", throttledHandler);
+      </script>
+    </section>
+  </body>
+</html>
